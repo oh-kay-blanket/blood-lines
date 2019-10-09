@@ -68,7 +68,7 @@ input:hover {
   position: fixed;
   padding: 10px;
   margin: 15px;
-  width: 30px;
+  width: 25px;
   height: 25px;
 }
 
@@ -77,7 +77,7 @@ input:hover {
 }
 
 #back-button img {
-  width: 30px;
+  width: 25px;
   height: 25px;
 }
 

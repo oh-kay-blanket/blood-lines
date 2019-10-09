@@ -73,9 +73,17 @@ const loadGraph = d3Data => {
 
   const setLinkWidth = link => {
     if (highlightLinks.indexOf(link.index) !== -1) {
-      return 1;
+      return 1.7;
     } else {
       return .5;
+    }
+  }
+
+  const setLinkParticleWidth = link => {
+    if (highlightLinks.indexOf(link.index) !== -1) {
+      return 2;
+    } else {
+      return 0.1;
     }
   }
 
@@ -90,7 +98,7 @@ const loadGraph = d3Data => {
 
     // SETUP
     .graphData(d3Data)
-    .cameraPosition({ x: cameraDistance(d3Data), y: cameraDistance(d3Data), z: cameraDistance(d3Data) },'',1400)
+    .cameraPosition({ x: cameraDistance(d3Data), y: 0, z: cameraDistance(d3Data) },'',1400)
     .d3Force('collide', d3.forceCollide(55))
     //.d3Force("center", d3.forceCenter())
     .enableNodeDrag(false)
@@ -166,7 +174,7 @@ const loadGraph = d3Data => {
       const distance = 200;
       const distRatio = 2 + distance/Math.hypot(node.x, node.y, node.z);
       Graph.cameraPosition(
-        { x: node.x * distRatio, y: node.y * distRatio, z: node.z * distRatio }, // new position
+        { x: node.x * distRatio, y: node.fy, z: node.z * distRatio }, // new position
         node, // lookAt ({ x, y, z })
         1200  // ms transition duration
       );
@@ -175,12 +183,12 @@ const loadGraph = d3Data => {
     // LINKS
     .linkLabel(setLinkLabel)
     .linkColor(setLinkColor)
-    .linkOpacity(.3)
+    .linkOpacity(0.4)
     .linkWidth(setLinkWidth)
     .linkDirectionalArrowLength(link => (link.sourceType != 'CHIL' && link.targetType == 'CHIL' && d3Data.nodes.length > 300) ? 4 : 0)
     .linkDirectionalParticles(link => (link.sourceType != 'CHIL' && link.targetType == 'CHIL' && d3Data.nodes.length < 300) ? 8 : 0)
-    .linkDirectionalParticleWidth(1)
-    .linkDirectionalParticleSpeed(.0017);
+    .linkDirectionalParticleWidth(setLinkParticleWidth)
+    .linkDirectionalParticleSpeed(.001);
 
   const updateGeometries = () => {
     Graph

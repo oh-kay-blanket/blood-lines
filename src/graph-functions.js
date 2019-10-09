@@ -1,6 +1,6 @@
 // Set camera distance based on # of nodes
 const cameraDistance = (d3Data) => {
-  const distanceRatio = (d3Data.nodes.length/2) * 12;
+  const distanceRatio = (d3Data.nodes.length/2) * 15;
   if (distanceRatio < 450) {
     return 450;
   } else if (distanceRatio > 900) {
