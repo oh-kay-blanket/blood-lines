@@ -56,15 +56,13 @@ const loadGraph = d3Data => {
     if (highlightLinks.indexOf(link.index) !== -1 || highlightLinks.length < 1) {
       // Parent relationship
       if (link.sourceType != 'CHIL' && link.targetType == 'CHIL') {
-        return '#9933ff';
+        return 'rgba(186, 168, 205, 0.2)';
 
       // Romantic relationship
       } else if (link.sourceType != 'CHIL' && link.targetType != 'CHIL') {
-        return '#ff9999';
+        return 'rgba(255, 215, 0, 0.3)';
 
       // Sibling relationship
-      } else if (link.sourceType == 'CHIL' && link.targetType == 'CHIL'){
-        return '#33cccc';
       }
     } else {
       return '#333';
@@ -75,7 +73,7 @@ const loadGraph = d3Data => {
     if (highlightLinks.indexOf(link.index) !== -1) {
       return 1.7;
     } else {
-      return .5;
+      return 1;
     }
   }
 
@@ -183,7 +181,7 @@ const loadGraph = d3Data => {
     // LINKS
     .linkLabel(setLinkLabel)
     .linkColor(setLinkColor)
-    .linkOpacity(0.4)
+    .linkOpacity(1)
     .linkWidth(setLinkWidth)
     .linkDirectionalArrowLength(link => (link.sourceType != 'CHIL' && link.targetType == 'CHIL' && d3Data.nodes.length > 300) ? 4 : 0)
     .linkDirectionalParticles(link => (link.sourceType != 'CHIL' && link.targetType == 'CHIL' && d3Data.nodes.length < 300) ? 8 : 0)
