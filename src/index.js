@@ -73,15 +73,13 @@ window.onload = () => {
   fileInput.addEventListener('change', () => {
     const file = fileInput.files[0];
     console.log(file.type);
-    if (file.type.match(/application\/x-gedcom/)) {
+
       const reader = new FileReader();
 
       reader.onload = () => {
         readFile(reader.result)
       }
       reader.readAsText(file);
-    } else {
-      fileDisplayArea.innerText = "File not supported. Please use a .ged file.";
-    }
+
   });
 }
