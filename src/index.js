@@ -72,7 +72,8 @@ window.onload = () => {
 
   fileInput.addEventListener('change', () => {
     const file = fileInput.files[0];
-    if (file.type.match(/ged.*/)) {
+    console.log(file.type);
+    if (file.type.match(/application\/x-gedcom/)) {
       const reader = new FileReader();
 
       reader.onload = () => {
