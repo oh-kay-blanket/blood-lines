@@ -49,7 +49,7 @@ input:hover {
   padding-top: 100px;
 }
 
-#title-area, #upload-area, #button-area, #documentation-area {
+#title-area, #upload-area, #button-area, #documentation-area, #error-area {
   margin-top: 40px;
   padding-left: 10vw;
 }
