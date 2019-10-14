@@ -9,8 +9,13 @@ body {
   color: #f8f8f8;
 }
 
-h1 {
+#title-area h1 {
   font-size: 4em;
+  margin-bottom: 0px;
+}
+
+#title-area h3 {
+  margin: 0px auto;
 }
 
 a {

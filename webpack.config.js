@@ -8,7 +8,7 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      title: 'Kin Cloud',
+      title: 'kin cloud',
     }),
   ],
   output: {
