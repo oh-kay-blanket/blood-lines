@@ -4,20 +4,20 @@ body {
   margin: 0px;
   padding: 0px;
   font-family: 'Helvetica', sans-serif;
-  font-size: 1.6em;
   background-color: #222;
   color: #f8f8f8;
 }
 
-@media only screen and (min-width: 1000px) {
-  body {
-    font-size: 1em;
-  }
+#title-area h1 {
+  font-size: 3em;
+  margin-bottom: 0px;
 }
 
-#title-area h1 {
-  font-size: 4em;
-  margin-bottom: 0px;
+@media only screen and (min-width: 1000px) {
+  #title-area h1 {
+    font-size: 4em;
+    margin-bottom: 0px;
+  }
 }
 
 #title-area h3 {
@@ -53,16 +53,16 @@ input:hover {
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  max-width: 90vw;
+  max-width: 95vw;
 }
 
-#title-area {
-  padding-top: 10vh;
-}
+/* #title-area {
+  padding-top: 0vh;
+} */
 
 #title-area, #upload-area, #button-area, #documentation-area, #error-area {
-  margin-top: 40px;
-  padding-left: 10vw;
+  margin-top: 10px;
+  padding-left: 5vw;
 }
 
 @media only screen and (min-width: 1000px) {
@@ -74,6 +74,11 @@ input:hover {
     margin-top: 40px;
     padding-left: 10vw;
   }
+}
+
+#button-area input {
+  margin-top: 8px;
+  margin-bottom: 8px;
 }
 
 #sampleButton {
