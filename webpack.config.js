@@ -9,6 +9,8 @@ module.exports = {
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       title: 'kin cloud',
+      template: "./src/index.html",
+      filename: "./index.html"
     }),
   ],
   output: {
@@ -18,6 +20,7 @@ module.exports = {
   devtool: 'inline-source-map',
   devServer: {
     contentBase: './dist',
+    host: '0.0.0.0'
   },
   module: {
     rules: [
