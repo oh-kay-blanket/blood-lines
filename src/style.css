@@ -1,8 +1,15 @@
 @import url(http://fonts.googleapis.com/css?family=Montserrat:800|Roboto);
 
+:root {
+  --root-color: rgb(255, 153, 153, 0.7); /* b97c78 */
+  --root-dark: #c44d58;
+}
+
 body {
   margin: 0px;
   padding: 0px;
+  overflow-x: hidden;
+  overflow-y: hidden;
   font-family: 'Helvetica', sans-serif;
   background-color: #222;
   color: #f8f8f8;
@@ -11,6 +18,7 @@ body {
 #title-area h1 {
   font-size: 3em;
   margin-bottom: 0px;
+  color: var(--root-color);
 }
 
 @media only screen and (min-width: 1000px) {
@@ -25,12 +33,12 @@ body {
 }
 
 a {
-  color: rgb(255, 153, 153, 0.7);
+  color: var(--root-color);
   text-decoration: none;
 }
 
 a:hover {
-  color: rgb(255, 153, 153, 1);
+  color: var(--root-dark);
 }
 
 input {
@@ -48,7 +56,8 @@ input:hover {
   background-color: #777;
 }
 
-#file-display-area {
+#load-area {
+  z-index: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -60,7 +69,7 @@ input:hover {
   padding-top: 0vh;
 } */
 
-#title-area, #upload-area, #button-area, #documentation-area, #error-area {
+#title-area, #upload-area, #button-area, #documentation-area {
   margin-top: 10px;
   padding-left: 5vw;
 }
@@ -76,22 +85,30 @@ input:hover {
   }
 }
 
+#error {
+  font-style: italic;
+  color: var(--root-dark);
+}
+
 #button-area input {
   margin-top: 8px;
   margin-bottom: 8px;
 }
 
-#sampleButton {
+.sampleButton {
   margin-right: 20px;
   font-weight: normal;
 }
 
-#file-display-area {
-  z-index: 0;
+#roots-area {
+  z-index: 1;
+}
+
+#controls #back-button {
+  z-index: 2;
 }
 
 #back-button {
-  z-index: 1;
   position: fixed;
   padding: 10px;
   margin: 15px;
@@ -109,7 +126,6 @@ input:hover {
 }
 
 #right-controls {
-  z-index: 1;
   right: 0;
   padding-right: 30px;
   position: fixed;

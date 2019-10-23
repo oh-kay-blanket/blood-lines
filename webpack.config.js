@@ -56,6 +56,13 @@ module.exports = {
           skipEmptyLines: true
         }
       },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader"
+        }
+      },
     ],
   },
 };

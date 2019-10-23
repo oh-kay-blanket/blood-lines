@@ -27,9 +27,16 @@
   },
   "dependencies": {
     "3d-force-graph": "^1.55.9",
+    "@babel/core": "^7.6.4",
+    "@babel/preset-env": "^7.6.3",
+    "@babel/preset-react": "^7.6.3",
+    "babel-loader": "^8.0.6",
     "d3-force-3d": "^2.0.3",
     "d3-octree": "^0.1.4",
-    "gedcom-d3": "^2.0.0",
+    "gedcom-d3": "^2.0.1",
+    "react": "^16.11.0",
+    "react-dom": "^16.10.2",
+    "react-force-graph-3d": "^1.11.3",
     "three": "^0.109.0",
     "three-spritetext": "^1.1.1",
     "tree-crawl": "^1.0.5"

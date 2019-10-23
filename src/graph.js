@@ -1,26 +1,126 @@
-import { cameraDistance, setNodeLabel, setLinkLabel } from './graph-functions.js';
-import ForceGraph3D from '3d-force-graph';
+// Modules
+import React, { useState, useEffect, useRef } from "react";
+import ReactDOM from "react-dom";
+import ForceGraph3D from 'react-force-graph-3d';
 import * as THREE from 'three';
 import SpriteText from 'three-spritetext';
-// import * as d3 from 'd3-octree';
-// import { forceCollide } from 'd3-force-3d'; // or d3-octree?
+import { forceCollide } from 'd3-force-3d';
 
-//console.log(octree);
+const Graph = ({ d3Data }) => {
+  const [highlights, setHighlights] = useState({
+    node: null,
+    family: [],
+    links: []
+  });
+  const [width, setWidth] = useState(window.innerWidth);
+  const [height, setHeight] = useState(window.innerHeight);
 
-const loadGraph = d3Data => {
+  const fgRef = useRef();
 
-  // d3Data.nodes.forEach(node => {
-  //   console.log(node.name, node.yob, node.y);
-  // })
-
-  let highlightNode = null;
-  let highlightFamily = [];
-  let highlightLinks = [];
+  useEffect(() => {
+    const fg = fgRef.current;
+    fg.d3Force('collide', forceCollide(55));
+  });
 
   // Resize window
   window.onresize = function(event) {
-    Graph.width(window.innerWidth).height(window.innerHeight)
+    setWidth(window.innerWidth);
+    setHeight(window.innerHeight);
   };
+
+  // GRAPH FUNCTIONS
+  const cameraDistance = (d3Data) => {
+    const distanceRatio = (d3Data.nodes.length/2) * 15;
+    if (distanceRatio < 450) {
+      return 450;
+    } else if (distanceRatio > 900) {
+      return 900;
+    } else {
+      return distanceRatio;
+    }
+  }
+
+  const setNodeLabel = node => {
+
+    // Label setup
+    let label = '<div class="node-label">';
+    // Name
+    if (node.title) {
+      label += '<h4>' + node.name + ' (' + node.title + ')</h4>';
+    } else if (node.firstName == '?') {
+      label += '<h4>' + node.name + '</h4>';
+    } else {
+      label += '<h4>' + node.firstName + ' ' + node.surname + '</h4>';
+    }
+    // Lifespan
+    label += '<p>' + node.yob + ' - ' + node.yod + '</p>';
+    // Gender
+    label += (node.gender === 'M') ? '<p>Male</p>' : '<p>Female</p>';
+    // Birthplace
+    if (node.pob != '') {
+      label += '<p>Born: ' + node.pob + '</p>'
+    }
+    // Deathplace
+    if (node.pod != '') {
+      label += '<p>Died: ' + node.pod + '</p>'
+    }
+    // Bio
+    if (node.bio) {
+      label += '<p>' + node.bio + '</p>'
+    }
+
+    return label += '</div>';
+  }
+
+  const setLinkLabel = link => {
+    // No state change
+    switch(link.type) {
+      case 'DIV':
+        return '<div class="link-label"><p>Divorced</p></div>';
+        break;
+      case 'MARR':
+        return '<div class="link-label"><p>Married</p></div>';
+        break;
+      case 'birth':
+        return '<div class="link-label"><p>Birth</p></div>';
+        break;
+      case 'Step':
+        return '<div class="link-label"><p>Step</p></div>';
+        break;
+      case 'Adopted':
+        return '<div class="link-label"><p>Adopted</p></div>';
+        break;
+    }
+  }
+
+  const showFamily = (d3Data, node, highlights) => {
+
+    const findFamilies = (links, node, highlights) => {
+      if (links.source.id == node.id || links.target.id == node.id) {
+        let updatedHighlightFamily = highlights.family;
+        let updatedHighlightLinks = highlights.links;
+
+        updatedHighlightFamily.push(links.target.id, links.source.id);
+        updatedHighlightLinks.push(links.index);
+
+        setHighlights({node: node, family: updatedHighlightFamily, links: updatedHighlightLinks})
+      }
+    }
+
+    // None highlighted
+    if (highlights.node === null) {
+      d3Data.links.filter(links => findFamilies(links, node, highlights));
+
+    // Different node highlighted
+    } else if (highlights.node !== node) {
+      let tempHighlights = {node: null, family: [], links: []}
+      d3Data.links.filter(links => findFamilies(links, node, tempHighlights));
+
+    // Reset current node
+    } else {
+      setHighlights({node: null, family: [], links: []})
+    }
+  }
 
   const setNodeThreeObject = node => {
     // Use a sphere as a drag handle
@@ -38,9 +138,9 @@ const loadGraph = d3Data => {
     }
     let sprite = new SpriteText(name);
 
-    if ((highlightNode !== null) && (highlightFamily.indexOf(node.id) !== -1)) {
+    if ((highlights.node !== null) && (highlights.family.indexOf(node.id) !== -1)) {
       sprite.color = node.color;
-    } else if (highlightNode !== null) {
+    } else if (highlights.node !== null) {
       sprite.color = '#222';
     } else {
       sprite.color = node.color;
@@ -53,7 +153,7 @@ const loadGraph = d3Data => {
 
   const setLinkColor = link => {
 
-    if (highlightLinks.indexOf(link.index) !== -1 || highlightLinks.length < 1) {
+    if (highlights.links.indexOf(link.index) !== -1 || highlights.links.length < 1) {
       // Parent relationship
       if (link.sourceType != 'CHIL' && link.targetType == 'CHIL') {
         return 'rgba(186, 168, 205, 0.2)';
@@ -70,7 +170,7 @@ const loadGraph = d3Data => {
   }
 
   const setLinkWidth = link => {
-    if (highlightLinks.indexOf(link.index) !== -1) {
+    if (highlights.links.indexOf(link.index) !== -1) {
       return 1.7;
     } else {
       return 1;
@@ -78,7 +178,7 @@ const loadGraph = d3Data => {
   }
 
   const setLinkParticleWidth = link => {
-    if (highlightLinks.indexOf(link.index) !== -1) {
+    if (highlights.links.indexOf(link.index) !== -1) {
       return 2;
     } else {
       return 0.1;
@@ -86,114 +186,54 @@ const loadGraph = d3Data => {
   }
 
   const clearHighlights = () => {
-    highlightNode = null;
-    highlightFamily = [];
-    highlightLinks = [];
+    setHighlights({node: null, family: [], links: []});
   }
 
   // Create graph
-  const Graph = ForceGraph3D({controlType:'orbit'}) (document.getElementById('file-display-area'))
+  return <ForceGraph3D
+    ref={fgRef}
+    graphData={d3Data}
 
-    // SETUP
-    .graphData(d3Data)
-    .cameraPosition({ x: cameraDistance(d3Data), y: 0, z: cameraDistance(d3Data) },'',1400)
-    .d3Force('collide', d3.forceCollide(55))
-    //.d3Force("center", d3.forceCenter())
-    .enableNodeDrag(false)
+    // Display
+    width={width}
+    height={height}
+    cameraPosition={{ x: cameraDistance(d3Data), y: 0, z: cameraDistance(d3Data) },'',1400}
+    backgroundColor={'#111'}
+    showNavInfo={false}
 
-    // BACKGROUND
-    .backgroundColor('#111')
-    .onBackgroundClick(() => {
-      clearHighlights();
-      updateGeometries();
-    })
-    .onBackgroundRightClick(() => {
-      clearHighlights();
-      updateGeometries();
-    })
+    // Controls
+    controlType={'orbit'}
+    enableNodeDrag={false}
+    onBackgroundClick={clearHighlights}
+    onBackgroundRightClick={clearHighlights}
 
-    // NODES
-    .nodeLabel(setNodeLabel)
-    .nodeThreeObject(setNodeThreeObject)
-    .onNodeClick(node => {
-
-      const findFamilies = links => {
-        if (links.source.id == node.id || links.target.id == node.id) {
-          highlightFamily.push(links.target.id);
-          highlightFamily.push(links.source.id);
-          highlightLinks.push(links.index);
-        }
-      }
-
-      // Toggle highlighted node
-      if (highlightNode === null) {
-        highlightNode = node;
-        d3Data.links.filter(findFamilies);
-      } else if (highlightNode !== node) {
-        highlightNode = node;
-        highlightFamily = [];
-        highlightLinks = [];
-        d3Data.links.filter(findFamilies);
-      } else {
-        highlightNode = null;
-        highlightFamily = [];
-        highlightLinks = [];
-      }
-      updateGeometries();
-    })
-    .onNodeRightClick(node => {
-
-      const findFamilies = links => {
-        if (links.source.id == node.id || links.target.id == node.id) {
-          highlightFamily.push(links.target.id);
-          highlightFamily.push(links.source.id);
-          highlightLinks.push(links.index);
-        }
-      }
-
-      // Toggle highlighted node
-      if (highlightNode === null) {
-        highlightNode = node;
-        d3Data.links.filter(findFamilies);
-      } else if (highlightNode !== node) {
-        highlightNode = node;
-        highlightFamily = [];
-        highlightLinks = [];
-        d3Data.links.filter(findFamilies);
-      } else if (highlightNode === node) { // do nothing
-      } else {
-        highlightNode = null;
-        highlightFamily = [];
-        highlightLinks = [];
-      }
-      updateGeometries();
+    // Nodes
+    nodeLabel={setNodeLabel}
+    nodeThreeObject={setNodeThreeObject}
+    onNodeClick={node => showFamily(d3Data, node, highlights)}
+    onNodeRightClick={node => {
+      showFamily(d3Data, node, highlights);
 
       // Aim at node from outside it
-      const distance = 200;
-      const distRatio = 2 + distance/Math.hypot(node.x, node.y, node.z);
-      Graph.cameraPosition(
-        { x: node.x * distRatio, y: node.fy, z: node.z * distRatio }, // new position
-        node, // lookAt ({ x, y, z })
-        1200  // ms transition duration
-      );
-    })
+      // const distance = 200;
+      // const distRatio = 2 + distance/Math.hypot(node.x, node.y, node.z);
+      // Graph.cameraPosition(
+      //   { x: node.x * distRatio, y: node.fy, z: node.z * distRatio }, // new position
+      //   node, // lookAt ({ x, y, z })
+      //   1200  // ms transition duration
+      // );
+    }}
 
     // LINKS
-    .linkLabel(setLinkLabel)
-    .linkColor(setLinkColor)
-    .linkOpacity(1)
-    .linkWidth(setLinkWidth)
-    .linkDirectionalArrowLength(link => (link.sourceType != 'CHIL' && link.targetType == 'CHIL' && d3Data.nodes.length > 300) ? 4 : 0)
-    .linkDirectionalParticles(link => (link.sourceType != 'CHIL' && link.targetType == 'CHIL' && d3Data.nodes.length < 300) ? 8 : 0)
-    .linkDirectionalParticleWidth(setLinkParticleWidth)
-    .linkDirectionalParticleSpeed(.001);
-
-  const updateGeometries = () => {
-    Graph
-    .nodeThreeObject(setNodeThreeObject)
-    .linkColor(setLinkColor)
-    .linkWidth(setLinkWidth)
-  }
+    linkLabel={setLinkLabel}
+    linkColor={setLinkColor}
+    linkOpacity={1}
+    linkWidth={setLinkWidth}
+    linkDirectionalArrowLength={link => (link.sourceType != 'CHIL' && link.targetType == 'CHIL' && d3Data.nodes.length > 300) ? 4 : 0}
+    linkDirectionalParticles={link => (link.sourceType != 'CHIL' && link.targetType == 'CHIL' && d3Data.nodes.length < 300) ? 8 : 0}
+    linkDirectionalParticleWidth={setLinkParticleWidth}
+    linkDirectionalParticleSpeed={.001}
+  />
 }
 
-export { loadGraph };
+export default Graph;
