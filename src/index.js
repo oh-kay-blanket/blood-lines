@@ -9,6 +9,8 @@ import './style.css';
 import backButton from './back-button.png';
 
 // GEDOM files
+import ancestorsFile from './gedcoms/sample_ancestors.ged';
+import relativesFile from './gedcoms/sample_related.ged';
 import shakespeareFile from './gedcoms/shakespeare.ged';
 import tudorFile from './gedcoms/tudors.ged';
 import gotFile from './gedcoms/GOT.ged';
@@ -24,6 +26,14 @@ const App = () => {
     setD3Data(d3ize(parse(file)));  // Parse data
     setShowingRoots(true);
     setShowError(false);
+  }
+
+  const loadAncestors = () => {
+    readFile(ancestorsFile);
+  }
+
+  const loadRelatives = () => {
+    readFile(relativesFile);
   }
 
   const loadShakespeare = () => {
@@ -65,14 +75,14 @@ const App = () => {
 
   return(
     <>
-      <Load showingRoots={showingRoots} handleUpload={handleUpload} loadShakespeare={loadShakespeare} loadTudor={loadTudor} loadGOT={loadGOT} loadKardashian={loadKardashian} showError={showError} />
+      <Load showingRoots={showingRoots} handleUpload={handleUpload} loadAncestors={loadAncestors} loadRelatives={loadRelatives} loadShakespeare={loadShakespeare} loadTudor={loadTudor} loadGOT={loadGOT} loadKardashian={loadKardashian} showError={showError} />
       <Controls showingRoots={showingRoots} closeRoots={closeRoots} />
       <Roots showingRoots={showingRoots} d3Data={d3Data} />
     </>
   )
 }
 
-const Load = ({ showingRoots, handleUpload, loadShakespeare, loadTudor, loadGOT, loadKardashian, showError }) => {
+const Load = ({ showingRoots, handleUpload, loadAncestors, loadRelatives, loadShakespeare, loadTudor, loadGOT, loadKardashian, showError }) => {
   if (!showingRoots) {
     return (
       <div id='load'>
@@ -90,20 +100,28 @@ const Load = ({ showingRoots, handleUpload, loadShakespeare, loadTudor, loadGOT,
         <div id='button-area'>
           <p>If you don't have a GEDCOM file, have a look at some example roots.</p>
           <SampleButton
-            name={'Shakespeare'}
+            name={'Ancestor Sample'}
+            loadFile={loadAncestors}
+          />
+          <SampleButton
+            name={'Relatives Sample'}
+            loadFile={loadRelatives}
+          />
+          <SampleButton
+            name={'Shakespeare Roots'}
             loadFile={loadShakespeare}
           />
           <SampleButton
-            name={'Tudor'}
+            name={'Kardashian Roots'}
+            loadFile={loadKardashian}
+          />
+          <SampleButton
+            name={'Tudor Roots'}
             loadFile={loadTudor}
           />
           <SampleButton
-            name={'Game of Thrones'}
+            name={'Game of Thrones Roots'}
             loadFile={loadGOT}
-          />
-          <SampleButton
-            name={'Kardashian'}
-            loadFile={loadKardashian}
           />
         </div>
 

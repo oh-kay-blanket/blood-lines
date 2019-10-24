@@ -70,7 +70,7 @@ input:hover {
 } */
 
 #title-area, #upload-area, #button-area, #documentation-area {
-  margin-top: 10px;
+  margin-top: 15px;
   padding-left: 5vw;
 }
 
@@ -82,6 +82,10 @@ input:hover {
   #title-area, #upload-area, #button-area, #documentation-area, #error-area {
     margin-top: 40px;
     padding-left: 10vw;
+  }
+
+  #button-area {
+    max-width: 40vw;
   }
 }
 
@@ -102,6 +106,7 @@ input:hover {
 
 #roots-area {
   z-index: 1;
+  position: absolute;
 }
 
 #controls #back-button {
