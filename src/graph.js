@@ -1,5 +1,5 @@
 // Modules
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import ReactDOM from "react-dom";
 import ForceGraph3D from 'react-force-graph-3d';
 import * as THREE from 'three';
@@ -28,18 +28,61 @@ const Graph = ({ d3Data }) => {
     setHeight(window.innerHeight);
   };
 
-  // GRAPH FUNCTIONS
-  const cameraDistance = (d3Data) => {
-    const distanceRatio = (d3Data.nodes.length/2) * 15;
-    if (distanceRatio < 450) {
-      return 450;
-    } else if (distanceRatio > 900) {
-      return 900;
+  // Camera position
+  const positionCamera = useCallback(node => {
+    // Aim at node from outside it
+    const distance = 350;
+    const distRatio = 2 + distance/Math.hypot(node.x, node.y, node.z);
+    fgRef.current.cameraPosition(
+      { x: node.x * distRatio, y: node.y, z: node.z * distRatio }, // new position
+      node, // lookAt ({ x, y, z })
+      1200  // ms transition duration
+    );
+  }, [fgRef]);
+
+  // const cameraDistance = () => {
+  //   const distanceRatio = (d3Data.nodes.length/2) * 15;
+  //   console.log(distanceRatio);
+  //   if (distanceRatio < 450) {
+  //     return 450;
+  //   } else if (distanceRatio > 900) {
+  //     return 2000;
+  //   } else {
+  //     return distanceRatio;
+  //   }
+  // }
+
+  // Node design
+  const setNodeThreeObject = node => {
+    // Use a sphere as a drag handle
+    const obj = new THREE.Mesh(
+      new THREE.SphereGeometry(10),
+      new THREE.MeshBasicMaterial({ depthWrite: false, transparent: true, opacity: 0 })
+    );
+
+    // Add text sprite as child
+    let name;
+    if (node.firstName == '?') {
+      name = node.name;
     } else {
-      return distanceRatio;
+      name = node.surname.toUpperCase() + ', ' + node.firstName;
     }
+    let sprite = new SpriteText(name);
+
+    if ((highlights.node !== null) && (highlights.family.indexOf(node.id) !== -1)) {
+      sprite.color = node.color;
+    } else if (highlights.node !== null) {
+      sprite.color = '#222';
+    } else {
+      sprite.color = node.color;
+    }
+    sprite.background = '#555';
+    sprite.textHeight = 10;
+    obj.add(sprite);
+    return obj;
   }
 
+  // Node label
   const setNodeLabel = node => {
 
     // Label setup
@@ -72,27 +115,7 @@ const Graph = ({ d3Data }) => {
     return label += '</div>';
   }
 
-  const setLinkLabel = link => {
-    // No state change
-    switch(link.type) {
-      case 'DIV':
-        return '<div class="link-label"><p>Divorced</p></div>';
-        break;
-      case 'MARR':
-        return '<div class="link-label"><p>Married</p></div>';
-        break;
-      case 'birth':
-        return '<div class="link-label"><p>Birth</p></div>';
-        break;
-      case 'Step':
-        return '<div class="link-label"><p>Step</p></div>';
-        break;
-      case 'Adopted':
-        return '<div class="link-label"><p>Adopted</p></div>';
-        break;
-    }
-  }
-
+  // Handle node click
   const showFamily = (d3Data, node, highlights) => {
 
     const findFamilies = (links, node, highlights) => {
@@ -122,35 +145,36 @@ const Graph = ({ d3Data }) => {
     }
   }
 
-  const setNodeThreeObject = node => {
-    // Use a sphere as a drag handle
-    const obj = new THREE.Mesh(
-      new THREE.SphereGeometry(10),
-      new THREE.MeshBasicMaterial({ depthWrite: false, transparent: true, opacity: 0 })
-    );
-
-    // Add text sprite as child
-    let name;
-    if (node.firstName == '?') {
-      name = node.name;
-    } else {
-      name = node.surname.toUpperCase() + ', ' + node.firstName;
-    }
-    let sprite = new SpriteText(name);
-
-    if ((highlights.node !== null) && (highlights.family.indexOf(node.id) !== -1)) {
-      sprite.color = node.color;
-    } else if (highlights.node !== null) {
-      sprite.color = '#222';
-    } else {
-      sprite.color = node.color;
-    }
-    sprite.background = '#555';
-    sprite.textHeight = 10;
-    obj.add(sprite);
-    return obj;
+  // Right click
+  const handleRightClick = (d3Data, node, highlights) => {
+    showFamily(d3Data, node, highlights);
+    positionCamera(node);
   }
 
+
+  // Link label
+  const setLinkLabel = link => {
+    // No state change
+    switch(link.type) {
+      case 'DIV':
+        return '<div class="link-label"><p>Divorced</p></div>';
+        break;
+      case 'MARR':
+        return '<div class="link-label"><p>Married</p></div>';
+        break;
+      case 'birth':
+        return '<div class="link-label"><p>Birth</p></div>';
+        break;
+      case 'Step':
+        return '<div class="link-label"><p>Step</p></div>';
+        break;
+      case 'Adopted':
+        return '<div class="link-label"><p>Adopted</p></div>';
+        break;
+    }
+  }
+
+  // Link color
   const setLinkColor = link => {
 
     if (highlights.links.indexOf(link.index) !== -1 || highlights.links.length < 1) {
@@ -169,6 +193,7 @@ const Graph = ({ d3Data }) => {
     }
   }
 
+  // Link width
   const setLinkWidth = link => {
     if (highlights.links.indexOf(link.index) !== -1) {
       return 1.7;
@@ -177,6 +202,7 @@ const Graph = ({ d3Data }) => {
     }
   }
 
+  // Link particles
   const setLinkParticleWidth = link => {
     if (highlights.links.indexOf(link.index) !== -1) {
       return 2;
@@ -185,9 +211,11 @@ const Graph = ({ d3Data }) => {
     }
   }
 
+  // Remove highlights
   const clearHighlights = () => {
     setHighlights({node: null, family: [], links: []});
   }
+
 
   // Create graph
   return <ForceGraph3D
@@ -197,7 +225,6 @@ const Graph = ({ d3Data }) => {
     // Display
     width={width}
     height={height}
-    cameraPosition={{ x: cameraDistance(d3Data), y: 0, z: cameraDistance(d3Data) },'',1400}
     backgroundColor={'#111'}
     showNavInfo={false}
 
@@ -211,18 +238,7 @@ const Graph = ({ d3Data }) => {
     nodeLabel={setNodeLabel}
     nodeThreeObject={setNodeThreeObject}
     onNodeClick={node => showFamily(d3Data, node, highlights)}
-    onNodeRightClick={node => {
-      showFamily(d3Data, node, highlights);
-
-      // Aim at node from outside it
-      // const distance = 200;
-      // const distRatio = 2 + distance/Math.hypot(node.x, node.y, node.z);
-      // Graph.cameraPosition(
-      //   { x: node.x * distRatio, y: node.fy, z: node.z * distRatio }, // new position
-      //   node, // lookAt ({ x, y, z })
-      //   1200  // ms transition duration
-      // );
-    }}
+    onNodeRightClick={node => handleRightClick(d3Data, node, highlights)}
 
     // LINKS
     linkLabel={setLinkLabel}
