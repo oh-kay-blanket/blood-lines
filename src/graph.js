@@ -90,10 +90,8 @@ const Graph = ({ d3Data }) => {
     // Name
     if (node.title) {
       label += '<h4>' + node.name + ' (' + node.title + ')</h4>';
-    } else if (node.firstName == '?') {
-      label += '<h4>' + node.name + '</h4>';
     } else {
-      label += '<h4>' + node.firstName + ' ' + node.surname + '</h4>';
+      label += '<h4>' + node.name + '</h4>';
     }
     // Lifespan
     label += '<p>' + node.yob + ' - ' + node.yod + '</p>';
