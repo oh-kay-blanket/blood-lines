@@ -88,7 +88,7 @@ const Load = ({ showingRoots, handleUpload, loadAncestors, loadRelatives, loadSh
       <div id='load'>
         <div id='title-area'>
           <h1>Roots</h1>
-          <h3>An 3D family tree visualizer.</h3>
+          <h3>A 3D family tree visualizer.</h3>
         </div>
 
         <div id='upload-area'>
