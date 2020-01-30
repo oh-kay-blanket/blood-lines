@@ -2,11 +2,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
 import { parse, d3ize } from 'gedcom-d3';
-import Graph from './graph.js';
+
+// Components
+import Load from './Load';
+import Controls from './Controls';
+import Graph from './Graph';
 
 // Style
 import './style.css';
-import backButton from './back-button.png';
 
 // GEDOM files
 import ancestorsFile from './gedcoms/sample_ancestors.ged';
@@ -21,35 +24,12 @@ const App = () => {
   const [showingRoots, setShowingRoots] = useState(false);
   const [d3Data, setD3Data] = useState([]);
   const [showError, setShowError] = useState(false);
+  const [showingLegend, setShowingLegend] = useState(false);
 
   const readFile = file => {
     setD3Data(d3ize(parse(file)));  // Parse data
     setShowingRoots(true);
     setShowError(false);
-  }
-
-  const loadAncestors = () => {
-    readFile(ancestorsFile);
-  }
-
-  const loadRelatives = () => {
-    readFile(relativesFile);
-  }
-
-  const loadShakespeare = () => {
-    readFile(shakespeareFile);
-  }
-
-  const loadTudor = () => {
-    readFile(tudorFile);
-  }
-
-  const loadGOT = () => {
-    readFile(gotFile);
-  }
-
-  const loadKardashian = () => {
-    readFile(kardashianFile);
   }
 
   const closeRoots = () => {
@@ -67,104 +47,38 @@ const App = () => {
       reader.onload = () => {
         readFile(reader.result)
       }
-      reader.readAsText(file);
     } else {
+      reader.readAsText(file);
       setShowError(true);
     }
   }
 
   return(
     <>
-      <Load showingRoots={showingRoots} handleUpload={handleUpload} loadAncestors={loadAncestors} loadRelatives={loadRelatives} loadShakespeare={loadShakespeare} loadTudor={loadTudor} loadGOT={loadGOT} loadKardashian={loadKardashian} showError={showError} />
-      <Controls showingRoots={showingRoots} closeRoots={closeRoots} />
-      <Roots showingRoots={showingRoots} d3Data={d3Data} />
+      {!showingRoots ?
+        <Load
+          handleUpload={handleUpload}
+          loadAncestors={() => readFile(ancestorsFile)}
+          loadRelatives={() => readFile(relativesFile)}
+          loadShakespeare={() => readFile(shakespeareFile)}
+          loadTudor={() => readFile(tudorFile)}
+          loadGOT={() => readFile(gotFile)}
+          loadKardashian={() => readFile(kardashianFile)}
+          showError={showError}
+        /> :
+        <>
+          <Controls
+            closeRoots={closeRoots}
+            setShowingLegend={setShowingLegend}
+            showingLegend={showingLegend}
+          />
+          <Graph
+            d3Data={d3Data}
+          />
+        </>
+      }
     </>
   )
-}
-
-const Load = ({ showingRoots, handleUpload, loadAncestors, loadRelatives, loadShakespeare, loadTudor, loadGOT, loadKardashian, showError }) => {
-  if (!showingRoots) {
-    return (
-      <div id='load'>
-        <div id='title-area'>
-          <h1>Roots</h1>
-          <h3>A 3D family tree visualizer.</h3>
-        </div>
-
-        <div id='upload-area'>
-          <p>If you have a GEDCOM (.ged) file, upload it to see your roots. </p>
-          { showError ? <p id='error'>File type not supported. Please use a .ged file.</p> : null}
-          <input id='file-input' className='form-control' type='file' name='gedFile' onChange={handleUpload} />
-        </div>
-
-        <div id='button-area'>
-          <p>If you don't have a GEDCOM file, have a look at some example roots.</p>
-          <SampleButton
-            name={'Ancestor Sample'}
-            loadFile={loadAncestors}
-          />
-          <SampleButton
-            name={'Relatives Sample'}
-            loadFile={loadRelatives}
-          />
-          <SampleButton
-            name={'Shakespeare Roots'}
-            loadFile={loadShakespeare}
-          />
-          <SampleButton
-            name={'Kardashian Roots'}
-            loadFile={loadKardashian}
-          />
-          <SampleButton
-            name={'Tudor Roots'}
-            loadFile={loadTudor}
-          />
-          <SampleButton
-            name={'Game of Thrones Roots'}
-            loadFile={loadGOT}
-          />
-        </div>
-
-        <div id='documentation-area'>
-          <p><a href='https://github.com/mister-blanket/kin-cloud'>Documentation</a> on GitHub</p>
-          <p><a href='https://mrplunkett.com'>Mr. Plunkett</a></p>
-        </div>
-      </div>
-    );
-  } else {
-    return null;
-  }
-}
-
-const SampleButton = ({ name, loadFile }) => {
-  return(
-    <input className='sampleButton' type='button' value={name} onClick={loadFile} />
-  )
-}
-
-const Controls = ({ showingRoots, closeRoots }) => {
-  if (showingRoots) {
-    return (
-      <div id='controls'>
-        <div id="back-button" onClick={closeRoots}>
-          <img src={backButton} />
-        </div>
-      </div>
-    )
-  } else {
-    return null;
-  }
-}
-
-const Roots = ({ showingRoots, d3Data }) => {
-  if (showingRoots) {
-    return (
-      <div id='roots-area'>
-        <Graph d3Data={d3Data} />
-      </div>);
-  } else {
-    return null;
-  }
 }
 
 ReactDOM.render(<App />, document.getElementById('root'));

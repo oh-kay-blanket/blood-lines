@@ -109,7 +109,7 @@ input:hover {
   position: absolute;
 }
 
-#controls #back-button {
+#controls #back-button, #controls #legend {
   z-index: 2;
 }
 
@@ -119,6 +119,7 @@ input:hover {
   margin: 15px;
   width: 25px;
   height: 25px;
+  background-color: #1a1a1a;
 }
 
 #back-button:hover {
@@ -201,6 +202,28 @@ input:checked + .slider:before {
 .slider.round:before {
  border-radius: 50%;
 }
+
+/* Legend */
+#legend {
+  bottom: 0;
+  position: fixed;
+  margin: 15px;
+  padding: 10px 15px;
+  /* width: 150px; */
+  background-color: #1a1a1a;
+}
+
+#legend:hover {
+  background-color: #222;
+}
+
+#legend p {
+  margin: 0px auto;
+  color: #aaa;
+}
+
+
+/* Graph */
 
 .node-label {
   padding: 5px 10px 5px 10px;
