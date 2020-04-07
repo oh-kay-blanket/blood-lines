@@ -37,15 +37,16 @@ const App = () => {
   }
 
   const handleUpload = event => {
+    console.log(event.target)
     const file = event.target.files[0];
     const parts = file.name.split('.');
+    const reader = new FileReader(file);
 
     if (parts[parts.length -1].toLowerCase() === 'ged') {
-      const reader = new FileReader();
-
-      reader.onload = () => {
-        readFile(reader.result)
+      reader.onloadend = () => {
+        readFile(reader.result);
       }
+      reader.readAsText(file);
     } else {
       reader.readAsText(file);
       setShowError(true);
