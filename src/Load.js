@@ -6,7 +6,7 @@ const Load = ({ handleUpload, loadAncestors, loadRelatives, loadShakespeare, loa
     <div id='load'>
       <div id='title-area'>
         <h1>Roots</h1>
-        <h3>A 3D family tree visualizer.</h3>
+        <h3>A 3D family tree visualizer</h3>
       </div>
 
       <div id='button-area'>

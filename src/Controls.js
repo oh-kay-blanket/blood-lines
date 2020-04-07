@@ -1,6 +1,8 @@
 import React, {useState} from "react";
 
-import backButton from './back-button.png';
+import backButton from './img/back-button.png';
+import greyLine from './img/grey-line.png';
+import goldLine from './img/gold-line.png';
 
 const Controls = ({ closeRoots }) => {
 
@@ -19,20 +21,26 @@ const Controls = ({ closeRoots }) => {
         {showingLegend &&
           <div id="legend-content">
             <h2>Legend</h2>
-            <p>Grey line: Parental link</p>
-            <p>Gold line: Romantic link</p>
+            <div className="legend-line">
+              <img src={greyLine} />
+              <p>- Parental link</p>
+            </div>
+            <div className="legend-line">
+              <img src={goldLine} />
+              <p>- Romantic link</p>
+            </div>
 
             <h2>Controls</h2>
-            <p>Zoom: Mouse wheel</p>
-            <p>Spin: Left-drag</p>
-            <p>Pan: Right-drag</p>
-            <p>Person Info: Hover over name</p>
-            <p>Relationship Info: Hover over line</p>
-            <p>Highlight Person: Left-click name</p>
-            <p>Center on Person: Right-click name</p>
+            <p><b>Scroll</b> - Zoom</p>
+            <p><b>Left drag</b> - Spin</p>
+            <p><b>Right drag</b> - Pan</p>
+            <p><b>Hover over name</b> - Person info</p>
+            <p><b>Hover over line</b> - Relationship info</p>
+            <p><b>Left-click name</b> - Highlight</p>
+            <p><b>Right-click name</b> Re-center</p>
           </div>
         }
-        <p id="legend-button" onClick={toggleLegend}>{showingLegend ? 'Hide' : 'Info'}</p>
+        <p id="legend-button" onClick={toggleLegend}>{showingLegend ? 'Hide ▼' : 'Info ▲'}</p>
       </div>
     </div>
   )

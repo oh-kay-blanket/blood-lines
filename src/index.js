@@ -37,7 +37,6 @@ const App = () => {
   }
 
   const handleUpload = event => {
-    console.log(event.target)
     const file = event.target.files[0];
     const parts = file.name.split('.');
     const reader = new FileReader(file);

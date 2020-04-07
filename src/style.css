@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Montserrat:800|Roboto);
+@import url('http://fonts.googleapis.com/css?family=Montserrat:800|Roboto');
 
 :root {
   --root-color: rgb(255, 153, 153, 0.7); /* b97c78 */
@@ -10,20 +10,23 @@ body {
   padding: 0px;
   overflow-x: hidden;
   overflow-y: hidden;
-  font-family: 'Helvetica', sans-serif;
+  font-family: Open, sans-serif;
+  font-weight: 400;
   background-color: #222;
   color: #f8f8f8;
 }
 
 #title-area h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
   font-size: 3em;
   margin-bottom: 0px;
   color: var(--root-color);
 }
 
-@media only screen and (min-width: 1000px) {
+@media only screen and (min-width: 600px) {
   #title-area h1 {
-    font-size: 4em;
+    font-size: 5em;
     margin-bottom: 0px;
   }
 }
@@ -46,6 +49,7 @@ input {
   background-color: #555;
   color: #f8f8f8;
   border: none;
+  font-family: "Roboto";
 }
 
 input button {
@@ -74,7 +78,7 @@ input:hover {
   padding-left: 5vw;
 }
 
-@media only screen and (min-width: 1000px) {
+@media only screen and (min-width: 600px) {
   #title-area {
     padding-top: 10vh;
   }
@@ -232,6 +236,21 @@ input:checked + .slider:before {
   overflow-y: auto;
 }
 
+#legend-content p {
+  margin: 8px 0px;
+}
+
+.legend-line {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.legend-line img {
+  height: 100%;
+  margin-right: 4px;
+}
+
 
 /* Graph */
 
@@ -247,6 +266,10 @@ input:checked + .slider:before {
 
 .node-label h4 {
   margin-bottom: 0px;
+}
+
+.node-label .node-title {
+  font-family: "Montserrat";
 }
 
 .link-label {

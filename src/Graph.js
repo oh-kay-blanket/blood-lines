@@ -76,6 +76,8 @@ const Graph = ({ d3Data }) => {
     } else {
       sprite.color = node.color;
     }
+    sprite.fontFace = "Montserrat";
+    sprite.fontWeight = 800;
     sprite.background = '#555';
     sprite.textHeight = 10;
     obj.add(sprite);
@@ -89,7 +91,7 @@ const Graph = ({ d3Data }) => {
     let label = '<div class="node-label">';
     // Name
     if (node.title) {
-      label += '<h4>' + node.name + ' (' + node.title + ')</h4>';
+      label += '<h4 class="node-title">' + node.name + ' (' + node.title + ')</h4>';
     } else {
       label += '<h4>' + node.name + '</h4>';
     }
@@ -178,11 +180,11 @@ const Graph = ({ d3Data }) => {
     if (highlights.links.indexOf(link.index) !== -1 || highlights.links.length < 1) {
       // Parent relationship
       if (link.sourceType != 'CHIL' && link.targetType == 'CHIL') {
-        return 'rgba(186, 168, 205, 0.2)';
+        return 'rgba(186, 186, 186, 0.2)';
 
       // Romantic relationship
       } else if (link.sourceType != 'CHIL' && link.targetType != 'CHIL') {
-        return 'rgba(255, 215, 0, 0.3)';
+        return 'rgba(255, 215, 0, 0.7)';
 
       // Sibling relationship
       }
@@ -212,6 +214,21 @@ const Graph = ({ d3Data }) => {
   // Remove highlights
   const clearHighlights = () => {
     setHighlights({node: null, family: [], links: []});
+  }
+
+  const createScene = () => {
+    console.log('hi')
+    var scene = new THREE.Scene();
+    var material = new THREE.LineBasicMaterial( { color: 0x0000ff } );
+    var points = [];
+    points.push( new THREE.Vector3( - 10, 0, 0 ) );
+    points.push( new THREE.Vector3( 0, 10, 0 ) );
+    points.push( new THREE.Vector3( 10, 0, 0 ) );
+
+    var geometry = new THREE.BufferGeometry().setFromPoints( points );
+
+    var line = new THREE.Line( geometry, material );
+    scene.add( line );
   }
 
 
@@ -247,6 +264,9 @@ const Graph = ({ d3Data }) => {
     linkDirectionalParticles={link => (link.sourceType != 'CHIL' && link.targetType == 'CHIL' && d3Data.nodes.length < 300) ? 8 : 0}
     linkDirectionalParticleWidth={setLinkParticleWidth}
     linkDirectionalParticleSpeed={.001}
+
+    // Scene
+    scene={createScene}
   />
 }
 
