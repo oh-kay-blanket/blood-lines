@@ -24,6 +24,7 @@ const App = () => {
   const [showingRoots, setShowingRoots] = useState(false);
   const [d3Data, setD3Data] = useState([]);
   const [showError, setShowError] = useState(false);
+  const [timelineShowing, setTimelineShowing] = useState(true);
 
   const readFile = file => {
     setD3Data(d3ize(parse(file)));  // Parse data
@@ -68,9 +69,11 @@ const App = () => {
         <>
           <Controls
             closeRoots={closeRoots}
+            setTimelineShowing={setTimelineShowing}
           />
           <Graph
             d3Data={d3Data}
+            timelineShowing={timelineShowing}
           />
         </>
       }

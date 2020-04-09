@@ -4,12 +4,16 @@ import backButton from './img/back-button.png';
 import greyLine from './img/grey-line.png';
 import goldLine from './img/gold-line.png';
 
-const Controls = ({ closeRoots }) => {
+const Controls = ({ closeRoots, setTimelineShowing }) => {
 
   const [showingLegend, setShowingLegend] = useState(false);
 
   const toggleLegend = () => {
     setShowingLegend(prevState => !prevState);
+  }
+
+  const handleClick = () => {
+    setTimelineShowing(false)
   }
 
   return (
@@ -20,7 +24,7 @@ const Controls = ({ closeRoots }) => {
       <div id="legend">
         {showingLegend &&
           <div id="legend-content">
-            <h2>Legend</h2>
+            <h2 onClick={handleClick}>Legend</h2>
             <div className="legend-line">
               <img src={greyLine} />
               <p>- Parental link</p>

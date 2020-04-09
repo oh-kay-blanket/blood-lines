@@ -6,7 +6,8 @@ import * as THREE from 'three';
 import SpriteText from 'three-spritetext';
 import { forceCollide } from 'd3-force-3d';
 
-const Graph = ({ d3Data }) => {
+const Graph = ({ d3Data, timelineShowing }) => {
+
   const [highlights, setHighlights] = useState({
     node: null,
     family: [],
@@ -17,9 +18,9 @@ const Graph = ({ d3Data }) => {
 
   const fgRef = useRef();
 
+  // Manage force
   useEffect(() => {
-    const fg = fgRef.current;
-    fg.d3Force('collide', forceCollide(55));
+    fgRef.current.d3Force('collide', forceCollide(55));
   });
 
   // Resize window
@@ -42,7 +43,6 @@ const Graph = ({ d3Data }) => {
 
   // const cameraDistance = () => {
   //   const distanceRatio = (d3Data.nodes.length/2) * 15;
-  //   console.log(distanceRatio);
   //   if (distanceRatio < 450) {
   //     return 450;
   //   } else if (distanceRatio > 900) {
@@ -216,20 +216,139 @@ const Graph = ({ d3Data }) => {
     setHighlights({node: null, family: [], links: []});
   }
 
-  const createScene = () => {
-    console.log('hi')
-    var scene = new THREE.Scene();
-    var material = new THREE.LineBasicMaterial( { color: 0x0000ff } );
+  // Add timeline
+  useEffect(() => {
+
+    let yRange = d3Data.nodes.map(node => Number(node.fy));
+
+    // TIMELINE
+    const highestY = Math.max.apply(Math, yRange);
+    const lowestY = Math.min.apply(Math, yRange);
+
+    console.log(lowestY, highestY)
+
+    //create a blue LineBasicMaterial
+    var material = new THREE.LineBasicMaterial( {
+      color: 0x333333,
+      linewidth: 3
+    } );
+
     var points = [];
-    points.push( new THREE.Vector3( - 10, 0, 0 ) );
-    points.push( new THREE.Vector3( 0, 10, 0 ) );
-    points.push( new THREE.Vector3( 10, 0, 0 ) );
+    points.push( new THREE.Vector3( 0, lowestY, 0 ) );
+    points.push( new THREE.Vector3( 0, highestY, 0 ) );
 
     var geometry = new THREE.BufferGeometry().setFromPoints( points );
 
     var line = new THREE.Line( geometry, material );
-    scene.add( line );
-  }
+
+    timelineShowing && fgRef.current.scene().add(line);
+  }, [timelineShowing]);
+
+  // Add timeline YEAR
+  useEffect(() => {
+
+    let years = d3Data.nodes.map(node => Number(node.yob));
+    years = years.filter(year => !isNaN(year));
+
+    let yRange = d3Data.nodes.map(node => Number(node.fy));
+
+    // TIMELINE
+    const highestY = Math.max.apply(Math, yRange);
+    const lowestY = Math.min.apply(Math, yRange);
+    const halfY = (highestY + lowestY)/2;
+    const quarterY = (halfY + lowestY)/2;
+    const threeQuarterY = (halfY + highestY)/2;
+
+
+    const earliestYOB = Math.min.apply(Math, years);
+    const latestYOB = Math.max.apply(Math, years);
+    const halfYOB = parseInt((earliestYOB + latestYOB)/2);
+    const quarterYOB = parseInt((latestYOB + halfYOB)/2);
+    const threeQuarterYOB = parseInt((earliestYOB + halfYOB)/2);
+
+    // EARLIEST
+    let earliest = new THREE.Mesh(
+      new THREE.SphereGeometry(100),
+      new THREE.MeshBasicMaterial({ depthWrite: false, transparent: true, opacity: 0 }),
+    );
+
+    earliest.position.y = highestY + 15;
+
+    let earliestTimeLabel = earliestYOB ? new SpriteText(earliestYOB) : new SpriteText("Earlier");
+    earliestTimeLabel.color = '#f8f8f8';
+    earliestTimeLabel.fontFace = "Montserrat";
+    earliestTimeLabel.fontWeight = 400;
+    earliestTimeLabel.textHeight = 25;
+    earliest.add(earliestTimeLabel);
+
+    // LATEST
+    let latest = new THREE.Mesh(
+      new THREE.SphereGeometry(100),
+      new THREE.MeshBasicMaterial({ depthWrite: false, transparent: true, opacity: 0 }),
+    );
+
+    latest.position.y = lowestY - 15;
+
+    let latestTimeLabel = latestYOB ? new SpriteText(latestYOB) : new SpriteText("Later");
+    latestTimeLabel.color = '#f8f8f8';
+    latestTimeLabel.fontFace = "Montserrat";
+    latestTimeLabel.fontWeight = 400;
+    latestTimeLabel.textHeight = 25;
+    latest.add(latestTimeLabel);
+
+    // HALF
+    let half = new THREE.Mesh(
+      new THREE.SphereGeometry(100),
+      new THREE.MeshBasicMaterial({ depthWrite: false, transparent: true, opacity: 0 }),
+    );
+
+    half.position.y = halfY;
+
+    let halfTimeLabel = new SpriteText(halfYOB);
+    halfTimeLabel.color = '#ccc';
+    halfTimeLabel.fontFace = "Montserrat";
+    halfTimeLabel.fontWeight = 400;
+    halfTimeLabel.textHeight = 15;
+    half.add(halfTimeLabel);
+
+    // QUARTER
+    let quarter = new THREE.Mesh(
+      new THREE.SphereGeometry(100),
+      new THREE.MeshBasicMaterial({ depthWrite: false, transparent: true, opacity: 0 }),
+    );
+
+    quarter.position.y = quarterY;
+
+    let quarterTimeLabel = new SpriteText(quarterYOB);
+    quarterTimeLabel.color = '#ccc';
+    quarterTimeLabel.fontFace = "Montserrat";
+    quarterTimeLabel.fontWeight = 400;
+    quarterTimeLabel.textHeight = 15;
+    quarter.add(quarterTimeLabel);
+
+    // QUARTER
+    let threeQuarter = new THREE.Mesh(
+      new THREE.SphereGeometry(100),
+      new THREE.MeshBasicMaterial({ depthWrite: false, transparent: true, opacity: 0 }),
+    );
+
+    threeQuarter.position.y = threeQuarterY;
+
+    let threeQuarterTimeLabel = new SpriteText(threeQuarterYOB);
+    threeQuarterTimeLabel.color = '#ccc';
+    threeQuarterTimeLabel.fontFace = "Montserrat";
+    threeQuarterTimeLabel.fontWeight = 400;
+    threeQuarterTimeLabel.textHeight = 15;
+    threeQuarter.add(threeQuarterTimeLabel);
+
+    if (timelineShowing) {
+      fgRef.current.scene().add(earliest);
+      fgRef.current.scene().add(latest);
+      highestY-lowestY > 300 && fgRef.current.scene().add(half);
+      highestY-lowestY > 450 && fgRef.current.scene().add(quarter);
+      highestY-lowestY > 450 && fgRef.current.scene().add(threeQuarter);
+    }
+  }, [timelineShowing]);
 
 
   // Create graph
@@ -264,9 +383,6 @@ const Graph = ({ d3Data }) => {
     linkDirectionalParticles={link => (link.sourceType != 'CHIL' && link.targetType == 'CHIL' && d3Data.nodes.length < 300) ? 8 : 0}
     linkDirectionalParticleWidth={setLinkParticleWidth}
     linkDirectionalParticleSpeed={.001}
-
-    // Scene
-    scene={createScene}
   />
 }
 
