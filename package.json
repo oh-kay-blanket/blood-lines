@@ -13,7 +13,7 @@
   "license": "ISC",
   "devDependencies": {
     "clean-webpack-plugin": "^3.0.0",
-    "css-loader": "^3.5.0",
+    "css-loader": "^3.5.2",
     "csv-loader": "^3.0.2",
     "file-loader": "^4.3.0",
     "html-webpack-plugin": "^3.2.0",
@@ -26,14 +26,14 @@
     "webpack-dev-server": "^3.10.3"
   },
   "dependencies": {
-    "3d-force-graph": "^1.60.11",
+    "3d-force-graph": "^1.60.12",
     "@babel/core": "^7.9.0",
-    "@babel/preset-env": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
     "@babel/preset-react": "^7.9.4",
     "babel-loader": "^8.1.0",
     "d3-force-3d": "^2.1.0",
     "d3-octree": "^0.1.8",
-    "gedcom-d3": "^2.0.1",
+    "gedcom-d3": "^2.0.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-force-graph-3d": "^1.14.2",
