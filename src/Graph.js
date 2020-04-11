@@ -225,12 +225,10 @@ const Graph = ({ d3Data, timelineShowing }) => {
     const highestY = Math.max.apply(Math, yRange);
     const lowestY = Math.min.apply(Math, yRange);
 
-    console.log(lowestY, highestY)
-
     //create a blue LineBasicMaterial
     var material = new THREE.LineBasicMaterial( {
       color: 0x333333,
-      linewidth: 3
+      linewidth: 2
     } );
 
     var points = [];
@@ -241,8 +239,8 @@ const Graph = ({ d3Data, timelineShowing }) => {
 
     var line = new THREE.Line( geometry, material );
 
-    timelineShowing && fgRef.current.scene().add(line);
-  }, [timelineShowing]);
+    fgRef.current.scene().add(line);
+  });
 
   // Add timeline YEAR
   useEffect(() => {
@@ -341,14 +339,14 @@ const Graph = ({ d3Data, timelineShowing }) => {
     threeQuarterTimeLabel.textHeight = 15;
     threeQuarter.add(threeQuarterTimeLabel);
 
-    if (timelineShowing) {
+    // if (timelineShowing) {
       fgRef.current.scene().add(earliest);
       fgRef.current.scene().add(latest);
       highestY-lowestY > 300 && fgRef.current.scene().add(half);
       highestY-lowestY > 450 && fgRef.current.scene().add(quarter);
       highestY-lowestY > 450 && fgRef.current.scene().add(threeQuarter);
-    }
-  }, [timelineShowing]);
+    // }
+  });
 
 
   // Create graph
