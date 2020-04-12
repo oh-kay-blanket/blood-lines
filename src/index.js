@@ -25,6 +25,7 @@ const App = () => {
   const [d3Data, setD3Data] = useState([]);
   const [showError, setShowError] = useState(false);
   const [timelineShowing, setTimelineShowing] = useState(false);
+  const [highlightedFamily, setHighlightedFamily] = useState();
 
   const readFile = file => {
     setD3Data(d3ize(parse(file)));  // Parse data
@@ -34,6 +35,7 @@ const App = () => {
 
   const closeRoots = () => {
     setShowingRoots(false);
+    setHighlightedFamily();
     setD3Data([]);
   }
 
@@ -71,10 +73,13 @@ const App = () => {
             d3Data={d3Data}
             closeRoots={closeRoots}
             setTimelineShowing={setTimelineShowing}
+            highlightedFamily={highlightedFamily}
+            setHighlightedFamily={setHighlightedFamily}
           />
           <Graph
             d3Data={d3Data}
-            timelineShowing={timelineShowing}
+            highlightedFamily={highlightedFamily}
+            setHighlightedFamily={setHighlightedFamily}
           />
         </>
       }

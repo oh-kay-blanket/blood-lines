@@ -31,10 +31,6 @@ const Load = ({ handleUpload, loadAncestors, loadRelatives, loadShakespeare, loa
           name={'Tudor Roots'}
           loadFile={loadTudor}
         />
-        <SampleButton
-          name={'Game of Thrones Roots'}
-          loadFile={loadGOT}
-        />
       </div>
 
       <div id='upload-area'>

@@ -6,13 +6,14 @@ import * as THREE from 'three';
 import SpriteText from 'three-spritetext';
 import { forceCollide } from 'd3-force-3d';
 
-const Graph = ({ d3Data, timelineShowing }) => {
+const Graph = ({ d3Data, highlightedFamily, setHighlightedFamily }) => {
 
   const [highlights, setHighlights] = useState({
     node: null,
     family: [],
     links: []
   });
+
   const [width, setWidth] = useState(window.innerWidth);
   const [height, setHeight] = useState(window.innerHeight);
 
@@ -60,6 +61,8 @@ const Graph = ({ d3Data, timelineShowing }) => {
       new THREE.MeshBasicMaterial({ depthWrite: false, transparent: true, opacity: 0 })
     );
 
+    let partOfFamily = highlightedFamily === node.surname;
+
     // Add text sprite as child
     let name;
     if (node.firstName == '?') {
@@ -69,16 +72,20 @@ const Graph = ({ d3Data, timelineShowing }) => {
     }
     let sprite = new SpriteText(name);
 
-    if ((highlights.node !== null) && (highlights.family.indexOf(node.id) !== -1)) {
-      sprite.color = node.color;
-    } else if (highlights.node !== null) {
-      sprite.color = '#222';
-    } else {
-      sprite.color = node.color;
-    }
+    // NODE.COLOR
+    sprite.color =
+      highlights.node === null ? // No highlighted node
+        highlightedFamily ?
+          highlightedFamily === node.surname ?
+            node.color : // Current node part of highlighted family
+            '#222' : // Current node NOT part of highlighted family?
+          node.color : // No highlighted family
+      highlights.family.indexOf(node.id) !== -1 ?
+        node.color : // Highlighted node or family
+        '#222'; // Dark node
+
     sprite.fontFace = "Montserrat";
     sprite.fontWeight = 800;
-    sprite.background = '#555';
     sprite.textHeight = 10;
     obj.add(sprite);
     return obj;
@@ -88,28 +95,30 @@ const Graph = ({ d3Data, timelineShowing }) => {
   const setNodeLabel = node => {
 
     // Label setup
-    let label = '<div class="node-label">';
+    let label = `<div class="node-label">`;
+
+    // Gender
+    const labelGender = (node.gender === 'M') ? `♂` : `♀`;
+
     // Name
     if (node.title) {
-      label += '<h4 class="node-title">' + node.name + ' (' + node.title + ')</h4>';
+      label += `<h4 class="node-title"><span style="color:${node.color}">${node.name} (${node.title})</span> ${labelGender}</h4>`;
     } else {
-      label += '<h4>' + node.name + '</h4>';
+      label += `<h4><span style="color:${node.color}">${node.name}</span> ${labelGender}</h4>`;
     }
     // Lifespan
-    label += '<p>' + node.yob + ' - ' + node.yod + '</p>';
-    // Gender
-    label += (node.gender === 'M') ? '<p>Male</p>' : '<p>Female</p>';
+    label += `<p><b>${node.yob} - ${node.yod}</b></p>`;
     // Birthplace
     if (node.pob != '') {
-      label += '<p>Born: ' + node.pob + '</p>'
+      label += `<p><b>From:</b> ${node.pob}</p>`
     }
     // Deathplace
-    if (node.pod != '') {
-      label += '<p>Died: ' + node.pod + '</p>'
-    }
+    // if (node.pod != '') {
+    //   label += `<p><b>Died:</b> ${node.pod}</p>`
+    // }
     // Bio
     if (node.bio) {
-      label += '<p>' + node.bio + '</p>'
+      label += `<p>${node.bio}</p>`
     }
 
     return label += '</div>';
@@ -118,6 +127,7 @@ const Graph = ({ d3Data, timelineShowing }) => {
   // Handle node click
   const showFamily = (d3Data, node, highlights) => {
 
+    // Find family member of clicked node
     const findFamilies = (links, node, highlights) => {
       if (links.source.id == node.id || links.target.id == node.id) {
         let updatedHighlightFamily = highlights.family;
@@ -177,20 +187,30 @@ const Graph = ({ d3Data, timelineShowing }) => {
   // Link color
   const setLinkColor = link => {
 
-    if (highlights.links.indexOf(link.index) !== -1 || highlights.links.length < 1) {
-      // Parent relationship
-      if (link.sourceType != 'CHIL' && link.targetType == 'CHIL') {
-        return 'rgba(186, 186, 186, 0.2)';
+    return highlights.links.length < 1 ?
+      highlightedFamily ?
+        'rgba(186, 186, 186, 0.15)' : // Highlighed family exists, mute all links
+        (link.sourceType != 'CHIL' && link.targetType != 'CHIL') ?
+          'rgba(255, 215, 0, 0.6)' : // Romantic link
+          'rgba(186, 186, 186, 0.15)' : // Normal link
+      highlights.links.indexOf(link.index) !== -1 ?
+      (link.sourceType != 'CHIL' && link.targetType != 'CHIL') ?
+        'rgba(255, 215, 0, 0.6)' : // Romantic link
+        'rgba(186, 186, 186, 0.15)' : // Normal link
+      'rgba(186, 186, 186, 0.15)'; // Normal link
 
-      // Romantic relationship
-      } else if (link.sourceType != 'CHIL' && link.targetType != 'CHIL') {
-        return 'rgba(255, 215, 0, 0.7)';
-
-      // Sibling relationship
-      }
-    } else {
-      return '#333';
-    }
+    // if (highlights.links.indexOf(link.index) !== -1 || highlights.links.length < 1) {
+    //   // Parent relationship
+    //   if (link.sourceType != 'CHIL' && link.targetType == 'CHIL') {
+    //     return 'rgba(186, 186, 186, 0.15)';
+    //
+    //   // Romantic relationship
+    //   } else if (link.sourceType != 'CHIL' && link.targetType != 'CHIL') {
+    //     return 'rgba(255, 215, 0, 0.6)';
+    //   }
+    // } else {
+    //   return '#333';
+    // }
   }
 
   // Link width
@@ -339,13 +359,11 @@ const Graph = ({ d3Data, timelineShowing }) => {
     threeQuarterTimeLabel.textHeight = 15;
     threeQuarter.add(threeQuarterTimeLabel);
 
-    // if (timelineShowing) {
-      fgRef.current.scene().add(earliest);
-      fgRef.current.scene().add(latest);
-      highestY-lowestY > 300 && fgRef.current.scene().add(half);
-      highestY-lowestY > 450 && fgRef.current.scene().add(quarter);
-      highestY-lowestY > 450 && fgRef.current.scene().add(threeQuarter);
-    // }
+    fgRef.current.scene().add(earliest);
+    fgRef.current.scene().add(latest);
+    highestY-lowestY > 300 && fgRef.current.scene().add(half);
+    highestY-lowestY > 450 && fgRef.current.scene().add(quarter);
+    highestY-lowestY > 450 && fgRef.current.scene().add(threeQuarter);
   });
 
 

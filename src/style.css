@@ -89,7 +89,7 @@ input:hover {
   }
 
   #button-area {
-    max-width: 40vw;
+    max-width: 500px;
   }
 }
 
@@ -113,7 +113,7 @@ input:hover {
   position: absolute;
 }
 
-#controls #back-button, #controls #legend {
+#controls #back-button, #controls #legend, #controls #surnames {
   z-index: 2;
 }
 
@@ -123,11 +123,11 @@ input:hover {
   margin: 15px;
   width: 25px;
   height: 25px;
-  background-color: #1a1a1a;
+  background-color: #222;
 }
 
 #back-button:hover {
-  background-color: #222;
+  background-color: #2a2a2a;
 }
 
 #back-button img {
@@ -212,20 +212,20 @@ input:checked + .slider:before {
   bottom: 0;
   position: fixed;
   margin: 15px;
-  background-color: #1a1a1a;
+  background-color: #222;
 }
 
-#legend-button, #legend-content {
+#legend-button, #legend-content, #surnames-button, .surnames-content, .surnames-heading {
   margin: 0px auto;
   padding: 10px 15px;
 }
 
-#legend-button {
+#legend-button, #surnames-button {
   color: #888;
 }
 
-#legend-button:hover {
-  background-color: #222;
+#legend-button:hover, #surnames-button:hover {
+  background-color: #2a2a2a;
   cursor: pointer;
 }
 
@@ -251,33 +251,58 @@ input:checked + .slider:before {
   margin-right: 4px;
 }
 
+/* SURNAMES */
+#surnames {
+  bottom: 0;
+  right: 0;
+  position: fixed;
+  margin: 15px;
+  background-color: #222;
+}
+
+.surnames-content {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.surnames-heading {
+  padding-bottom: 0px;
+}
+
+.surnames-heading h2 {
+  margin: 3px auto;
+}
+
+.surnames-heading p {
+  margin: 0px auto;
+  font-size: 0.85rem;
+  color: #888;
+}
+
 
 /* Graph */
 
 .node-label {
-  padding: 5px 10px 5px 10px;
+  padding: 15px 25px;
   max-width: 400px;
-  background-color: #111;
-  color: #f8f8f8;
+  background-color: #222;
+  color: #fcfcfc;
   text-align: left;
-  border-radius: 2px;
-  box-shadow: 0px 0px 20px #f8f8f8;
 }
 
 .node-label h4 {
   margin-bottom: 0px;
+  font-size: 1.2rem;
 }
 
-.node-label .node-title {
-  font-family: "Montserrat";
+.node-label p {
+  font-size: 1rem;
 }
 
 .link-label {
-  padding: 5px 10px 5px 10px;
+  padding: 15px 25px;
   max-width: 400px;
-  background-color: #111;
+  background-color: #222;
   color: #f8f8f8;
   text-align: center;
-  border-radius: 2px;
-  box-shadow: 0px 0px 20px #f8f8f8;
 }
