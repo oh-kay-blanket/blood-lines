@@ -7,6 +7,7 @@ import SpriteText from 'three-spritetext';
 import { forceCollide } from 'd3-force-3d';
 
 const Graph = ({ d3Data, highlightedFamily, setHighlightedFamily }) => {
+  console.log(d3Data);
 
   const [highlights, setHighlights] = useState({
     node: null,
@@ -175,6 +176,9 @@ const Graph = ({ d3Data, highlightedFamily, setHighlightedFamily }) => {
       case 'birth':
         return '<div class="link-label"><p>Birth</p></div>';
         break;
+      case 'Natural':
+        return '<div class="link-label"><p>Birth</p></div>';
+        break;
       case 'Step':
         return '<div class="link-label"><p>Step</p></div>';
         break;
@@ -234,6 +238,7 @@ const Graph = ({ d3Data, highlightedFamily, setHighlightedFamily }) => {
   // Remove highlights
   const clearHighlights = () => {
     setHighlights({node: null, family: [], links: []});
+    setHighlightedFamily();
   }
 
   // Add timeline
@@ -365,6 +370,12 @@ const Graph = ({ d3Data, highlightedFamily, setHighlightedFamily }) => {
     highestY-lowestY > 450 && fgRef.current.scene().add(quarter);
     highestY-lowestY > 450 && fgRef.current.scene().add(threeQuarter);
   });
+
+  useEffect(() => {
+    fgRef.current.controls().enableDamping = true;
+    fgRef.current.controls().dampingFactor = 1.3;
+    fgRef.current.controls().rotateSpeed = 0.8;
+  })
 
 
   // Create graph

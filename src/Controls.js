@@ -40,7 +40,7 @@ const Controls = ({ d3Data, closeRoots, setTimelineShowing, highlightedFamily, s
     }
     return 0;
   }
-  console.log(d3Data.surnameList)
+
   const surnameList = d3Data.surnameList.filter(name => name.surname !== "").sort(compareSurname).sort(compareCount).map((family, index) =>
     <p
       key={index}
