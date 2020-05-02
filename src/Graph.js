@@ -7,7 +7,7 @@ import SpriteText from 'three-spritetext';
 import { forceCollide } from 'd3-force-3d';
 
 const Graph = ({ d3Data, highlightedFamily, setHighlightedFamily }) => {
-  console.log(d3Data);
+  // console.log(d3Data);
 
   const [highlights, setHighlights] = useState({
     node: null,
@@ -244,7 +244,11 @@ const Graph = ({ d3Data, highlightedFamily, setHighlightedFamily }) => {
   // Add timeline
   useEffect(() => {
 
+    // Get list of fixed Y
     let yRange = d3Data.nodes.map(node => Number(node.fy));
+
+    // Filter our NaN
+    yRange = yRange.filter(node => !isNaN(node) && node);
 
     // TIMELINE
     const highestY = Math.max.apply(Math, yRange);
@@ -270,10 +274,17 @@ const Graph = ({ d3Data, highlightedFamily, setHighlightedFamily }) => {
   // Add timeline YEAR
   useEffect(() => {
 
+    // All YOBs
     let years = d3Data.nodes.map(node => Number(node.yob));
+
+    // Filter out NaN
     years = years.filter(year => !isNaN(year));
 
+    // Get list of fixed Y
     let yRange = d3Data.nodes.map(node => Number(node.fy));
+
+    // Filter out NaN
+    yRange = yRange.filter(node => !isNaN(node) && node);
 
     // TIMELINE
     const highestY = Math.max.apply(Math, yRange);

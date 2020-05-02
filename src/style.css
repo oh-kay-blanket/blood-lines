@@ -1,4 +1,4 @@
-@import url('http://fonts.googleapis.com/css?family=Montserrat:500|Roboto');
+@import url('http://fonts.googleapis.com/css?family=Montserrat:500|Roboto|Open+Sans');
 
 :root {
   --root-color: rgb(255, 153, 153, 0.7); /* b97c78 */
@@ -10,24 +10,24 @@ body {
   padding: 0px;
   overflow-x: hidden;
   overflow-y: hidden;
-  font-family: Open, sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-weight: 400;
   background-color: #222;
   color: #f8f8f8;
 }
 
 #title-area h1 {
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 900;
+  font-family: 'Montserrat', 'Open Sans', sans-serif;
+  font-weight: 500;
   font-size: 3em;
-  margin-bottom: 0px;
+  margin: 0px;
   color: var(--root-color);
 }
 
 @media only screen and (min-width: 600px) {
   #title-area h1 {
     font-size: 5em;
-    margin-bottom: 0px;
+    margin-left: -7px;
   }
 }
 
@@ -49,7 +49,6 @@ input {
   background-color: #555;
   color: #f8f8f8;
   border: none;
-  font-family: "Roboto";
 }
 
 input button {
