@@ -26,17 +26,17 @@
     "webpack-dev-server": "^3.10.3"
   },
   "dependencies": {
-    "3d-force-graph": "^1.61.2",
+    "3d-force-graph": "^1.61.4",
     "@babel/core": "^7.9.6",
     "@babel/preset-env": "^7.9.6",
     "@babel/preset-react": "^7.9.4",
     "babel-loader": "^8.1.0",
     "d3-force-3d": "^2.1.0",
     "d3-octree": "^0.1.8",
-    "gedcom-d3": "^2.0.4",
+    "gedcom-d3": "^2.0.5",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-force-graph-3d": "^1.14.4",
+    "react-force-graph-3d": "^1.14.6",
     "three": "^0.109.0",
     "three-spritetext": "^1.5.1",
     "tree-crawl": "^1.0.5"
