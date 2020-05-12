@@ -13,7 +13,7 @@ import './style.css';
 
 // GEDOM files
 import ancestorsFile from './gedcoms/sample_ancestors.ged';
-import relativesFile from './gedcoms/sample_related.ged';
+import kennedyFile from './gedcoms/kennedy.ged';
 import shakespeareFile from './gedcoms/shakespeare.ged';
 import tudorFile from './gedcoms/tudors.ged';
 import gotFile from './gedcoms/GOT.ged';
@@ -61,7 +61,7 @@ const App = () => {
         <Load
           handleUpload={handleUpload}
           loadAncestors={() => readFile(ancestorsFile)}
-          loadRelatives={() => readFile(relativesFile)}
+          loadKennedys={() => readFile(kennedyFile)}
           loadShakespeare={() => readFile(shakespeareFile)}
           loadTudor={() => readFile(tudorFile)}
           loadGOT={() => readFile(gotFile)}

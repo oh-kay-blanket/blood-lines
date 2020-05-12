@@ -1,7 +1,7 @@
 import React from "react";
 import SampleButton from './SampleButton';
 
-const Load = ({ handleUpload, loadAncestors, loadRelatives, loadShakespeare, loadTudor, loadGOT, loadKardashian, showError }) => {
+const Load = ({ handleUpload, loadAncestors, loadKennedys, loadShakespeare, loadTudor, loadGOT, loadKardashian, showError }) => {
   return (
     <div id='load'>
       <div id='title-area'>
@@ -16,19 +16,19 @@ const Load = ({ handleUpload, loadAncestors, loadRelatives, loadShakespeare, loa
           loadFile={loadAncestors}
         />
         <SampleButton
-          name={'Relatives Sample'}
-          loadFile={loadRelatives}
+          name={'Kennedy'}
+          loadFile={loadKennedys}
         />
         <SampleButton
-          name={'Shakespeare Roots'}
+          name={'Shakespeare'}
           loadFile={loadShakespeare}
         />
         <SampleButton
-          name={'Kardashian Roots'}
+          name={'Kardashian'}
           loadFile={loadKardashian}
         />
         <SampleButton
-          name={'Tudor Roots'}
+          name={'Tudor'}
           loadFile={loadTudor}
         />
       </div>

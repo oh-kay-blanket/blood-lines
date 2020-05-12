@@ -386,6 +386,7 @@ const Graph = ({ d3Data, highlightedFamily, setHighlightedFamily }) => {
     fgRef.current.controls().enableDamping = true;
     fgRef.current.controls().dampingFactor = 1.3;
     fgRef.current.controls().rotateSpeed = 0.8;
+    fgRef.current.controls().screenSpacePanning = true;
   })
 
 
