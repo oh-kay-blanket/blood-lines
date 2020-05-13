@@ -1,7 +1,7 @@
 import React from "react";
 import SampleButton from './SampleButton';
 
-const Load = ({ handleUpload, loadAncestors, loadKennedys, loadShakespeare, loadTudor, loadGOT, loadKardashian, showError }) => {
+const Load = ({ handleUpload, loadHalfling, loadKennedy, loadShakespeare, loadTudor, loadGOT, loadKardashian, showError }) => {
   return (
     <div id='load'>
       <div id='title-area'>
@@ -12,20 +12,20 @@ const Load = ({ handleUpload, loadAncestors, loadKennedys, loadShakespeare, load
       <div id='button-area'>
         <p>View some example roots.</p>
         <SampleButton
-          name={'Ancestor Sample'}
-          loadFile={loadAncestors}
+        name={'Shakespeare'}
+        loadFile={loadShakespeare}
+        />
+        <SampleButton
+        name={'Kardashian'}
+        loadFile={loadKardashian}
         />
         <SampleButton
           name={'Kennedy'}
-          loadFile={loadKennedys}
+          loadFile={loadKennedy}
         />
         <SampleButton
-          name={'Shakespeare'}
-          loadFile={loadShakespeare}
-        />
-        <SampleButton
-          name={'Kardashian'}
-          loadFile={loadKardashian}
+        name={'Halfling'}
+        loadFile={loadHalfling}
         />
         <SampleButton
           name={'Tudor'}

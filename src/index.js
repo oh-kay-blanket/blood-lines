@@ -12,7 +12,7 @@ import Graph from './Graph';
 import './style.css';
 
 // GEDOM files
-import ancestorsFile from './gedcoms/sample_ancestors.ged';
+import halflingFile from './gedcoms/halfling.ged';
 import kennedyFile from './gedcoms/kennedy.ged';
 import shakespeareFile from './gedcoms/shakespeare.ged';
 import tudorFile from './gedcoms/tudors.ged';
@@ -60,8 +60,8 @@ const App = () => {
       {!showingRoots ?
         <Load
           handleUpload={handleUpload}
-          loadAncestors={() => readFile(ancestorsFile)}
-          loadKennedys={() => readFile(kennedyFile)}
+          loadHalfling={() => readFile(halflingFile)}
+          loadKennedy={() => readFile(kennedyFile)}
           loadShakespeare={() => readFile(shakespeareFile)}
           loadTudor={() => readFile(tudorFile)}
           loadGOT={() => readFile(gotFile)}

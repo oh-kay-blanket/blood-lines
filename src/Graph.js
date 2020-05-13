@@ -7,7 +7,6 @@ import SpriteText from 'three-spritetext';
 import { forceCollide } from 'd3-force-3d';
 
 const Graph = ({ d3Data, highlightedFamily, setHighlightedFamily }) => {
-  // console.log(d3Data);
 
   const [highlights, setHighlights] = useState({
     node: null,
@@ -418,7 +417,6 @@ const Graph = ({ d3Data, highlightedFamily, setHighlightedFamily }) => {
     linkColor={setLinkColor}
     linkOpacity={1}
     linkWidth={setLinkWidth}
-    linkDirectionalArrowLength={link => (link.sourceType != 'CHIL' && link.targetType == 'CHIL' && d3Data.nodes.length > 300) ? 4 : 0}
     linkDirectionalParticles={link => (link.sourceType != 'CHIL' && link.targetType == 'CHIL' && d3Data.nodes.length < 300) ? 8 : 0}
     linkDirectionalParticleWidth={setLinkParticleWidth}
     linkDirectionalParticleSpeed={.001}
