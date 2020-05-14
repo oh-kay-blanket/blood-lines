@@ -5,12 +5,12 @@ const Load = ({ handleUpload, loadHalfling, loadKennedy, loadShakespeare, loadTu
   return (
     <div id='load'>
       <div id='title-area'>
-        <h1>Roots</h1>
-        <h3>A 3D family tree visualizer</h3>
+        <h1>Blood Lines</h1>
+        <h3>A 3D visualizer for genealogical data</h3>
       </div>
 
       <div id='button-area'>
-        <p>View some example roots.</p>
+        <p>View some sample blood lines.</p>
         <SampleButton
         name={'Shakespeare'}
         loadFile={loadShakespeare}
@@ -34,7 +34,7 @@ const Load = ({ handleUpload, loadHalfling, loadKennedy, loadShakespeare, loadTu
       </div>
 
       <div id='upload-area'>
-        <p>If you have your own GEDCOM (.ged) file, upload it to see your roots.</p>
+        <p>If you have your own GEDCOM (.ged) file, upload it to see your blood lines.</p>
         { showError ? <p id='error'>File type not supported. Please use a .ged file.</p> : null}
         <input id='file-input' className='form-control' type='file' name='gedFile' onChange={handleUpload} />
       </div>

@@ -62,11 +62,11 @@ const Controls = ({ d3Data, closeRoots, setTimelineShowing, highlightedFamily, s
             <h2 onClick={handleClick}>Legend</h2>
             <div className="legend-line">
               <img src={greyLine} />
-              <p>- Parental link</p>
+              <p>- Blood line</p>
             </div>
             <div className="legend-line">
               <img src={goldLine} />
-              <p>- Romantic link</p>
+              <p>- Love line</p>
             </div>
             <hr/>
 

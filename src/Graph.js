@@ -192,15 +192,15 @@ const Graph = ({ d3Data, highlightedFamily, setHighlightedFamily }) => {
 
     return highlights.links.length < 1 ?
       highlightedFamily ?
-        'rgba(186, 186, 186, 0.15)' : // Highlighed family exists, mute all links
+        'rgba(255, 153, 153, 0.2)' : // Highlighed family exists, mute all links
         (link.sourceType != 'CHIL' && link.targetType != 'CHIL') ?
           'rgba(255, 215, 0, 0.6)' : // Romantic link
-          'rgba(186, 186, 186, 0.15)' : // Normal link
+          'rgba(255, 153, 153, 0.2)' : // Normal link
       highlights.links.indexOf(link.index) !== -1 ?
       (link.sourceType != 'CHIL' && link.targetType != 'CHIL') ?
         'rgba(255, 215, 0, 0.6)' : // Romantic link
-        'rgba(186, 186, 186, 0.15)' : // Normal link
-      'rgba(186, 186, 186, 0.15)'; // Normal link
+        'rgba(255, 153, 153, 0.2)' : // Normal link
+      'rgba(255, 153, 153, 0.2)'; // Normal link
 
     // if (highlights.links.indexOf(link.index) !== -1 || highlights.links.length < 1) {
     //   // Parent relationship
@@ -383,7 +383,7 @@ const Graph = ({ d3Data, highlightedFamily, setHighlightedFamily }) => {
 
   useEffect(() => {
     fgRef.current.controls().enableDamping = true;
-    fgRef.current.controls().dampingFactor = 1.3;
+    fgRef.current.controls().dampingFactor = 0.3;
     fgRef.current.controls().rotateSpeed = 0.8;
     fgRef.current.controls().screenSpacePanning = true;
   })

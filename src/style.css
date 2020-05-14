@@ -1,8 +1,8 @@
-@import url('http://fonts.googleapis.com/css?family=Montserrat:500|Roboto|Open+Sans');
+@import url('http://fonts.googleapis.com/css?family=Montserrat:800|Roboto|Open+Sans');
 
 :root {
-  --root-color: rgb(255, 153, 153, 0.7); /* b97c78 */
-  --root-dark: #c44d58;
+  --root-color: rgba(255, 153, 153, 0.7); /* b97c78 */
+  --root-light: #ffcccc;
 }
 
 body {
@@ -42,7 +42,7 @@ a {
 }
 
 a:hover {
-  color: var(--root-dark);
+  color: var(--root-light);
 }
 
 input {
@@ -95,7 +95,7 @@ input:hover {
 
 #error {
   font-style: italic;
-  color: var(--root-dark);
+  color: var(--root-light);
 }
 
 #button-area input {

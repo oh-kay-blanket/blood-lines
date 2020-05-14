@@ -1,15 +1,15 @@
-# Roots
-Roots is a tool for visualizing family tree data in an interactive, 3D space.  
+# Blood Lines
+Blood Lines is a tool for visualizing family tree data in an interactive, 3D space.  
 
 <!-- TOC -->
 - [Install](#install)
-- [Using Roots](#using-roots)
+- [Using Blood Lines](#using-blood-lines)
   - [Left-click & drag](#left-click--drag)
   - [Right-click & drag](#right-click--drag)
   - [Mouse wheel](#mouse-wheel)
   - [Left-click on node](#left-click-on-node)
   - [Right-click on node](#right-click-on-node)
-- [About Roots](#about-roots)
+- [About Blood Lines](#about-blood-lines)
   - [Data Parsing](#data-parsing)
   - [Visualization](#visualization)
 - [About GEDCOM](#about-gedcom)
@@ -17,10 +17,10 @@ Roots is a tool for visualizing family tree data in an interactive, 3D space.
 <!-- TOC END -->
 
 ## Install
-`git clone https://github.com/mister-blanket/roots.git roots && cd roots && npm i`    
+`git clone https://github.com/mister-blanket/blood-lines.git blood-lines && cd blood-lines && npm i`    
 `npm start`
 
-## Using Roots
+## Using Blood Lines
 #### Left-click & drag
 Moves the camera.
 
@@ -36,13 +36,13 @@ Mutes all other nodes which are not directly linked to the selected node. Clicki
 #### Right-click on node
 Zooms in on node and set it as the new pivot point for the camera.
 
-## About Roots
+## About Blood Lines
 
 #### Data Parsing
-Roots uses [GEDCOM-d3](https://github.com/mister-blanket/gedcom-d3), a custom GEDCOM parser designed for this project. It is based off of the [tmcw/parse-gedcom](https://github.com/tmcw/parse-gedcom) project.
+Blood Lines uses [GEDCOM-d3](https://github.com/mister-blanket/gedcom-d3), a custom GEDCOM parser designed for this project. It is based off of the [tmcw/parse-gedcom](https://github.com/tmcw/parse-gedcom) project.
 
 #### Visualization
-Roots uses [3D Force-Directed Graph](https://github.com/vasturiano/3d-force-graph) for visualization.
+Blood Lines uses [3D Force-Directed Graph](https://github.com/vasturiano/3d-force-graph) for visualization.
 
 ## About GEDCOM
 [GEDCOM](https://en.wikipedia.org/wiki/GEDCOM) is an open standard for exchanging genealogical data between different genealogy software. If you have created a family tree using a computer program or website, chances are you can export your data as a GEDCOM file.
