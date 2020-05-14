@@ -60,12 +60,13 @@ input:hover {
   background-color: #777;
 }
 
-#load-area {
+#load {
   z-index: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
+  height: 100vh;
   max-width: 95vw;
 }
 
@@ -80,7 +81,7 @@ input:hover {
 
 @media only screen and (min-width: 600px) {
   #title-area {
-    padding-top: 10vh;
+    /* padding-top: 10vh; */
   }
 
   #title-area, #upload-area, #button-area, #documentation-area, #error-area {
@@ -89,7 +90,7 @@ input:hover {
   }
 
   #button-area {
-    max-width: 500px;
+    max-width: 600px;
   }
 }
 
