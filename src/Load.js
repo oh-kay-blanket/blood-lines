@@ -10,7 +10,7 @@ const Load = ({ handleUpload, loadHalfling, loadKennedy, loadShakespeare, loadTu
       </div>
 
       <div id='button-area'>
-        <p>View some sample blood lines.</p>
+        <p>View some sample blood lines</p>
         <SampleButton
         name={'Shakespeare'}
         loadFile={loadShakespeare}
@@ -34,7 +34,7 @@ const Load = ({ handleUpload, loadHalfling, loadKennedy, loadShakespeare, loadTu
       </div>
 
       <div id='upload-area'>
-        <p>If you have your own GEDCOM (.ged) file, upload it to see your blood lines.</p>
+        <p>If you have your own GEDCOM (.ged) file, upload it to see your blood lines</p>
         { showError ? <p id='error'>File type not supported. Please use a .ged file.</p> : null}
         <input id='file-input' className='form-control' type='file' name='gedFile' onChange={handleUpload} />
       </div>
