@@ -310,7 +310,7 @@ const Graph = ({ d3Data, highlightedFamily, setHighlightedFamily }) => {
     let earliestTimeLabel = earliestYOB ? new SpriteText(earliestYOB) : new SpriteText("Earlier");
     earliestTimeLabel.color = '#f8f8f8';
     earliestTimeLabel.fontFace = "Montserrat";
-    earliestTimeLabel.fontWeight = 400;
+    earliestTimeLabel.fontWeight = 800;
     earliestTimeLabel.textHeight = 25;
     earliest.add(earliestTimeLabel);
 
@@ -325,7 +325,7 @@ const Graph = ({ d3Data, highlightedFamily, setHighlightedFamily }) => {
     let latestTimeLabel = latestYOB ? new SpriteText(latestYOB) : new SpriteText("Later");
     latestTimeLabel.color = '#f8f8f8';
     latestTimeLabel.fontFace = "Montserrat";
-    latestTimeLabel.fontWeight = 400;
+    latestTimeLabel.fontWeight = 800;
     latestTimeLabel.textHeight = 25;
     latest.add(latestTimeLabel);
 
@@ -340,7 +340,7 @@ const Graph = ({ d3Data, highlightedFamily, setHighlightedFamily }) => {
     let halfTimeLabel = new SpriteText(halfYOB);
     halfTimeLabel.color = '#ccc';
     halfTimeLabel.fontFace = "Montserrat";
-    halfTimeLabel.fontWeight = 400;
+    halfTimeLabel.fontWeight = 800;
     halfTimeLabel.textHeight = 15;
     half.add(halfTimeLabel);
 
@@ -355,7 +355,7 @@ const Graph = ({ d3Data, highlightedFamily, setHighlightedFamily }) => {
     let quarterTimeLabel = new SpriteText(quarterYOB);
     quarterTimeLabel.color = '#ccc';
     quarterTimeLabel.fontFace = "Montserrat";
-    quarterTimeLabel.fontWeight = 400;
+    quarterTimeLabel.fontWeight = 800;
     quarterTimeLabel.textHeight = 15;
     quarter.add(quarterTimeLabel);
 
@@ -370,7 +370,7 @@ const Graph = ({ d3Data, highlightedFamily, setHighlightedFamily }) => {
     let threeQuarterTimeLabel = new SpriteText(threeQuarterYOB);
     threeQuarterTimeLabel.color = '#ccc';
     threeQuarterTimeLabel.fontFace = "Montserrat";
-    threeQuarterTimeLabel.fontWeight = 400;
+    threeQuarterTimeLabel.fontWeight = 800;
     threeQuarterTimeLabel.textHeight = 15;
     threeQuarter.add(threeQuarterTimeLabel);
 
