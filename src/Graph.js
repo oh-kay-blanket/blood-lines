@@ -85,7 +85,7 @@ const Graph = ({ d3Data, highlightedFamily, setHighlightedFamily }) => {
         '#222'; // Dark node
 
     sprite.fontFace = "Montserrat";
-    sprite.fontWeight = 500;
+    sprite.fontWeight = 800;
     sprite.textHeight = 10;
     obj.add(sprite);
     return obj;
