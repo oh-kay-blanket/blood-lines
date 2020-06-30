@@ -107,6 +107,7 @@ input:hover {
 .sampleButton {
   margin-right: 20px;
   font-weight: normal;
+  cursor: pointer;
 }
 
 #roots-area {
