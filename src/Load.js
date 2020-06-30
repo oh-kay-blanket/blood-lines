@@ -40,7 +40,7 @@ const Load = ({ handleUpload, loadHalfling, loadKennedy, loadShakespeare, loadTu
       </div>
 
       <div id='documentation-area'>
-        <p><a href='https://github.com/mister-blanket/kin-cloud'>Documentation</a></p>
+        <p><a href='https://github.com/mister-blanket/blood-lines'>Documentation</a></p>
         <p><a href='https://mrplunkett.com'>Mr. Plunkett</a></p>
       </div>
     </div>
