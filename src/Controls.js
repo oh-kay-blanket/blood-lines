@@ -44,7 +44,7 @@ const Controls = ({ d3Data, closeRoots, setTimelineShowing, highlightedFamily, s
   const surnameList = d3Data.surnameList.filter(name => name.surname !== "").sort(compareSurname).sort(compareCount).map((family, index) =>
     <p
       key={index}
-      style={{color: !highlightedFamily ? family.color : highlightedFamily === family.surname ? family.color : '#333'}}
+      style={{color: !highlightedFamily ? family.color : highlightedFamily === family.surname ? family.color : '#333', cursor: 'pointer'}}
       onClick={e => highlightedFamily === family.surname ? setHighlightedFamily() : setHighlightedFamily(family.surname) }>
       {family.surname} ({family.count})
     </p>
