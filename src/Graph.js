@@ -201,19 +201,6 @@ const Graph = ({ d3Data, highlightedFamily, setHighlightedFamily }) => {
         'rgba(255, 215, 0, 0.6)' : // Romantic link
         'rgba(255, 153, 153, 0.2)' : // Normal link
       'rgba(255, 153, 153, 0.2)'; // Normal link
-
-    // if (highlights.links.indexOf(link.index) !== -1 || highlights.links.length < 1) {
-    //   // Parent relationship
-    //   if (link.sourceType != 'CHIL' && link.targetType == 'CHIL') {
-    //     return 'rgba(186, 186, 186, 0.15)';
-    //
-    //   // Romantic relationship
-    //   } else if (link.sourceType != 'CHIL' && link.targetType != 'CHIL') {
-    //     return 'rgba(255, 215, 0, 0.6)';
-    //   }
-    // } else {
-    //   return '#333';
-    // }
   }
 
   // Link width
@@ -239,6 +226,30 @@ const Graph = ({ d3Data, highlightedFamily, setHighlightedFamily }) => {
     setHighlights({node: null, family: [], links: []});
     setHighlightedFamily();
   }
+
+  // Add fog
+  useEffect(() => {
+    console.log(d3Data.nodes.length);
+    let fogNear = 400;
+    let fogFar = 4000;
+    if (d3Data.nodes.length < 50) {
+      console.log('one');
+      fogNear = 400;
+      fogFar = 1800;
+    } else if (d3Data.nodes.length < 120) {
+      console.log('two');
+      fogNear = 400;
+      fogFar = 2200;
+    };
+
+    const fogColor = new THREE.Color(0x111111);
+
+    var myFog = new THREE.Fog(fogColor, fogNear, fogFar);
+    var myFogg = new THREE.FogExp2(fogColor, 0.0025);
+
+    if (d3Data.nodes.length < 200) {fgRef.current.scene().fog = myFog;}
+  }, []);
+
 
   // Add timeline
   useEffect(() => {
@@ -268,7 +279,7 @@ const Graph = ({ d3Data, highlightedFamily, setHighlightedFamily }) => {
     var line = new THREE.Line( geometry, material );
 
     fgRef.current.scene().add(line);
-  });
+  }, []);
 
   // Add timeline YEAR
   useEffect(() => {
@@ -379,14 +390,14 @@ const Graph = ({ d3Data, highlightedFamily, setHighlightedFamily }) => {
     highestY-lowestY > 300 && fgRef.current.scene().add(half);
     highestY-lowestY > 450 && fgRef.current.scene().add(quarter);
     highestY-lowestY > 450 && fgRef.current.scene().add(threeQuarter);
-  });
+  }, []);
 
   useEffect(() => {
     fgRef.current.controls().enableDamping = true;
     fgRef.current.controls().dampingFactor = 0.3;
     fgRef.current.controls().rotateSpeed = 0.8;
     fgRef.current.controls().screenSpacePanning = true;
-  })
+  }, [])
 
 
   // Create graph
