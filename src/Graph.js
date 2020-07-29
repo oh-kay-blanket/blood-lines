@@ -72,17 +72,39 @@ const Graph = ({ d3Data, highlightedFamily, setHighlightedFamily }) => {
     }
     let sprite = new SpriteText(name);
 
+    // Sprite defaults
+    const coloredSprite = () => {
+      sprite.color = node.color;
+      sprite.backgroundColor = '#222';
+      sprite.borderColor = '#222';
+      sprite.borderWidth = 2;
+    }
+
+    const greyedSprite = () => {
+      sprite.color = '#222';
+      sprite.backgroundColor = false;
+      sprite.borderWidth = 0;
+    }
+
     // NODE.COLOR
-    sprite.color =
-      highlights.node === null ? // No highlighted node
-        highlightedFamily ?
-          highlightedFamily === node.surname ?
-            node.color : // Current node part of highlighted family
-            '#222' : // Current node NOT part of highlighted family?
-          node.color : // No highlighted family
-      highlights.family.indexOf(node.id) !== -1 ?
-        node.color : // Highlighted node or family
-        '#222'; // Dark node
+    // No highlighted node
+    if (highlights.node === null) {
+      if (highlightedFamily) {
+        if (highlightedFamily === node.surname) {
+          coloredSprite();
+        } else {
+          greyedSprite();
+        }
+      } else {
+        coloredSprite();
+      }
+    } else {
+      if (highlights.family.indexOf(node.id) !== -1) {
+        coloredSprite();
+      } else {
+        greyedSprite();
+      }
+    }
 
     sprite.fontFace = "Montserrat";
     sprite.fontWeight = 800;
