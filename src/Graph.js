@@ -230,16 +230,12 @@ const Graph = ({ d3Data, highlightedFamily, setHighlightedFamily }) => {
   // Add fog
   useEffect(() => {
     console.log(d3Data.nodes.length);
-    let fogNear = 400;
-    let fogFar = 4000;
-    if (d3Data.nodes.length < 50) {
-      console.log('one');
-      fogNear = 400;
-      fogFar = 1800;
-    } else if (d3Data.nodes.length < 120) {
+    let fogNear = 1000;
+    let fogFar = 8000;
+    if (d3Data.nodes.length < 120) {
       console.log('two');
-      fogNear = 400;
-      fogFar = 2200;
+      fogNear = 600;
+      fogFar = 4000;
     };
 
     const fogColor = new THREE.Color(0x111111);
@@ -247,7 +243,7 @@ const Graph = ({ d3Data, highlightedFamily, setHighlightedFamily }) => {
     var myFog = new THREE.Fog(fogColor, fogNear, fogFar);
     var myFogg = new THREE.FogExp2(fogColor, 0.0025);
 
-    if (d3Data.nodes.length < 200) {fgRef.current.scene().fog = myFog;}
+    fgRef.current.scene().fog = myFog;
   }, []);
 
 
