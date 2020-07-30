@@ -75,9 +75,10 @@ const Graph = ({ d3Data, highlightedFamily, setHighlightedFamily }) => {
     // Sprite defaults
     const coloredSprite = () => {
       sprite.color = node.color;
-      sprite.backgroundColor = '#222';
-      sprite.borderColor = '#222';
-      sprite.borderWidth = 2;
+      sprite.backgroundColor = '#111';
+      // sprite.padding = 1;
+      sprite.borderColor = '#444';
+      // sprite.borderWidth = 1;
     }
 
     const greyedSprite = () => {
@@ -107,7 +108,7 @@ const Graph = ({ d3Data, highlightedFamily, setHighlightedFamily }) => {
     }
 
     sprite.fontFace = "Montserrat";
-    sprite.fontWeight = 800;
+    sprite.fontWeight = 600;
     sprite.textHeight = 10;
     obj.add(sprite);
     return obj;
