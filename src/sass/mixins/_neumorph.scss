@@ -6,8 +6,8 @@
   background-color: color.$grey;
   color: color.$root;
   border-radius: 7px;
-  box-shadow: 6px 6px 10px color.$grey-dark, -3px -3px 4px color.$grey-light;
-  border: 1px solid color.$grey-light;
+  box-shadow: 6px 6px 15px 3px color.$grey-dark, -3px -3px 14px 3px color.$grey-light;
+  border: 1px solid color.$grey-light-soft;
   transition: .25s;
 
   @media (min-width: 600px) {
@@ -21,7 +21,7 @@
 }
 
 @mixin neumorph-active {
-  box-shadow: inset 6px 6px 10px color.$grey-dark, inset -4px -4px 5px color.$grey-light;
+  box-shadow: inset 1px 1px 10px color.$grey-dark, inset -1px -1px 5px color.$grey-light;
 }
 
 @mixin neumorph-black {
@@ -37,4 +37,8 @@
 @mixin neumorph-black-hover {
   box-shadow: 3px 3px 4px color.$black-dark, -1px -1px 2px color.$black-light;
   transition: .25s;
+}
+
+@mixin neumorph-black-active {
+  box-shadow: inset 1px 1px 10px color.$black-dark, inset -1px -1px 5px color.$black-light;
 }

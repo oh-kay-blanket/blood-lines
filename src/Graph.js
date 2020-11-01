@@ -75,7 +75,7 @@ const Graph = ({ d3Data, highlightedFamily, setHighlightedFamily }) => {
     // Sprite defaults
     const coloredSprite = () => {
       sprite.color = node.color;
-      sprite.backgroundColor = '#111';
+      sprite.backgroundColor = '#222';
       // sprite.padding = 1;
       sprite.borderColor = '#444';
       // sprite.borderWidth = 1;
@@ -427,7 +427,7 @@ const Graph = ({ d3Data, highlightedFamily, setHighlightedFamily }) => {
     // Display
     width={width}
     height={height}
-    backgroundColor={'#111'}
+    backgroundColor={'#222'}
     showNavInfo={false}
 
     // Controls

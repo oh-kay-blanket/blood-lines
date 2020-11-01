@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 
-import backButton from './img/back-button.png';
 import greyLine from './img/grey-line.png';
 import goldLine from './img/gold-line.png';
 
@@ -53,7 +52,7 @@ const Controls = ({ d3Data, closeRoots, setTimelineShowing, highlightedFamily, s
   return (
     <div id='controls'>
       <div id="back-button" onClick={closeRoots}>
-        <img src={backButton} />
+        <i className="fa fa-times" aria-hidden="true"></i> 
       </div>
 
       <div id="legend">

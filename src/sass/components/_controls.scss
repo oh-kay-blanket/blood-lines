@@ -6,20 +6,26 @@
 }
 
 #back-button {
-  @include neumorph.neumorph-black;
+  @include neumorph.neumorph;
   position: fixed;
   padding: 10px;
   margin: 15px;
   width: 25px;
   height: 25px;
+  text-align: center;
+  font-size: 1.2rem;
 
   &:hover {
-    @include neumorph.neumorph-black-hover;
+    @include neumorph.neumorph-hover;
   }
 
-  img {
-    width: 25px;
-    height: 25px;
+  &:active {
+    @include neumorph.neumorph-active;
+  }
+
+  i {
+
+
   }
 }
 
@@ -30,10 +36,14 @@
   margin: 15px;
 
   & > p {
-    @include neumorph.neumorph-black;
+    @include neumorph.neumorph;
 
     &:hover {
-      @include neumorph.neumorph-black-hover;
+      @include neumorph.neumorph-hover;
+    }
+
+    &:active {
+      @include neumorph.neumorph-active;
     }
   }
 
@@ -82,10 +92,14 @@
   margin: 15px;
 
   & > p {
-    @include neumorph.neumorph-black;
+    @include neumorph.neumorph;
 
     &:hover {
-      @include neumorph.neumorph-black-hover;
+      @include neumorph.neumorph-hover;
+    }
+
+    &:active {
+      @include neumorph.neumorph-active;
     }
   }
 

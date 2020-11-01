@@ -48,7 +48,7 @@
     .sampleButton {
       margin-right: 20px;
       color: color.$root;
-      background-color: color.$grey-light;
+      background-color: color.$grey;
       font-weight: normal;
       cursor: pointer;
     }
@@ -64,6 +64,10 @@
 
     &:hover {
       @include neumorph.neumorph-hover;
+    }
+
+    &:active {
+      @include neumorph.neumorph-active;
     }
   }
 
