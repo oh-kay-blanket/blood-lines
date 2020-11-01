@@ -1,0 +1,81 @@
+@use 'base/color';
+@use 'mixins/neumorph';
+
+@import url('http://fonts.googleapis.com/css?family=Montserrat:800|Roboto|Open+Sans');
+
+#load {
+  z-index: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+
+  div {
+    max-width: 900px;
+  }
+
+  section {
+    margin-top: 15px;
+    padding-left: 5vw;
+
+  }
+
+  h1 {
+    font-family: 'Montserrat', 'Open Sans', sans-serif;
+    font-weight: 800;
+    font-size: 3em;
+    margin: 0px;
+    color: color.$root;
+
+    @media only screen and (min-width: 600px) {
+      font-size: 5em;
+      margin-left: -7px;
+    }
+  }
+
+  h3 {
+    margin: 0px auto;
+    font-weight: 400px;
+  }
+
+
+  .button-area {
+    @media (min-width: 600px) {
+      max-width: 650px;
+    }
+
+    .sampleButton {
+      margin-right: 20px;
+      color: color.$root;
+      background-color: color.$grey-light;
+      font-weight: normal;
+      cursor: pointer;
+    }
+  }
+
+  .error {
+    font-style: italic;
+    color: color.$root;
+  }
+
+  input, a {
+    @include neumorph.neumorph;
+
+    &:hover {
+      @include neumorph.neumorph-hover;
+    }
+  }
+
+  .links {
+    display: flex;
+
+    p {
+      margin-right: 20px;
+    }
+  }
+
+  a {
+    text-decoration: none;
+  }
+}

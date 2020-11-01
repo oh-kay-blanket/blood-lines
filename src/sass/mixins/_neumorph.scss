@@ -1,0 +1,40 @@
+@use 'base/color';
+
+@mixin neumorph {
+  margin-bottom: 15px;
+  padding: 8px;
+  background-color: color.$grey;
+  color: color.$root;
+  border-radius: 7px;
+  box-shadow: 6px 6px 10px color.$grey-dark, -3px -3px 4px color.$grey-light;
+  border: 1px solid color.$grey-light;
+  transition: .25s;
+
+  @media (min-width: 600px) {
+    padding: 12px;
+  }
+}
+
+@mixin neumorph-hover {
+  box-shadow: 3px 3px 4px color.$grey-dark, -1px -1px 2px color.$grey-light;
+  transition: .25s;
+}
+
+@mixin neumorph-active {
+  box-shadow: inset 6px 6px 10px color.$grey-dark, inset -4px -4px 5px color.$grey-light;
+}
+
+@mixin neumorph-black {
+  padding: 12px;
+  background-color: color.$black;
+  color: color.$root;
+  border-radius: 7px;
+  box-shadow: 6px 6px 10px color.$black-dark, -3px -3px 4px color.$black-light;
+  border: 1px solid color.$black-light;
+  transition: .25s;
+}
+
+@mixin neumorph-black-hover {
+  box-shadow: 3px 3px 4px color.$black-dark, -1px -1px 2px color.$black-light;
+  transition: .25s;
+}

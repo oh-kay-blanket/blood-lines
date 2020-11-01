@@ -9,7 +9,7 @@ import Controls from './Controls';
 import Graph from './Graph';
 
 // Style
-import './style.css';
+import './sass/style.scss';
 
 // GEDOM files
 import halflingFile from './gedcoms/halfling.ged';

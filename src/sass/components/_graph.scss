@@ -1,0 +1,33 @@
+@use 'base/color';
+@use 'mixins/neumorph';
+
+#roots-area {
+  z-index: 1;
+  position: absolute;
+}
+
+.node-label {
+  @include neumorph.neumorph-black;
+  padding: 15px 25px;
+  max-width: 400px;
+  background-color: color.$grey;
+  color: #fcfcfc;
+  text-align: left;
+}
+
+.node-label h4 {
+  margin-bottom: 0px;
+  font-size: 1.2rem;
+}
+
+.node-label p {
+  font-size: 1rem;
+}
+
+.link-label {
+  padding: 15px 25px;
+  max-width: 400px;
+  background-color: color.$grey;
+  color: color.$text;
+  text-align: center;
+}
