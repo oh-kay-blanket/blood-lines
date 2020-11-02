@@ -10,10 +10,12 @@ const Controls = ({ d3Data, closeRoots, setTimelineShowing, highlightedFamily, s
 
   const toggleLegend = () => {
     setShowingLegend(prevState => !prevState);
+    setShowingsurnames(false);
   }
 
   const toggleSurnames = () => {
     setShowingsurnames(prevState => !prevState);
+    setShowingLegend(false);
   }
 
   const handleClick = () => {
@@ -52,7 +54,7 @@ const Controls = ({ d3Data, closeRoots, setTimelineShowing, highlightedFamily, s
   return (
     <div id='controls'>
       <div id="back-button" onClick={closeRoots}>
-        <i className="fa fa-times" aria-hidden="true"></i> 
+        <i className="fa fa-times" aria-hidden="true"></i>
       </div>
 
       <div id="legend">
@@ -67,7 +69,6 @@ const Controls = ({ d3Data, closeRoots, setTimelineShowing, highlightedFamily, s
               <img src={goldLine} />
               <p>- Love line</p>
             </div>
-            <hr/>
 
             <h2>Controls</h2>
             <p><b>Hover over name</b> - Person info</p>
@@ -80,14 +81,14 @@ const Controls = ({ d3Data, closeRoots, setTimelineShowing, highlightedFamily, s
 
           </div>
         }
-        <p id="legend-button" onClick={toggleLegend}>{showingLegend ? 'Hide ▼' : 'Info ▲'}</p>
+        <p id="legend-button" className={showingLegend && 'active'} onClick={toggleLegend}>{'Info'}</p>
       </div>
 
       <div id="surnames">
         {showingsurnames &&
           <>
             <div className="surnames-heading">
-              <h2>Surnames</h2>
+              <h2>Names</h2>
               <p>Click name to toggle highlight</p>
             </div>
             <div className="surnames-content">
@@ -95,7 +96,7 @@ const Controls = ({ d3Data, closeRoots, setTimelineShowing, highlightedFamily, s
             </div>
           </>
         }
-        <p id="surnames-button" onClick={toggleSurnames}>{showingsurnames ? 'Hide ▼' : 'Surnames ▲'}</p>
+        <p id="surnames-button" className={showingsurnames && 'active'} onClick={toggleSurnames}>{'Names'}</p>
       </div>
     </div>
   )

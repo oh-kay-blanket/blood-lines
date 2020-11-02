@@ -3,7 +3,7 @@
 @mixin neumorph {
   margin-bottom: 15px;
   padding: 8px;
-  background-color: color.$grey;
+  background-color: color.$grey-light;
   color: color.$root;
   border-radius: 7px;
   box-shadow: 6px 6px 15px 3px color.$grey-dark, -3px -3px 14px 3px color.$grey-light;
@@ -21,7 +21,7 @@
 }
 
 @mixin neumorph-active {
-  box-shadow: inset 1px 1px 10px color.$grey-dark, inset -1px -1px 5px color.$grey-light;
+  box-shadow: inset 1px 1px 5px color.$grey-dark, inset -1px -1px 5px color.$grey-light;
 }
 
 @mixin neumorph-black {
