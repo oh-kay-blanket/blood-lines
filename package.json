@@ -38,7 +38,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-force-graph-3d": "^1.17.0",
-    "three": "^0.109.0",
+    "three": "^0.125.0",
     "three-spritetext": "^1.5.1",
     "tree-crawl": "^1.0.5"
   }
