@@ -252,11 +252,10 @@ const Graph = ({ d3Data, highlightedFamily, setHighlightedFamily }) => {
 
   // Add fog
   useEffect(() => {
-    console.log(d3Data.nodes.length);
+    // console.log(d3Data.nodes.length);
     let fogNear = 1000;
     let fogFar = 8000;
     if (d3Data.nodes.length < 120) {
-      console.log('two');
       fogNear = 600;
       fogFar = 4000;
     };
