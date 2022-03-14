@@ -12,6 +12,9 @@ module.exports = {
       template: "./src/index.html",
       filename: "./index.html"
     }),
+    new HtmlWebpackPlugin({
+      favicon: "./src/img/logo.png"
+    })
   ],
   output: {
     filename: 'bundle.js',
