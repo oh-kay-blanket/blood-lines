@@ -46,7 +46,7 @@
 
     &:active, &.active {
       @include neumorph.neumorph-active;
-      border-radius: 0px 0px 7px 7px;
+      border-radius: 0px 0px 15px 15px;
     }
   }
 
@@ -54,7 +54,7 @@
     width: 300px;
     max-height: 300px;
     background-color: color.$grey-light;
-    border-radius: 7px 7px 0px 0px;
+    border-radius: 15px 15px 0px 0px;
     overflow-y: auto;
 
     h2 {
@@ -85,6 +85,7 @@
 }
 
 #legend-button, #surnames-button {
+  text-align: center;
   color: #888;
 
   &:hover {
@@ -110,7 +111,7 @@
 
     &:active, &.active {
       @include neumorph.neumorph-active;
-      border-radius: 0px 0px 7px 7px;
+      border-radius: 0px 0px 15px 15px;
     }
   }
 
@@ -118,13 +119,13 @@
     max-height: 400px;
     overflow-y: auto;
     background-color: color.$grey-light;
-    border-radius: 0px 0px 0px 7px;
+    border-radius: 0px 0px 0px 15px;
   }
 
   .surnames-heading {
     padding-bottom: 0px;
     background-color: color.$grey-light;
-    border-radius: 7px 7px 0px 0px;
+    border-radius: 15px 15px 0px 0px;
 
     h2 {
       margin: 5px auto;

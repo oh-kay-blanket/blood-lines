@@ -1,7 +1,7 @@
 @use 'base/color';
 @use 'mixins/neumorph';
 
-@import url('http://fonts.googleapis.com/css?family=Montserrat:800|Roboto|Open+Sans');
+@import url(https://fonts.googleapis.com/css?family==Montserrat:wght@800&display=swap|Roboto:ital,wght@0,100;0,200;0,500;0,600;0,700;0,800;1,100;1,500;1,700;);
 
 #load {
   z-index: 0;
@@ -23,7 +23,6 @@
 
   h1 {
     font-family: 'Montserrat', 'Open Sans', sans-serif;
-    font-weight: 800;
     font-size: 3em;
     margin: 0px;
     color: color.$root;
@@ -47,8 +46,8 @@
 
     .sampleButton {
       margin-right: 20px;
-      color: color.$root;
-      background-color: color.$grey-light;
+      color: color.$text;
+      background-color: color.$root;
       font-weight: normal;
       cursor: pointer;
     }
@@ -59,7 +58,7 @@
     color: color.$root;
   }
 
-  input, a {
+  input {
     @include neumorph.neumorph;
 
     &:hover {
@@ -69,6 +68,10 @@
     &:active {
       @include neumorph.neumorph-active;
     }
+  }
+
+  a {
+    color: color.$root;
   }
 
   .links {

@@ -60,7 +60,7 @@ const Controls = ({ d3Data, closeRoots, setTimelineShowing, highlightedFamily, s
       <div id="legend">
         {showingLegend &&
           <div id="legend-content">
-            <h2 onClick={handleClick}>Legend</h2>
+            <h2 onClick={handleClick}>legend</h2>
             <div className="legend-line">
               <img src={greyLine} />
               <p>- Blood line</p>
@@ -70,7 +70,7 @@ const Controls = ({ d3Data, closeRoots, setTimelineShowing, highlightedFamily, s
               <p>- Love line</p>
             </div>
 
-            <h2>Controls</h2>
+            <h2>controls</h2>
             <p><b>Hover over name</b> - Person info</p>
             <p><b>Hover over line</b> - Relationship info</p>
             <p><b>Left-click name</b> - Highlight</p>
@@ -81,22 +81,22 @@ const Controls = ({ d3Data, closeRoots, setTimelineShowing, highlightedFamily, s
 
           </div>
         }
-        <p id="legend-button" className={showingLegend && 'active'} onClick={toggleLegend}>{'Info'}</p>
+        <p id="legend-button" className={showingLegend && 'active'} onClick={toggleLegend}>{'info'}</p>
       </div>
 
       <div id="surnames">
         {showingsurnames &&
           <>
             <div className="surnames-heading">
-              <h2>Names</h2>
-              <p>Click name to toggle highlight</p>
+              <h2>names</h2>
+              <p>click name to toggle highlight</p>
             </div>
             <div className="surnames-content">
               {surnameList}
             </div>
           </>
         }
-        <p id="surnames-button" className={showingsurnames && 'active'} onClick={toggleSurnames}>{'Names'}</p>
+        <p id="surnames-button" className={showingsurnames && 'active'} onClick={toggleSurnames}>{'names'}</p>
       </div>
     </div>
   )

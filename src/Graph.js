@@ -1,6 +1,5 @@
 // Modules
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import ReactDOM from "react-dom";
 import ForceGraph3D from 'react-force-graph-3d';
 import * as THREE from 'three';
 import SpriteText from 'three-spritetext';

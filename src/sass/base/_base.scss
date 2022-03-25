@@ -1,13 +1,13 @@
 @use 'base/color';
 
-@import url('http://fonts.googleapis.com/css?family=Montserrat:800|Roboto|Open+Sans');
+@import url(https://fonts.googleapis.com/css?family=Roboto:ital,wght@0,100;0,200;0,500;0,600;0,700;0,800;1,100;1,500;1,700;);
 
 body {
   margin: 0px;
   padding: 0px;
   overflow-x: hidden;
   overflow-y: hidden;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Roboto', "Montserrat", 'Open Sans', sans-serif;
   // font-weight: 800;
   background-color: color.$grey;
   color: color.$text;
