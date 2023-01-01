@@ -10,9 +10,6 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: 'blood lines',
       template: "./src/index.html",
-      filename: "./index.html"
-    }),
-    new HtmlWebpackPlugin({
       favicon: "./src/img/logo.png"
     })
   ],
@@ -22,7 +19,7 @@ module.exports = {
   },
   devtool: 'inline-source-map',
   devServer: {
-    contentBase: './dist',
+    static: './dist',
     host: '0.0.0.0'
   },
   module: {
@@ -50,13 +47,11 @@ module.exports = {
         use: 'raw-loader',
       },
       {
-        test: /\.(png|svg|jpg|gif)$/,
-        use: [
-          'file-loader',
+        exclude: [
+          /\.ejs$/,
+          /\.html$/
         ],
-      },
-      {
-        test: /\.(woff|woff2|eot|ttf|otf)$/,
+        test: /\.(png|svg|jpg|gif|woff|woff2|eot|ttf|otf)$/,
         use: [
           'file-loader',
         ],

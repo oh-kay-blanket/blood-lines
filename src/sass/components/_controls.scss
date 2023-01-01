@@ -1,5 +1,5 @@
-@use 'base/color';
-@use 'mixins/neumorph';
+@use '../base/color';
+@use '../mixins/neumorph';
 
 #controls #back-button, #controls #legend, #controls #surnames {
   z-index: 2;
