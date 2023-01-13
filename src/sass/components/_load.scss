@@ -22,7 +22,6 @@
   }
 
   h1 {
-    font-family: 'Montserrat', 'Open Sans', sans-serif;
     font-size: 3em;
     margin: 0px;
     color: color.$root;
@@ -50,6 +49,12 @@
       background-color: color.$root;
       font-weight: normal;
       cursor: pointer;
+      transition: background-color .25s;
+
+      &:hover {
+        transition: background-color .25s;
+        background-color: #ed4a49aa;
+      }
     }
   }
 
@@ -63,6 +68,8 @@
 
     &:hover {
       @include neumorph.neumorph-hover;
+      transition: background-color .25s;
+        background-color: #ed4a49aa;
     }
 
     &:active {
