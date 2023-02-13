@@ -75,20 +75,13 @@ const Graph = ({ d3Data, highlightedFamily, setHighlightedFamily }) => {
     const coloredSprite = () => {
       sprite.color = node.color;
       sprite.backgroundColor = '#000c';
-      sprite.padding = 4;
       sprite.borderColor = '#555';
-      sprite.borderWidth = 1;
-      sprite.borderRadius = 3;
     }
 
     const greyedSprite = () => {
       sprite.color = '#3338';
-      sprite.backgroundColor = false;
       sprite.backgroundColor = '#0002';
-      sprite.padding = 4;
       sprite.borderColor = '#3333';
-      sprite.borderWidth = 1;
-      sprite.borderRadius = 3;
     }
 
     // NODE.COLOR
@@ -114,6 +107,9 @@ const Graph = ({ d3Data, highlightedFamily, setHighlightedFamily }) => {
     sprite.fontFace = "Helvetica";
     sprite.fontWeight = 600;
     sprite.textHeight = 10;
+    sprite.borderWidth = 1;
+    sprite.borderRadius = 3;
+    sprite.padding = 4;
     obj.add(sprite);
     return obj;
   }
@@ -227,7 +223,7 @@ const Graph = ({ d3Data, highlightedFamily, setHighlightedFamily }) => {
       (link.sourceType != 'CHIL' && link.targetType != 'CHIL') ?
         'rgba(255, 215, 0, 0.6)' : // Romantic link
         'rgba(255, 153, 153, 0.2)' : // Normal link
-      'rgba(255, 153, 153, 0.2)'; // Normal link
+      'rgba(255, 153, 153, 0.02)'; // Normal link
   }
 
   // Link width
