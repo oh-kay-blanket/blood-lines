@@ -74,7 +74,7 @@ const Graph = ({ d3Data, highlightedFamily, setHighlightedFamily }) => {
     // Sprite defaults
     const coloredSprite = () => {
       sprite.color = node.color;
-      sprite.backgroundColor = '#000';
+      sprite.backgroundColor = '#000c';
       sprite.padding = 4;
       sprite.borderColor = '#555';
       sprite.borderWidth = 1;
@@ -82,9 +82,13 @@ const Graph = ({ d3Data, highlightedFamily, setHighlightedFamily }) => {
     }
 
     const greyedSprite = () => {
-      sprite.color = '#222';
+      sprite.color = '#3338';
       sprite.backgroundColor = false;
-      sprite.borderWidth = 0;
+      sprite.backgroundColor = '#0002';
+      sprite.padding = 4;
+      sprite.borderColor = '#3333';
+      sprite.borderWidth = 1;
+      sprite.borderRadius = 3;
     }
 
     // NODE.COLOR
