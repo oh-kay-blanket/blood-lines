@@ -3,7 +3,7 @@ import React, {useState} from "react";
 import greyLine from './img/grey-line.png';
 import goldLine from './img/gold-line.png';
 
-const Controls = ({ d3Data, closeRoots, setTimelineShowing, highlightedFamily, setHighlightedFamily }) => {
+const Controls = ({ d3Data, closeRoots, setTimelineShowing, highlightedFamily, setHighlightedFamily, hoveredNode}) => {
 
   const [showingLegend, setShowingLegend] = useState(false);
   const [showingsurnames, setShowingsurnames] = useState(false);
@@ -51,6 +51,24 @@ const Controls = ({ d3Data, closeRoots, setTimelineShowing, highlightedFamily, s
     </p>
   );
 
+  const nodeInfoInsert = (node) => {      
+
+    // Gender
+    const labelGender = (node.gender === 'M') ? `♂` : `♀`;
+
+    return (
+      <div id="node-info--content">
+        {node.title ? <h4 class="node-title"><span style={{color:node.color}}>{node.name} ({node.title})</span> {labelGender}</h4> :
+          <h4><span style={{color:node.color}}>{node.name}</span> {labelGender}</h4>}
+        <p><b>{node.yob} - {node.yod}</b></p>
+        {node.pob != '' && <p><b>From:</b> {node.pob}</p>}
+        {node.pod != '' && <p><b>Died:</b> {node.pod}</p>}
+        {node.bio && <p>{node.bio}</p>}
+      </div>
+    );    
+  }
+  
+
   return (
     <div id='controls'>
       <div id="back-button" onClick={closeRoots}>
@@ -82,6 +100,10 @@ const Controls = ({ d3Data, closeRoots, setTimelineShowing, highlightedFamily, s
           </div>
         }
         <p id="legend-button" className={showingLegend && 'active'} onClick={toggleLegend}>{'info'}</p>
+      </div>
+
+      <div id="node-info">
+        {!!hoveredNode && nodeInfoInsert(hoveredNode)}
       </div>
 
       <div id="surnames">

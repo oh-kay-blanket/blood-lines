@@ -26,6 +26,7 @@ const App = () => {
   const [showError, setShowError] = useState(false);
   const [timelineShowing, setTimelineShowing] = useState(false);
   const [highlightedFamily, setHighlightedFamily] = useState();
+  const [hoveredNode, setHoveredNode] = useState(null);
 
   const readFile = file => {
     setD3Data(d3ize(parse(file)));  // Parse data
@@ -75,11 +76,13 @@ const App = () => {
             setTimelineShowing={setTimelineShowing}
             highlightedFamily={highlightedFamily}
             setHighlightedFamily={setHighlightedFamily}
+            hoveredNode={hoveredNode}
           />
           <Graph
             d3Data={d3Data}
             highlightedFamily={highlightedFamily}
             setHighlightedFamily={setHighlightedFamily}
+            setHoveredNode={setHoveredNode}
           />
         </>
       }

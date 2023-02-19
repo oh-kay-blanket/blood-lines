@@ -1,7 +1,7 @@
 @use '../base/color';
 @use '../mixins/neumorph';
 
-#controls #back-button, #controls #legend, #controls #surnames {
+#controls #back-button, #controls #legend, #controls #surnames, #node-info {
   z-index: 2;
 }
 
@@ -79,7 +79,7 @@
   }
 }
 
-#legend-button, #legend-content, #surnames-button, .surnames-content, .surnames-heading {
+#legend-button, #legend-content, #surnames-button, .surnames-content, .surnames-heading, #node-info, #node-info--content {
   margin: 0px auto;
   padding: 3px 15px;
 }
@@ -135,6 +135,44 @@
       margin: 0px auto;
       font-size: 0.85rem;
       color: #888;
+    }
+  }
+}
+
+#node-info {
+  bottom: 0;
+  position: fixed;
+  margin: 15px;
+
+  & > p {
+    width: 40px;
+    margin-left: 0px;
+    @include neumorph.neumorph;
+
+    &:hover {
+      @include neumorph.neumorph-hover;
+    }
+
+    &:active, &.active {
+      @include neumorph.neumorph-active;
+      border-radius: 15px;
+    }
+  }
+
+  #node-info--content {
+    width: 300px;
+    max-height: 80vh;
+    background-color: color.$grey-light;
+    border-radius: 15px 15px;
+    overflow-y: auto;
+
+    h2 {
+      margin: 5px auto;
+      font-weight: 800;
+    }
+
+    p {
+      margin: 5px 0px;
     }
   }
 }

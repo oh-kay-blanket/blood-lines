@@ -5,7 +5,7 @@ import * as THREE from 'three';
 import SpriteText from 'three-spritetext';
 import { forceCollide } from 'd3-force-3d';
 
-const Graph = ({ d3Data, highlightedFamily, setHighlightedFamily }) => {
+const Graph = ({ d3Data, highlightedFamily, setHighlightedFamily, setHoveredNode }) => {
 
   const [highlights, setHighlights] = useState({
     node: null,
@@ -67,7 +67,7 @@ const Graph = ({ d3Data, highlightedFamily, setHighlightedFamily }) => {
     if (node.firstName == '?') {
       name = node.name;
     } else {
-      name = node.surname.toUpperCase() + ', ' + node.firstName;
+      name = `${node.firstName} ${node.surname}`;
     }
     let sprite = new SpriteText(name);
 
@@ -145,6 +145,11 @@ const Graph = ({ d3Data, highlightedFamily, setHighlightedFamily }) => {
     }
 
     return label += '</div>';
+  }
+
+  // Node label
+  const setNodeInfo = node => {
+    setHoveredNode(node);
   }
 
   // Handle node click
@@ -426,7 +431,7 @@ const Graph = ({ d3Data, highlightedFamily, setHighlightedFamily }) => {
     // Display
     width={width}
     height={height}
-    backgroundColor={'#222'}
+    backgroundColor={'#010000'}
     showNavInfo={false}
 
     // Controls
@@ -436,7 +441,8 @@ const Graph = ({ d3Data, highlightedFamily, setHighlightedFamily }) => {
     onBackgroundRightClick={clearHighlights}
 
     // Nodes
-    nodeLabel={setNodeLabel}
+    nodeLabel={false}
+    onNodeHover={setNodeInfo}
     nodeThreeObject={setNodeThreeObject}
     onNodeClick={node => showFamily(d3Data, node, highlights)}
     onNodeRightClick={node => handleRightClick(d3Data, node, highlights)}
