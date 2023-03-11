@@ -79,7 +79,7 @@ const Graph = ({ d3Data, highlightedFamily, setHighlightedFamily, setHoveredNode
     }
 
     const greyedSprite = () => {
-      sprite.color = '#3338';
+      sprite.color = '#3335';
       sprite.backgroundColor = '#0002';
       sprite.borderColor = '#3333';
     }
@@ -108,7 +108,7 @@ const Graph = ({ d3Data, highlightedFamily, setHighlightedFamily, setHoveredNode
     sprite.fontWeight = 600;
     sprite.textHeight = 10;
     sprite.borderWidth = 1;
-    sprite.borderRadius = 3;
+    sprite.borderRadius = 8;
     sprite.padding = 4;
     obj.add(sprite);
     return obj;
@@ -123,26 +123,7 @@ const Graph = ({ d3Data, highlightedFamily, setHighlightedFamily, setHoveredNode
     // Gender
     const labelGender = (node.gender === 'M') ? `♂` : `♀`;
 
-    // Name
-    if (node.title) {
-      label += `<h4 class="node-title"><span style="color:${node.color}">${node.name} (${node.title})</span> ${labelGender}</h4>`;
-    } else {
-      label += `<h4><span style="color:${node.color}">${node.name}</span> ${labelGender}</h4>`;
-    }
-    // Lifespan
-    label += `<p><b>${node.yob} - ${node.yod}</b></p>`;
-    // Birthplace
-    if (node.pob != '') {
-      label += `<p><b>From:</b> ${node.pob}</p>`
-    }
-    // Deathplace
-    // if (node.pod != '') {
-    //   label += `<p><b>Died:</b> ${node.pod}</p>`
-    // }
-    // Bio
-    if (node.bio) {
-      label += `<p>${node.bio}</p>`
-    }
+    label += `<p><b>${node.yob} - ${node.yod} ${labelGender}</b></p>`;
 
     return label += '</div>';
   }
@@ -181,6 +162,8 @@ const Graph = ({ d3Data, highlightedFamily, setHighlightedFamily, setHoveredNode
     } else {
       setHighlights({node: null, family: [], links: []})
     }
+
+    setNodeInfo(node);
   }
 
   // Right click
@@ -253,6 +236,7 @@ const Graph = ({ d3Data, highlightedFamily, setHighlightedFamily, setHoveredNode
   const clearHighlights = () => {
     setHighlights({node: null, family: [], links: []});
     setHighlightedFamily();
+    setNodeInfo();
   }
 
   // Add fog
@@ -441,8 +425,8 @@ const Graph = ({ d3Data, highlightedFamily, setHighlightedFamily, setHoveredNode
     onBackgroundRightClick={clearHighlights}
 
     // Nodes
-    nodeLabel={false}
-    onNodeHover={setNodeInfo}
+    nodeLabel={setNodeLabel}
+    // onNodeHover={setNodeInfo}
     nodeThreeObject={setNodeThreeObject}
     onNodeClick={node => showFamily(d3Data, node, highlights)}
     onNodeRightClick={node => handleRightClick(d3Data, node, highlights)}

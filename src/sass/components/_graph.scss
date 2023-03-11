@@ -6,14 +6,14 @@
   position: absolute;
 }
 
-.node-label {
+.node-label, .link-label {
   @include neumorph.neumorph-black;
-  padding: 15px 25px;
+  padding: 0px 16px;
   max-width: 400px;
-  background-color: color.$grey;
+  background-color: color.$grey-light;
   color: #fcfcfc;
-  text-align: left;
-}
+  text-align: center;
+} 
 
 .node-label h4 {
   margin-bottom: 0px;
@@ -22,12 +22,4 @@
 
 .node-label p {
   font-size: 1rem;
-}
-
-.link-label {
-  padding: 15px 25px;
-  max-width: 400px;
-  background-color: color.$grey;
-  color: color.$text;
-  text-align: center;
 }
