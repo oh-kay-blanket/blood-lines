@@ -41,8 +41,8 @@ const Load = ({ handleUpload, loadHalfling, loadKennedy, loadShakespeare, loadTu
         </section>
 
         <section className='links'>
-          <p><a href='https://github.com/mister-blanket/blood-lines'>documentation</a></p>
-          <p><a href='https://mrplunkett.com'>mrplunkett.com</a></p>
+          <p><a href='https://github.com/oh-kay-blanket/blood-lines'>documentation</a></p>
+          <p><a href='https://ohkayblanket.com'>ohkayblanket.com</a></p>
         </section>
       </div>
     </div>
