@@ -16,7 +16,7 @@ import halflingFile from './gedcoms/halfling.ged';
 import kennedyFile from './gedcoms/kennedy.ged';
 import shakespeareFile from './gedcoms/shakespeare.ged';
 import tudorFile from './gedcoms/tudors.ged';
-import gotFile from './gedcoms/GOT.ged';
+import plunkettFile from './gedcoms/plunkett_ancestry.ged';
 import kardashianFile from './gedcoms/kardashian.ged';
 
 const App = () => {
@@ -65,7 +65,7 @@ const App = () => {
           loadKennedy={() => readFile(kennedyFile)}
           loadShakespeare={() => readFile(shakespeareFile)}
           loadTudor={() => readFile(tudorFile)}
-          loadGOT={() => readFile(gotFile)}
+          loadPlunkett={() => readFile(plunkettFile)}
           loadKardashian={() => readFile(kardashianFile)}
           showError={showError}
         /> :

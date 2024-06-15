@@ -1,7 +1,7 @@
 import React from "react";
 import SampleButton from './SampleButton';
 
-const Load = ({ handleUpload, loadHalfling, loadKennedy, loadShakespeare, loadTudor, loadGOT, loadKardashian, showError }) => {
+const Load = ({ handleUpload, loadHalfling, loadKennedy, loadShakespeare, loadTudor, loadPlunkett, loadKardashian, showError }) => {
   return (
     <div id='load'>
       <div>
@@ -31,6 +31,10 @@ const Load = ({ handleUpload, loadHalfling, loadKennedy, loadShakespeare, loadTu
           <SampleButton
             name={'Tudor'}
             loadFile={loadTudor}
+          />
+		  <SampleButton
+            name={'Plunkett'}
+            loadFile={loadPlunkett}
           />
         </section>
 
