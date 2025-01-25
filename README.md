@@ -20,6 +20,28 @@ Blood Lines is a tool for visualizing family tree data in an interactive, 3D spa
 `git clone https://github.com/mister-blanket/blood-lines.git blood-lines && cd blood-lines && npm i`    
 `npm start`
 
+### Installing with Docker
+
+Start by cloning this repo and change directory to it.
+Then start building the docker image :
+```
+docker build . -t blood-lines
+```
+
+#### Docker run
+
+Start the docker container :
+```
+docker run -d --cpus="2" -p 8080:8080 --name blood-lines blood-lines
+```
+
+#### Docker compose
+
+Or using docker compose :
+```
+docker compose up -d
+```
+
 ## Using Blood Lines
 #### Left-click & drag
 Moves the camera.
