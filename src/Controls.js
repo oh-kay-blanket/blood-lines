@@ -3,7 +3,7 @@ import React, {useState} from "react";
 import greyLine from './img/grey-line.png';
 import goldLine from './img/gold-line.png';
 
-const Controls = ({ d3Data, closeRoots, setTimelineShowing, highlightedFamily, setHighlightedFamily, hoveredNode}) => {
+const Controls = ({ d3Data, closeRoots, setTimelineShowing, highlightedFamily, setHighlightedFamily, selectedNode}) => {
 
   const [showingLegend, setShowingLegend] = useState(false);
   const [showingsurnames, setShowingsurnames] = useState(false);
@@ -58,7 +58,7 @@ const Controls = ({ d3Data, closeRoots, setTimelineShowing, highlightedFamily, s
 
     return (
       <div id="node-info--content">
-        {node.title ? <h4 class="node-title"><span style={{color:node.color}}>{node.name} ({node.title})</span> {labelGender}</h4> :
+        {node.title ? <h4 className="node-title"><span style={{color:node.color}}>{node.name} ({node.title})</span> {labelGender}</h4> :
           <h4><span style={{color:node.color}}>{node.name}</span> {labelGender}</h4>}
         <p><b>{node.yob} - {node.yod}</b></p>
         {node.pob != '' && <p><b>From:</b> {node.pob}</p>}
@@ -89,11 +89,11 @@ const Controls = ({ d3Data, closeRoots, setTimelineShowing, highlightedFamily, s
             </div>
           </div>
         }
-        <p id="legend-button" className={showingLegend && 'active'} onClick={toggleLegend}>{'info'}</p>
+        <p id="legend-button" className={showingLegend ? 'active' : ''} onClick={toggleLegend}>{'info'}</p>
       </div>
 
       <div id="node-info">
-        {!!hoveredNode && nodeInfoInsert(hoveredNode)}
+        {!!selectedNode && nodeInfoInsert(selectedNode)}
       </div>
 
       <div id="surnames">
@@ -108,7 +108,7 @@ const Controls = ({ d3Data, closeRoots, setTimelineShowing, highlightedFamily, s
             </div>
           </>
         }
-        <p id="surnames-button" className={showingsurnames && 'active'} onClick={toggleSurnames}>{'names'}</p>
+        <p id="surnames-button" className={showingsurnames ? 'active' : ''} onClick={toggleSurnames}>{'names'}</p>
       </div>
     </div>
   )

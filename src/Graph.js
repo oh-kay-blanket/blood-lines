@@ -1,30 +1,28 @@
 // Modules
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import ForceGraph3D from "react-force-graph-3d";
 import * as THREE from "three";
 import SpriteText from "three-spritetext";
 import { forceCollide } from "d3-force-3d";
 
-const Graph = ({
-  d3Data,
-  highlightedFamily,
-  setHighlightedFamily,
-  setHoveredNode,
-}) => {
-  // State
-  const [highlights, setHighlights] = useState({
-    node: null,
-    family: [],
-    links: [],
-  });
+const Graph = ({ d3Data, highlightedFamily, setHighlightedFamily, selectedNode, setSelectedNode }) => {
+  // STATE //
+
+  const [highlights, setHighlights] = useState({ node: null, family: [], links: [] });
   const [width, setWidth] = useState(window.innerWidth);
   const [height, setHeight] = useState(window.innerHeight);
+
   const fgRef = useRef();
-  const isMobile = window.innerWidth < 769;
-  let touchTimeout = null;
   const touchStartRef = useRef({ x: 0, y: 0, time: 0 });
 
-  // Node design
+  const isMobile = window.innerWidth < 769;
+  let touchTimeout = null;
+
+  const raycaster = new THREE.Raycaster();
+  const mouse = new THREE.Vector2();
+
+  // DESIGN //
+
   const setNodeThreeObject = (node) => {
     // Use a sphere as a drag handle
     const obj = new THREE.Mesh(
@@ -35,8 +33,6 @@ const Graph = ({
         opacity: 0,
       })
     );
-
-    let partOfFamily = highlightedFamily === node.surname;
 
     // Add text sprite as child
     let name;
@@ -90,42 +86,6 @@ const Graph = ({
     return obj;
   };
 
-  // Handle node click
-  const handleNodeClick = (d3Data, node, highlights) => {
-    // Find family member of clicked node
-    const findFamilies = (links, node, highlights) => {
-      if (links.source.id == node.id || links.target.id == node.id) {
-        let updatedHighlightFamily = highlights.family;
-        let updatedHighlightLinks = highlights.links;
-
-        updatedHighlightFamily.push(links.target.id, links.source.id);
-        updatedHighlightLinks.push(links.index);
-
-        setHighlights({
-          node: node,
-          family: updatedHighlightFamily,
-          links: updatedHighlightLinks,
-        });
-      }
-    };
-
-    // None highlighted
-    if (highlights.node === null) {
-      d3Data.links.filter((links) => findFamilies(links, node, highlights));
-
-      // Different node highlighted
-    } else if (highlights.node !== node) {
-      let tempHighlights = { node: null, family: [], links: [] };
-      d3Data.links.filter((links) => findFamilies(links, node, tempHighlights));
-
-      // Reset current node
-    } else {
-      setHighlights({ node: null, family: [], links: [] });
-    }
-
-    setHoveredNode(node);
-  };
-
   // Link color
   const setLinkColor = (link) => {
     return highlights.links.length < 1
@@ -159,74 +119,10 @@ const Graph = ({
     }
   };
 
-  // Remove highlights
-  const clearHighlights = () => {
-    setHighlights({ node: null, family: [], links: [] });
-    setHighlightedFamily();
-    setHoveredNode(null);
-  };
-
   // USE EFFECT
   useEffect(() => {
     // Manage force
     fgRef.current.d3Force("collide", forceCollide(55));
-
-    // Cancel mobile touch listener
-    (function () {
-      const cancelTouch = () => {
-        if (touchTimeout) {
-          clearTimeout(touchTimeout);
-          touchTimeout = null;
-        }
-      };
-
-      window.addEventListener("touchend", cancelTouch);
-      window.addEventListener("touchcancel", cancelTouch);
-
-      return () => {
-        window.removeEventListener("touchend", cancelTouch);
-        window.removeEventListener("touchcancel", cancelTouch);
-      };
-    })();
-
-    // Handle touch events
-    (function () {
-      const canvas = fgRef.current?.renderer().domElement;
-      if (!canvas) return;
-
-      const handleTouchStart = (e) => {
-        if (e.touches.length === 1) {
-          const touch = e.touches[0];
-          touchStartRef.current = {
-            x: touch.clientX,
-            y: touch.clientY,
-            time: Date.now(),
-          };
-        }
-      };
-
-      const handleTouchEnd = (e) => {
-        const touch = e.changedTouches[0];
-        const dx = touch.clientX - touchStartRef.current.x;
-        const dy = touch.clientY - touchStartRef.current.y;
-        const dt = Date.now() - touchStartRef.current.time;
-
-        const distance = Math.sqrt(dx * dx + dy * dy);
-
-        if (distance < 10 && dt < 300) {
-          // This is a tap, not a drag
-          clearHighlights(); // Your logic here
-        }
-      };
-
-      canvas.addEventListener("touchstart", handleTouchStart);
-      canvas.addEventListener("touchend", handleTouchEnd);
-
-      return () => {
-        canvas.removeEventListener("touchstart", handleTouchStart);
-        canvas.removeEventListener("touchend", handleTouchEnd);
-      };
-    })();
 
     // Resize window
     (function () {
@@ -426,7 +322,127 @@ const Graph = ({
     fgRef.current.controls().screenSpacePanning = true;
   }, []);
 
-  // Create graph
+
+  // LOGIC //
+
+  // Clear highlights
+  const clearHighlights = () => {
+    console.log("Clearing highlights");
+    setHighlights({ node: null, family: [], links: [] });
+    setHighlightedFamily(null);
+    setSelectedNode(null);
+  };
+
+  // Handle node click
+  const handleNodeClick = (node) => {
+    clearHighlights();
+
+    // Find family member of clicked node
+    const findFamilies = (links, node, highlights) => {
+      if (links.source.id == node.id || links.target.id == node.id) {
+        let updatedHighlightFamily = highlights.family;
+        let updatedHighlightLinks = highlights.links;
+
+        updatedHighlightFamily.push(links.target.id, links.source.id);
+        updatedHighlightLinks.push(links.index);
+
+        setHighlights({
+          node: node,
+          family: updatedHighlightFamily,
+          links: updatedHighlightLinks,
+        });
+      }
+    };
+
+    // None highlighted
+    if (highlights.node === null) {
+      d3Data.links.filter((links) => findFamilies(links, node, highlights));
+
+      // Different node highlighted
+    } else if (highlights.node !== node) {
+      let tempHighlights = { node: null, family: [], links: [] };
+      d3Data.links.filter((links) => findFamilies(links, node, tempHighlights));
+
+      // Reset current node
+    } else {
+      setHighlights({ node: null, family: [], links: [] });
+    }
+
+    setSelectedNode(node);
+  };
+
+  // Handle touch events for mobile
+  useEffect(() => {
+    if (!isMobile) return;
+
+    const canvas = fgRef.current?.renderer().domElement;
+    if (!canvas) return;
+
+    const handleTouchStart = (e) => {
+      if (e.touches.length === 1) {
+        const touch = e.touches[0];
+        touchStartRef.current = {
+          x: touch.clientX,
+          y: touch.clientY,
+          time: Date.now(),
+        };
+
+        touchTimeout = setTimeout(() => {
+          // Check if a node was targeted
+          console.log("touch timeout");
+          const { clientX, clientY } = e.touches[0];
+          const canvas = fgRef.current.renderer().domElement;
+
+          // Convert touch point to normalized device coordinates (-1 to +1)
+          const bounds = canvas.getBoundingClientRect();
+          mouse.x = ((clientX - bounds.left) / bounds.width) * 2 - 1;
+          mouse.y = -((clientY - bounds.top) / bounds.height) * 2 + 1;
+
+          // Raycast
+          raycaster.setFromCamera(mouse, fgRef.current.camera());
+          const intersects = raycaster.intersectObjects(
+            fgRef.current.scene().children,
+            true
+          );
+
+          
+          // Find first intersected node
+          const nodeObject = intersects.find((intersect) => intersect.object.__data);
+          
+          if (nodeObject) {
+            const node = nodeObject.object.__data;
+            handleNodeClick(node);
+          }
+
+        }, 600);
+      }
+    };
+
+    const handleTouchEnd = (e) => {
+      const touch = e.changedTouches[0];
+      const dx = touch.clientX - touchStartRef.current.x;
+      const dy = touch.clientY - touchStartRef.current.y;
+      const dt = Date.now() - touchStartRef.current.time;
+
+      const distance = Math.sqrt(dx * dx + dy * dy);
+
+      if (distance < 40 && dt < 600 && e.changedTouches.length === 1) {
+        clearTimeout(touchTimeout);
+        clearHighlights(); // Possibly a swipe or short tap
+      }
+    };
+
+    canvas.addEventListener("touchstart", handleTouchStart);
+    canvas.addEventListener("touchend", handleTouchEnd);
+
+    return () => {
+      canvas.removeEventListener("touchstart", handleTouchStart);
+      canvas.removeEventListener("touchend", handleTouchEnd);
+    };
+  }, [selectedNode]);
+
+
+  // BUILD GRAPH //
   return (
     <ForceGraph3D
       ref={fgRef}
@@ -439,19 +455,11 @@ const Graph = ({
       // Controls
       controlType={"orbit"}
       enableNodeDrag={false}
-      onBackgroundClick={!isMobile && clearHighlights}
+      onBackgroundClick={isMobile ? undefined : clearHighlights}
       // Nodes
       nodeThreeObject={setNodeThreeObject}
       nodeLabel={null}
-      onNodeClick={(node) => {
-        if (isMobile) {
-          touchTimeout = setTimeout(() => {
-            handleNodeClick(d3Data, node, highlights);
-          }, 600);
-        } else {
-          handleNodeClick(d3Data, node, highlights);
-        }
-      }}
+      onNodeClick={!isMobile ? (node) => handleNodeClick(node) : undefined}
       onNodeDragEnd={() => {
         if (touchTimeout) {
           clearTimeout(touchTimeout);
