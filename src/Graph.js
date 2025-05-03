@@ -11,31 +11,18 @@ const Graph = ({
   setHighlightedFamily,
   setHoveredNode,
 }) => {
+  // State
   const [highlights, setHighlights] = useState({
     node: null,
     family: [],
     links: [],
   });
-
   const [width, setWidth] = useState(window.innerWidth);
   const [height, setHeight] = useState(window.innerHeight);
   const fgRef = useRef();
   const isMobile = window.innerWidth < 769;
-
-  // Camera position
-  const positionCamera = useCallback(
-    (node) => {
-      // Aim at node from outside it
-      const distance = 350;
-      const distRatio = 2 + distance / Math.hypot(node.x, node.y, node.z);
-      fgRef.current.cameraPosition(
-        { x: node.x * distRatio, y: node.y, z: node.z * distRatio }, // new position
-        node, // lookAt ({ x, y, z })
-        1200 // ms transition duration
-      );
-    },
-    [fgRef]
-  );
+  let touchTimeout = null;
+  const touchStartRef = useRef({ x: 0, y: 0, time: 0 });
 
   // Node design
   const setNodeThreeObject = (node) => {
@@ -103,23 +90,8 @@ const Graph = ({
     return obj;
   };
 
-  // Node label
-  const setNodeLabel = (node) => {
-
-    let label = `<div class="node-label">`;
-    const labelGender = node.gender === "M" ? `♂` : `♀`;
-    label += `<p><b>${node.yob} - ${node.yod} ${labelGender}</b></p>`;
-
-    return (label += "</div>");
-  };
-
-  // Node label
-  const setNodeInfo = (node) => {
-    setHoveredNode(node);
-  };
-
   // Handle node click
-  const showFamily = (d3Data, node, highlights) => {
+  const handleNodeClick = (d3Data, node, highlights) => {
     // Find family member of clicked node
     const findFamilies = (links, node, highlights) => {
       if (links.source.id == node.id || links.target.id == node.id) {
@@ -151,40 +123,7 @@ const Graph = ({
       setHighlights({ node: null, family: [], links: [] });
     }
 
-    setNodeInfo(node);
-  };
-
-  // Right click
-  const handleRightClick = (d3Data, node, highlights) => {
-    if (window.innerWidth > 769) {
-      showFamily(d3Data, node, highlights);
-      positionCamera(node);
-    }
-  };
-
-  // Link label
-  const setLinkLabel = (link) => {
-    // No state change
-    switch (link.type) {
-      case "DIV":
-        return '<div class="link-label"><p>Divorced</p></div>';
-        break;
-      case "MARR":
-        return '<div class="link-label"><p>Married</p></div>';
-        break;
-      case "birth":
-        return '<div class="link-label"><p>Birth</p></div>';
-        break;
-      case "Natural":
-        return '<div class="link-label"><p>Birth</p></div>';
-        break;
-      case "Step":
-        return '<div class="link-label"><p>Step</p></div>';
-        break;
-      case "Adopted":
-        return '<div class="link-label"><p>Adopted</p></div>';
-        break;
-    }
+    setHoveredNode(node);
   };
 
   // Link color
@@ -224,16 +163,73 @@ const Graph = ({
   const clearHighlights = () => {
     setHighlights({ node: null, family: [], links: [] });
     setHighlightedFamily();
-    setNodeInfo();
+    setHoveredNode(null);
   };
 
+  // USE EFFECT
   useEffect(() => {
-
     // Manage force
     fgRef.current.d3Force("collide", forceCollide(55));
 
+    // Cancel mobile touch listener
+    (function () {
+      const cancelTouch = () => {
+        if (touchTimeout) {
+          clearTimeout(touchTimeout);
+          touchTimeout = null;
+        }
+      };
+
+      window.addEventListener("touchend", cancelTouch);
+      window.addEventListener("touchcancel", cancelTouch);
+
+      return () => {
+        window.removeEventListener("touchend", cancelTouch);
+        window.removeEventListener("touchcancel", cancelTouch);
+      };
+    })();
+
+    // Handle touch events
+    (function () {
+      const canvas = fgRef.current?.renderer().domElement;
+      if (!canvas) return;
+
+      const handleTouchStart = (e) => {
+        if (e.touches.length === 1) {
+          const touch = e.touches[0];
+          touchStartRef.current = {
+            x: touch.clientX,
+            y: touch.clientY,
+            time: Date.now(),
+          };
+        }
+      };
+
+      const handleTouchEnd = (e) => {
+        const touch = e.changedTouches[0];
+        const dx = touch.clientX - touchStartRef.current.x;
+        const dy = touch.clientY - touchStartRef.current.y;
+        const dt = Date.now() - touchStartRef.current.time;
+
+        const distance = Math.sqrt(dx * dx + dy * dy);
+
+        if (distance < 10 && dt < 300) {
+          // This is a tap, not a drag
+          clearHighlights(); // Your logic here
+        }
+      };
+
+      canvas.addEventListener("touchstart", handleTouchStart);
+      canvas.addEventListener("touchend", handleTouchEnd);
+
+      return () => {
+        canvas.removeEventListener("touchstart", handleTouchStart);
+        canvas.removeEventListener("touchend", handleTouchEnd);
+      };
+    })();
+
     // Resize window
-    (function() {
+    (function () {
       const handleResize = () => {
         setWidth(window.innerWidth);
         setHeight(window.innerHeight);
@@ -242,8 +238,8 @@ const Graph = ({
       return () => window.removeEventListener("resize", handleResize);
     })();
 
-    // Add fogs
-    (function() {
+    // Add fog
+    (function () {
       if (!isMobile && d3Data.nodes.length < 200) {
         let fogNear = 1000;
         let fogFar = 3000;
@@ -251,76 +247,72 @@ const Graph = ({
           fogNear = 600;
           fogFar = 3000;
         }
-    
+
         const fogColor = new THREE.Color(0x111111);
-    
+
         var myFog = new THREE.Fog(fogColor, fogNear, fogFar);
         var myFogg = new THREE.FogExp2(fogColor, 0.0025);
-    
+
         fgRef.current.scene().fog = myFog;
       }
     })();
-    
 
     // Add timeline //
-    (function() {
+    (function () {
       // Get list of fixed Y
       let yRange = d3Data.nodes.map((node) => Number(node.fy));
-  
+
       // Filter out NaN
       yRange = yRange.filter((node) => !isNaN(node) && node);
-  
+
       // TIMELINE
       const highestY = Math.max.apply(Math, yRange);
       const lowestY = Math.min.apply(Math, yRange);
-  
+
       // Create a blue LineBasicMaterial
       var material = new THREE.LineBasicMaterial({
         color: 0x333333,
         linewidth: 2,
       });
-  
+
       var points = [];
       points.push(new THREE.Vector3(0, lowestY, 0));
       points.push(new THREE.Vector3(0, highestY, 0));
-  
+
       var geometry = new THREE.BufferGeometry().setFromPoints(points);
-  
+
       var line = new THREE.Line(geometry, material);
-  
+
       fgRef.current.scene().add(line);
     })();
-    
-
 
     // Add timeline years
-    (function() {
-      
+    (function () {
       // All YOBs
       let years = d3Data.nodes.map((node) => Number(node.yob));
-  
+
       // Filter out NaN
       years = years.filter((year) => !isNaN(year));
-  
+
       // Get list of fixed Y
       let yRange = d3Data.nodes.map((node) => Number(node.fy));
-  
+
       // Filter out NaN
       yRange = yRange.filter((node) => !isNaN(node) && node);
-  
+
       // TIMELINE
       const highestY = Math.max.apply(Math, yRange);
       const lowestY = Math.min.apply(Math, yRange);
       const halfY = (highestY + lowestY) / 2;
       const quarterY = (halfY + lowestY) / 2;
       const threeQuarterY = (halfY + highestY) / 2;
-  
+
       const earliestYOB = Math.min.apply(Math, years);
       const latestYOB = Math.max.apply(Math, years);
       const halfYOB = parseInt((earliestYOB + latestYOB) / 2);
       const quarterYOB = parseInt((latestYOB + halfYOB) / 2);
       const threeQuarterYOB = parseInt((earliestYOB + halfYOB) / 2);
-  
+
       // EARLIEST
       let earliest = new THREE.Mesh(
         new THREE.SphereGeometry(100),
@@ -330,9 +322,9 @@ const Graph = ({
           opacity: 0,
         })
       );
-  
+
       earliest.position.y = highestY + 15;
-  
+
       let earliestTimeLabel = earliestYOB
         ? new SpriteText(earliestYOB)
         : new SpriteText("Earlier");
@@ -341,7 +333,7 @@ const Graph = ({
       earliestTimeLabel.fontWeight = 800;
       earliestTimeLabel.textHeight = 25;
       earliest.add(earliestTimeLabel);
-  
+
       // LATEST
       let latest = new THREE.Mesh(
         new THREE.SphereGeometry(100),
@@ -351,9 +343,9 @@ const Graph = ({
           opacity: 0,
         })
       );
-  
+
       latest.position.y = lowestY - 15;
-  
+
       let latestTimeLabel = latestYOB
         ? new SpriteText(latestYOB)
         : new SpriteText("Later");
@@ -362,7 +354,7 @@ const Graph = ({
       latestTimeLabel.fontWeight = 800;
       latestTimeLabel.textHeight = 25;
       latest.add(latestTimeLabel);
-  
+
       // HALF
       let half = new THREE.Mesh(
         new THREE.SphereGeometry(100),
@@ -372,16 +364,16 @@ const Graph = ({
           opacity: 0,
         })
       );
-  
+
       half.position.y = halfY;
-  
+
       let halfTimeLabel = new SpriteText(halfYOB);
       halfTimeLabel.color = "#ccc";
       halfTimeLabel.fontFace = "Helvetica";
       halfTimeLabel.fontWeight = 800;
       halfTimeLabel.textHeight = 15;
       half.add(halfTimeLabel);
-  
+
       // QUARTER
       let quarter = new THREE.Mesh(
         new THREE.SphereGeometry(100),
@@ -391,16 +383,16 @@ const Graph = ({
           opacity: 0,
         })
       );
-  
+
       quarter.position.y = quarterY;
-  
+
       let quarterTimeLabel = new SpriteText(quarterYOB);
       quarterTimeLabel.color = "#ccc";
       quarterTimeLabel.fontFace = "Helvetica";
       quarterTimeLabel.fontWeight = 800;
       quarterTimeLabel.textHeight = 15;
       quarter.add(quarterTimeLabel);
-  
+
       // QUARTER
       let threeQuarter = new THREE.Mesh(
         new THREE.SphereGeometry(100),
@@ -410,16 +402,16 @@ const Graph = ({
           opacity: 0,
         })
       );
-  
+
       threeQuarter.position.y = threeQuarterY;
-  
+
       let threeQuarterTimeLabel = new SpriteText(threeQuarterYOB);
       threeQuarterTimeLabel.color = "#ccc";
       threeQuarterTimeLabel.fontFace = "Helvetica";
       threeQuarterTimeLabel.fontWeight = 800;
       threeQuarterTimeLabel.textHeight = 15;
       threeQuarter.add(threeQuarterTimeLabel);
-  
+
       fgRef.current.scene().add(earliest);
       fgRef.current.scene().add(latest);
       highestY - lowestY > 300 && fgRef.current.scene().add(half);
@@ -439,27 +431,35 @@ const Graph = ({
     <ForceGraph3D
       ref={fgRef}
       graphData={d3Data}
-
       // Display
       width={width}
       height={height}
       backgroundColor={"#010000"}
       showNavInfo={false}
-
       // Controls
       controlType={"orbit"}
       enableNodeDrag={false}
-      onBackgroundClick={clearHighlights}
-      onBackgroundRightClick={clearHighlights}
-
+      onBackgroundClick={!isMobile && clearHighlights}
       // Nodes
       nodeThreeObject={setNodeThreeObject}
-      nodeLabel={isMobile ? "" : setNodeLabel}
-      onNodeClick={isMobile ? null : (node) => showFamily(d3Data, node, highlights)}
-      onNodeRightClick={isMobile ? null : (node) => handleRightClick(d3Data, node, highlights)}
-
+      nodeLabel={null}
+      onNodeClick={(node) => {
+        if (isMobile) {
+          touchTimeout = setTimeout(() => {
+            handleNodeClick(d3Data, node, highlights);
+          }, 600);
+        } else {
+          handleNodeClick(d3Data, node, highlights);
+        }
+      }}
+      onNodeDragEnd={() => {
+        if (touchTimeout) {
+          clearTimeout(touchTimeout);
+          touchTimeout = null;
+        }
+      }}
       // LINKS
-      linkLabel={setLinkLabel}
+      linkLabel={null}
       linkColor={setLinkColor}
       linkOpacity={1}
       linkWidth={setLinkWidth}
