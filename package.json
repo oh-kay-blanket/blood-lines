@@ -1,5 +1,5 @@
 {
-  "name": "soil",
+  "name": "blood-lines",
   "version": "1.0.0",
   "description": "",
   "private": true,
@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server --open",
     "build": "webpack --mode production",
-	"deploy": "git subtree push --prefix dist origin gh-pages"
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "keywords": [],
   "author": "",
@@ -28,14 +29,15 @@
     "webpack-dev-server": "^4.11.1"
   },
   "dependencies": {
-    "3d-force-graph": "^1.65.1",
     "@babel/core": "^7.10.3",
     "@babel/preset-env": "^7.10.3",
     "@babel/preset-react": "^7.10.1",
+    "3d-force-graph": "^1.65.1",
     "babel-loader": "^8.3.0",
     "d3-force-3d": "^2.1.0",
     "d3-octree": "^0.1.8",
     "gedcom-d3": "^2.0.6",
+    "gh-pages": "^6.3.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-force-graph-3d": "^1.17.0",

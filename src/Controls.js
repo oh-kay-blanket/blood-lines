@@ -87,16 +87,6 @@ const Controls = ({ d3Data, closeRoots, setTimelineShowing, highlightedFamily, s
               <img src={goldLine} />
               <p>- Love line</p>
             </div>
-
-            <h2>controls</h2>
-            <p><b>Hover over name</b> - Person info</p>
-            <p><b>Hover over line</b> - Relationship info</p>
-            <p><b>Left-click name</b> - Highlight</p>
-            <p><b>Right-click name</b> - Re-center</p>
-            <p><b>Scroll</b> - Zoom</p>
-            <p><b>Left drag</b> - Spin</p>
-            <p><b>Right drag</b> - Pan</p>
-
           </div>
         }
         <p id="legend-button" className={showingLegend && 'active'} onClick={toggleLegend}>{'info'}</p>
