@@ -8,7 +8,7 @@
     "start": "webpack-dev-server --open",
     "build": "webpack --mode production",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist --cname blood-lines.ohkayblanket.com"
   },
   "keywords": [],
   "author": "",
