@@ -117,15 +117,17 @@ const Graph = ({ d3Data, highlightedFamily, setHighlightedFamily, setHoveredNode
   // Node label
   const setNodeLabel = node => {
 
-    // Label setup
-    let label = `<div class="node-label">`;
-
-    // Gender
-    const labelGender = (node.gender === 'M') ? `♂` : `♀`;
-
-    label += `<p><b>${node.yob} - ${node.yod} ${labelGender}</b></p>`;
-
-    return label += '</div>';
+	if (window.innerWidth < 769) {
+		// Label setup
+		let label = `<div class="node-label">`;
+	
+		// Gender
+		const labelGender = (node.gender === 'M') ? `♂` : `♀`;
+	
+		label += `<p><b>${node.yob} - ${node.yod} ${labelGender}</b></p>`;
+	
+		return label += '</div>';
+	}
   }
 
   // Node label
@@ -168,8 +170,10 @@ const Graph = ({ d3Data, highlightedFamily, setHighlightedFamily, setHoveredNode
 
   // Right click
   const handleRightClick = (d3Data, node, highlights) => {
-    showFamily(d3Data, node, highlights);
-    positionCamera(node);
+	if (window.innerWidth > 769) {
+		showFamily(d3Data, node, highlights);
+		positionCamera(node);
+	}
   }
 
 
@@ -425,8 +429,7 @@ const Graph = ({ d3Data, highlightedFamily, setHighlightedFamily, setHoveredNode
     onBackgroundRightClick={clearHighlights}
 
     // Nodes
-    nodeLabel={setNodeLabel}
-    // onNodeHover={setNodeInfo}
+    nodeLabel={window.innerWidth > 769 ? setNodeLabel : ''}
     nodeThreeObject={setNodeThreeObject}
     onNodeClick={node => showFamily(d3Data, node, highlights)}
     onNodeRightClick={node => handleRightClick(d3Data, node, highlights)}
