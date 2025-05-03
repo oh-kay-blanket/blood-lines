@@ -5,13 +5,13 @@ const Load = ({ handleUpload, loadHalfling, loadKennedy, loadShakespeare, loadTu
   return (
     <div id='load'>
       <div>
-        <section>
+        <section className="title-area">
           <h1>blood lines</h1>
-          <h3>a 3D visualizer for genealogical data</h3>
+          <p>A 3D visualizer for genealogical data</p>
         </section>
 
-        <section className='button-area'>
-          <p>view blood samples</p>
+        <section className='sample-area'>
+          <h2>View samples</h2>
           <SampleButton
           name={'Shakespeare'}
           loadFile={loadShakespeare}
@@ -32,19 +32,19 @@ const Load = ({ handleUpload, loadHalfling, loadKennedy, loadShakespeare, loadTu
             name={'Tudor'}
             loadFile={loadTudor}
           />
-		  <SampleButton
+		      <SampleButton
             name={'Plunkett'}
             loadFile={loadPlunkett}
           />
         </section>
 
-        <section>
-          <p>or upload a GEDCOM (.ged) file</p>
+        <section className="load-area">
+          <h2>Upload a GEDCOM (.ged) file</h2>
           { showError ? <p className='error'>File type not supported. Please use a .ged file.</p> : null}
           <input id='file-input' className='form-control' type='file' name='gedFile' onChange={handleUpload} />
         </section>
 
-        <section className='links'>
+        <section className='links-area'>
           <p><a href='https://github.com/oh-kay-blanket/blood-lines'>documentation</a></p>
           <p><a href='https://ohkayblanket.com'>ohkayblanket.com</a></p>
         </section>

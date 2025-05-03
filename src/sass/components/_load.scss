@@ -16,37 +16,39 @@
   }
 
   section {
-    margin-top: 15px;
+    margin-bottom: 3rem;
     padding-left: 5vw;
-
   }
 
   h1 {
-    font-size: 3em;
+    font-size: 3.5rem;
     margin: 0px;
     color: color.$root;
 
-    @media only screen and (min-width: 600px) {
+    @media only screen and (min-width: 769px) {
       font-size: 5em;
-      margin-left: -7px;
     }
   }
 
-  h3 {
-    margin: 0px auto;
-    font-weight: 400px;
+  h2 {
+    font-size: 1.15rem;
+    font-weight: 400;
+
+    @media only screen and (min-width: 769px) {
+      font-size: 1.25rem;
+    }
   }
 
 
-  .button-area {
+  .sample-area {
     @media (min-width: 600px) {
       max-width: 650px;
     }
 
     .sampleButton {
-      margin-right: 20px;
+      margin-right: 1rem;
       color: color.$text;
-      background-color: color.$root;
+      background-color: color.$grey-light;
       font-weight: normal;
       cursor: pointer;
       transition: background-color .25s;
@@ -54,6 +56,11 @@
       &:hover {
         transition: background-color .25s;
         background-color: #ed4a49aa;
+      }
+      
+      &:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px color.$root;
       }
     }
   }
@@ -81,7 +88,7 @@
     color: color.$root;
   }
 
-  .links {
+  .links-area {
     display: flex;
 
     p {

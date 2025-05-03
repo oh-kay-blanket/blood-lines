@@ -11,9 +11,17 @@ body {
   // font-weight: 800;
   background-color: color.$grey;
   color: color.$text;
+  font-size: 16px;
 }
 
-p, input {
+p {
   font-size: 1rem;
   font-weight: normal;
+  margin: 0 0 .5rem;  
+}
+
+input {
+  font-size: .9rem;
+  font-weight: normal;
+  margin: 0 0 .5rem; 
 }

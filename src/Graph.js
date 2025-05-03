@@ -405,16 +405,26 @@ const Graph = ({ d3Data, highlightedFamily, setHighlightedFamily, selectedNode, 
             true
           );
 
-          
           // Find first intersected node
           const nodeObject = intersects.find((intersect) => intersect.object.__data);
           
-          if (nodeObject) {
+          const touch = e.changedTouches[0];
+          const dx = touch.clientX - touchStartRef.current.x;
+          const dy = touch.clientY - touchStartRef.current.y;
+          const dt = Date.now() - touchStartRef.current.time;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+          
+          if (nodeObject && distance < 60 && e.changedTouches.length === 1) {
             const node = nodeObject.object.__data;
+
             handleNodeClick(node);
+
+            if (navigator.vibrate) {
+              navigator.vibrate(25);
+            }
           }
 
-        }, 600);
+        }, 400);
       }
     };
 
@@ -426,7 +436,7 @@ const Graph = ({ d3Data, highlightedFamily, setHighlightedFamily, selectedNode, 
 
       const distance = Math.sqrt(dx * dx + dy * dy);
 
-      if (distance < 40 && dt < 600 && e.changedTouches.length === 1) {
+      if (distance < 60 && dt < 400 && e.changedTouches.length === 1) {
         clearTimeout(touchTimeout);
         clearHighlights(); // Possibly a swipe or short tap
       }
