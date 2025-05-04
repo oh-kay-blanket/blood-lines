@@ -10,8 +10,7 @@ const Graph = ({ d3Data, highlights, setHighlights, highlightedFamily, setHighli
   // STATE //
   const fgRef = useRef();
   const touchStartRef = useRef({ x: 0, y: 0, time: 0 });
-
-  let touchTimeout = null;
+  const lastTapRef = useRef(0);
 
   const raycaster = new THREE.Raycaster();
   const mouse = new THREE.Vector2();
@@ -21,7 +20,8 @@ const Graph = ({ d3Data, highlights, setHighlights, highlightedFamily, setHighli
   const setNodeThreeObject = useCallback((node) => {
     // Use a sphere as a drag handle
     const obj = new THREE.Mesh(
-      new THREE.SphereGeometry(10),
+      new THREE.SphereGeometry(18),
+      // new THREE.MeshBasicMaterial({ color: node.color || 'skyblue' }),
       new THREE.MeshBasicMaterial({
         depthWrite: false,
         transparent: true,
@@ -74,7 +74,7 @@ const Graph = ({ d3Data, highlights, setHighlights, highlightedFamily, setHighli
     sprite.fontFace = "Helvetica";
     sprite.fontWeight = 600;
     sprite.textHeight = 10;
-    sprite.borderWidth = 1;
+    sprite.borderWidth = .4;
     sprite.borderRadius = 8;
     sprite.padding = 4;
     obj.add(sprite);
@@ -85,23 +85,23 @@ const Graph = ({ d3Data, highlights, setHighlights, highlightedFamily, setHighli
   const setLinkColor = (link) => {
     return highlights.links.length < 1
       ? highlightedFamily
-        ? "rgba(255, 153, 153, 0.2)" // Highlighed family exists, mute all links
+        ? "rgba(252, 103, 103, 0.15)" // Highlighed family exists, mute all links
         : link.sourceType != "CHIL" && link.targetType != "CHIL"
         ? "rgba(255, 215, 0, 0.6)" // Romantic link
-        : "rgba(255, 153, 153, 0.2)" // Normal link
+        : "rgba(252, 103, 103, 0.3)" // Normal link
       : highlights.links.indexOf(link.index) !== -1
       ? link.sourceType != "CHIL" && link.targetType != "CHIL"
         ? "rgba(255, 215, 0, 0.6)" // Romantic link
-        : "rgba(255, 153, 153, 0.2)" // Normal link
-      : "rgba(255, 153, 153, 0.02)"; // Normal link
+        : "rgba(252, 103, 103, 0.3)" // Normal link
+      : "rgba(252, 103, 103, 0.14)"; // Normal link
   };
 
   // Link width
   const setLinkWidth = (link) => {
     if (highlights.links.indexOf(link.index) !== -1) {
-      return 1.7;
+      return 1.5;
     } else {
-      return 1;
+      return 1.5;
     }
   };
 
@@ -353,62 +353,41 @@ const Graph = ({ d3Data, highlights, setHighlights, highlightedFamily, setHighli
           y: touch.clientY,
           time: Date.now(),
         };
-
-        touchTimeout = setTimeout(() => {
-          // Check if a node was targeted
-          const { clientX, clientY } = e.touches[0];
-          const canvas = fgRef.current.renderer().domElement;
-
-          // Convert touch point to normalized device coordinates (-1 to +1)
-          const bounds = canvas.getBoundingClientRect();
-          mouse.x = ((clientX - bounds.left) / bounds.width) * 2 - 1;
-          mouse.y = -((clientY - bounds.top) / bounds.height) * 2 + 1;
-
-          // Raycast
-          raycaster.setFromCamera(mouse, fgRef.current.camera());
-          const intersects = raycaster.intersectObjects(
-            fgRef.current.scene().children,
-            true
-          );
-
-          // Find first intersected node
-          const nodeObject = intersects.find((intersect) => intersect.object.__data);
-          
-          const touch = e.changedTouches[0];
-          const dx = touch.clientX - touchStartRef.current.x;
-          const dy = touch.clientY - touchStartRef.current.y;
-          const dt = Date.now() - touchStartRef.current.time;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-          
-          if (nodeObject && distance < 60 && e.changedTouches.length === 1) {
-            const node = nodeObject.object.__data;
-
-            if (navigator.vibrate) {
-              navigator.vibrate(25);
-            }
-            handleNodeClick(node);
-          }
-
-        }, 400);
+        setShowingLegend(false);
+        setShowingSurnames(false);
       }
     };
 
     const handleTouchEnd = (e) => {
       const touch = e.changedTouches[0];
+      const currentTime = Date.now();
+      const tapLength = currentTime - lastTapRef.current;
+      lastTapRef.current = currentTime;
+    
       const dx = touch.clientX - touchStartRef.current.x;
       const dy = touch.clientY - touchStartRef.current.y;
-      const dt = Date.now() - touchStartRef.current.time;
-
       const distance = Math.sqrt(dx * dx + dy * dy);
-
-      if (distance < 60 && dt < 400 && e.changedTouches.length === 1) {
-        clearTimeout(touchTimeout);
-        if (showingLegend || showingSurnames) {
-          console.log("Short tap detected");
-          setShowingLegend(false);
-          setShowingSurnames(false);
+    
+      // Double-tap threshold: 300ms and within 60px of the original touch
+      if (tapLength < 300 && distance < 60) {
+        // Use raycasting to check for intersected node
+        const canvas = fgRef.current.renderer().domElement;
+        const bounds = canvas.getBoundingClientRect();
+    
+        mouse.x = ((touch.clientX - bounds.left) / bounds.width) * 2 - 1;
+        mouse.y = -((touch.clientY - bounds.top) / bounds.height) * 2 + 1;
+    
+        raycaster.setFromCamera(mouse, fgRef.current.camera());
+        const intersects = raycaster.intersectObjects(fgRef.current.scene().children, true);
+        const nodeObject = intersects.find((intersect) => intersect.object.__data);
+    
+        if (nodeObject) {
+          const node = nodeObject.object.__data;
+          if (navigator.vibrate) navigator.vibrate(25);
+          handleNodeClick(node);
         } else {
-          clearHighlights(); // Possibly a swipe or short tap
+          // Double tap on background clears highlights
+          clearHighlights();
         }
       }
     };
