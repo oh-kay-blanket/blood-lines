@@ -21,12 +21,17 @@ import kardashianFile from './gedcoms/kardashian.ged';
 
 const App = () => {
 
+  console.log("rendering app");
+
   const [showingRoots, setShowingRoots] = useState(false);
   const [d3Data, setD3Data] = useState([]);
   const [showError, setShowError] = useState(false);
-  const [timelineShowing, setTimelineShowing] = useState(false);
   const [highlightedFamily, setHighlightedFamily] = useState();
   const [selectedNode, setSelectedNode] = useState(null);
+  const [showingLegend, setShowingLegend] = useState(false);
+  const [showingSurnames, setShowingSurnames] = useState(false);
+  const [highlights, setHighlights] = useState({ node: null, family: [], links: [] });
+  const isMobile = window.innerWidth < 769;
 
   const readFile = file => {
     setD3Data(d3ize(parse(file)));  // Parse data
@@ -73,17 +78,28 @@ const App = () => {
           <Controls
             d3Data={d3Data}
             closeRoots={closeRoots}
-            setTimelineShowing={setTimelineShowing}
             highlightedFamily={highlightedFamily}
             setHighlightedFamily={setHighlightedFamily}
             selectedNode={selectedNode}
+            showingLegend={showingLegend}
+            setShowingLegend={setShowingLegend}
+            showingSurnames={showingSurnames}
+            setShowingSurnames={setShowingSurnames}
+            isMobile={isMobile}
           />
           <Graph
             d3Data={d3Data}
+            highlights={highlights}
+            setHighlights={setHighlights}
             highlightedFamily={highlightedFamily}
             setHighlightedFamily={setHighlightedFamily}
             selectedNode={selectedNode}
             setSelectedNode={setSelectedNode}
+            showingLegend={showingLegend}
+            setShowingLegend={setShowingLegend}
+            showingSurnames={showingSurnames}
+            setShowingSurnames={setShowingSurnames}
+            isMobile={isMobile}
           />
         </>
       }

@@ -1,202 +1,199 @@
 @use '../base/color';
 @use '../mixins/neumorph';
 
-#controls #back-button,
-#controls #legend,
-#controls #surnames {
-	z-index: 2;
-}
-
-#back-button {
-	position: fixed;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	background-color: color.$grey-light;
-	color: color.$text;
-	border-radius: 50px;
-	padding: 8px;
-	margin: 15px;
-	width: 25px;
-	height: 25px;
-	text-align: center;
-	font-size: 1.2rem;
-
-	&:hover {
-		@include neumorph.neumorph-hover;
+#controls {
+	p {
+		font-size: .9rem;
+		color: color.$text-dark;
+	}
+	
+	#back-button, #legend, #surnames {
+	   z-index: 2;
 	}
 
-	&:active {
-		@include neumorph.neumorph-active;
+	#legend, #surnames {
+		
+		.control-title {
+			font-size: 1.2rem;
+			font-weight: 700;
+			font-style: italic;
+			color: color.$text;
+			margin: .5rem auto;
+		} 
 	}
 
-	i {}
-}
-
-/* Legend */
-#legend {
-	bottom: 0;
-	position: fixed;
-	margin: 15px;
-
-	& > p {
-		width: 40px;
-		margin-left: 0px;
-		@include neumorph.neumorph;
-
-		&:hover {
-			@include neumorph.neumorph-hover;
-		}
-
-		&:active,
-		&.active {
-			@include neumorph.neumorph-active;
-			border-radius: 0px 0px 16px 16px;
-		}
-	}
-
-	#legend-content {
-		width: 300px;
-		max-height: 300px;
-		background-color: color.$grey-light;
-		border-radius: 16px 16px 16px 0px;
-		overflow-y: auto;
-
-		h2 {
-			margin: 5px auto;
-			font-weight: 800;
-		}
-
-		p {
-			margin: 5px 0px;
-		}
-	}
-
-	.legend-line {
+	#back-button {
+		position: fixed;
 		display: flex;
-		justify-content: flex-start;
+		justify-content: center;
 		align-items: center;
-
-		img {
-			height: 100%;
-			margin-right: 4px;
-		}
-	}
-}
-
-#legend-button,
-#legend-content,
-#surnames-button,
-.surnames-content,
-.surnames-heading {
-	margin: 0px auto;
-	padding: 3px 15px;
-}
-
-#legend-button,
-#surnames-button {
-	text-align: center;
-	color: #888;
-
-	&:hover {
-		cursor: pointer;
-	}
-}
-
-/* SURNAMES */
-#surnames {
-	bottom: 0;
-	right: 0;
-	position: fixed;
-	margin: 15px;
-
-	& > p {
-		width: 60px;
-		margin-right: 0px;
-		@include neumorph.neumorph;
-
+		background-color: color.$grey-dark;
+		color: color.$text;
+		border-radius: 50px;
+		padding: 8px;
+		margin: 1rem;
+		width: 1rem;
+		height: 1rem;
+		text-align: center;
+		font-size: .8rem;
+	
 		&:hover {
 			@include neumorph.neumorph-hover;
 		}
-
-		&:active,
-		&.active {
+	
+		&:active {
 			@include neumorph.neumorph-active;
-			border-radius: 0px 0px 15px 15px;
 		}
 	}
 
-	.surnames-content {
-		max-height: 400px;
-		overflow-y: auto;
-		background-color: color.$grey-light;
-		border-radius: 0px 0px 0px 15px;
+	/* Legend */
+	#legend {
+		bottom: 0;
+		position: fixed;
+		margin: 15px;
+	
+		& > p {
+			width: 40px;
+			margin-left: 0px;
+			@include neumorph.neumorph;
+	
+			&:hover {
+				@include neumorph.neumorph-hover;
+			}
+	
+			&:active,
+			&.active {
+				@include neumorph.neumorph-active;
+				border-radius: 0px 0px 1rem 1rem;
+			}
+		}
+	
+		#legend-content {
+			width: 200px;
+			max-height: 300px;
+			background-color: color.$grey-dark;
+			border-radius: 1rem 1rem 1rem 0px;
+			overflow-y: auto;
+	
+			p {
+				margin: .25rem 0px;
+			}
+		}
+	
+		.legend-line {
+			display: flex;
+			justify-content: flex-start;
+			align-items: center;
+	
+			img {
+				height: 100%;
+				margin-right: 4px;
+			}
+		}
+	}
+	
+	/* SURNAMES */
+	#surnames {
+		bottom: 0;
+		right: 0;
+		position: fixed;
+		margin: 1rem;
+	
+		& > p {
+			width: 60px;
+			margin-right: 0px;
+			@include neumorph.neumorph;
+	
+			&:hover {
+				@include neumorph.neumorph-hover;
+			}
+	
+			&:active,
+			&.active {
+				@include neumorph.neumorph-active;
+				border-radius: 0px 0px 1rem 1rem;
+			}
+		}
+	
+		.surnames-content {
+			max-height: 200px;
+			overflow-y: auto;
+			background-color: color.$grey-dark;
+			border-radius: 1rem 1rem 0px 1rem;
+		}
 	}
 
+	#legend-button,
+	#legend-content,
+	#surnames-button,
+	.surnames-content,
 	.surnames-heading {
-		padding-bottom: 0px;
-		background-color: color.$grey-light;
-		border-radius: 15px 15px 0px 0px;
-
-		h2 {
-			margin: 5px auto;
-		}
-
-		p {
-			margin: 0px auto;
-			font-size: 0.85rem;
-			color: #888;
-		}
-	}
-}
-
-#node-info {
-	position: fixed;
-	bottom: 8px;
-	left: 50%;
-	transform: translateX(-50%);
-	width: 95%;
-	max-width: 500px;
-	height: fit-content;
-	max-height: 200px;
-	overflow-y: auto;
-	border-radius: 1rem;
-	z-index: 3;
-
-	@media (min-width: 769px) {
-		left: 1rem;
-		bottom: 1rem;
-		transform: none;
-		max-height: 400px;
-	}
-
-	& > p {
-		width: 40px;
-		margin-left: 0px;
-		@include neumorph.neumorph;
-
-		&:hover {
-			@include neumorph.neumorph-hover;
-		}
-
-		&:active,
-		&.active {
-			@include neumorph.neumorph-active;
-			border-radius: 15px;
-		}
-	}
-
-	#node-info--content {
-		background-color: color.$grey-light;
+		margin: 0px auto;
 		padding: 1rem;
-
-		h2 {
-			margin: 5px auto;
-			font-weight: 800;
+	}
+	
+	#legend-button,
+	#surnames-button {
+		text-align: center;
+		margin-bottom: 0 !important;
+		color: #888;
+	
+		&:hover {
+			cursor: pointer;
 		}
-
-		p {
-			margin: 5px 0px;
+	}
+	
+	#node-info {
+		position: fixed;
+		bottom: 8px;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 95%;
+		max-width: 500px;
+		height: fit-content;
+		max-height: 200px;
+		overflow-y: auto;
+		border-radius: 1rem;
+		z-index: 3;
+	
+		@media (min-width: 769px) {
+			left: 1rem;
+			bottom: 1rem;
+			transform: none;
+			max-height: 400px;
+		}
+	
+		& > p {
+			width: 40px;
+			margin-left: 0px;
+			@include neumorph.neumorph;
+	
+			&:hover {
+				@include neumorph.neumorph-hover;
+			}
+	
+			&:active,
+			&.active {
+				@include neumorph.neumorph-active;
+				border-radius: 15px;
+			}
+		}
+	
+		#node-info--content {
+			background-color: color.$grey-dark;
+			padding: 1rem;
+	
+			h2 {
+				margin: .25rem auto;
+				font-weight: 800;
+			}
+	
+			p {
+				margin: .25rem 0px;
+			}
 		}
 	}
 }
+
+
+

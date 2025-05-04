@@ -1,21 +1,16 @@
 // Modules
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import ForceGraph3D from "react-force-graph-3d";
 import * as THREE from "three";
 import SpriteText from "three-spritetext";
 import { forceCollide } from "d3-force-3d";
 
-const Graph = ({ d3Data, highlightedFamily, setHighlightedFamily, selectedNode, setSelectedNode }) => {
+const Graph = ({ d3Data, highlights, setHighlights, highlightedFamily, setHighlightedFamily, selectedNode, setSelectedNode, showingLegend, setShowingLegend, showingSurnames, setShowingSurnames, isMobile }) => {
+
   // STATE //
-
-  const [highlights, setHighlights] = useState({ node: null, family: [], links: [] });
-  const [width, setWidth] = useState(window.innerWidth);
-  const [height, setHeight] = useState(window.innerHeight);
-
   const fgRef = useRef();
   const touchStartRef = useRef({ x: 0, y: 0, time: 0 });
 
-  const isMobile = window.innerWidth < 769;
   let touchTimeout = null;
 
   const raycaster = new THREE.Raycaster();
@@ -23,7 +18,7 @@ const Graph = ({ d3Data, highlightedFamily, setHighlightedFamily, selectedNode, 
 
   // DESIGN //
 
-  const setNodeThreeObject = (node) => {
+  const setNodeThreeObject = useCallback((node) => {
     // Use a sphere as a drag handle
     const obj = new THREE.Mesh(
       new THREE.SphereGeometry(10),
@@ -84,7 +79,7 @@ const Graph = ({ d3Data, highlightedFamily, setHighlightedFamily, selectedNode, 
     sprite.padding = 4;
     obj.add(sprite);
     return obj;
-  };
+  }, [highlights, highlightedFamily]);
 
   // Link color
   const setLinkColor = (link) => {
@@ -123,35 +118,6 @@ const Graph = ({ d3Data, highlightedFamily, setHighlightedFamily, selectedNode, 
   useEffect(() => {
     // Manage force
     fgRef.current.d3Force("collide", forceCollide(55));
-
-    // Resize window
-    (function () {
-      const handleResize = () => {
-        setWidth(window.innerWidth);
-        setHeight(window.innerHeight);
-      };
-      window.addEventListener("resize", handleResize);
-      return () => window.removeEventListener("resize", handleResize);
-    })();
-
-    // Add fog
-    (function () {
-      if (!isMobile && d3Data.nodes.length < 200) {
-        let fogNear = 1000;
-        let fogFar = 3000;
-        if (d3Data.nodes.length < 120) {
-          fogNear = 600;
-          fogFar = 3000;
-        }
-
-        const fogColor = new THREE.Color(0x111111);
-
-        var myFog = new THREE.Fog(fogColor, fogNear, fogFar);
-        var myFogg = new THREE.FogExp2(fogColor, 0.0025);
-
-        fgRef.current.scene().fog = myFog;
-      }
-    })();
 
     // Add timeline //
     (function () {
@@ -327,10 +293,11 @@ const Graph = ({ d3Data, highlightedFamily, setHighlightedFamily, selectedNode, 
 
   // Clear highlights
   const clearHighlights = () => {
-    console.log("Clearing highlights");
     setHighlights({ node: null, family: [], links: [] });
     setHighlightedFamily(null);
     setSelectedNode(null);
+    setShowingLegend(false);
+    setShowingSurnames(false);
   };
 
   // Handle node click
@@ -389,7 +356,6 @@ const Graph = ({ d3Data, highlightedFamily, setHighlightedFamily, selectedNode, 
 
         touchTimeout = setTimeout(() => {
           // Check if a node was targeted
-          console.log("touch timeout");
           const { clientX, clientY } = e.touches[0];
           const canvas = fgRef.current.renderer().domElement;
 
@@ -417,11 +383,10 @@ const Graph = ({ d3Data, highlightedFamily, setHighlightedFamily, selectedNode, 
           if (nodeObject && distance < 60 && e.changedTouches.length === 1) {
             const node = nodeObject.object.__data;
 
-            handleNodeClick(node);
-
             if (navigator.vibrate) {
               navigator.vibrate(25);
             }
+            handleNodeClick(node);
           }
 
         }, 400);
@@ -438,7 +403,13 @@ const Graph = ({ d3Data, highlightedFamily, setHighlightedFamily, selectedNode, 
 
       if (distance < 60 && dt < 400 && e.changedTouches.length === 1) {
         clearTimeout(touchTimeout);
-        clearHighlights(); // Possibly a swipe or short tap
+        if (showingLegend || showingSurnames) {
+          console.log("Short tap detected");
+          setShowingLegend(false);
+          setShowingSurnames(false);
+        } else {
+          clearHighlights(); // Possibly a swipe or short tap
+        }
       }
     };
 
@@ -458,14 +429,16 @@ const Graph = ({ d3Data, highlightedFamily, setHighlightedFamily, selectedNode, 
       ref={fgRef}
       graphData={d3Data}
       // Display
-      width={width}
-      height={height}
+      width={window.innerWidth}
+      height={window.innerHeight}
       backgroundColor={"#010000"}
       showNavInfo={false}
       // Controls
       controlType={"orbit"}
       enableNodeDrag={false}
-      onBackgroundClick={isMobile ? undefined : clearHighlights}
+      onBackgroundClick={
+        isMobile ? undefined : clearHighlights
+      }
       // Nodes
       nodeThreeObject={setNodeThreeObject}
       nodeLabel={null}

@@ -3,23 +3,16 @@ import React, {useState} from "react";
 import greyLine from './img/grey-line.png';
 import goldLine from './img/gold-line.png';
 
-const Controls = ({ d3Data, closeRoots, setTimelineShowing, highlightedFamily, setHighlightedFamily, selectedNode}) => {
-
-  const [showingLegend, setShowingLegend] = useState(false);
-  const [showingsurnames, setShowingsurnames] = useState(false);
+const Controls = ({ d3Data, closeRoots, highlightedFamily, setHighlightedFamily, selectedNode, showingLegend, setShowingLegend, showingSurnames, setShowingSurnames, isMobile }) => {
 
   const toggleLegend = () => {
     setShowingLegend(prevState => !prevState);
-    setShowingsurnames(false);
+    setShowingSurnames(false);
   }
 
   const toggleSurnames = () => {
-    setShowingsurnames(prevState => !prevState);
+    setShowingSurnames(prevState => !prevState);
     setShowingLegend(false);
-  }
-
-  const handleClick = () => {
-    setTimelineShowing(prevState => !prevState)
   }
 
   function compareSurname( a, b ) {
@@ -43,9 +36,9 @@ const Controls = ({ d3Data, closeRoots, setTimelineShowing, highlightedFamily, s
   }
 
   const surnameList = d3Data.surnameList.filter(name => name.surname !== "").sort(compareSurname).sort(compareCount).map((family, index) =>
-    <p
+    <p 
       key={index}
-      style={{color: !highlightedFamily ? family.color : highlightedFamily === family.surname ? family.color : '#333', cursor: 'pointer'}}
+      style={{color: !highlightedFamily ? family.color : highlightedFamily === family.surname ? family.color : '#ccc', cursor: 'pointer'}}
       onClick={e => highlightedFamily === family.surname ? setHighlightedFamily() : setHighlightedFamily(family.surname) }>
       {family.surname} ({family.count})
     </p>
@@ -78,14 +71,33 @@ const Controls = ({ d3Data, closeRoots, setTimelineShowing, highlightedFamily, s
       <div id="legend">
         {showingLegend &&
           <div id="legend-content">
-            <h2 onClick={handleClick}>legend</h2>
+            <p className='control-title'>controls</p>
+            {isMobile ?
+              <>
+                <p>long press on name: person info</p>
+                <p>pinch: zoom</p>
+                <p>swipe: rotate</p>
+                <p>two-finger swipe: pan</p>
+              </>
+              :
+              <>
+                <p>click on name: person info</p>
+                <p>scroll: zoom</p>
+                <p>left-click drag: rotate</p>
+                <p>right-click drag: pan</p>
+              </>
+            }
+
+            <br/>
+            
+            <p className='control-title'>legend</p>
             <div className="legend-line">
               <img src={greyLine} />
-              <p>- Blood line</p>
+              <p>- blood line</p>
             </div>
             <div className="legend-line">
               <img src={goldLine} />
-              <p>- Love line</p>
+              <p>- love line</p>
             </div>
           </div>
         }
@@ -97,18 +109,12 @@ const Controls = ({ d3Data, closeRoots, setTimelineShowing, highlightedFamily, s
       </div>
 
       <div id="surnames">
-        {showingsurnames &&
-          <>
-            <div className="surnames-heading">
-              <h2>names</h2>
-              <p>click name to toggle highlight</p>
-            </div>
-            <div className="surnames-content">
-              {surnameList}
-            </div>
-          </>
+        {showingSurnames &&
+          <div className="surnames-content">
+            {surnameList}
+          </div>
         }
-        <p id="surnames-button" className={showingsurnames ? 'active' : ''} onClick={toggleSurnames}>{'names'}</p>
+        <p id="surnames-button" className={showingSurnames ? 'active' : ''} onClick={toggleSurnames}>{'names'}</p>
       </div>
     </div>
   )

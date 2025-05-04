@@ -7,40 +7,40 @@ const Load = ({ handleUpload, loadHalfling, loadKennedy, loadShakespeare, loadTu
       <div>
         <section className="title-area">
           <h1>blood lines</h1>
-          <p>A 3D visualizer for genealogical data</p>
+          <p>a 3D visualizer for genealogical data</p>
         </section>
 
         <section className='sample-area'>
-          <h2>View samples</h2>
+          <h2>view samples</h2>
           <SampleButton
-          name={'Shakespeare'}
+          name={'shakespeare'}
           loadFile={loadShakespeare}
           />
           <SampleButton
-          name={'Kardashian'}
+          name={'kardashian'}
           loadFile={loadKardashian}
           />
           <SampleButton
-            name={'Kennedy'}
+            name={'kennedy'}
             loadFile={loadKennedy}
           />
           <SampleButton
-          name={'Halfling'}
+          name={'halfling'}
           loadFile={loadHalfling}
           />
           <SampleButton
-            name={'Tudor'}
+            name={'tudor'}
             loadFile={loadTudor}
           />
 		      <SampleButton
-            name={'Plunkett'}
+            name={'plunkett'}
             loadFile={loadPlunkett}
           />
         </section>
 
         <section className="load-area">
-          <h2>Upload a GEDCOM (.ged) file</h2>
-          { showError ? <p className='error'>File type not supported. Please use a .ged file.</p> : null}
+          <h2>upload a gedcom (.ged) file</h2>
+          { showError ? <p className='error'>file type not supported. please use a .ged file.</p> : null}
           <input id='file-input' className='form-control' type='file' name='gedFile' onChange={handleUpload} />
         </section>
 
