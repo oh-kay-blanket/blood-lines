@@ -4,6 +4,7 @@ import ForceGraph3D from "react-force-graph-3d";
 import * as THREE from "three";
 import SpriteText from "three-spritetext";
 import { forceCollide } from "d3-force-3d";
+import Hammer from 'hammerjs';
 
 const Graph = ({ d3Data, highlights, setHighlights, highlightedFamily, setHighlightedFamily, selectedNode, setSelectedNode, showingLegend, setShowingLegend, showingSurnames, setShowingSurnames, isMobile }) => {
 
@@ -14,6 +15,8 @@ const Graph = ({ d3Data, highlights, setHighlights, highlightedFamily, setHighli
 
   const raycaster = new THREE.Raycaster();
   const mouse = new THREE.Vector2();
+  const graphRef = useRef();
+  const justPinchedRef = useRef(false);
 
   // DESIGN //
 
@@ -345,59 +348,49 @@ const Graph = ({ d3Data, highlights, setHighlights, highlightedFamily, setHighli
     const canvas = fgRef.current?.renderer().domElement;
     if (!canvas) return;
 
-    const handleTouchStart = (e) => {
-      if (e.touches.length === 1) {
-        const touch = e.touches[0];
-        touchStartRef.current = {
-          x: touch.clientX,
-          y: touch.clientY,
-          time: Date.now(),
-        };
-        setShowingLegend(false);
-        setShowingSurnames(false);
-      }
-    };
+    const hammer = new Hammer.Manager(canvas);
+    const doubleTap = new Hammer.Tap({ event: "doubletap", taps: 2 });
+    const singleTap = new Hammer.Tap({ event: "singletap" });
+    const pinch = new Hammer.Pinch();
 
-    const handleTouchEnd = (e) => {
-      const touch = e.changedTouches[0];
-      const currentTime = Date.now();
-      const tapLength = currentTime - lastTapRef.current;
-      lastTapRef.current = currentTime;
-    
-      const dx = touch.clientX - touchStartRef.current.x;
-      const dy = touch.clientY - touchStartRef.current.y;
-      const distance = Math.sqrt(dx * dx + dy * dy);
-    
-      // Double-tap threshold: 300ms and within 60px of the original touch
-      if (tapLength < 300 && distance < 60) {
-        // Use raycasting to check for intersected node
-        const canvas = fgRef.current.renderer().domElement;
-        const bounds = canvas.getBoundingClientRect();
-    
-        mouse.x = ((touch.clientX - bounds.left) / bounds.width) * 2 - 1;
-        mouse.y = -((touch.clientY - bounds.top) / bounds.height) * 2 + 1;
-    
-        raycaster.setFromCamera(mouse, fgRef.current.camera());
-        const intersects = raycaster.intersectObjects(fgRef.current.scene().children, true);
-        const nodeObject = intersects.find((intersect) => intersect.object.__data);
-    
-        if (nodeObject) {
-          const node = nodeObject.object.__data;
-          if (navigator.vibrate) navigator.vibrate(25);
-          handleNodeClick(node);
-        } else {
-          // Double tap on background clears highlights
-          clearHighlights();
-        }
-      }
-    };
+    pinch.recognizeWith(singleTap);
+    hammer.add([doubleTap, singleTap, pinch]);
 
-    canvas.addEventListener("touchstart", handleTouchStart);
-    canvas.addEventListener("touchend", handleTouchEnd);
+    hammer.on("doubletap", (ev) => {
+      const bounds = canvas.getBoundingClientRect();
+      mouse.x = ((ev.center.x - bounds.left) / bounds.width) * 2 - 1;
+      mouse.y = -((ev.center.y - bounds.top) / bounds.height) * 2 + 1;
+
+      raycaster.setFromCamera(mouse, fgRef.current.camera());
+      const intersects = raycaster.intersectObjects(fgRef.current.scene().children, true);
+      const nodeObject = intersects.find((intersect) => intersect.object.__data);
+
+      if (nodeObject) {
+        const node = nodeObject.object.__data;
+        if (navigator.vibrate) navigator.vibrate(25);
+        handleNodeClick(node);
+      } else {
+        clearHighlights();
+      }
+    });
+
+    hammer.on("pinchstart", () => {
+      justPinchedRef.current = true;
+    });
+
+    hammer.on("pinchend", () => {
+      setTimeout(() => {
+        justPinchedRef.current = false;
+      }, 500);
+    });
+
+    hammer.on('singletap', (ev) => {
+      setShowingLegend(false);
+      setShowingSurnames(false);
+    });
 
     return () => {
-      canvas.removeEventListener("touchstart", handleTouchStart);
-      canvas.removeEventListener("touchend", handleTouchEnd);
+      hammer.destroy();
     };
   }, [selectedNode]);
 

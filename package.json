@@ -38,6 +38,7 @@
     "d3-octree": "^0.1.8",
     "gedcom-d3": "^2.0.6",
     "gh-pages": "^6.3.0",
+    "hammerjs": "^2.0.8",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-force-graph-3d": "^1.17.0",
