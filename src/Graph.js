@@ -302,6 +302,8 @@ const Graph = ({ d3Data, highlights, setHighlights, highlightedFamily, setHighli
 
   // Handle node click
   const handleNodeClick = (node) => {
+    const clickedSameNode = selectedNode === node;
+    console.log(clickedSameNode);
     clearHighlights();
 
     // Find family member of clicked node
@@ -335,7 +337,7 @@ const Graph = ({ d3Data, highlights, setHighlights, highlightedFamily, setHighli
       setHighlights({ node: null, family: [], links: [] });
     }
 
-    setSelectedNode(node);
+    clickedSameNode ? setSelectedNode(null) : setSelectedNode(node);
   };
 
   // Handle touch events for mobile
@@ -346,12 +348,11 @@ const Graph = ({ d3Data, highlights, setHighlights, highlightedFamily, setHighli
     if (!canvas) return;
 
     const hammer = new Hammer.Manager(canvas);
-    const doubleTap = new Hammer.Tap({ event: "doubletap", taps: 2 });
     const singleTap = new Hammer.Tap({ event: "singletap" });
     const pinch = new Hammer.Pinch();
 
     pinch.recognizeWith(singleTap);
-    hammer.add([doubleTap, singleTap, pinch]);
+    hammer.add([singleTap, pinch]);
 
     hammer.on("singletap", (ev) => {
       const bounds = canvas.getBoundingClientRect();
@@ -383,11 +384,6 @@ const Graph = ({ d3Data, highlights, setHighlights, highlightedFamily, setHighli
         justPinchedRef.current = false;
       }, 500);
     });
-
-    // hammer.on('singletap', (ev) => {
-    //   setShowingLegend(false);
-    //   setShowingSurnames(false);
-    // });
 
     return () => {
       hammer.destroy();

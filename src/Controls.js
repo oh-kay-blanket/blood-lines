@@ -74,7 +74,7 @@ const Controls = ({ d3Data, closeRoots, highlightedFamily, setHighlightedFamily,
             <p className='control-title'>controls</p>
             {isMobile ?
               <>
-                <p>double tap on name: person info</p>
+                <p>tap on name: person info</p>
                 <p>pinch: zoom</p>
                 <p>swipe: rotate</p>
                 <p>two-finger swipe: pan</p>
