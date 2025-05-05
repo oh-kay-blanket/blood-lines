@@ -3,7 +3,7 @@ import React, {useState} from "react";
 import greyLine from './img/grey-line.png';
 import goldLine from './img/gold-line.png';
 
-const Controls = ({ d3Data, closeRoots, highlightedFamily, setHighlightedFamily, selectedNode, showingLegend, setShowingLegend, showingSurnames, setShowingSurnames, isMobile }) => {
+const Controls = ({ d3Data, closeRoots, highlights, highlightedFamily, setHighlightedFamily, showingLegend, setShowingLegend, showingSurnames, setShowingSurnames, isMobile }) => {
 
   const toggleLegend = () => {
     setShowingLegend(prevState => !prevState);
@@ -105,7 +105,7 @@ const Controls = ({ d3Data, closeRoots, highlightedFamily, setHighlightedFamily,
       </div>
 
       <div id="node-info">
-        {!!selectedNode && nodeInfoInsert(selectedNode)}
+        {!!highlights.node && nodeInfoInsert(highlights.node)}
       </div>
 
       <div id="surnames">

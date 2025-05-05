@@ -27,11 +27,18 @@ const App = () => {
   const [d3Data, setD3Data] = useState([]);
   const [showError, setShowError] = useState(false);
   const [highlightedFamily, setHighlightedFamily] = useState();
-  const [selectedNode, setSelectedNode] = useState(null);
   const [showingLegend, setShowingLegend] = useState(false);
   const [showingSurnames, setShowingSurnames] = useState(false);
   const [highlights, setHighlights] = useState({ node: null, family: [], links: [] });
   const isMobile = window.innerWidth < 769;
+
+  // Clear highlights
+  const clearHighlights = () => {
+    setHighlights({ node: null, family: [], links: [] });
+    setHighlightedFamily(null);
+    setShowingLegend(false);
+    setShowingSurnames(false);
+  };
 
   const readFile = file => {
     setD3Data(d3ize(parse(file)));  // Parse data
@@ -40,8 +47,8 @@ const App = () => {
   }
 
   const closeRoots = () => {
+    clearHighlights();
     setShowingRoots(false);
-    setHighlightedFamily();
     setD3Data([]);
   }
 
@@ -78,14 +85,15 @@ const App = () => {
           <Controls
             d3Data={d3Data}
             closeRoots={closeRoots}
+            highlights={highlights}
             highlightedFamily={highlightedFamily}
             setHighlightedFamily={setHighlightedFamily}
-            selectedNode={selectedNode}
             showingLegend={showingLegend}
             setShowingLegend={setShowingLegend}
             showingSurnames={showingSurnames}
             setShowingSurnames={setShowingSurnames}
             isMobile={isMobile}
+            clearHighlights={clearHighlights}
           />
           <Graph
             d3Data={d3Data}
@@ -93,13 +101,12 @@ const App = () => {
             setHighlights={setHighlights}
             highlightedFamily={highlightedFamily}
             setHighlightedFamily={setHighlightedFamily}
-            selectedNode={selectedNode}
-            setSelectedNode={setSelectedNode}
             showingLegend={showingLegend}
             setShowingLegend={setShowingLegend}
             showingSurnames={showingSurnames}
             setShowingSurnames={setShowingSurnames}
             isMobile={isMobile}
+            clearHighlights={clearHighlights}
           />
         </>
       }

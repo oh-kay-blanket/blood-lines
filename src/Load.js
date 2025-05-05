@@ -13,10 +13,6 @@ const Load = ({ handleUpload, loadHalfling, loadKennedy, loadShakespeare, loadTu
         <section className='sample-area'>
           <h2>view samples</h2>
           <SampleButton
-          name={'shakespeare'}
-          loadFile={loadShakespeare}
-          />
-          <SampleButton
           name={'kardashian'}
           loadFile={loadKardashian}
           />
@@ -25,8 +21,12 @@ const Load = ({ handleUpload, loadHalfling, loadKennedy, loadShakespeare, loadTu
             loadFile={loadKennedy}
           />
           <SampleButton
-          name={'halfling'}
-          loadFile={loadHalfling}
+            name={'shakespeare'}
+            loadFile={loadShakespeare}
+          />
+          <SampleButton
+            name={'halfling'}
+            loadFile={loadHalfling}
           />
           <SampleButton
             name={'tudor'}

@@ -6,7 +6,9 @@ import SpriteText from "three-spritetext";
 import { forceCollide } from "d3-force-3d";
 import Hammer from 'hammerjs';
 
-const Graph = ({ d3Data, highlights, setHighlights, highlightedFamily, setHighlightedFamily, selectedNode, setSelectedNode, showingLegend, setShowingLegend, showingSurnames, setShowingSurnames, isMobile }) => {
+const Graph = ({ d3Data, highlights, setHighlights, highlightedFamily, showingLegend, setShowingLegend, showingSurnames, setShowingSurnames, isMobile, clearHighlights }) => {
+
+  console.log(d3Data);
 
   // STATE //
   const fgRef = useRef();
@@ -82,7 +84,7 @@ const Graph = ({ d3Data, highlights, setHighlights, highlightedFamily, setHighli
   }, [highlights, highlightedFamily]);
 
   // Link color
-  const setLinkColor = (link) => {
+  const getLinkColor = useCallback((link) => {
     return highlights.links.length < 1
       ? highlightedFamily
         ? "rgba(252, 103, 103, 0.15)" // Highlighed family exists, mute all links
@@ -93,26 +95,26 @@ const Graph = ({ d3Data, highlights, setHighlights, highlightedFamily, setHighli
       ? link.sourceType != "CHIL" && link.targetType != "CHIL"
         ? "rgba(255, 215, 0, 0.6)" // Romantic link
         : "rgba(252, 103, 103, 0.3)" // Normal link
-      : "rgba(252, 103, 103, 0.14)"; // Normal link
-  };
+      : "rgba(252, 103, 103, 0.15)"; // Muted link
+  }, [highlights, highlightedFamily]);
 
   // Link width
-  const setLinkWidth = (link) => {
+  const getLinkWidth = useCallback((link) => {
     if (highlights.links.indexOf(link.index) !== -1) {
       return 1.5;
     } else {
       return 1.5;
     }
-  };
+  }, [highlights]);
 
   // Link particles
-  const setLinkParticleWidth = (link) => {
+  const getLinkParticleWidth = useCallback((link) => {
     if (highlights.links.indexOf(link.index) !== -1) {
       return 2;
     } else {
       return 0.1;
     }
-  };
+  }, [highlights]);
 
   // USE EFFECT
   useEffect(() => {
@@ -291,53 +293,28 @@ const Graph = ({ d3Data, highlights, setHighlights, highlightedFamily, setHighli
 
   // LOGIC //
 
-  // Clear highlights
-  const clearHighlights = () => {
-    setHighlights({ node: null, family: [], links: [] });
-    setHighlightedFamily(null);
-    setSelectedNode(null);
-    setShowingLegend(false);
-    setShowingSurnames(false);
-  };
-
   // Handle node click
   const handleNodeClick = (node) => {
-    const clickedSameNode = selectedNode === node;
-    console.log(clickedSameNode);
+    
     clearHighlights();
+    
+    // Only action if new node is clicked
+    if (highlights.node !== node) {
+      let tempHighlights = { node: node, family: [node.id], links: [] };
 
-    // Find family member of clicked node
-    const findFamilies = (links, node, highlights) => {
-      if (links.source.id == node.id || links.target.id == node.id) {
-        let updatedHighlightFamily = highlights.family;
-        let updatedHighlightLinks = highlights.links;
+      // Build nuclear family
+      d3Data.links.forEach((links) => {
+        if (links.source.id === node.id) {        
+          tempHighlights.family.push(links.target.id);
+          tempHighlights.links.push(links.index);
+        } else if (links.target.id === node.id) {        
+          tempHighlights.family.push(links.source.id);
+          tempHighlights.links.push(links.index);
+        }
+      });
 
-        updatedHighlightFamily.push(links.target.id, links.source.id);
-        updatedHighlightLinks.push(links.index);
-
-        setHighlights({
-          node: node,
-          family: updatedHighlightFamily,
-          links: updatedHighlightLinks,
-        });
-      }
-    };
-
-    // None highlighted
-    if (highlights.node === null) {
-      d3Data.links.filter((links) => findFamilies(links, node, highlights));
-
-      // Different node highlighted
-    } else if (highlights.node !== node) {
-      let tempHighlights = { node: null, family: [], links: [] };
-      d3Data.links.filter((links) => findFamilies(links, node, tempHighlights));
-
-      // Reset current node
-    } else {
-      setHighlights({ node: null, family: [], links: [] });
+      setHighlights(tempHighlights);
     }
-
-    clickedSameNode ? setSelectedNode(null) : setSelectedNode(node);
   };
 
   // Handle touch events for mobile
@@ -361,10 +338,11 @@ const Graph = ({ d3Data, highlights, setHighlights, highlightedFamily, setHighli
 
       raycaster.setFromCamera(mouse, fgRef.current.camera());
       const intersects = raycaster.intersectObjects(fgRef.current.scene().children, true);
-      const nodeObject = intersects.find((intersect) => intersect.object.__data);
+      const nodeObject = intersects.find((intersect) => intersect.object.__data && intersect.object.__data.id);
 
       if (nodeObject) {
         const node = nodeObject.object.__data;
+        console.log(node)
         if (navigator.vibrate) navigator.vibrate(25);
         handleNodeClick(node);
       } else if (showingSurnames || showingLegend) {
@@ -388,7 +366,7 @@ const Graph = ({ d3Data, highlights, setHighlights, highlightedFamily, setHighli
     return () => {
       hammer.destroy();
     };
-  }, [selectedNode, showingSurnames, showingLegend]);
+  }, [highlights, showingSurnames, showingLegend]);
 
 
   // BUILD GRAPH //
@@ -419,9 +397,9 @@ const Graph = ({ d3Data, highlights, setHighlights, highlightedFamily, setHighli
       }}
       // LINKS
       linkLabel={null}
-      linkColor={setLinkColor}
+      linkColor={getLinkColor}
       linkOpacity={1}
-      linkWidth={setLinkWidth}
+      linkWidth={getLinkWidth}
       linkDirectionalParticles={(link) =>
         link.sourceType != "CHIL" &&
         link.targetType == "CHIL" &&
@@ -429,7 +407,7 @@ const Graph = ({ d3Data, highlights, setHighlights, highlightedFamily, setHighli
           ? 8
           : 0
       }
-      linkDirectionalParticleWidth={setLinkParticleWidth}
+      linkDirectionalParticleWidth={getLinkParticleWidth}
       linkDirectionalParticleSpeed={0.001}
     />
   );
