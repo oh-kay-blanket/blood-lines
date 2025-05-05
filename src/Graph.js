@@ -10,12 +10,9 @@ const Graph = ({ d3Data, highlights, setHighlights, highlightedFamily, setHighli
 
   // STATE //
   const fgRef = useRef();
-  const touchStartRef = useRef({ x: 0, y: 0, time: 0 });
-  const lastTapRef = useRef(0);
 
   const raycaster = new THREE.Raycaster();
   const mouse = new THREE.Vector2();
-  const graphRef = useRef();
   const justPinchedRef = useRef(false);
 
   // DESIGN //
@@ -23,7 +20,7 @@ const Graph = ({ d3Data, highlights, setHighlights, highlightedFamily, setHighli
   const setNodeThreeObject = useCallback((node) => {
     // Use a sphere as a drag handle
     const obj = new THREE.Mesh(
-      new THREE.SphereGeometry(18),
+      new THREE.SphereGeometry(25),
       // new THREE.MeshBasicMaterial({ color: node.color || 'skyblue' }),
       new THREE.MeshBasicMaterial({
         depthWrite: false,
@@ -356,7 +353,7 @@ const Graph = ({ d3Data, highlights, setHighlights, highlightedFamily, setHighli
     pinch.recognizeWith(singleTap);
     hammer.add([doubleTap, singleTap, pinch]);
 
-    hammer.on("doubletap", (ev) => {
+    hammer.on("singletap", (ev) => {
       const bounds = canvas.getBoundingClientRect();
       mouse.x = ((ev.center.x - bounds.left) / bounds.width) * 2 - 1;
       mouse.y = -((ev.center.y - bounds.top) / bounds.height) * 2 + 1;
@@ -369,6 +366,9 @@ const Graph = ({ d3Data, highlights, setHighlights, highlightedFamily, setHighli
         const node = nodeObject.object.__data;
         if (navigator.vibrate) navigator.vibrate(25);
         handleNodeClick(node);
+      } else if (showingSurnames || showingLegend) {
+        setShowingSurnames(false);
+        setShowingLegend(false);
       } else {
         clearHighlights();
       }
@@ -384,15 +384,15 @@ const Graph = ({ d3Data, highlights, setHighlights, highlightedFamily, setHighli
       }, 500);
     });
 
-    hammer.on('singletap', (ev) => {
-      setShowingLegend(false);
-      setShowingSurnames(false);
-    });
+    // hammer.on('singletap', (ev) => {
+    //   setShowingLegend(false);
+    //   setShowingSurnames(false);
+    // });
 
     return () => {
       hammer.destroy();
     };
-  }, [selectedNode]);
+  }, [selectedNode, showingSurnames, showingLegend]);
 
 
   // BUILD GRAPH //
