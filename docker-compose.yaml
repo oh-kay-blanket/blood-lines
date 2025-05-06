@@ -1,0 +1,12 @@
+services:
+  blood-lines:
+    image: blood-lines
+    container_name: blood-lines
+    ports:
+      - "8080:8080"
+# Deploy is optionnal, only use it if CPU usage goes beyond limits
+    deploy:
+      resources:
+        limits:
+          cpus: "2"
+    restart: unless-stopped
