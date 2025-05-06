@@ -8,7 +8,7 @@ import Hammer from 'hammerjs';
 
 const Graph = ({ d3Data, highlights, setHighlights, highlightedFamily, showingLegend, setShowingLegend, showingSurnames, setShowingSurnames, isMobile, clearHighlights }) => {
 
-  console.log(d3Data);
+  console.log(`d3Data`, d3Data);
 
   // STATE //
   const fgRef = useRef();
@@ -89,13 +89,13 @@ const Graph = ({ d3Data, highlights, setHighlights, highlightedFamily, showingLe
       ? highlightedFamily
         ? "rgba(252, 103, 103, 0.15)" // Highlighed family exists, mute all links
         : link.sourceType != "CHIL" && link.targetType != "CHIL"
-        ? "rgba(255, 215, 0, 0.6)" // Romantic link
+        ? "rgba(255, 215, 0, 0.5)" // Romantic link
         : "rgba(252, 103, 103, 0.3)" // Normal link
       : highlights.links.indexOf(link.index) !== -1
       ? link.sourceType != "CHIL" && link.targetType != "CHIL"
-        ? "rgba(255, 215, 0, 0.6)" // Romantic link
-        : "rgba(252, 103, 103, 0.3)" // Normal link
-      : "rgba(252, 103, 103, 0.15)"; // Muted link
+        ? "rgba(255, 215, 0, 0.5)" // Romantic link
+        : "rgba(252, 103, 103, 0.4)" // Highlighted link
+      : "rgba(167, 98, 98, 0.15)"; // Muted link
   }, [highlights, highlightedFamily]);
 
   // Link width
@@ -294,25 +294,94 @@ const Graph = ({ d3Data, highlights, setHighlights, highlightedFamily, showingLe
   // LOGIC //
 
   // Handle node click
-  const handleNodeClick = (node) => {
-    
+  const handleNodeClick = (node) => {    
     clearHighlights();
     
     // Only action if new node is clicked
     if (highlights.node !== node) {
-      let tempHighlights = { node: node, family: [node.id], links: [] };
+      let tempHighlights = { node: node, family: [node.id], links: [], spouses: [], notDescendent: [] };
+      const cloneable = { ...tempHighlights };
+      delete cloneable.node;
 
       // Build nuclear family
-      d3Data.links.forEach((links) => {
-        if (links.source.id === node.id) {        
-          tempHighlights.family.push(links.target.id);
-          tempHighlights.links.push(links.index);
-        } else if (links.target.id === node.id) {        
-          tempHighlights.family.push(links.source.id);
-          tempHighlights.links.push(links.index);
+      d3Data.links.forEach((link) => {
+        if (link.source.id === node.id) {        
+          tempHighlights.family.push(link.target.id);
+          tempHighlights.links.push(link.index);
+          if ((link.sourceType === "WIFE" || link.sourceType === "HUSB") && (link.targetType === "WIFE" || link.targetType === "HUSB")) {
+            tempHighlights.spouses.push(link.target.id);
+          }
+          if (link.targetType !== "CHIL") {
+            tempHighlights.notDescendent.push(link.target.id);
+          }
+        } else if (link.target.id === node.id) {        
+          tempHighlights.family.push(link.source.id);
+          tempHighlights.links.push(link.index);
+          if ((link.sourceType === "WIFE" || link.sourceType === "HUSB") && (link.targetType === "WIFE" || link.targetType === "HUSB")) {
+            tempHighlights.spouses.push(link.source.id);
+          }
+          tempHighlights.notDescendent.push(link.source.id);
         }
       });
 
+      // Build parental lines
+      const buildParentLines = (parentTempHighlights) => {
+        d3Data.links.forEach((link) => {
+          if (parentTempHighlights.family.indexOf(link.target.id) !== -1 && parentTempHighlights.family.indexOf(link.source.id) === -1 && parentTempHighlights.spouses.indexOf(link.target.id) === -1 && (link.sourceType != "CHIL" && link.targetType != "WIFE")) {
+            parentTempHighlights.family.push(link.source.id);
+            parentTempHighlights.links.push(link.index);
+          }
+        });
+      }
+      
+      let parentTempHighlights = structuredClone(cloneable);
+      while (true) {
+        const lengthBefore = parentTempHighlights.family.length;
+        buildParentLines(parentTempHighlights);
+        const lengthAfter = parentTempHighlights.family.length;
+        if (lengthAfter === lengthBefore) {
+          break; // Exit loop if array length didn't change
+        }
+      }
+
+      // Build descendent lines
+      const buildDescendentLines = (descendentTempHighlights) => {
+        d3Data.links.forEach((link) => {
+          if (descendentTempHighlights.family.indexOf(link.source.id) !== -1 && descendentTempHighlights.family.indexOf(link.target.id) === -1 && descendentTempHighlights.notDescendent.indexOf(link.source.id) === -1 && (link.targetType === "CHIL")) {
+            descendentTempHighlights.family.push(link.target.id);
+            descendentTempHighlights.links.push(link.index);
+          }
+        });
+      }
+      // Remove duplicates
+      tempHighlights.family = [...new Set(tempHighlights.family)];
+      tempHighlights.links = [...new Set(tempHighlights.links)];
+
+      let descendentTempHighlights = structuredClone(cloneable);
+      while (true) {
+        const lengthBefore = descendentTempHighlights.family.length;
+        buildDescendentLines(descendentTempHighlights);
+        const lengthAfter = descendentTempHighlights.family.length;
+        console.log("lengthBefore", lengthBefore);
+        console.log("lengthAfter", lengthAfter);
+        if (lengthAfter === lengthBefore) {
+          console.log("descendentLines length didn't change, exiting loop");
+          break; // Exit loop if array length didn't change
+        }
+      }
+
+      tempHighlights.family.push(...parentTempHighlights.family);
+      tempHighlights.links.push(...parentTempHighlights.links);
+      tempHighlights.family.push(...descendentTempHighlights.family);
+      tempHighlights.links.push(...descendentTempHighlights.links);
+      
+      
+      // Remove duplicates
+      tempHighlights.family = [...new Set(tempHighlights.family)];
+      tempHighlights.links = [...new Set(tempHighlights.links)];
+
+      // Set highlights
+      console.log("highlights", tempHighlights);
       setHighlights(tempHighlights);
     }
   };
