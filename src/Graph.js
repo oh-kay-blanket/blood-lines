@@ -94,7 +94,7 @@ const Graph = ({ d3Data, highlights, setHighlights, highlightedFamily, showingLe
       : highlights.links.indexOf(link.index) !== -1
       ? link.sourceType != "CHIL" && link.targetType != "CHIL"
         ? "rgba(255, 215, 0, 0.5)" // Romantic link
-        : "rgba(252, 103, 103, 0.4)" // Highlighted link
+        : "rgba(252, 103, 103, 0.6)" // Highlighted link
       : "rgba(167, 98, 98, 0.15)"; // Muted link
   }, [highlights, highlightedFamily]);
 

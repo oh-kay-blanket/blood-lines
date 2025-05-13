@@ -1,7 +1,7 @@
 import React from "react";
 import SampleButton from './SampleButton';
 
-const Load = ({ handleUpload, loadHalfling, loadKennedy, loadShakespeare, loadTudor, loadPlunkett, loadKardashian, showError }) => {
+const Load = ({ handleUpload, loadHalfling, loadKennedy, loadShakespeare, loadTudor, loadPlunkett, loadKardashian, loadBach, loadPotter, loadRoyal, loadTolkien, loadWashington, loadGreekGods, loadRomanGods, showError }) => {
   return (
     <div id='load'>
       <div>
@@ -17,12 +17,32 @@ const Load = ({ handleUpload, loadHalfling, loadKennedy, loadShakespeare, loadTu
           loadFile={loadKardashian}
           />
           <SampleButton
+            name={'shakespeare'}
+            loadFile={loadShakespeare}
+          />
+          <SampleButton
             name={'kennedy'}
             loadFile={loadKennedy}
           />
           <SampleButton
-            name={'shakespeare'}
-            loadFile={loadShakespeare}
+            name={'bach'}
+            loadFile={loadBach}
+          />
+          <SampleButton
+            name={'tolkien'}
+            loadFile={loadTolkien}
+          />
+          <SampleButton
+            name={'washington'}
+            loadFile={loadWashington}
+          />
+          <SampleButton
+            name={'greek gods'}
+            loadFile={loadGreekGods}
+          />
+          <SampleButton
+            name={'roman gods'}
+            loadFile={loadRomanGods}
           />
           <SampleButton
             name={'halfling'}
@@ -31,6 +51,14 @@ const Load = ({ handleUpload, loadHalfling, loadKennedy, loadShakespeare, loadTu
           <SampleButton
             name={'tudor'}
             loadFile={loadTudor}
+          />
+          <SampleButton
+            name={'potter'}
+            loadFile={loadPotter}
+          />
+          <SampleButton
+            name={'royal'}
+            loadFile={loadRoyal}
           />
 		      <SampleButton
             name={'plunkett'}

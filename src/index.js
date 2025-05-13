@@ -1,5 +1,5 @@
 // Modules
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import { parse, d3ize } from 'gedcom-d3';
 
@@ -18,6 +18,14 @@ import shakespeareFile from './gedcoms/shakespeare.ged';
 import tudorFile from './gedcoms/tudors.ged';
 import plunkettFile from './gedcoms/plunkett_ancestry.ged';
 import kardashianFile from './gedcoms/kardashian.ged';
+import bachFile from './gedcoms/bach.ged';
+import potterFile from './gedcoms/potter.ged';
+import royalFile from './gedcoms/royal-family.ged';
+import tolkienFile from './gedcoms/tolkien.ged';
+import washingtonFile from './gedcoms/washington.ged';
+import grekGodsFile from './gedcoms/greek-gods.ged';
+import romanGodsFile from './gedcoms/roman-gods.ged';
+
 
 const App = () => {
 
@@ -38,7 +46,7 @@ const App = () => {
     setHighlightedFamily(null);
     setShowingLegend(false);
     setShowingSurnames(false);
-  };
+  }
 
   const readFile = file => {
     setD3Data(d3ize(parse(file)));  // Parse data
@@ -55,9 +63,9 @@ const App = () => {
   const handleUpload = event => {
     const file = event.target.files[0];
     const parts = file.name.split('.');
-    const reader = new FileReader(file);
+    const reader = new FileReader();
 
-    if (parts[parts.length -1].toLowerCase() === 'ged') {
+    if (parts[parts.length - 1].toLowerCase() === 'ged') {
       reader.onloadend = () => {
         readFile(reader.result);
       }
@@ -79,6 +87,13 @@ const App = () => {
           loadTudor={() => readFile(tudorFile)}
           loadPlunkett={() => readFile(plunkettFile)}
           loadKardashian={() => readFile(kardashianFile)}
+          loadBach={() => readFile(bachFile)}
+          loadPotter={() => readFile(potterFile)}
+          loadRoyal={() => readFile(royalFile)}
+          loadTolkien={() => readFile(tolkienFile)}
+          loadWashington={() => readFile(washingtonFile)}
+          loadGreekGods={() => readFile(grekGodsFile)}
+          loadRomanGods={() => readFile(romanGodsFile)}
           showError={showError}
         /> :
         <>
