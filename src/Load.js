@@ -10,6 +10,12 @@ const Load = ({ handleUpload, loadHalfling, loadKennedy, loadShakespeare, loadTu
           <p>a 3D visualizer for genealogical data</p>
         </section>
 
+        <section className="load-area">
+          <h2>upload a gedcom (.ged) file</h2>
+          { showError ? <p className='error'>file type not supported. please use a .ged file.</p> : null}
+          <input id='file-input' className='form-control' type='file' name='gedFile' onChange={handleUpload} />
+        </section>
+
         <section className='sample-area'>
           <h2>view samples</h2>
           <SampleButton
@@ -64,12 +70,6 @@ const Load = ({ handleUpload, loadHalfling, loadKennedy, loadShakespeare, loadTu
             name={'plunkett'}
             loadFile={loadPlunkett}
           />
-        </section>
-
-        <section className="load-area">
-          <h2>upload a gedcom (.ged) file</h2>
-          { showError ? <p className='error'>file type not supported. please use a .ged file.</p> : null}
-          <input id='file-input' className='form-control' type='file' name='gedFile' onChange={handleUpload} />
         </section>
 
         <section className='links-area'>
