@@ -55,12 +55,20 @@ const Controls = ({
 			<p
 				key={index}
 				style={{
-					color: !highlightedFamily
+					color: '#000',
+					cursor: 'pointer',
+					backgroundColor: !highlightedFamily
 						? family.color
 						: highlightedFamily === family.surname
 						? family.color
 						: '#ccc',
-					cursor: 'pointer',
+					border: '1px solid #000',
+					padding: '.25rem 0.5rem',
+					borderRadius: '0.5rem',
+					margin: '0.25rem',
+					boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
+					fontFamily: 'Helvetica, Arial, sans-serif',
+					width: 'fit-content',
 				}}
 				onClick={(e) =>
 					highlightedFamily === family.surname
@@ -80,14 +88,14 @@ const Controls = ({
 			<div id='node-info--content'>
 				{node.title ? (
 					<h4 className='node-title'>
-						<span style={{ color: node.color }}>
+						<span>
 							{node.name} ({node.title})
 						</span>{' '}
 						{labelGender}
 					</h4>
 				) : (
 					<h4>
-						<span style={{ color: node.color }}>{node.name}</span> {labelGender}
+						<span>{node.name}</span> {labelGender}
 					</h4>
 				)}
 				<p>
@@ -139,39 +147,44 @@ const Controls = ({
 						id='legend-content'
 						style={{
 							background: 'var(--grey-dark)',
-							borderRadius: '1rem 1rem 1rem 0px',
 							border: '1.5px solid var(--grey-light-soft)',
 							color: 'var(--text)',
 							boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
 						}}
 					>
-						<p className='control-title'>controls</p>
+						<p className='control-title' style={{ color: 'var(--text)' }}>
+							controls
+						</p>
 						{isMobile ? (
 							<>
-								<p>tap on name: person info</p>
-								<p>pinch: zoom</p>
-								<p>swipe: rotate</p>
-								<p>two-finger swipe: pan</p>
+								<p style={{ color: 'var(--text)' }}>tap on name: person info</p>
+								<p style={{ color: 'var(--text)' }}>pinch: zoom</p>
+								<p style={{ color: 'var(--text)' }}>swipe: rotate</p>
+								<p style={{ color: 'var(--text)' }}>two-finger swipe: pan</p>
 							</>
 						) : (
 							<>
-								<p>click on name: person info</p>
-								<p>scroll: zoom</p>
-								<p>left-click drag: rotate</p>
-								<p>right-click drag: pan</p>
+								<p style={{ color: 'var(--text)' }}>
+									click on name: person info
+								</p>
+								<p style={{ color: 'var(--text)' }}>scroll: zoom</p>
+								<p style={{ color: 'var(--text)' }}>left-click drag: rotate</p>
+								<p style={{ color: 'var(--text)' }}>right-click drag: pan</p>
 							</>
 						)}
 
 						<br />
 
-						<p className='control-title'>legend</p>
+						<p className='control-title' style={{ color: 'var(--text)' }}>
+							legend
+						</p>
 						<div className='legend-line'>
 							<img src={greyLine} />
-							<p>- blood line</p>
+							<p style={{ color: 'var(--text)' }}>- blood line</p>
 						</div>
 						<div className='legend-line'>
 							<img src={goldLine} />
-							<p>- love line</p>
+							<p style={{ color: 'var(--text)' }}>- love line</p>
 						</div>
 					</div>
 				)}
@@ -198,7 +211,7 @@ const Controls = ({
 				{!!highlights.node && (
 					<div
 						style={{
-							background: 'var(--grey-dark)',
+							background: highlights.node.color,
 							color: 'var(--text)',
 							border: '1.5px solid var(--grey-light-soft)',
 							borderRadius: '1rem',
@@ -219,10 +232,6 @@ const Controls = ({
 							background: 'var(--grey-dark)',
 							color: 'var(--text)',
 							border: '1.5px solid var(--grey-light-soft)',
-							borderRadius: '1rem 1rem 0px 1rem',
-							maxHeight: '200px',
-							overflowY: 'auto',
-							boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
 						}}
 					>
 						{surnameList}

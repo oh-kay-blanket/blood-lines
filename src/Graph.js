@@ -49,9 +49,9 @@ const Graph = ({
 			: {
 					label: '#fcfaf4',
 					labelBg: '#000c',
-					labelBorder: '#555',
+					labelBorder: '#222',
 					muted: '#3335',
-					mutedBg: '#0002',
+					mutedBg: '#0001',
 					mutedBorder: '#3333',
 					timeline: 0x333333,
 					timelineText: '#f8f8f8',
@@ -69,7 +69,6 @@ const Graph = ({
 			// Use a sphere as a drag handle
 			const obj = new THREE.Mesh(
 				new THREE.SphereGeometry(25),
-				// new THREE.MeshBasicMaterial({ color: node.color || 'skyblue' }),
 				new THREE.MeshBasicMaterial({
 					depthWrite: false,
 					transparent: true,
@@ -88,14 +87,14 @@ const Graph = ({
 
 			// Sprite defaults
 			const coloredSprite = () => {
-				sprite.color = node.color
-				sprite.backgroundColor = themeColors.labelBg
+				sprite.color = '#000'
+				sprite.backgroundColor = node.color
 				sprite.borderColor = themeColors.labelBorder
 			}
 
 			const greyedSprite = () => {
 				sprite.color = themeColors.muted
-				sprite.backgroundColor = themeColors.mutedBg
+				sprite.backgroundColor = '#0000'
 				sprite.borderColor = themeColors.mutedBorder
 			}
 
