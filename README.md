@@ -22,9 +22,12 @@
 
 ---
 
-<video src="path/to/output.mp4" controls width="600"></video>
+## 🖼️ Screenshots
 
-[▶️ Watch Demo Video](src/video/demo-1080.mp4)
+![Home screen](src/img/screenshots/1-home.jpg)
+![Full tree](src/img/screenshots/2-full.jpg)
+![Person selected](src/img/screenshots/3-person.jpg)
+![Family selected](src/img/screenshots/4-family.jpg)
 
 ---
 
