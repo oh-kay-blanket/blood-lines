@@ -33,9 +33,9 @@ const Graph = ({
 		theme === 'light'
 			? {
 					label: '#181818',
-					labelBg: '#fff8',
-					labelBorder: '#ccc',
-					muted: '#4445',
+					labelBg: '#fff',
+					labelBorder: '#666',
+					muted: '#4443',
 					mutedBg: '#fff2',
 					mutedBorder: '#ccc3',
 					timeline: 0xe0e0e0,
