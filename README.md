@@ -97,7 +97,7 @@ For more about GEDCOM, see the [Wikipedia article](https://en.wikipedia.org/wiki
 ### Installation
 
 ```bash
-git clone https://github.com/mister-blanket/blood-lines.git blood-lines
+git clone https://github.com/oh-kay-blanket/blood-lines.git blood-lines
 cd blood-lines
 npm install
 npm start
@@ -135,7 +135,7 @@ The production build will be output to the `dist/` directory.
 - [React](https://reactjs.org/)
 - [Three.js](https://threejs.org/)
 - [3d-force-graph](https://github.com/vasturiano/3d-force-graph) ([MIT License](https://github.com/vasturiano/3d-force-graph/blob/master/LICENSE))
-- [gedcom-d3](https://github.com/mister-blanket/gedcom-d3) (custom parser, based on [tmcw/parse-gedcom](https://github.com/tmcw/parse-gedcom))
+- [gedcom-d3](https://github.com/oh-kay-blanket/gedcom-d3) (custom parser, based on [tmcw/parse-gedcom](https://github.com/tmcw/parse-gedcom))
 - [d3-force-3d](https://github.com/vasturiano/d3-force-3d)
 - [Webpack](https://webpack.js.org/)
 - [Sass](https://sass-lang.com/)
