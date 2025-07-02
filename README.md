@@ -24,10 +24,12 @@
 
 ## 🖼️ Screenshots
 
-![Home screen](src/img/screenshots/1-home.jpg)
-![Full tree](src/img/screenshots/2-full.jpg)
-![Person selected](src/img/screenshots/3-person.jpg)
-![Family selected](src/img/screenshots/4-family.jpg)
+<p float="left">
+  <img src="src/img/screenshots/1-home.jpg" width="300" />
+  <img src="src/img/screenshots/2-full.jpg" width="300" />
+  <img src="src/img/screenshots/3-person.jpg" width="300" />
+  <img src="src/img/screenshots/4-family.jpg" width="300" />
+</p>
 
 ---
 
