@@ -8,19 +8,19 @@ body {
   overflow-x: hidden;
   overflow-y: hidden;
   font-family: 'Roboto', sans-serif;
-  background-color: color.$grey;
-  color: color.$text;
+  background-color: var(--grey);
+  color: var(--text);
   font-size: 16px;
 }
 
 p {
   font-size: 1rem;
   font-weight: normal;
-  margin: 0 0 .5rem;  
+  margin: 0 0 .5rem;
 }
 
 input {
   font-size: .9rem;
   font-weight: normal;
-  margin: 0 0 .5rem; 
+  margin: 0 0 .5rem;
 }

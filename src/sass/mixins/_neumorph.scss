@@ -7,7 +7,7 @@
   color: color.$text;
   border-radius: 50px;
   // box-shadow: 6px 6px 15px 3px color.$grey-dark, -3px -3px 14px 3px color.$grey-light;
-  border: 1px solid color.$grey-light-soft;
+  border: 1px solid var(--grey-light-soft);
   transition: .25s;
 
   @media (min-width: 600px) {
