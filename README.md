@@ -33,54 +33,6 @@
 
 ---
 
-## 🚀 Getting Started
-
-### Prerequisites
-
-- [Node.js](https://nodejs.org/) (v14 or higher recommended)
-- npm (comes with Node.js)
-
-### Installation
-
-```bash
-git clone https://github.com/mister-blanket/blood-lines.git blood-lines
-cd blood-lines
-npm install
-```
-
-### Running Locally
-
-```bash
-npm start
-```
-
-This will start a development server and open Blood Lines in your browser.
-
-### Building for Production
-
-```bash
-npm run build
-```
-
-The production build will be output to the `dist/` directory.
-
----
-
-## 📂 Project Structure
-
-- `src/`
-  - `index.js` — Main React entry point
-  - `Graph.js` — 3D force-directed graph logic
-  - `Controls.js` — UI controls for navigation and filtering
-  - `Load.js` — File upload and sample data loader
-  - `gedcoms/` — Sample GEDCOM files
-  - `img/` — Images, icons, and (add your screenshots/gifs here)
-  - `sass/` — Styles (Sass)
-- `webpack.config.js` — Build configuration
-- `dist/` — Production build output
-
----
-
 ## 🕹️ Usage & Controls
 
 ### Uploading Your Own Data
@@ -132,6 +84,49 @@ FamilySearch does not allow direct GEDCOM export. You can use third-party tools 
 Most genealogy software and websites support GEDCOM export. Look for "Export" or "Download" options in your tree or account settings, and select GEDCOM as the format.
 
 For more about GEDCOM, see the [Wikipedia article](https://en.wikipedia.org/wiki/GEDCOM).
+
+---
+
+## 🚀 Running Locally
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) (v14 or higher recommended)
+- npm (comes with Node.js)
+
+### Installation
+
+```bash
+git clone https://github.com/mister-blanket/blood-lines.git blood-lines
+cd blood-lines
+npm install
+npm start
+```
+
+This will start a development server and open Blood Lines in your browser.
+
+### Building for Production
+
+```bash
+npm run build
+```
+
+The production build will be output to the `dist/` directory.
+
+---
+
+## 📂 Project Structure
+
+- `src/`
+  - `index.js` — Main React entry point
+  - `Graph.js` — 3D force-directed graph logic
+  - `Controls.js` — UI controls for navigation and filtering
+  - `Load.js` — File upload and sample data loader
+  - `gedcoms/` — Sample GEDCOM files
+  - `img/` — Images, icons, and (add your screenshots/gifs here)
+  - `sass/` — Styles (Sass)
+- `webpack.config.js` — Build configuration
+- `dist/` — Production build output
 
 ---
 
