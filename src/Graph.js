@@ -45,6 +45,7 @@ const Graph = ({
 					mutedLink: 'rgba(200,200,200,0.15)',
 					highlighted: 'rgba(237, 74, 73, 0.6)',
 					background: '#fcfaf4',
+					padding: 4,
 			  }
 			: {
 					label: '#fcfaf4',
@@ -60,6 +61,7 @@ const Graph = ({
 					mutedLink: 'rgba(167, 98, 98, 0.15)',
 					highlighted: 'rgba(252, 103, 103, 0.6)',
 					background: '#010000',
+					padding: 3,
 			  }
 
 	// DESIGN //
@@ -123,7 +125,7 @@ const Graph = ({
 			sprite.textHeight = 10
 			sprite.borderWidth = 0.4
 			sprite.borderRadius = 8
-			sprite.padding = 4
+			sprite.padding = themeColors.padding
 			obj.add(sprite)
 			return obj
 		},
