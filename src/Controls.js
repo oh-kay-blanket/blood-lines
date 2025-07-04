@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import greyLine from './img/grey-line.png'
 import goldLine from './img/gold-line.png'
@@ -17,6 +17,24 @@ const Controls = ({
 	theme,
 	toggleTheme,
 }) => {
+	const [isNodeInfoVisible, setIsNodeInfoVisible] = useState(false)
+	const [nodeInfoData, setNodeInfoData] = useState(null)
+
+	useEffect(() => {
+		if (highlights.node) {
+			// Node is being shown - immediately show it
+			setNodeInfoData(highlights.node)
+			setIsNodeInfoVisible(true)
+		} else if (nodeInfoData) {
+			// Node is being hidden - start exit animation
+			setIsNodeInfoVisible(false)
+			// Remove the data after animation completes
+			const timer = setTimeout(() => {
+				setNodeInfoData(null)
+			}, 300) // Match the CSS transition duration
+			return () => clearTimeout(timer)
+		}
+	}, [highlights.node])
 	const toggleLegend = () => {
 		setShowingLegend((prevState) => !prevState)
 		setShowingSurnames(false)
@@ -207,11 +225,11 @@ const Controls = ({
 				</p>
 			</div>
 
-			<div id='node-info'>
-				{!!highlights.node && (
+			<div id='node-info' className={isNodeInfoVisible ? 'visible' : ''}>
+				{nodeInfoData && (
 					<div
 						style={{
-							background: highlights.node.color,
+							background: nodeInfoData.color,
 							color: 'var(--text)',
 							border: '1.5px solid var(--grey-light-soft)',
 							borderRadius: '1rem',
@@ -219,7 +237,7 @@ const Controls = ({
 							boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
 						}}
 					>
-						{nodeInfoInsert(highlights.node)}
+						{nodeInfoInsert(nodeInfoData)}
 					</div>
 				)}
 			</div>

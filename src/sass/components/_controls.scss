@@ -165,13 +165,26 @@
 		overflow-y: auto;
 		border-radius: 1rem;
 		z-index: 3;
+		transition: transform 0.3s ease-out, opacity 0s ease-out 0.3s;
+		transform: translateX(-50%) translateY(100%);
+		opacity: 0;
+
+		&.visible {
+			transform: translateX(-50%) translateY(0);
+			opacity: 1;
+			transition: transform 0.3s ease-out;
+		}
 
 		@media (min-width: 769px) {
 			left: 1rem;
 			bottom: 1rem;
-			transform: none;
+			transform: translateY(100%);
 			max-height: 400px;
 			max-width: 350px;
+
+			&.visible {
+				transform: translateY(0);
+			}
 		}
 
 		& > p {
