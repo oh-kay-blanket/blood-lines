@@ -4,7 +4,7 @@
 .theme-toggle-slider {
 	position: fixed;
 	margin: 1rem;
-	padding: 0 7px;
+	padding: 0 6px;
 	top: 0;
 	right: 0;
 	z-index: 2;
@@ -20,6 +20,10 @@
 	cursor: pointer;
 	transition: background 0.2s, border 0.2s;
 	overflow: visible;
+
+	// @media (min-width: 1024px) {
+	// 	padding: 0 6px;
+	// }
 }
 
 .theme-toggle-slider span {
