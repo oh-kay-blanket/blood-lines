@@ -8,7 +8,7 @@
 
 ## 🌐 Demo
 
-👉 [Try Blood Lines Live](https://blood-lines.ohkayblanket.com/)
+👉 [Try Blood Lines Live](https://blood-lines.ohkayblanket.com/).
 
 ---
 
