@@ -54,14 +54,15 @@
     .sampleButton {
       margin-right: .75rem;
       color: var(--text);
-      background-color: var(--grey-dark);
+      background-color: #ed4a49aa;
+      // background-color: var(--grey-dark);
       font-weight: normal;
       cursor: pointer;
       transition: background-color .25s;
 
       &:hover {
         transition: background-color .25s;
-        background-color: #ed4a49aa;
+        background-color: #ed4a49;
       }
 
       &:focus {
@@ -114,7 +115,8 @@
 
   input[type="file"],
   input.form-control {
-    background: var(--grey-dark);
+    // background: var(--grey-dark);
+    background-color: #ed4a49aa;
     color: var(--text);
     border: 1px solid var(--grey-light-soft);
     border-radius: 1.2rem;
