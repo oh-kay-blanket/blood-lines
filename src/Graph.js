@@ -123,8 +123,8 @@ const Graph = ({
 				}
 			}
 
-			sprite.fontFace = 'Helvetica'
-			sprite.fontWeight = 600
+			sprite.fontFace = 'Inter'
+			sprite.fontWeight = 700
 			sprite.textHeight = 10
 			sprite.borderWidth = 0.4
 			sprite.borderRadius = 8
@@ -254,8 +254,9 @@ const Graph = ({
 				? new SpriteText(earliestYOB)
 				: new SpriteText('Earlier')
 			earliestTimeLabel.color = themeColors.timelineText
-			earliestTimeLabel.fontFace = 'Helvetica'
-			earliestTimeLabel.fontWeight = 800
+			earliestTimeLabel.fontFace = 'Josefin Sans'
+			earliestTimeLabel.fontWeight = '700'
+			earliestTimeLabel.fontStyle = 'italic'
 			earliestTimeLabel.textHeight = 25
 			earliest.add(earliestTimeLabel)
 
@@ -275,8 +276,9 @@ const Graph = ({
 				? new SpriteText(latestYOB)
 				: new SpriteText('Later')
 			latestTimeLabel.color = themeColors.timelineText
-			latestTimeLabel.fontFace = 'Helvetica'
-			latestTimeLabel.fontWeight = 800
+			latestTimeLabel.fontFace = 'Josefin Sans'
+			latestTimeLabel.fontWeight = '700'
+			latestTimeLabel.fontStyle = 'italic'
 			latestTimeLabel.textHeight = 25
 			latest.add(latestTimeLabel)
 
@@ -294,8 +296,9 @@ const Graph = ({
 
 			let halfTimeLabel = new SpriteText(halfYOB)
 			halfTimeLabel.color = themeColors.timelineText
-			halfTimeLabel.fontFace = 'Helvetica'
-			halfTimeLabel.fontWeight = 800
+			halfTimeLabel.fontFace = 'Josefin Sans'
+			halfTimeLabel.fontWeight = '700'
+			halfTimeLabel.fontStyle = 'italic'
 			halfTimeLabel.textHeight = 15
 			half.add(halfTimeLabel)
 
@@ -313,8 +316,9 @@ const Graph = ({
 
 			let quarterTimeLabel = new SpriteText(quarterYOB)
 			quarterTimeLabel.color = themeColors.timelineText
-			quarterTimeLabel.fontFace = 'Helvetica'
-			quarterTimeLabel.fontWeight = 800
+			quarterTimeLabel.fontFace = 'Josefin Sans'
+			quarterTimeLabel.fontWeight = '700'
+			quarterTimeLabel.fontStyle = 'italic'
 			quarterTimeLabel.textHeight = 15
 			quarter.add(quarterTimeLabel)
 
@@ -332,8 +336,9 @@ const Graph = ({
 
 			let threeQuarterTimeLabel = new SpriteText(threeQuarterYOB)
 			threeQuarterTimeLabel.color = themeColors.timelineText
-			threeQuarterTimeLabel.fontFace = 'Helvetica'
-			threeQuarterTimeLabel.fontWeight = 800
+			threeQuarterTimeLabel.fontFace = 'Josefin Sans'
+			threeQuarterTimeLabel.fontWeight = '700'
+			threeQuarterTimeLabel.fontStyle = 'italic'
 			threeQuarterTimeLabel.textHeight = 15
 			threeQuarter.add(threeQuarterTimeLabel)
 

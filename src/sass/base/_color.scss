@@ -9,7 +9,7 @@ $black-light: #252525cc;
 
 $text: #fcfaf4;
 $text-dark: #ccc;
-$root: #fc6767;
+$root: #ed4a49;
 // $root: #ed4a49;
 $root-light: #ffcccc;
 
@@ -21,22 +21,22 @@ $root-light: #ffcccc;
 	--black: #2a2a2a;
 	--black-dark: #1a1a1a;
 	--black-light: #252525cc;
-	--text: #fcfaf4;
-	--text-dark: #ccc;
-	--root: #fc6767;
-	--root-light: #ffcccc;
+	--text: #f6edd0;
+	--text-dark: #c8bfa1;
+	--root: #ed4a49;
+	--root-light: #dc5353;
 }
 
 [data-theme="light"] {
 	--grey: #fcfaf4;
-	--grey-dark: #e0e0e0;
-	--grey-light: #f5f5f5;
-	--grey-light-soft: #f0f0f0;
-	--black: #fff;
-	--black-dark: #eaeaea;
-	--black-light: #f5f5f5cc;
-	--text: #181818;
+	--grey-dark: #e8e6e0;
+	--grey-light: #f9f7f1;
+	--grey-light-soft: #f2f0ea;
+	--black: #fffffe;
+	--black-dark: #f0eeea;
+	--black-light: #f9f7f1cc;
+	--text: #413c3c;
 	--text-dark: #444;
 	--root: #ed4a49;
-	--root-light: #fc6767;
+	--root-light: #ff8383;
 }

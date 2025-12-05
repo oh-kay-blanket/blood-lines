@@ -1,13 +1,11 @@
 @use '../base/color';
 
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
-
 body {
   margin: 0px;
   padding: 0px;
   overflow-x: hidden;
   overflow-y: hidden;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Inter', sans-serif;
   background-color: var(--grey);
   color: var(--text);
   font-size: 16px;
@@ -19,8 +17,18 @@ p {
   margin: 0 0 .5rem;
 }
 
+input, button, a {
+  font-family: 'Inter', sans-serif;
+}
+
 input {
   font-size: .9rem;
   font-weight: normal;
   margin: 0 0 .5rem;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 700;
+  font-style: italic;
 }
