@@ -67,6 +67,7 @@ const App = () => {
 	})
 	const isMobile = window.innerWidth < 769
 	const [theme, setTheme] = useState('dark')
+	const [nameFormat, setNameFormat] = useState('firstLast') // 'firstLast' or 'lastFirst'
 
 	// Detect device color scheme on mount
 	useEffect(() => {
@@ -162,6 +163,8 @@ const App = () => {
 						clearHighlights={clearHighlights}
 						theme={theme}
 						toggleTheme={toggleTheme}
+						nameFormat={nameFormat}
+						setNameFormat={setNameFormat}
 					/>
 					<Graph
 						d3Data={d3Data}
@@ -176,6 +179,7 @@ const App = () => {
 						isMobile={isMobile}
 						clearHighlights={clearHighlights}
 						theme={theme}
+						nameFormat={nameFormat}
 					/>
 				</>
 			)}

@@ -16,6 +16,8 @@ const Controls = ({
 	isMobile,
 	theme,
 	toggleTheme,
+	nameFormat,
+	setNameFormat,
 }) => {
 	const [isNodeInfoVisible, setIsNodeInfoVisible] = useState(false)
 	const [nodeInfoData, setNodeInfoData] = useState(null)
@@ -194,6 +196,47 @@ const Controls = ({
 						<br />
 
 						<p className='control-title' style={{ color: 'var(--text)' }}>
+							settings
+						</p>
+						<div style={{ marginBottom: '0.5rem' }}>
+							<p style={{ color: 'var(--text)', marginBottom: '0.25rem', fontSize: '0.9rem' }}>
+								Name format:
+							</p>
+							<div style={{ display: 'flex', gap: '0.5rem' }}>
+								<button
+									onClick={() => setNameFormat('firstLast')}
+									style={{
+										background: nameFormat === 'firstLast' ? 'var(--text)' : 'transparent',
+										color: nameFormat === 'firstLast' ? 'var(--grey-dark)' : 'var(--text)',
+										border: '1px solid var(--grey-light-soft)',
+										borderRadius: '0.5rem',
+										padding: '0.25rem 0.5rem',
+										cursor: 'pointer',
+										fontSize: '0.85rem',
+									}}
+								>
+									First Last
+								</button>
+								<button
+									onClick={() => setNameFormat('lastFirst')}
+									style={{
+										background: nameFormat === 'lastFirst' ? 'var(--text)' : 'transparent',
+										color: nameFormat === 'lastFirst' ? 'var(--grey-dark)' : 'var(--text)',
+										border: '1px solid var(--grey-light-soft)',
+										borderRadius: '0.5rem',
+										padding: '0.25rem 0.5rem',
+										cursor: 'pointer',
+										fontSize: '0.85rem',
+									}}
+								>
+									Last, First
+								</button>
+							</div>
+						</div>
+
+						<br />
+
+						<p className='control-title' style={{ color: 'var(--text)' }}>
 							legend
 						</p>
 						<div className='legend-line'>
@@ -214,14 +257,22 @@ const Controls = ({
 						background: 'var(--grey-dark)',
 						color: 'var(--text)',
 						border: '1.5px solid var(--grey-light-soft)',
-						borderRadius: '1.2rem',
-						padding: '0.5rem 1.2rem',
+						borderRadius: '50%',
+						padding: '0.5rem',
 						margin: '0.5rem 0',
+						width: '1.5rem',
+						height: '1.5rem',
+						display: 'flex',
+						alignItems: 'center',
+						justifyContent: 'center',
 						cursor: 'pointer',
 						boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
+						fontStyle: 'italic',
+						fontWeight: 'bold',
+						fontSize: '1rem',
 					}}
 				>
-					{'info'}
+					i
 				</p>
 			</div>
 

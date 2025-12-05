@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import SampleButton from './SampleButton'
 
 const Load = ({
@@ -20,6 +20,8 @@ const Load = ({
 	theme,
 	toggleTheme,
 }) => {
+	const [showGedcomModal, setShowGedcomModal] = useState(false)
+
 	return (
 		<div id='load'>
 			<div>
@@ -29,7 +31,16 @@ const Load = ({
 				</section>
 
 				<section className='load-area'>
-					<h2>upload a gedcom (.ged) file</h2>
+					<div className='heading-with-info'>
+						<h2>upload a gedcom (.ged) file</h2>
+						<button
+							className='info-icon'
+							onClick={() => setShowGedcomModal(true)}
+							aria-label='What is a GEDCOM file?'
+						>
+							<i className='fa fa-info-circle' aria-hidden='true'></i>
+						</button>
+					</div>
 					{showError ? (
 						<p className='error'>
 							file type not supported. please use a .ged file.
@@ -72,6 +83,65 @@ const Load = ({
 					</p>
 				</section>
 			</div>
+
+			{showGedcomModal && (
+				<div className='modal-overlay' onClick={() => setShowGedcomModal(false)}>
+					<div className='modal-content' onClick={(e) => e.stopPropagation()}>
+						<button className='modal-close' onClick={() => setShowGedcomModal(false)}>
+							×
+						</button>
+						<h2>What is a GEDCOM file?</h2>
+						<p>
+							<strong>GEDCOM</strong> (Genealogical Data Communication) is a standard file format
+							for exchanging genealogical data between different family tree software programs.
+						</p>
+						<p>
+							GEDCOM files have a <strong>.ged</strong> extension and contain information about
+							individuals, families, relationships, birth dates, death dates, and other genealogical data.
+						</p>
+
+						<h3>How to create a GEDCOM file</h3>
+						<p>Most family tree software can export your data as a GEDCOM file:</p>
+
+						<div className='gedcom-programs'>
+							<div className='program'>
+								<strong>Ancestry.com</strong>
+								<p>Trees → Settings → Export tree → Download GEDCOM file</p>
+							</div>
+
+							<div className='program'>
+								<strong>MyHeritage</strong>
+								<p>Family Tree → Manage tree → Export to GEDCOM</p>
+							</div>
+
+							<div className='program'>
+								<strong>FamilySearch</strong>
+								<p>Family Tree → Download → GEDCOM</p>
+							</div>
+
+							<div className='program'>
+								<strong>Legacy Family Tree</strong>
+								<p>File → Export → GEDCOM File</p>
+							</div>
+
+							<div className='program'>
+								<strong>Gramps</strong>
+								<p>Family Trees → Export → GEDCOM</p>
+							</div>
+
+							<div className='program'>
+								<strong>RootsMagic</strong>
+								<p>File → Export → Individual or Family</p>
+							</div>
+						</div>
+
+						<p className='modal-note'>
+							Once you have your GEDCOM file, simply upload it using the file selector above
+							to visualize your family tree in 3D!
+						</p>
+					</div>
+				</div>
+			)}
 		</div>
 	)
 }

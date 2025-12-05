@@ -18,6 +18,7 @@ const Graph = ({
 	isMobile,
 	clearHighlights,
 	theme,
+	nameFormat,
 }) => {
 	// console.log(`d3Data`, d3Data)
 
@@ -40,7 +41,7 @@ const Graph = ({
 					mutedBorder: '#ccc3',
 					timeline: 0xe0e0e0,
 					timelineText: '#181818',
-					romantic: 'rgba(237, 74, 73, 0.5)',
+					romantic: 'rgba(255, 165, 0, 0.6)',
 					normal: 'rgba(252, 103, 103, 0.3)',
 					mutedLink: 'rgba(200,200,200,0.15)',
 					highlighted: 'rgba(237, 74, 73, 0.6)',
@@ -49,18 +50,18 @@ const Graph = ({
 			  }
 			: {
 					label: '#fcfaf4',
-					labelBg: '#000c',
-					labelBorder: '#222',
-					muted: '#3335',
-					mutedBg: '#0001',
-					mutedBorder: '#3333',
-					timeline: 0x333333,
+					labelBg: '#1a1a1acc',
+					labelBorder: '#444',
+					muted: '#6665',
+					mutedBg: '#2222',
+					mutedBorder: '#5555',
+					timeline: 0x555555,
 					timelineText: '#f8f8f8',
 					romantic: 'rgba(255, 215, 0, 0.5)',
 					normal: 'rgba(252, 103, 103, 0.3)',
 					mutedLink: 'rgba(167, 98, 98, 0.15)',
 					highlighted: 'rgba(252, 103, 103, 0.6)',
-					background: '#010000',
+					background: '#1a1a1a',
 					padding: 3,
 			  }
 
@@ -83,7 +84,9 @@ const Graph = ({
 			if (node.firstName == '?') {
 				name = node.name
 			} else {
-				name = `${node.firstName} ${node.surname}`
+				name = nameFormat === 'lastFirst'
+					? `${node.surname}, ${node.firstName}`
+					: `${node.firstName} ${node.surname}`
 			}
 			let sprite = new SpriteText(name)
 
@@ -129,7 +132,7 @@ const Graph = ({
 			obj.add(sprite)
 			return obj
 		},
-		[highlights, highlightedFamily, themeColors]
+		[highlights, highlightedFamily, themeColors, nameFormat]
 	)
 
 	// Link color
@@ -290,7 +293,7 @@ const Graph = ({
 			half.position.y = halfY
 
 			let halfTimeLabel = new SpriteText(halfYOB)
-			halfTimeLabel.color = themeColors.labelBorder
+			halfTimeLabel.color = themeColors.timelineText
 			halfTimeLabel.fontFace = 'Helvetica'
 			halfTimeLabel.fontWeight = 800
 			halfTimeLabel.textHeight = 15
@@ -309,7 +312,7 @@ const Graph = ({
 			quarter.position.y = quarterY
 
 			let quarterTimeLabel = new SpriteText(quarterYOB)
-			quarterTimeLabel.color = themeColors.labelBorder
+			quarterTimeLabel.color = themeColors.timelineText
 			quarterTimeLabel.fontFace = 'Helvetica'
 			quarterTimeLabel.fontWeight = 800
 			quarterTimeLabel.textHeight = 15
@@ -328,7 +331,7 @@ const Graph = ({
 			threeQuarter.position.y = threeQuarterY
 
 			let threeQuarterTimeLabel = new SpriteText(threeQuarterYOB)
-			threeQuarterTimeLabel.color = themeColors.labelBorder
+			threeQuarterTimeLabel.color = themeColors.timelineText
 			threeQuarterTimeLabel.fontFace = 'Helvetica'
 			threeQuarterTimeLabel.fontWeight = 800
 			threeQuarterTimeLabel.textHeight = 15
