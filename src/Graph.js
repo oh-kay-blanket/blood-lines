@@ -44,7 +44,7 @@ const Graph = ({
 					romantic: 'rgba(255, 165, 0, 0.6)',
 					normal: 'rgba(252, 103, 103, 0.3)',
 					mutedLink: 'rgba(200,200,200,0.15)',
-					highlighted: 'rgba(237, 74, 73, 0.6)',
+					highlighted: 'rgba(237, 74, 73, 0.4)',
 					background: '#fcfaf4',
 					padding: 4,
 			  }
