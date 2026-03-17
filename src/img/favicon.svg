@@ -44,70 +44,64 @@
   </defs>
 
   <!-- Curved lines from parent to children -->
-  <path d="M 32 18 C 32 28, 16 24, 16 34" stroke="rgba(252,103,103,0.7)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-  <path d="M 32 18 C 32 28, 48 24, 48 34" stroke="rgba(252,103,103,0.7)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <path d="M 32 22 C 32 29, 14 27, 14 31" stroke="rgba(252,103,103,0.7)" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M 32 22 C 32 29, 50 27, 50 31" stroke="rgba(252,103,103,0.7)" stroke-width="2" fill="none" stroke-linecap="round"/>
 
   <!-- Curved lines from left child to grandchildren -->
-  <path d="M 16 40 C 16 48, 8 46, 8 52" stroke="rgba(252,103,103,0.5)" stroke-width="1.2" fill="none" stroke-linecap="round"/>
-  <path d="M 16 40 C 16 48, 24 46, 24 52" stroke="rgba(252,103,103,0.5)" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+  <path d="M 14 44 C 14 50, 7 48, 7 52" stroke="rgba(252,103,103,0.6)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <path d="M 14 44 C 14 50, 22 48, 22 52" stroke="rgba(252,103,103,0.6)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
 
   <!-- Curved lines from right child to grandchildren -->
-  <path d="M 48 40 C 48 48, 40 46, 40 52" stroke="rgba(252,103,103,0.5)" stroke-width="1.2" fill="none" stroke-linecap="round"/>
-  <path d="M 48 40 C 48 48, 56 46, 56 52" stroke="rgba(252,103,103,0.5)" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+  <path d="M 50 44 C 50 50, 42 48, 42 52" stroke="rgba(252,103,103,0.6)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <path d="M 50 44 C 50 50, 57 48, 57 52" stroke="rgba(252,103,103,0.6)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
 
-  <!-- Parent cube (large, 14px) - center top -->
-  <g transform="translate(32, 12)">
-    <!-- Top face -->
-    <polygon points="0,-5 7,-1.5 0,2 -7,-1.5" fill="url(#top-lg)"/>
-    <!-- Left face -->
-    <polygon points="-7,-1.5 0,2 0,9 -7,5.5" fill="url(#left-lg)"/>
-    <!-- Right face -->
-    <polygon points="7,-1.5 0,2 0,9 7,5.5" fill="url(#right-lg)"/>
+  <!-- Parent cube (large) - center top -->
+  <g transform="translate(32, 11)">
+    <polygon points="0,-7 10,-2.5 0,2 -10,-2.5" fill="url(#top-lg)"/>
+    <polygon points="-10,-2.5 0,2 0,11 -10,6.5" fill="url(#left-lg)"/>
+    <polygon points="10,-2.5 0,2 0,11 10,6.5" fill="url(#right-lg)"/>
   </g>
 
-  <!-- Left child cube (medium, 10px) -->
-  <g transform="translate(16, 34)">
-    <!-- Top face -->
-    <polygon points="0,-3.5 5,-1 0,1.5 -5,-1" fill="url(#top-md)"/>
-    <!-- Left face -->
-    <polygon points="-5,-1 0,1.5 0,7 -5,4.5" fill="url(#left-md)"/>
-    <!-- Right face -->
-    <polygon points="5,-1 0,1.5 0,7 5,4.5" fill="url(#right-md)"/>
+  <!-- Left child cube (medium) -->
+  <g transform="translate(14, 35)">
+    <polygon points="0,-5 7,-1.5 0,2 -7,-1.5" fill="url(#top-md)"/>
+    <polygon points="-7,-1.5 0,2 0,9 -7,5.5" fill="url(#left-md)"/>
+    <polygon points="7,-1.5 0,2 0,9 7,5.5" fill="url(#right-md)"/>
   </g>
 
-  <!-- Right child cube (medium, 10px) -->
-  <g transform="translate(48, 34)">
-    <polygon points="0,-3.5 5,-1 0,1.5 -5,-1" fill="url(#top-md)"/>
-    <polygon points="-5,-1 0,1.5 0,7 -5,4.5" fill="url(#left-md)"/>
-    <polygon points="5,-1 0,1.5 0,7 5,4.5" fill="url(#right-md)"/>
+  <!-- Right child cube (medium) -->
+  <g transform="translate(50, 35)">
+    <polygon points="0,-5 7,-1.5 0,2 -7,-1.5" fill="url(#top-md)"/>
+    <polygon points="-7,-1.5 0,2 0,9 -7,5.5" fill="url(#left-md)"/>
+    <polygon points="7,-1.5 0,2 0,9 7,5.5" fill="url(#right-md)"/>
   </g>
 
-  <!-- Grandchild cubes (small, 7px) -->
-  <!-- Left-left grandchild -->
-  <g transform="translate(8, 52)">
-    <polygon points="0,-2.5 3.5,-0.7 0,1 -3.5,-0.7" fill="url(#top-sm)"/>
-    <polygon points="-3.5,-0.7 0,1 0,5 -3.5,3.3" fill="url(#left-sm)"/>
-    <polygon points="3.5,-0.7 0,1 0,5 3.5,3.3" fill="url(#right-sm)"/>
+  <!-- Grandchild cubes (small) -->
+  <!-- Left-left -->
+  <g transform="translate(7, 55)">
+    <polygon points="0,-3.5 5,-1 0,1.5 -5,-1" fill="url(#top-sm)"/>
+    <polygon points="-5,-1 0,1.5 0,7.5 -5,5" fill="url(#left-sm)"/>
+    <polygon points="5,-1 0,1.5 0,7.5 5,5" fill="url(#right-sm)"/>
   </g>
 
-  <!-- Left-right grandchild -->
-  <g transform="translate(24, 52)">
-    <polygon points="0,-2.5 3.5,-0.7 0,1 -3.5,-0.7" fill="url(#top-sm)"/>
-    <polygon points="-3.5,-0.7 0,1 0,5 -3.5,3.3" fill="url(#left-sm)"/>
-    <polygon points="3.5,-0.7 0,1 0,5 3.5,3.3" fill="url(#right-sm)"/>
+  <!-- Left-right -->
+  <g transform="translate(22, 55)">
+    <polygon points="0,-3.5 5,-1 0,1.5 -5,-1" fill="url(#top-sm)"/>
+    <polygon points="-5,-1 0,1.5 0,7.5 -5,5" fill="url(#left-sm)"/>
+    <polygon points="5,-1 0,1.5 0,7.5 5,5" fill="url(#right-sm)"/>
   </g>
 
-  <!-- Right-left grandchild -->
-  <g transform="translate(40, 52)">
-    <polygon points="0,-2.5 3.5,-0.7 0,1 -3.5,-0.7" fill="url(#top-sm)"/>
-    <polygon points="-3.5,-0.7 0,1 0,5 -3.5,3.3" fill="url(#left-sm)"/>
-    <polygon points="3.5,-0.7 0,1 0,5 3.5,3.3" fill="url(#right-sm)"/>
+  <!-- Right-left -->
+  <g transform="translate(42, 55)">
+    <polygon points="0,-3.5 5,-1 0,1.5 -5,-1" fill="url(#top-sm)"/>
+    <polygon points="-5,-1 0,1.5 0,7.5 -5,5" fill="url(#left-sm)"/>
+    <polygon points="5,-1 0,1.5 0,7.5 5,5" fill="url(#right-sm)"/>
   </g>
 
-  <!-- Right-right grandchild -->
-  <g transform="translate(56, 52)">
-    <polygon points="0,-2.5 3.5,-0.7 0,1 -3.5,-0.7" fill="url(#top-sm)"/>
-    <polygon points="-3.5,-0.7 0,1 0,5 -3.5,3.3" fill="url(#left-sm)"/>
-    <polygon points="3.5,-0.7 0,1 0,5 3.5,3.3" fill="url(#right-sm)"/>
+  <!-- Right-right -->
+  <g transform="translate(57, 55)">
+    <polygon points="0,-3.5 5,-1 0,1.5 -5,-1" fill="url(#top-sm)"/>
+    <polygon points="-5,-1 0,1.5 0,7.5 -5,5" fill="url(#left-sm)"/>
+    <polygon points="5,-1 0,1.5 0,7.5 5,5" fill="url(#right-sm)"/>
   </g>
 </svg>
