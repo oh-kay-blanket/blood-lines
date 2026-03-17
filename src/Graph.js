@@ -509,12 +509,21 @@ const Graph = ({
         fgRef.current.scene().children,
         true,
       );
+      const getNodeData = (obj) => {
+        let cur = obj;
+        while (cur) {
+          if (cur.__data && cur.__data.id) return cur.__data;
+          cur = cur.parent;
+        }
+        return null;
+      };
+
       const nodeObject = intersects.find(
-        (intersect) => intersect.object.__data && intersect.object.__data.id,
+        (intersect) => getNodeData(intersect.object),
       );
 
       if (nodeObject) {
-        const node = nodeObject.object.__data;
+        const node = getNodeData(nodeObject.object);
         console.log(node);
         if (navigator.vibrate) navigator.vibrate(25);
         handleNodeClick(node);
@@ -539,7 +548,7 @@ const Graph = ({
     return () => {
       hammer.destroy();
     };
-  }, [highlights, showingSurnames, showingLegend]);
+  }, [fontReady, highlights, showingSurnames, showingLegend]);
 
   // BUILD GRAPH //
   if (!fontReady) return null;

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import SampleButton from "./SampleButton";
+import faviconSvg from "./img/favicon.svg";
 
 const Load = ({
   handleUpload,
@@ -27,7 +28,8 @@ const Load = ({
       <div id="load">
         <div>
           <section className="title-area">
-            <h1>blood lines</h1>
+            <img src={faviconSvg} alt="family plot logo" className="homepage-logo" />
+            <h1>family plot</h1>
             <p>a 3D visualizer for genealogical data</p>
           </section>
 

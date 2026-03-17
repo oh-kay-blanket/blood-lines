@@ -1,116 +1,90 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
   <defs>
-    <!-- 3D cube faces - parent (large) -->
-    <linearGradient id="top-lg" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#e88a8a"/>
-      <stop offset="100%" stop-color="#d46b6b"/>
-    </linearGradient>
-    <linearGradient id="left-lg" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="#b84c4c"/>
-      <stop offset="100%" stop-color="#a33e3e"/>
-    </linearGradient>
-    <linearGradient id="right-lg" x1="1" y1="0" x2="0" y2="0">
-      <stop offset="0%" stop-color="#cf5f5f"/>
-      <stop offset="100%" stop-color="#c25252"/>
-    </linearGradient>
+    <!-- Parent sphere - front-facing -->
+    <radialGradient id="sphere-parent" cx="0.38" cy="0.32" r="0.6">
+      <stop offset="0%" stop-color="#f6edd0"/>
+      <stop offset="50%" stop-color="#c8b890"/>
+      <stop offset="100%" stop-color="#6b5f3e"/>
+    </radialGradient>
 
-    <!-- 3D cube faces - child (medium) -->
-    <linearGradient id="top-md" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#f4a6a6"/>
-      <stop offset="100%" stop-color="#e88a8a"/>
-    </linearGradient>
-    <linearGradient id="left-md" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="#c76060"/>
-      <stop offset="100%" stop-color="#b84c4c"/>
-    </linearGradient>
-    <linearGradient id="right-md" x1="1" y1="0" x2="0" y2="0">
-      <stop offset="0%" stop-color="#db7777"/>
-      <stop offset="100%" stop-color="#cf5f5f"/>
-    </linearGradient>
+    <!-- Left child - turned slightly left -->
+    <radialGradient id="sphere-child-l" cx="0.3" cy="0.28" r="0.6">
+      <stop offset="0%" stop-color="#f6edd0"/>
+      <stop offset="50%" stop-color="#d4c8a0"/>
+      <stop offset="100%" stop-color="#7a6d48"/>
+    </radialGradient>
 
-    <!-- 3D cube faces - grandchild (small) -->
-    <linearGradient id="top-sm" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#fcc0c0"/>
-      <stop offset="100%" stop-color="#f4a6a6"/>
-    </linearGradient>
-    <linearGradient id="left-sm" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="#d47070"/>
-      <stop offset="100%" stop-color="#c76060"/>
-    </linearGradient>
-    <linearGradient id="right-sm" x1="1" y1="0" x2="0" y2="0">
-      <stop offset="0%" stop-color="#e88e8e"/>
-      <stop offset="100%" stop-color="#db7777"/>
-    </linearGradient>
+    <!-- Right child - turned slightly right, further back -->
+    <radialGradient id="sphere-child-r" cx="0.45" cy="0.35" r="0.55">
+      <stop offset="0%" stop-color="#e8dfc2"/>
+      <stop offset="50%" stop-color="#b8ad85"/>
+      <stop offset="100%" stop-color="#5e5335"/>
+    </radialGradient>
+
+    <!-- Grandchild 1 (far left) - angled left -->
+    <radialGradient id="sphere-gc1" cx="0.28" cy="0.3" r="0.6">
+      <stop offset="0%" stop-color="#f6edd0"/>
+      <stop offset="50%" stop-color="#d4c8a0"/>
+      <stop offset="100%" stop-color="#7a6d48"/>
+    </radialGradient>
+
+    <!-- Grandchild 2 (center-left) - facing forward, further back -->
+    <radialGradient id="sphere-gc2" cx="0.4" cy="0.38" r="0.55">
+      <stop offset="0%" stop-color="#e4dbb8"/>
+      <stop offset="50%" stop-color="#b0a578"/>
+      <stop offset="100%" stop-color="#564c30"/>
+    </radialGradient>
+
+    <!-- Grandchild 3 (inner-left) - angled right -->
+    <radialGradient id="sphere-gc3" cx="0.45" cy="0.28" r="0.6">
+      <stop offset="0%" stop-color="#f6edd0"/>
+      <stop offset="50%" stop-color="#cec198"/>
+      <stop offset="100%" stop-color="#706440"/>
+    </radialGradient>
+
+    <!-- Grandchild 4 (inner-right) - further back, dimmer -->
+    <radialGradient id="sphere-gc4" cx="0.35" cy="0.4" r="0.52">
+      <stop offset="0%" stop-color="#ddd4b0"/>
+      <stop offset="50%" stop-color="#a89c70"/>
+      <stop offset="100%" stop-color="#4e4428"/>
+    </radialGradient>
+
+    <!-- Grandchild 5 (far right) - angled right -->
+    <radialGradient id="sphere-gc5" cx="0.48" cy="0.32" r="0.58">
+      <stop offset="0%" stop-color="#f0e6c8"/>
+      <stop offset="50%" stop-color="#c0b488"/>
+      <stop offset="100%" stop-color="#645838"/>
+    </radialGradient>
   </defs>
 
-  <!-- Curved lines from parent to children -->
-  <path d="M 32 20.5 C 32 24, 16 24, 16 27.5" stroke="rgba(252,103,103,0.7)" stroke-width="2" fill="none" stroke-linecap="round"/>
-  <path d="M 32 20.5 C 32 28, 48 28, 48 34.5" stroke="rgba(252,103,103,0.7)" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <!-- Lines from parent to children -->
+  <line x1="32" y1="9" x2="16" y2="33" stroke="rgba(252,103,103,0.7)" stroke-width="2" stroke-linecap="round"/>
+  <line x1="32" y1="9" x2="48" y2="31" stroke="rgba(252,103,103,0.7)" stroke-width="2" stroke-linecap="round"/>
 
-  <!-- Curved lines from left child to 3 grandchildren -->
-  <path d="M 16 41.5 C 16 44, 5 43, 5 45.5" stroke="rgba(252,103,103,0.6)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-  <path d="M 16 41.5 C 16 45, 17 45, 17 48.5" stroke="rgba(252,103,103,0.6)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-  <path d="M 16 41.5 C 16 44, 28 44, 28 46.5" stroke="rgba(252,103,103,0.6)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <!-- Lines from left child to 3 grandchildren -->
+  <line x1="16" y1="33" x2="6" y2="52" stroke="rgba(252,103,103,0.6)" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="16" y1="33" x2="17" y2="49" stroke="rgba(252,103,103,0.6)" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="16" y1="33" x2="28" y2="59" stroke="rgba(252,103,103,0.6)" stroke-width="1.5" stroke-linecap="round"/>
 
-  <!-- Curved lines from right child to 2 grandchildren -->
-  <path d="M 48 48.5 C 48 51, 41 51, 41 53.5" stroke="rgba(252,103,103,0.6)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-  <path d="M 48 48.5 C 48 52, 56 51, 56 54.5" stroke="rgba(252,103,103,0.6)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <!-- Lines from right child to 2 grandchildren -->
+  <line x1="48" y1="31" x2="41" y2="47" stroke="rgba(252,103,103,0.6)" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="48" y1="31" x2="56" y2="49" stroke="rgba(252,103,103,0.6)" stroke-width="1.5" stroke-linecap="round"/>
 
-  <!-- Parent cube (large, s=9) - center top -->
-  <g transform="translate(32, 7)">
-    <polygon points="0,-4.5 7.8,0 0,4.5 -7.8,0" fill="url(#top-lg)"/>
-    <polygon points="-7.8,0 0,4.5 0,13.5 -7.8,9" fill="url(#left-lg)"/>
-    <polygon points="7.8,0 0,4.5 0,13.5 7.8,9" fill="url(#right-lg)"/>
-  </g>
+  <!-- Parent sphere - closest -->
+  <circle cx="32" cy="9" r="6.5" fill="url(#sphere-parent)"/>
 
-  <!-- Left child cube (medium, s=7) - higher -->
-  <g transform="translate(16, 31)">
-    <polygon points="0,-3.5 6,0 0,3.5 -6,0" fill="url(#top-md)"/>
-    <polygon points="-6,0 0,3.5 0,10.5 -6,7" fill="url(#left-md)"/>
-    <polygon points="6,0 0,3.5 0,10.5 6,7" fill="url(#right-md)"/>
-  </g>
+  <!-- Left child - close -->
+  <circle cx="16" cy="33" r="6" fill="url(#sphere-child-l)"/>
 
-  <!-- Right child cube (medium, s=7) - lower -->
-  <g transform="translate(48, 38)">
-    <polygon points="0,-3.5 6,0 0,3.5 -6,0" fill="url(#top-md)"/>
-    <polygon points="-6,0 0,3.5 0,10.5 -6,7" fill="url(#left-md)"/>
-    <polygon points="6,0 0,3.5 0,10.5 6,7" fill="url(#right-md)"/>
-  </g>
+  <!-- Right child - mid-far -->
+  <circle cx="48" cy="31" r="3.5" fill="url(#sphere-child-r)"/>
 
-  <!-- Left grandchild cubes (3, s=5) - offset from each other -->
-  <!-- Left-1 -->
-  <g transform="translate(5, 48)">
-    <polygon points="0,-2.5 4.3,0 0,2.5 -4.3,0" fill="url(#top-sm)"/>
-    <polygon points="-4.3,0 0,2.5 0,7.5 -4.3,5" fill="url(#left-sm)"/>
-    <polygon points="4.3,0 0,2.5 0,7.5 4.3,5" fill="url(#right-sm)"/>
-  </g>
+  <!-- Left grandchild spheres (3) -->
+  <circle cx="6" cy="52" r="6" fill="url(#sphere-gc1)"/>
+  <circle cx="17" cy="49" r="4.5" fill="url(#sphere-gc2)"/>
+  <circle cx="28" cy="59" r="6" fill="url(#sphere-gc3)"/>
 
-  <!-- Left-2 -->
-  <g transform="translate(17, 51)">
-    <polygon points="0,-2.5 4.3,0 0,2.5 -4.3,0" fill="url(#top-sm)"/>
-    <polygon points="-4.3,0 0,2.5 0,7.5 -4.3,5" fill="url(#left-sm)"/>
-    <polygon points="4.3,0 0,2.5 0,7.5 4.3,5" fill="url(#right-sm)"/>
-  </g>
-
-  <!-- Left-3 -->
-  <g transform="translate(28, 49)">
-    <polygon points="0,-2.5 4.3,0 0,2.5 -4.3,0" fill="url(#top-sm)"/>
-    <polygon points="-4.3,0 0,2.5 0,7.5 -4.3,5" fill="url(#left-sm)"/>
-    <polygon points="4.3,0 0,2.5 0,7.5 4.3,5" fill="url(#right-sm)"/>
-  </g>
-
-  <!-- Right grandchild cubes (2, s=5) - offset from each other -->
-  <!-- Right-1 -->
-  <g transform="translate(41, 56)">
-    <polygon points="0,-2.5 4.3,0 0,2.5 -4.3,0" fill="url(#top-sm)"/>
-    <polygon points="-4.3,0 0,2.5 0,7.5 -4.3,5" fill="url(#left-sm)"/>
-    <polygon points="4.3,0 0,2.5 0,7.5 4.3,5" fill="url(#right-sm)"/>
-  </g>
-
-  <!-- Right-2 -->
-  <g transform="translate(56, 57)">
-    <polygon points="0,-2.5 4.3,0 0,2.5 -4.3,0" fill="url(#top-sm)"/>
-    <polygon points="-4.3,0 0,2.5 0,7.5 -4.3,5" fill="url(#left-sm)"/>
-    <polygon points="4.3,0 0,2.5 0,7.5 4.3,5" fill="url(#right-sm)"/>
-  </g>
+  <!-- Right grandchild spheres (2) -->
+  <circle cx="41" cy="47" r="3" fill="url(#sphere-gc4)"/>
+  <circle cx="56" cy="49" r="3.5" fill="url(#sphere-gc5)"/>
 </svg>

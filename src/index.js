@@ -30,31 +30,6 @@ import washingtonFile from './gedcoms/washington.ged'
 import grekGodsFile from './gedcoms/greek-gods.ged'
 import romanGodsFile from './gedcoms/roman-gods.ged'
 
-// ThemeToggle component
-const ThemeToggle = ({ theme, toggleTheme }) => (
-	<button
-		className='theme-toggle-slider'
-		onClick={toggleTheme}
-		aria-label='Toggle color mode'
-	>
-		<span
-			className={theme === 'dark' ? 'active' : ''}
-			role='img'
-			aria-label='Dark'
-		>
-			🌙
-		</span>
-		<span
-			className={theme === 'light' ? 'active' : ''}
-			role='img'
-			aria-label='Light'
-		>
-			☀️
-		</span>
-		<span className='slider' style={{ left: theme === 'dark' ? 0 : 30 }}></span>
-	</button>
-)
-
 // Generate a unique ID for new nodes
 let nodeCounter = 0
 function generateNodeId() {
@@ -97,30 +72,38 @@ const App = () => {
 		links: [],
 	})
 	const isMobile = window.innerWidth < 769
-	const [theme, setTheme] = useState('dark')
-	const [nameFormat, setNameFormat] = useState('firstLast')
+	const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'dark')
+	const [nameFormat, setNameFormat] = useState(() => localStorage.getItem('nameFormat') || 'firstLast')
 
 	// Edit mode state
 	const [editMode, setEditMode] = useState(false)
 	const [editingNode, setEditingNode] = useState(null)
 	const [photoStore, setPhotoStore] = useState({})
 
-	// Detect device color scheme on mount
+	// Detect device color scheme on mount (only if no saved preference)
 	useEffect(() => {
-		const mq = window.matchMedia('(prefers-color-scheme: dark)')
-		if (mq.matches) {
-			setTheme('dark')
-		} else if (window.matchMedia('(prefers-color-scheme: light)').matches) {
-			setTheme('light')
-		} else {
-			setTheme('dark')
+		if (!localStorage.getItem('theme')) {
+			const mq = window.matchMedia('(prefers-color-scheme: dark)')
+			if (mq.matches) {
+				setTheme('dark')
+			} else if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+				setTheme('light')
+			} else {
+				setTheme('dark')
+			}
 		}
 	}, [])
 
-	// Set data-theme attribute on body
+	// Set data-theme attribute on body and persist to localStorage
 	useEffect(() => {
 		document.body.setAttribute('data-theme', theme)
+		localStorage.setItem('theme', theme)
 	}, [theme])
+
+	// Persist nameFormat to localStorage
+	useEffect(() => {
+		localStorage.setItem('nameFormat', nameFormat)
+	}, [nameFormat])
 
 	const toggleTheme = () => {
 		setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'))
@@ -316,7 +299,6 @@ const App = () => {
 
 	return (
 		<>
-			<ThemeToggle theme={theme} toggleTheme={toggleTheme} />
 			{!showingRoots ? (
 				<Load
 					handleUpload={handleUpload}
@@ -343,12 +325,9 @@ const App = () => {
 						highlights={highlights}
 						highlightedFamily={highlightedFamily}
 						setHighlightedFamily={setHighlightedFamily}
-						showingLegend={showingLegend}
-						setShowingLegend={setShowingLegend}
 						showingSurnames={showingSurnames}
 						setShowingSurnames={setShowingSurnames}
 						isMobile={isMobile}
-						clearHighlights={clearHighlights}
 						theme={theme}
 						toggleTheme={toggleTheme}
 						nameFormat={nameFormat}

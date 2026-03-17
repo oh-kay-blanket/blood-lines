@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 
 
 const Controls = ({
@@ -7,8 +7,6 @@ const Controls = ({
 	highlights,
 	highlightedFamily,
 	setHighlightedFamily,
-	showingLegend,
-	setShowingLegend,
 	showingSurnames,
 	setShowingSurnames,
 	isMobile,
@@ -26,7 +24,8 @@ const Controls = ({
 }) => {
 	const [isNodeInfoVisible, setIsNodeInfoVisible] = useState(false)
 	const [nodeInfoData, setNodeInfoData] = useState(null)
-	const [showExportMenu, setShowExportMenu] = useState(false)
+	const [showSettings, setShowSettings] = useState(false)
+	const settingsRef = useRef(null)
 
 	useEffect(() => {
 		if (highlights.node) {
@@ -41,14 +40,21 @@ const Controls = ({
 		}
 	}, [highlights.node])
 
-	const toggleLegend = () => {
-		setShowingLegend((prevState) => !prevState)
-		setShowingSurnames(false)
-	}
+	// Close settings dropdown when clicking outside
+	useEffect(() => {
+		const handleClickOutside = (e) => {
+			if (settingsRef.current && !settingsRef.current.contains(e.target)) {
+				setShowSettings(false)
+			}
+		}
+		if (showSettings) {
+			document.addEventListener('mousedown', handleClickOutside)
+		}
+		return () => document.removeEventListener('mousedown', handleClickOutside)
+	}, [showSettings])
 
 	const toggleSurnames = () => {
 		setShowingSurnames((prevState) => !prevState)
-		setShowingLegend(false)
 	}
 
 	function compareSurname(a, b) {
@@ -167,35 +173,42 @@ const Controls = ({
 		)
 	}
 
-	const controlBtnStyle = {
-		background: 'var(--grey-dark)',
-		color: 'var(--text)',
-		border: '1.5px solid var(--grey-light-soft)',
-		borderRadius: '50%',
-		padding: '0.5rem',
-		margin: '0.5rem 0',
-		width: '1.5rem',
-		height: '1.5rem',
-		display: 'flex',
-		alignItems: 'center',
-		justifyContent: 'center',
-		cursor: 'pointer',
-		boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
-		fontSize: '1rem',
-	}
-
 	const handleAddNewPerson = () => {
 		const newId = addNode({
 			firstName: 'New',
 			surname: 'Person',
 			gender: 'M',
 		})
+		setShowSettings(false)
 		// Find the new node and open the edit panel
 		setTimeout(() => {
 			const newNode = d3Data.nodes.find((n) => n.id === newId)
 			if (newNode) openEditPanel(newNode)
 		}, 100)
 	}
+
+	const settingsRowStyle = {
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'space-between',
+		padding: '0.5rem 0',
+	}
+
+	const settingsLabelStyle = {
+		color: 'var(--text)',
+		fontSize: '0.9rem',
+		margin: 0,
+	}
+
+	const pillBtnStyle = (active) => ({
+		background: active ? 'var(--text)' : 'transparent',
+		color: active ? 'var(--grey-dark)' : 'var(--text)',
+		border: '1px solid var(--grey-light-soft)',
+		borderRadius: '0.5rem',
+		padding: '0.25rem 0.5rem',
+		cursor: 'pointer',
+		fontSize: '0.85rem',
+	})
 
 	return (
 		<div id='controls'>
@@ -220,124 +233,182 @@ const Controls = ({
 				<i className='fa fa-times' aria-hidden='true'></i>
 			</div>
 
-			<div id='legend'>
-				{showingLegend && (
-					<div
-						id='legend-content'
-						style={{
-							background: 'var(--grey-dark)',
-							border: '1.5px solid var(--grey-light-soft)',
-							color: 'var(--text)',
-							boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
-						}}
-					>
-						<p className='control-title' style={{ color: 'var(--text)' }}>
-							controls
-						</p>
-						{isMobile ? (
-							<>
-								<p style={{ color: 'var(--text)' }}>tap on name: person info</p>
-								<p style={{ color: 'var(--text)' }}>pinch: zoom</p>
-								<p style={{ color: 'var(--text)' }}>swipe: rotate</p>
-								<p style={{ color: 'var(--text)' }}>two-finger swipe: pan</p>
-							</>
-						) : (
-							<>
-								<p style={{ color: 'var(--text)' }}>
-									click on name: person info
-								</p>
-								<p style={{ color: 'var(--text)' }}>scroll: zoom</p>
-								<p style={{ color: 'var(--text)' }}>left-click drag: rotate</p>
-								<p style={{ color: 'var(--text)' }}>right-click drag: pan</p>
-							</>
-						)}
+			{/* Settings gear button + dropdown */}
+			<div id='settings' ref={settingsRef}>
+				<button
+					id='settings-button'
+					className={showSettings ? 'active' : ''}
+					onClick={() => setShowSettings((prev) => !prev)}
+					aria-label='Settings'
+				>
+					<i className='fa fa-cog' aria-hidden='true'></i>
+				</button>
 
-						<br />
+				{showSettings && (
+					<div id='settings-dropdown'>
+						{/* Theme */}
+						<div style={settingsRowStyle}>
+							<p style={settingsLabelStyle}>Theme</p>
+							<button
+								className='theme-toggle-slider'
+								onClick={toggleTheme}
+								aria-label='Toggle color mode'
+							>
+								<span
+									className={theme === 'dark' ? 'active' : ''}
+									role='img'
+									aria-label='Dark'
+								>
+									🌙
+								</span>
+								<span
+									className={theme === 'light' ? 'active' : ''}
+									role='img'
+									aria-label='Light'
+								>
+									☀️
+								</span>
+								<span className='slider' style={{ left: theme === 'dark' ? 0 : 30 }}></span>
+							</button>
+						</div>
 
-						<p className='control-title' style={{ color: 'var(--text)' }}>
-							settings
-						</p>
-						<div style={{ marginBottom: '0.5rem' }}>
-							<p style={{ color: 'var(--text)', marginBottom: '0.25rem', fontSize: '0.9rem' }}>
-								Name format:
-							</p>
-							<div style={{ display: 'flex', gap: '0.5rem' }}>
+						<hr className='settings-divider' />
+
+						{/* Name Format */}
+						<div style={settingsRowStyle}>
+							<p style={settingsLabelStyle}>Names</p>
+							<div style={{ display: 'flex', gap: '0.4rem' }}>
 								<button
 									onClick={() => setNameFormat('firstLast')}
-									style={{
-										background: nameFormat === 'firstLast' ? 'var(--text)' : 'transparent',
-										color: nameFormat === 'firstLast' ? 'var(--grey-dark)' : 'var(--text)',
-										border: '1px solid var(--grey-light-soft)',
-										borderRadius: '0.5rem',
-										padding: '0.25rem 0.5rem',
-										cursor: 'pointer',
-										fontSize: '0.85rem',
-									}}
+									style={pillBtnStyle(nameFormat === 'firstLast')}
 								>
 									First Last
 								</button>
 								<button
 									onClick={() => setNameFormat('lastFirst')}
-									style={{
-										background: nameFormat === 'lastFirst' ? 'var(--text)' : 'transparent',
-										color: nameFormat === 'lastFirst' ? 'var(--grey-dark)' : 'var(--text)',
-										border: '1px solid var(--grey-light-soft)',
-										borderRadius: '0.5rem',
-										padding: '0.25rem 0.5rem',
-										cursor: 'pointer',
-										fontSize: '0.85rem',
-									}}
+									style={pillBtnStyle(nameFormat === 'lastFirst')}
 								>
 									Last, First
 								</button>
 							</div>
 						</div>
 
-						<br />
+						<hr className='settings-divider' />
 
-						<p className='control-title' style={{ color: 'var(--text)' }}>
-							legend
-						</p>
-						<div className='legend-line'>
-							<span
+						{/* Edit Mode */}
+						<div style={settingsRowStyle}>
+							<p style={settingsLabelStyle}>Edit mode</p>
+							<button
+								onClick={() => setEditMode(!editMode)}
 								style={{
-									display: 'inline-block',
-									width: '20px',
-									height: '0px',
-									borderTop: `2px solid ${theme === 'light' ? 'rgba(220, 80, 80, 0.45)' : 'rgba(252, 103, 103, 0.7)'}`,
-									marginRight: '4px',
-									flexShrink: 0,
+									...pillBtnStyle(editMode),
+									background: editMode ? 'var(--root)' : 'transparent',
+									color: editMode ? '#fff' : 'var(--text)',
+									fontWeight: editMode ? 'bold' : 'normal',
 								}}
-							/>
-							<p style={{ color: 'var(--text)' }}>- blood line</p>
+							>
+								{editMode ? 'on' : 'off'}
+							</button>
 						</div>
-						<div className='legend-line'>
-							<span
-								style={{
-									display: 'inline-block',
-									width: '20px',
-									height: '0px',
-									borderTop: `2px dashed ${theme === 'light' ? 'rgb(230, 180, 30)' : 'rgb(255, 200, 0)'}`,
-									marginRight: '4px',
-									flexShrink: 0,
-								}}
-							/>
-							<p style={{ color: 'var(--text)' }}>- love line</p>
+
+						{/* + Person (only in edit mode) */}
+						{editMode && (
+							<div style={{ ...settingsRowStyle, paddingTop: 0 }}>
+								<button
+									onClick={handleAddNewPerson}
+									style={{
+										...pillBtnStyle(false),
+										width: '100%',
+										textAlign: 'center',
+										padding: '0.4rem 0.5rem',
+									}}
+								>
+									+ person
+								</button>
+							</div>
+						)}
+
+						<hr className='settings-divider' />
+
+						{/* Export */}
+						<div style={{ padding: '0.5rem 0' }}>
+							<p style={{ ...settingsLabelStyle, marginBottom: '0.4rem' }}>Export</p>
+							<div style={{ display: 'flex', gap: '0.4rem' }}>
+								<button
+									onClick={() => { handleExportGed(); setShowSettings(false) }}
+									style={pillBtnStyle(false)}
+								>
+									.ged
+								</button>
+								<button
+									onClick={() => { handleExportGedz(); setShowSettings(false) }}
+									style={pillBtnStyle(false)}
+								>
+									.gedz
+								</button>
+							</div>
+						</div>
+
+						<hr className='settings-divider' />
+
+						{/* Controls help */}
+						<div style={{ padding: '0.5rem 0' }}>
+							<p className='control-title' style={{ color: 'var(--text)' }}>
+								controls
+							</p>
+							{isMobile ? (
+								<>
+									<p style={{ color: 'var(--text)' }}>tap on name: person info</p>
+									<p style={{ color: 'var(--text)' }}>pinch: zoom</p>
+									<p style={{ color: 'var(--text)' }}>swipe: rotate</p>
+									<p style={{ color: 'var(--text)' }}>two-finger swipe: pan</p>
+								</>
+							) : (
+								<>
+									<p style={{ color: 'var(--text)' }}>click on name: person info</p>
+									<p style={{ color: 'var(--text)' }}>scroll: zoom</p>
+									<p style={{ color: 'var(--text)' }}>left-click drag: rotate</p>
+									<p style={{ color: 'var(--text)' }}>right-click drag: pan</p>
+								</>
+							)}
+						</div>
+
+						<hr className='settings-divider' />
+
+						{/* Legend */}
+						<div style={{ padding: '0.5rem 0' }}>
+							<p className='control-title' style={{ color: 'var(--text)' }}>
+								legend
+							</p>
+							<div className='legend-line'>
+								<span
+									style={{
+										display: 'inline-block',
+										width: '20px',
+										height: '0px',
+										borderTop: `2px solid ${theme === 'light' ? 'rgba(220, 80, 80, 0.45)' : 'rgba(252, 103, 103, 0.7)'}`,
+										marginRight: '4px',
+										flexShrink: 0,
+									}}
+								/>
+								<p style={{ color: 'var(--text)' }}>- blood line</p>
+							</div>
+							<div className='legend-line'>
+								<span
+									style={{
+										display: 'inline-block',
+										width: '20px',
+										height: '0px',
+										borderTop: `2px dashed ${theme === 'light' ? 'rgb(230, 180, 30)' : 'rgb(255, 200, 0)'}`,
+										marginRight: '4px',
+										flexShrink: 0,
+									}}
+								/>
+								<p style={{ color: 'var(--text)' }}>- love line</p>
+							</div>
 						</div>
 					</div>
 				)}
-				<p
-					id='legend-button'
-					className={showingLegend ? 'active' : ''}
-					onClick={toggleLegend}
-					style={{
-						...controlBtnStyle,
-						fontStyle: 'italic',
-						fontWeight: 'bold',
-					}}
-				>
-					i
-				</p>
 			</div>
 
 			<div id='node-info' className={isNodeInfoVisible ? 'visible' : ''}>
@@ -387,112 +458,6 @@ const Controls = ({
 				>
 					{'names'}
 				</p>
-			</div>
-
-			{/* Edit Mode & Export Controls */}
-			<div id='edit-controls' style={{
-				position: 'fixed',
-				bottom: '1rem',
-				left: '1rem',
-				display: 'flex',
-				flexDirection: 'column',
-				gap: '0.5rem',
-				zIndex: 100,
-			}}>
-				{/* Edit Mode Toggle */}
-				<button
-					onClick={() => setEditMode(!editMode)}
-					style={{
-						...controlBtnStyle,
-						borderRadius: '1.2rem',
-						padding: '0.5rem 1rem',
-						width: 'auto',
-						background: editMode ? 'var(--root)' : 'var(--grey-dark)',
-						color: editMode ? '#fff' : 'var(--text)',
-						fontWeight: editMode ? 'bold' : 'normal',
-					}}
-				>
-					{editMode ? 'editing' : 'edit'}
-				</button>
-
-				{/* Add Person (only in edit mode) */}
-				{editMode && (
-					<button
-						onClick={handleAddNewPerson}
-						style={{
-							...controlBtnStyle,
-							borderRadius: '1.2rem',
-							padding: '0.5rem 1rem',
-							width: 'auto',
-							fontSize: '0.85rem',
-						}}
-					>
-						+ person
-					</button>
-				)}
-
-				{/* Export */}
-				<div style={{ position: 'relative' }}>
-					<button
-						onClick={() => setShowExportMenu(!showExportMenu)}
-						style={{
-							...controlBtnStyle,
-							borderRadius: '1.2rem',
-							padding: '0.5rem 1rem',
-							width: 'auto',
-						}}
-					>
-						export
-					</button>
-					{showExportMenu && (
-						<div style={{
-							position: 'absolute',
-							bottom: '100%',
-							left: 0,
-							marginBottom: '0.5rem',
-							background: 'var(--grey-dark)',
-							border: '1.5px solid var(--grey-light-soft)',
-							borderRadius: '0.5rem',
-							overflow: 'hidden',
-							boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
-							minWidth: '140px',
-						}}>
-							<button
-								onClick={() => { handleExportGed(); setShowExportMenu(false) }}
-								style={{
-									display: 'block',
-									width: '100%',
-									padding: '0.6rem 1rem',
-									background: 'none',
-									border: 'none',
-									borderBottom: '1px solid var(--grey-light-soft)',
-									color: 'var(--text)',
-									cursor: 'pointer',
-									textAlign: 'left',
-									fontSize: '0.85rem',
-								}}
-							>
-								.ged (no photos)
-							</button>
-							<button
-								onClick={() => { handleExportGedz(); setShowExportMenu(false) }}
-								style={{
-									display: 'block',
-									width: '100%',
-									padding: '0.6rem 1rem',
-									background: 'none',
-									border: 'none',
-									color: 'var(--text)',
-									cursor: 'pointer',
-									textAlign: 'left',
-									fontSize: '0.85rem',
-								}}
-							>
-								.gedz (with photos)
-							</button>
-						</div>
-					)}
-				</div>
 			</div>
 		</div>
 	)

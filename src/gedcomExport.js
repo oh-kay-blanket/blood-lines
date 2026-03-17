@@ -136,8 +136,8 @@ export function exportToGedcom(d3Data, photoStore = {}) {
 
 	// HEAD
 	lines.push('0 HEAD')
-	lines.push('1 SOUR blood-lines')
-	lines.push('2 NAME Blood Lines')
+	lines.push('1 SOUR family-plot')
+	lines.push('2 NAME Family Plot')
 	lines.push('2 VERS 1.0')
 	lines.push('1 GEDC')
 	lines.push('2 VERS 5.5.1')
