@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react'
 
-import greyLine from './img/grey-line.png'
-import goldLine from './img/gold-line.png'
 
 const Controls = ({
 	d3Data,
@@ -301,11 +299,29 @@ const Controls = ({
 							legend
 						</p>
 						<div className='legend-line'>
-							<img src={greyLine} />
+							<span
+								style={{
+									display: 'inline-block',
+									width: '20px',
+									height: '0px',
+									borderTop: `2px solid ${theme === 'light' ? 'rgba(220, 80, 80, 0.45)' : 'rgba(252, 103, 103, 0.7)'}`,
+									marginRight: '4px',
+									flexShrink: 0,
+								}}
+							/>
 							<p style={{ color: 'var(--text)' }}>- blood line</p>
 						</div>
 						<div className='legend-line'>
-							<img src={goldLine} />
+							<span
+								style={{
+									display: 'inline-block',
+									width: '20px',
+									height: '0px',
+									borderTop: `2px dashed ${theme === 'light' ? 'rgb(230, 180, 30)' : 'rgb(255, 200, 0)'}`,
+									marginRight: '4px',
+									flexShrink: 0,
+								}}
+							/>
 							<p style={{ color: 'var(--text)' }}>- love line</p>
 						</div>
 					</div>
