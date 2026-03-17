@@ -30,8 +30,10 @@
 	},
 	"dependencies": {
 		"@babel/core": "^7.10.3",
+		"@babel/plugin-transform-runtime": "^7.29.0",
 		"@babel/preset-env": "^7.10.3",
 		"@babel/preset-react": "^7.10.1",
+		"@babel/runtime": "^7.29.2",
 		"3d-force-graph": "^1.65.1",
 		"babel-loader": "^8.3.0",
 		"d3-force-3d": "^2.1.0",
