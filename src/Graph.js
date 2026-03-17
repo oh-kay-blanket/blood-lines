@@ -41,10 +41,10 @@ const Graph = ({
 					mutedBorder: '#ccc3',
 					timeline: 0xe0e0e0,
 					timelineText: '#181818',
-					romantic: 'rgba(255, 165, 0, 0.6)',
-					normal: 'rgba(252, 103, 103, 0.3)',
+					romantic: 'rgba(255, 180, 0, 0.85)',
+					normal: 'rgba(220, 80, 80, 0.45)',
 					mutedLink: 'rgba(200,200,200,0.15)',
-					highlighted: 'rgba(237, 74, 73, 0.4)',
+					highlighted: 'rgba(220, 80, 80, 0.6)',
 					background: '#fcfaf4',
 					padding: 4,
 			  }
@@ -57,10 +57,10 @@ const Graph = ({
 					mutedBorder: '#5555',
 					timeline: 0x555555,
 					timelineText: '#f8f8f8',
-					romantic: 'rgba(255, 215, 0, 0.5)',
-					normal: 'rgba(252, 103, 103, 0.3)',
+					romantic: 'rgba(255, 200, 0, 0.85)',
+					normal: 'rgba(252, 103, 103, 0.45)',
 					mutedLink: 'rgba(167, 98, 98, 0.15)',
-					highlighted: 'rgba(252, 103, 103, 0.6)',
+					highlighted: 'rgba(252, 103, 103, 0.7)',
 					background: '#1a1a1a',
 					padding: 3,
 			  }
@@ -156,10 +156,11 @@ const Graph = ({
 	// Link width
 	const getLinkWidth = useCallback(
 		(link) => {
+			const isRomantic = link.sourceType != 'CHIL' && link.targetType != 'CHIL'
 			if (highlights.links.indexOf(link.index) !== -1) {
-				return 1.5
+				return isRomantic ? 2.5 : 1.5
 			} else {
-				return 1.5
+				return isRomantic ? 2 : 1.5
 			}
 		},
 		[highlights]
