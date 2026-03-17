@@ -26,6 +26,7 @@ const Controls = ({
 	const [nodeInfoData, setNodeInfoData] = useState(null)
 	const [showSettings, setShowSettings] = useState(false)
 	const settingsRef = useRef(null)
+	const surnamesRef = useRef(null)
 
 	useEffect(() => {
 		if (highlights.node) {
@@ -40,18 +41,6 @@ const Controls = ({
 		}
 	}, [highlights.node])
 
-	// Close settings dropdown when clicking outside
-	useEffect(() => {
-		const handleClickOutside = (e) => {
-			if (settingsRef.current && !settingsRef.current.contains(e.target)) {
-				setShowSettings(false)
-			}
-		}
-		if (showSettings) {
-			document.addEventListener('mousedown', handleClickOutside)
-		}
-		return () => document.removeEventListener('mousedown', handleClickOutside)
-	}, [showSettings])
 
 	const toggleSurnames = () => {
 		setShowingSurnames((prevState) => !prevState)
@@ -232,6 +221,13 @@ const Controls = ({
 			>
 				<i className='fa fa-times' aria-hidden='true'></i>
 			</div>
+
+			{showSettings && (
+				<div className='menu-overlay' onClick={() => setShowSettings(false)} />
+			)}
+			{showingSurnames && (
+				<div className='menu-overlay' onClick={() => setShowingSurnames(false)} />
+			)}
 
 			{/* Settings gear button + dropdown */}
 			<div id='settings' ref={settingsRef}>
@@ -428,7 +424,7 @@ const Controls = ({
 				)}
 			</div>
 
-			<div id='surnames'>
+			<div id='surnames' ref={surnamesRef}>
 				{showingSurnames && (
 					<div
 						className='surnames-content'

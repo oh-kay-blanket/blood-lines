@@ -67,7 +67,7 @@ const Graph = ({
           mutedBg: "#2222",
           mutedBorder: "#5555",
           timeline: 0x555555,
-          timelineText: "#f8f8f8",
+          timelineText: "#f6edd0",
           romantic: "rgba(255, 200, 0, 0.85)",
           normal: "rgba(252, 103, 103, 0.45)",
           mutedLink: "rgba(167, 98, 98, 0.15)",

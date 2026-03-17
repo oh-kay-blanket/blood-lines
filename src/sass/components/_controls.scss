@@ -1,6 +1,15 @@
 @use '../base/color';
 @use '../mixins/neumorph';
 
+.menu-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+}
+
 #controls {
 	p {
 		font-size: .9rem;
