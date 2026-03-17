@@ -7,6 +7,10 @@ import { parse, d3ize } from 'gedcom-d3'
 import Load from './Load'
 import Controls from './Controls'
 import Graph from './Graph'
+import EditPanel from './EditPanel'
+
+// Export utilities
+import { downloadGedcom, downloadGedz, importGedz } from './gedcomExport'
 
 // Style
 import './sass/style.scss'
@@ -51,9 +55,36 @@ const ThemeToggle = ({ theme, toggleTheme }) => (
 	</button>
 )
 
-const App = () => {
-	// console.log('rendering app')
+// Generate a unique ID for new nodes
+let nodeCounter = 0
+function generateNodeId() {
+	nodeCounter++
+	return `INEW${Date.now()}${nodeCounter}`
+}
 
+// Rebuild surnameList from nodes
+function rebuildSurnameList(nodes) {
+	const surnameMap = {}
+	// Collect a color palette from existing nodes
+	const existingColors = {}
+	nodes.forEach((node) => {
+		if (node.surname && node.color) {
+			existingColors[node.surname] = node.color
+		}
+	})
+
+	nodes.forEach((node) => {
+		const surname = node.surname || ''
+		if (!surnameMap[surname]) {
+			surnameMap[surname] = { surname, count: 0, color: existingColors[surname] || '#ccc' }
+		}
+		surnameMap[surname].count++
+	})
+
+	return Object.values(surnameMap)
+}
+
+const App = () => {
 	const [showingRoots, setShowingRoots] = useState(false)
 	const [d3Data, setD3Data] = useState([])
 	const [showError, setShowError] = useState(false)
@@ -67,7 +98,12 @@ const App = () => {
 	})
 	const isMobile = window.innerWidth < 769
 	const [theme, setTheme] = useState('dark')
-	const [nameFormat, setNameFormat] = useState('firstLast') // 'firstLast' or 'lastFirst'
+	const [nameFormat, setNameFormat] = useState('firstLast')
+
+	// Edit mode state
+	const [editMode, setEditMode] = useState(false)
+	const [editingNode, setEditingNode] = useState(null)
+	const [photoStore, setPhotoStore] = useState({})
 
 	// Detect device color scheme on mount
 	useEffect(() => {
@@ -99,31 +135,183 @@ const App = () => {
 	}
 
 	const readFile = (file) => {
-		setD3Data(d3ize(parse(file))) // Parse data
+		setD3Data(d3ize(parse(file)))
 		setShowingRoots(true)
 		setShowError(false)
+		setPhotoStore({})
+		setEditMode(false)
+		setEditingNode(null)
 	}
 
 	const closeRoots = () => {
 		clearHighlights()
 		setShowingRoots(false)
 		setD3Data([])
+		setEditMode(false)
+		setEditingNode(null)
+		setPhotoStore({})
 	}
 
-	const handleUpload = (event) => {
+	const handleUpload = async (event) => {
 		const file = event.target.files[0]
 		const parts = file.name.split('.')
-		const reader = new FileReader()
+		const ext = parts[parts.length - 1].toLowerCase()
 
-		if (parts[parts.length - 1].toLowerCase() === 'ged') {
+		if (ext === 'ged') {
+			const reader = new FileReader()
 			reader.onloadend = () => {
 				readFile(reader.result)
 			}
 			reader.readAsText(file)
+		} else if (ext === 'gedz') {
+			try {
+				const { gedcomText, photos } = await importGedz(file)
+				if (gedcomText) {
+					setD3Data(d3ize(parse(gedcomText)))
+					setPhotoStore(photos || {})
+					setShowingRoots(true)
+					setShowError(false)
+				} else {
+					setShowError(true)
+				}
+			} catch (e) {
+				console.error('Error importing .gedz:', e)
+				setShowError(true)
+			}
 		} else {
-			reader.readAsText(file)
 			setShowError(true)
 		}
+	}
+
+	// --- Data mutation functions ---
+
+	const updateNode = (nodeId, updates) => {
+		const newNodes = d3Data.nodes.map((node) => {
+			if (node.id === nodeId) {
+				const updated = { ...node, ...updates }
+				// Recalculate derived fields
+				if (updates.firstName || updates.surname) {
+					updated.name = `${updated.firstName || ''} ${updated.surname || ''}`.trim()
+				}
+				if (updates.yob !== undefined) {
+					updated.fy = updated.yob ? -updated.yob : null
+				}
+				return updated
+			}
+			return node
+		})
+		const newSurnameList = rebuildSurnameList(newNodes)
+		setD3Data({ ...d3Data, nodes: newNodes, surnameList: newSurnameList })
+		// Update the highlights node if it's the one being edited
+		if (highlights.node && highlights.node.id === nodeId) {
+			const updatedNode = newNodes.find((n) => n.id === nodeId)
+			setHighlights({ ...highlights, node: updatedNode })
+		}
+	}
+
+	const addNode = (nodeData) => {
+		const id = generateNodeId()
+		const newNode = {
+			id,
+			name: `${nodeData.firstName || ''} ${nodeData.surname || ''}`.trim() || 'New Person',
+			firstName: nodeData.firstName || '',
+			surname: nodeData.surname || '',
+			gender: nodeData.gender || 'M',
+			yob: nodeData.yob || '',
+			yod: nodeData.yod || '',
+			dob: nodeData.dob || '',
+			dod: nodeData.dod || '',
+			pob: nodeData.pob || '',
+			pod: nodeData.pod || '',
+			bio: nodeData.bio || '',
+			title: nodeData.title || '',
+			color: '#ccc',
+			fy: nodeData.yob ? -nodeData.yob : 0,
+			families: [],
+		}
+
+		// Try to match color from existing nodes with same surname
+		if (newNode.surname) {
+			const match = d3Data.nodes.find((n) => n.surname === newNode.surname)
+			if (match) newNode.color = match.color
+		}
+
+		const newNodes = [...d3Data.nodes, newNode]
+		const newSurnameList = rebuildSurnameList(newNodes)
+		setD3Data({ ...d3Data, nodes: newNodes, surnameList: newSurnameList })
+		return id
+	}
+
+	const removeNode = (nodeId) => {
+		const newNodes = d3Data.nodes.filter((n) => n.id !== nodeId)
+		const newLinks = d3Data.links.filter((link) => {
+			const srcId = typeof link.source === 'object' ? link.source.id : link.source
+			const tgtId = typeof link.target === 'object' ? link.target.id : link.target
+			return srcId !== nodeId && tgtId !== nodeId
+		})
+		// Reindex links
+		newLinks.forEach((link, i) => { link.index = i })
+		const newSurnameList = rebuildSurnameList(newNodes)
+		setD3Data({ ...d3Data, nodes: newNodes, links: newLinks, surnameList: newSurnameList })
+		// Remove photo
+		if (photoStore[nodeId]) {
+			const newPhotos = { ...photoStore }
+			delete newPhotos[nodeId]
+			setPhotoStore(newPhotos)
+		}
+		clearHighlights()
+		setEditingNode(null)
+	}
+
+	const addLink = (sourceId, targetId, sourceType, targetType) => {
+		// Check if link already exists
+		const exists = d3Data.links.some((link) => {
+			const srcId = typeof link.source === 'object' ? link.source.id : link.source
+			const tgtId = typeof link.target === 'object' ? link.target.id : link.target
+			return srcId === sourceId && tgtId === targetId
+		})
+		if (exists) return
+
+		const newLink = {
+			source: sourceId,
+			target: targetId,
+			sourceType,
+			targetType,
+			index: d3Data.links.length,
+		}
+		setD3Data({ ...d3Data, links: [...d3Data.links, newLink] })
+	}
+
+	const removeLink = (linkIndex) => {
+		const newLinks = d3Data.links.filter((link) => link.index !== linkIndex)
+		newLinks.forEach((link, i) => { link.index = i })
+		setD3Data({ ...d3Data, links: newLinks })
+	}
+
+	const setNodePhoto = (nodeId, dataUrl) => {
+		setPhotoStore({ ...photoStore, [nodeId]: dataUrl })
+	}
+
+	const removeNodePhoto = (nodeId) => {
+		const newPhotos = { ...photoStore }
+		delete newPhotos[nodeId]
+		setPhotoStore(newPhotos)
+	}
+
+	const handleExportGed = () => {
+		downloadGedcom(d3Data, photoStore)
+	}
+
+	const handleExportGedz = () => {
+		downloadGedz(d3Data, photoStore)
+	}
+
+	const openEditPanel = (node) => {
+		setEditingNode(node)
+	}
+
+	const closeEditPanel = () => {
+		setEditingNode(null)
 	}
 
 	return (
@@ -165,6 +353,13 @@ const App = () => {
 						toggleTheme={toggleTheme}
 						nameFormat={nameFormat}
 						setNameFormat={setNameFormat}
+						editMode={editMode}
+						setEditMode={setEditMode}
+						openEditPanel={openEditPanel}
+						photoStore={photoStore}
+						handleExportGed={handleExportGed}
+						handleExportGedz={handleExportGedz}
+						addNode={addNode}
 					/>
 					<Graph
 						d3Data={d3Data}
@@ -180,7 +375,24 @@ const App = () => {
 						clearHighlights={clearHighlights}
 						theme={theme}
 						nameFormat={nameFormat}
+						editMode={editMode}
 					/>
+					{editingNode && editMode && (
+						<EditPanel
+							node={editingNode}
+							d3Data={d3Data}
+							updateNode={updateNode}
+							removeNode={removeNode}
+							addNode={addNode}
+							addLink={addLink}
+							removeLink={removeLink}
+							photoStore={photoStore}
+							setNodePhoto={setNodePhoto}
+							removeNodePhoto={removeNodePhoto}
+							onClose={closeEditPanel}
+							isMobile={isMobile}
+						/>
+					)}
 				</>
 			)}
 		</>

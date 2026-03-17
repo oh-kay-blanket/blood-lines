@@ -33,7 +33,7 @@ const Load = ({
 
 					<section className='load-area'>
 						<div className='heading-with-info'>
-							<h2>upload a gedcom ( .ged) file</h2>
+							<h2>upload a gedcom ( .ged / .gedz) file</h2>
 							<button
 								className='info-icon'
 								onClick={() => setShowGedcomModal(true)}
@@ -44,7 +44,7 @@ const Load = ({
 						</div>
 						{showError ? (
 							<p className='error'>
-								file type not supported. please use a .ged file.
+								file type not supported. please use a .ged or .gedz file.
 							</p>
 						) : null}
 						<input
@@ -52,6 +52,7 @@ const Load = ({
 							className='form-control'
 							type='file'
 							name='gedFile'
+							accept='.ged,.gedz'
 							onChange={handleUpload}
 						/>
 					</section>

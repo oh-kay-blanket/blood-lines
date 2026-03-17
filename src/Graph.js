@@ -19,6 +19,7 @@ const Graph = ({
 	clearHighlights,
 	theme,
 	nameFormat,
+	editMode,
 }) => {
 	// console.log(`d3Data`, d3Data)
 
