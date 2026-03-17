@@ -241,7 +241,7 @@ const Graph = ({
   const getLinkParticleWidth = useCallback(
     (link) => {
       if (highlights.links.indexOf(link.index) !== -1) {
-        return 2;
+        return 4;
       } else {
         return 0.1;
       }
@@ -580,6 +580,15 @@ const Graph = ({
       }
       linkDirectionalParticleWidth={getLinkParticleWidth}
       linkDirectionalParticleSpeed={0.001}
+      linkDirectionalArrowLength={(link) =>
+        d3Data.nodes.length >= 300 &&
+        (link.sourceType === "CHIL" || link.targetType === "CHIL") &&
+        highlights.links.indexOf(link.index) !== -1
+          ? 10
+          : 0
+      }
+      linkDirectionalArrowRelPos={0.75}
+      linkDirectionalArrowColor={getLinkColor}
     />
   );
 };
