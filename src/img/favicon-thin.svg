@@ -10,7 +10,6 @@
 
       .st0, .st1 {
         stroke-miterlimit: 10;
-        stroke-width: 2px;
       }
 
       .st1 {
@@ -19,11 +18,11 @@
       }
     </style>
   </defs>
-  <circle class="st0" cx="25.27" cy="25.55" r="4.17"/>
-  <line class="st1" x1="24.53" y1="12.54" x2="25.2" y2="24.42"/>
-  <circle class="st0" cx="24.53" cy="11.91" r="5.88"/>
-  <line class="st1" x1="21.54" y1="15.58" x2="9.16" y2="33.26"/>
-  <line class="st1" x1="26.52" y1="14.31" x2="41.3" y2="36.02"/>
-  <circle class="st0" cx="9.1" cy="32.88" r="6.83"/>
-  <circle class="st0" cx="41.3" cy="36.02" r="8.34"/>
+  <circle class="st0" cx="25.13" cy="26.51" r="4.37"/>
+  <line class="st1" x1="24.35" y1="12.86" x2="24.99" y2="24.14"/>
+  <circle class="st0" cx="24.35" cy="12.2" r="6.16"/>
+  <line class="st1" x1="20.95" y1="16.44" x2="8.23" y2="34.6"/>
+  <line class="st1" x1="27" y1="15.53" x2="41.95" y2="37.49"/>
+  <circle class="st0" cx="8.17" cy="34.2" r="7.16"/>
+  <circle class="st0" cx="41.95" cy="37.49" r="8.75"/>
 </svg>

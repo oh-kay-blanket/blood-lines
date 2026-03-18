@@ -178,13 +178,38 @@ const App = () => {
 		if (updates.firstName !== undefined || updates.surname !== undefined) {
 			node.name = `${node.firstName || ''} ${node.surname || ''}`.trim()
 		}
-		if (updates.yob !== undefined && updates.yob !== prevYob) {
-			node.fy = node.yob ? -node.yob : null
+		if (updates.yob !== undefined && Number(updates.yob) !== Number(prevYob)) {
+			if (node.yob && prevYob && node.fy != null) {
+				// Derive the fy-per-year scale from the existing timeline position
+				// d3ize uses a complex formula (ratio + centering), so we calculate
+				// the offset from the old position to preserve the timeline's scale
+				const prevFy = node.fy
+				const yearDelta = Number(node.yob) - Number(prevYob)
+				// Find the scale by comparing two known nodes with different yobs
+				const refNodes = d3Data.nodes.filter(n => n.yob && n.fy != null && n.id !== nodeId)
+				let fyPerYear = 0
+				if (refNodes.length >= 2) {
+					const a = refNodes[0]
+					const b = refNodes.find(n => Number(n.yob) !== Number(a.yob))
+					if (b) {
+						fyPerYear = (b.fy - a.fy) / (Number(b.yob) - Number(a.yob))
+					}
+				}
+				if (fyPerYear !== 0) {
+					node.fy = prevFy + yearDelta * fyPerYear
+				} else {
+					// Fallback: shift proportionally from old position
+					node.fy = prevFy
+				}
+			} else if (node.yob) {
+				// No previous fy — estimate from existing nodes
+				node.fy = -node.yob
+			} else {
+				node.fy = null
+			}
+			if (node.fy !== null) node.y = node.fy
 		}
-		// Update surnameList in place on the existing d3Data object
 		d3Data.surnameList = rebuildSurnameList(d3Data.nodes)
-		// Increment version to re-render UI panels without changing graphData or
-		// highlights, which would cause react-force-graph to rebuild and reset positions
 		setNodeVersion(v => v + 1)
 	}
 

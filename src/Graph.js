@@ -518,8 +518,8 @@ const Graph = ({
         return null;
       };
 
-      const nodeObject = intersects.find(
-        (intersect) => getNodeData(intersect.object),
+      const nodeObject = intersects.find((intersect) =>
+        getNodeData(intersect.object),
       );
 
       if (nodeObject) {
@@ -587,7 +587,9 @@ const Graph = ({
         link.sourceType != "CHIL" &&
         link.targetType == "CHIL" &&
         d3Data.nodes.length < 300
-          ? 8
+          ? highlights.links.length > 0
+            ? 4
+            : 4
           : 0
       }
       linkDirectionalParticleWidth={getLinkParticleWidth}
