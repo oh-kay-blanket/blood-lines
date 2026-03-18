@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 51.5 54.51">
+  <!-- Generator: Adobe Illustrator 29.7.1, SVG Export Plug-In . SVG Version: 2.1.1 Build 8)  -->
+  <defs>
+    <style>
+      .st0 {
+        fill: url(#radial-gradient);
+      }
+
+      .st1 {
+        fill: none;
+        stroke: #fc6767;
+        stroke-miterlimit: 10;
+        stroke-width: .5px;
+      }
+
+      .st2 {
+        fill: url(#radial-gradient1);
+      }
+
+      .st3 {
+        fill: url(#radial-gradient6);
+      }
+
+      .st4 {
+        fill: url(#radial-gradient3);
+      }
+
+      .st5 {
+        fill: url(#radial-gradient2);
+      }
+
+      .st6 {
+        fill: url(#radial-gradient5);
+      }
+
+      .st7 {
+        fill: url(#radial-gradient4);
+      }
+
+      .st8 {
+        fill: url(#radial-gradient7);
+      }
+    </style>
+    <radialGradient id="radial-gradient" cx="-369.69" cy="54.65" fx="-369.69" fy="54.65" r=".42" gradientTransform="translate(2201.24 607.44) rotate(23.35) scale(6)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ddd4b0"/>
+      <stop offset=".5" stop-color="#a89c70"/>
+      <stop offset="1" stop-color="#4e4428"/>
+    </radialGradient>
+    <radialGradient id="radial-gradient1" cx="-400.76" cy="53.84" fx="-400.76" fy="53.84" r=".53" gradientTransform="translate(3098.65 61.77) rotate(8.11) scale(7.61)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#e4dbb8"/>
+      <stop offset=".41" stop-color="#b0a578"/>
+      <stop offset="1" stop-color="#564c30"/>
+    </radialGradient>
+    <radialGradient id="radial-gradient2" cx="-400.18" cy="69.69" fx="-400.18" fy="69.69" r=".54" gradientTransform="translate(2682.18 -1027.34) rotate(-11.75) scale(7)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#e8dfc2"/>
+      <stop offset=".5" stop-color="#b8ad85"/>
+      <stop offset="1" stop-color="#5e5335"/>
+    </radialGradient>
+    <radialGradient id="radial-gradient3" cx="-421.25" cy="38.01" fx="-421.25" fy="38.01" r=".53" gradientTransform="translate(4877.73 -774.96) rotate(-3.97) scale(11.61)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f6edd0"/>
+      <stop offset=".5" stop-color="#c8b890"/>
+      <stop offset="1" stop-color="#6b5f3e"/>
+    </radialGradient>
+    <radialGradient id="radial-gradient4" cx="-418.56" cy="37.13" fx="-418.56" fy="37.13" r=".56" gradientTransform="translate(5041.05 -422.59) scale(12)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f6edd0"/>
+      <stop offset=".5" stop-color="#d4c8a0"/>
+      <stop offset="1" stop-color="#7a6d48"/>
+    </radialGradient>
+    <radialGradient id="radial-gradient5" cx="-415.65" cy="33.08" fx="-415.65" fy="33.08" r=".66" gradientTransform="translate(4976.44 599.61) rotate(10.96) scale(12)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f6edd0"/>
+      <stop offset=".5" stop-color="#d4c8a0"/>
+      <stop offset="1" stop-color="#7a6d48"/>
+    </radialGradient>
+    <radialGradient id="radial-gradient6" cx="-423.84" cy="41.67" fx="-423.84" fy="41.67" r=".75" gradientTransform="translate(4714.19 -1824.26) rotate(-16.14) scale(11.83)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f6edd0"/>
+      <stop offset=".5" stop-color="#cec198"/>
+      <stop offset="1" stop-color="#706440"/>
+    </radialGradient>
+    <radialGradient id="radial-gradient7" cx="-409.64" cy="73.37" fx="-409.64" fy="73.37" r=".65" gradientTransform="translate(2433.86 -1639.16) rotate(-24.82) scale(7)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f0e6c8"/>
+      <stop offset=".5" stop-color="#c0b488"/>
+      <stop offset="1" stop-color="#645838"/>
+    </radialGradient>
+  </defs>
+  <circle class="st0" cx="35.34" cy="30.05" r="2.4"/>
+  <circle class="st2" cx="22.18" cy="37.84" r="3.7"/>
+  <line class="st1" x1="20.57" y1="26" x2="21.89" y2="35.31"/>
+  <line class="st1" x1="39.43" y1="21.67" x2="36.01" y2="28.41"/>
+  <circle class="st5" cx="39.43" cy="21.67" r="3.42"/>
+  <line class="st1" x1="41.22" y1="23.67" x2="47.7" y2="31.82"/>
+  <line class="st1" x1="32.48" y1="8.51" x2="38.19" y2="19.34"/>
+  <circle class="st4" cx="29.89" cy="5.11" r="5.11"/>
+  <line class="st1" x1="28.16" y1="8.74" x2="20.57" y2="25.38"/>
+  <circle class="st7" cx="20.57" cy="25.44" r="5.62"/>
+  <line class="st1" x1="17.19" y1="29.23" x2="5.95" y2="43.39"/>
+  <line class="st1" x1="23.37" y1="29.06" x2="37.46" y2="47.11"/>
+  <circle class="st6" cx="6.61" cy="44.05" r="6.61"/>
+  <circle class="st3" cx="37.46" cy="47.11" r="7.4"/>
+  <circle class="st8" cx="47.6" cy="31.68" r="3.9"/>
+</svg>

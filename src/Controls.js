@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 
 
 const Controls = ({
@@ -7,8 +7,6 @@ const Controls = ({
 	highlights,
 	highlightedFamily,
 	setHighlightedFamily,
-	showingLegend,
-	setShowingLegend,
 	showingSurnames,
 	setShowingSurnames,
 	isMobile,
@@ -16,52 +14,48 @@ const Controls = ({
 	toggleTheme,
 	nameFormat,
 	setNameFormat,
+	editMode,
+	setEditMode,
+	openEditPanel,
+	photoStore,
+	handleExportGed,
+	handleExportGedz,
+	addNode,
+	setHighlights,
 }) => {
 	const [isNodeInfoVisible, setIsNodeInfoVisible] = useState(false)
 	const [nodeInfoData, setNodeInfoData] = useState(null)
+	const [showSettings, setShowSettings] = useState(false)
+	const settingsRef = useRef(null)
+	const surnamesRef = useRef(null)
 
 	useEffect(() => {
 		if (highlights.node) {
-			// Node is being shown - immediately show it
 			setNodeInfoData(highlights.node)
 			setIsNodeInfoVisible(true)
 		} else if (nodeInfoData) {
-			// Node is being hidden - start exit animation
 			setIsNodeInfoVisible(false)
-			// Remove the data after animation completes
 			const timer = setTimeout(() => {
 				setNodeInfoData(null)
-			}, 300) // Match the CSS transition duration
+			}, 300)
 			return () => clearTimeout(timer)
 		}
 	}, [highlights.node])
-	const toggleLegend = () => {
-		setShowingLegend((prevState) => !prevState)
-		setShowingSurnames(false)
-	}
+
 
 	const toggleSurnames = () => {
 		setShowingSurnames((prevState) => !prevState)
-		setShowingLegend(false)
 	}
 
 	function compareSurname(a, b) {
-		if (a.surname < b.surname) {
-			return -1
-		}
-		if (a.surname > b.surname) {
-			return 1
-		}
+		if (a.surname < b.surname) return -1
+		if (a.surname > b.surname) return 1
 		return 0
 	}
 
 	function compareCount(a, b) {
-		if (a.count < b.count) {
-			return 1
-		}
-		if (a.count > b.count) {
-			return -1
-		}
+		if (a.count < b.count) return 1
+		if (a.count > b.count) return -1
 		return 0
 	}
 
@@ -85,7 +79,7 @@ const Controls = ({
 					borderRadius: '0.5rem',
 					margin: '0.25rem',
 					boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
-					fontFamily: 'Helvetica, Arial, sans-serif',
+					fontFamily: "'Josefin Sans', sans-serif",
 					width: 'fit-content',
 				}}
 				onClick={(e) =>
@@ -99,11 +93,33 @@ const Controls = ({
 		))
 
 	const nodeInfoInsert = (node) => {
-		// Gender
 		const labelGender = node.gender === 'M' ? `♂` : `♀`
+		const photo = photoStore && photoStore[node.id]
 
 		return (
 			<div id='node-info--content'>
+					<button
+					className='node-info-edit-icon'
+					onClick={() => openEditPanel(node)}
+					aria-label='Edit person'
+				>
+					<span className='material-icons-outlined'>edit</span>
+				</button>
+				{photo && (
+					<div style={{ textAlign: 'center', marginBottom: '0.5rem' }}>
+						<img
+							src={photo}
+							alt={node.name}
+							style={{
+								width: '80px',
+								height: '80px',
+								borderRadius: '50%',
+								objectFit: 'cover',
+								border: '2px solid rgba(255,255,255,0.3)',
+							}}
+						/>
+					</div>
+				)}
 				{node.title ? (
 					<h4 className='node-title'>
 						<span>
@@ -136,6 +152,46 @@ const Controls = ({
 		)
 	}
 
+	const handleAddNewPerson = () => {
+		const newId = addNode({
+			firstName: 'New',
+			surname: 'Person',
+			gender: 'M',
+		})
+		setShowSettings(false)
+		// Find the new node, highlight it, and open the edit panel
+		setTimeout(() => {
+			const newNode = d3Data.nodes.find((n) => n.id === newId)
+			if (newNode) {
+				setHighlights({ node: newNode, family: [newNode], links: [] })
+				openEditPanel(newNode)
+			}
+		}, 100)
+	}
+
+	const settingsRowStyle = {
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'space-between',
+		padding: '0.5rem 0',
+	}
+
+	const settingsLabelStyle = {
+		color: 'var(--text)',
+		fontSize: '0.9rem',
+		margin: 0,
+	}
+
+	const pillBtnStyle = (active) => ({
+		background: active ? 'var(--text)' : 'transparent',
+		color: active ? 'var(--grey-dark)' : 'var(--text)',
+		border: '1px solid var(--grey-light-soft)',
+		borderRadius: '0.5rem',
+		padding: '0.25rem 0.5rem',
+		cursor: 'pointer',
+		fontSize: '0.85rem',
+	})
+
 	return (
 		<div id='controls'>
 			<div
@@ -159,137 +215,169 @@ const Controls = ({
 				<i className='fa fa-times' aria-hidden='true'></i>
 			</div>
 
-			<div id='legend'>
-				{showingLegend && (
-					<div
-						id='legend-content'
-						style={{
-							background: 'var(--grey-dark)',
-							border: '1.5px solid var(--grey-light-soft)',
-							color: 'var(--text)',
-							boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
-						}}
-					>
-						<p className='control-title' style={{ color: 'var(--text)' }}>
-							controls
-						</p>
-						{isMobile ? (
-							<>
-								<p style={{ color: 'var(--text)' }}>tap on name: person info</p>
-								<p style={{ color: 'var(--text)' }}>pinch: zoom</p>
-								<p style={{ color: 'var(--text)' }}>swipe: rotate</p>
-								<p style={{ color: 'var(--text)' }}>two-finger swipe: pan</p>
-							</>
-						) : (
-							<>
-								<p style={{ color: 'var(--text)' }}>
-									click on name: person info
-								</p>
-								<p style={{ color: 'var(--text)' }}>scroll: zoom</p>
-								<p style={{ color: 'var(--text)' }}>left-click drag: rotate</p>
-								<p style={{ color: 'var(--text)' }}>right-click drag: pan</p>
-							</>
-						)}
+			{showSettings && (
+				<div className='menu-overlay' onClick={() => setShowSettings(false)} />
+			)}
+			{showingSurnames && (
+				<div className='menu-overlay' onClick={() => setShowingSurnames(false)} />
+			)}
 
-						<br />
+			{/* Settings gear button + dropdown */}
+			<div id='settings' ref={settingsRef}>
+				<button
+					id='settings-button'
+					className={showSettings ? 'active' : ''}
+					onClick={() => setShowSettings((prev) => !prev)}
+					aria-label='Settings'
+				>
+					<i className='fa fa-cog' aria-hidden='true'></i>
+				</button>
 
-						<p className='control-title' style={{ color: 'var(--text)' }}>
-							settings
-						</p>
-						<div style={{ marginBottom: '0.5rem' }}>
-							<p style={{ color: 'var(--text)', marginBottom: '0.25rem', fontSize: '0.9rem' }}>
-								Name format:
-							</p>
-							<div style={{ display: 'flex', gap: '0.5rem' }}>
+				{showSettings && (
+					<div id='settings-dropdown'>
+						{/* Theme */}
+						<div style={settingsRowStyle}>
+							<p style={settingsLabelStyle}>Theme</p>
+							<button
+								className='theme-toggle-slider'
+								onClick={toggleTheme}
+								aria-label='Toggle color mode'
+							>
+								<span
+									className={theme === 'dark' ? 'active' : ''}
+									aria-label='Dark'
+								>
+									<span className='material-icons-outlined'>dark_mode</span>
+								</span>
+								<span
+									className={theme === 'light' ? 'active' : ''}
+									aria-label='Light'
+								>
+									<span className='material-icons-outlined'>light_mode</span>
+								</span>
+								<span className='slider' style={{ left: theme === 'dark' ? 0 : 30 }}></span>
+							</button>
+						</div>
+
+						<hr className='settings-divider' />
+
+						{/* Name Format */}
+						<div style={settingsRowStyle}>
+							<p style={settingsLabelStyle}>Names</p>
+							<div style={{ display: 'flex', gap: '0.4rem' }}>
 								<button
 									onClick={() => setNameFormat('firstLast')}
-									style={{
-										background: nameFormat === 'firstLast' ? 'var(--text)' : 'transparent',
-										color: nameFormat === 'firstLast' ? 'var(--grey-dark)' : 'var(--text)',
-										border: '1px solid var(--grey-light-soft)',
-										borderRadius: '0.5rem',
-										padding: '0.25rem 0.5rem',
-										cursor: 'pointer',
-										fontSize: '0.85rem',
-									}}
+									style={pillBtnStyle(nameFormat === 'firstLast')}
 								>
 									First Last
 								</button>
 								<button
 									onClick={() => setNameFormat('lastFirst')}
-									style={{
-										background: nameFormat === 'lastFirst' ? 'var(--text)' : 'transparent',
-										color: nameFormat === 'lastFirst' ? 'var(--grey-dark)' : 'var(--text)',
-										border: '1px solid var(--grey-light-soft)',
-										borderRadius: '0.5rem',
-										padding: '0.25rem 0.5rem',
-										cursor: 'pointer',
-										fontSize: '0.85rem',
-									}}
+									style={pillBtnStyle(nameFormat === 'lastFirst')}
 								>
 									Last, First
 								</button>
 							</div>
 						</div>
 
-						<br />
+						<hr className='settings-divider' />
 
-						<p className='control-title' style={{ color: 'var(--text)' }}>
-							legend
-						</p>
-						<div className='legend-line'>
-							<span
+						{/* + Person */}
+						<div style={settingsRowStyle}>
+							<button
+								onClick={handleAddNewPerson}
 								style={{
-									display: 'inline-block',
-									width: '20px',
-									height: '0px',
-									borderTop: `2px solid ${theme === 'light' ? 'rgba(220, 80, 80, 0.45)' : 'rgba(252, 103, 103, 0.7)'}`,
-									marginRight: '4px',
-									flexShrink: 0,
+									...pillBtnStyle(false),
+									width: '100%',
+									textAlign: 'center',
+									padding: '0.4rem 0.5rem',
 								}}
-							/>
-							<p style={{ color: 'var(--text)' }}>- blood line</p>
+							>
+								+ person
+							</button>
 						</div>
-						<div className='legend-line'>
-							<span
-								style={{
-									display: 'inline-block',
-									width: '20px',
-									height: '0px',
-									borderTop: `2px dashed ${theme === 'light' ? 'rgb(230, 180, 30)' : 'rgb(255, 200, 0)'}`,
-									marginRight: '4px',
-									flexShrink: 0,
-								}}
-							/>
-							<p style={{ color: 'var(--text)' }}>- love line</p>
+
+						<hr className='settings-divider' />
+
+						{/* Export */}
+						<div style={{ padding: '0.5rem 0' }}>
+							<p style={{ ...settingsLabelStyle, marginBottom: '0.4rem' }}>Export</p>
+							<div style={{ display: 'flex', gap: '0.4rem' }}>
+								<button
+									onClick={() => { handleExportGed(); setShowSettings(false) }}
+									style={pillBtnStyle(false)}
+								>
+									.ged
+								</button>
+								<button
+									onClick={() => { handleExportGedz(); setShowSettings(false) }}
+									style={pillBtnStyle(false)}
+								>
+									.gedz
+								</button>
+							</div>
+						</div>
+
+						<hr className='settings-divider' />
+
+						{/* Controls help */}
+						<div style={{ padding: '0.5rem 0' }}>
+							<p className='control-title' style={{ color: 'var(--text)' }}>
+								controls
+							</p>
+							{isMobile ? (
+								<>
+									<p style={{ color: 'var(--text)' }}>tap on name: person info</p>
+									<p style={{ color: 'var(--text)' }}>pinch: zoom</p>
+									<p style={{ color: 'var(--text)' }}>swipe: rotate</p>
+									<p style={{ color: 'var(--text)' }}>two-finger swipe: pan</p>
+								</>
+							) : (
+								<>
+									<p style={{ color: 'var(--text)' }}>click on name: person info</p>
+									<p style={{ color: 'var(--text)' }}>scroll: zoom</p>
+									<p style={{ color: 'var(--text)' }}>left-click drag: rotate</p>
+									<p style={{ color: 'var(--text)' }}>right-click drag: pan</p>
+								</>
+							)}
+						</div>
+
+						<hr className='settings-divider' />
+
+						{/* Legend */}
+						<div style={{ padding: '0.5rem 0' }}>
+							<p className='control-title' style={{ color: 'var(--text)' }}>
+								legend
+							</p>
+							<div className='legend-line'>
+								<span
+									style={{
+										display: 'inline-block',
+										width: '20px',
+										height: '0px',
+										borderTop: `2px solid ${theme === 'light' ? 'rgba(220, 80, 80, 0.45)' : 'rgba(252, 103, 103, 0.7)'}`,
+										marginRight: '4px',
+										flexShrink: 0,
+									}}
+								/>
+								<p style={{ color: 'var(--text)' }}>- blood line</p>
+							</div>
+							<div className='legend-line'>
+								<span
+									style={{
+										display: 'inline-block',
+										width: '20px',
+										height: '0px',
+										borderTop: `2px dashed ${theme === 'light' ? 'rgb(230, 180, 30)' : 'rgb(255, 200, 0)'}`,
+										marginRight: '4px',
+										flexShrink: 0,
+									}}
+								/>
+								<p style={{ color: 'var(--text)' }}>- love line</p>
+							</div>
 						</div>
 					</div>
 				)}
-				<p
-					id='legend-button'
-					className={showingLegend ? 'active' : ''}
-					onClick={toggleLegend}
-					style={{
-						background: 'var(--grey-dark)',
-						color: 'var(--text)',
-						border: '1.5px solid var(--grey-light-soft)',
-						borderRadius: '50%',
-						padding: '0.5rem',
-						margin: '0.5rem 0',
-						width: '1.5rem',
-						height: '1.5rem',
-						display: 'flex',
-						alignItems: 'center',
-						justifyContent: 'center',
-						cursor: 'pointer',
-						boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
-						fontStyle: 'italic',
-						fontWeight: 'bold',
-						fontSize: '1rem',
-					}}
-				>
-					i
-				</p>
 			</div>
 
 			<div id='node-info' className={isNodeInfoVisible ? 'visible' : ''}>
@@ -309,7 +397,7 @@ const Controls = ({
 				)}
 			</div>
 
-			<div id='surnames'>
+			<div id='surnames' ref={surnamesRef}>
 				{showingSurnames && (
 					<div
 						className='surnames-content'

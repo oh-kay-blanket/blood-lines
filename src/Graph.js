@@ -67,7 +67,7 @@ const Graph = ({
           mutedBg: "#2222",
           mutedBorder: "#5555",
           timeline: 0x555555,
-          timelineText: "#f8f8f8",
+          timelineText: "#f6edd0",
           romantic: "rgba(255, 200, 0, 0.85)",
           normal: "rgba(252, 103, 103, 0.45)",
           mutedLink: "rgba(167, 98, 98, 0.15)",
@@ -180,26 +180,29 @@ const Graph = ({
   );
 
   // Custom link object for dashed romance lines
-  const getLinkThreeObject = useCallback((link) => {
-    const isRomantic = link.sourceType != "CHIL" && link.targetType != "CHIL";
-    if (!isRomantic) return undefined;
+  const getLinkThreeObject = useCallback(
+    (link) => {
+      const isRomantic = link.sourceType != "CHIL" && link.targetType != "CHIL";
+      if (!isRomantic) return undefined;
 
-    const material = new LineMaterial({
-      color: 0xffb400,
-      linewidth: theme === "light" ? 2.5 : 1.5,
-      dashSize: 8,
-      gapSize: 4,
-      resolution: new THREE.Vector2(window.innerWidth, window.innerHeight),
-    });
-    material.dashed = true;
-    material.defines.USE_DASH = "";
-    material.needsUpdate = true;
-    const geometry = new LineGeometry();
-    geometry.setPositions([0, 0, 0, 0, 0, 0]);
-    const line = new Line2(geometry, material);
-    line.computeLineDistances();
-    return line;
-  }, [theme]);
+      const material = new LineMaterial({
+        color: 0xffb400,
+        linewidth: theme === "light" ? 2.5 : 1.5,
+        dashSize: 8,
+        gapSize: 4,
+        resolution: new THREE.Vector2(window.innerWidth, window.innerHeight),
+      });
+      material.dashed = true;
+      material.defines.USE_DASH = "";
+      material.needsUpdate = true;
+      const geometry = new LineGeometry();
+      geometry.setPositions([0, 0, 0, 0, 0, 0]);
+      const line = new Line2(geometry, material);
+      line.computeLineDistances();
+      return line;
+    },
+    [theme],
+  );
 
   // Update dashed line positions and colors
   const getLinkPositionUpdate = useCallback(
@@ -506,12 +509,21 @@ const Graph = ({
         fgRef.current.scene().children,
         true,
       );
-      const nodeObject = intersects.find(
-        (intersect) => intersect.object.__data && intersect.object.__data.id,
+      const getNodeData = (obj) => {
+        let cur = obj;
+        while (cur) {
+          if (cur.__data && cur.__data.id) return cur.__data;
+          cur = cur.parent;
+        }
+        return null;
+      };
+
+      const nodeObject = intersects.find((intersect) =>
+        getNodeData(intersect.object),
       );
 
       if (nodeObject) {
-        const node = nodeObject.object.__data;
+        const node = getNodeData(nodeObject.object);
         console.log(node);
         if (navigator.vibrate) navigator.vibrate(25);
         handleNodeClick(node);
@@ -536,7 +548,7 @@ const Graph = ({
     return () => {
       hammer.destroy();
     };
-  }, [highlights, showingSurnames, showingLegend]);
+  }, [fontReady, highlights, showingSurnames, showingLegend]);
 
   // BUILD GRAPH //
   if (!fontReady) return null;
@@ -575,7 +587,9 @@ const Graph = ({
         link.sourceType != "CHIL" &&
         link.targetType == "CHIL" &&
         d3Data.nodes.length < 300
-          ? 8
+          ? highlights.links.length > 0
+            ? 4
+            : 4
           : 0
       }
       linkDirectionalParticleWidth={getLinkParticleWidth}

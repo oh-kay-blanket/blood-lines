@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import SampleButton from "./SampleButton";
+import faviconSvg from "./img/favicon.svg";
+import ohKayImg from "./img/oh-kay.png";
 
 const Load = ({
   handleUpload,
@@ -27,7 +29,12 @@ const Load = ({
       <div id="load">
         <div>
           <section className="title-area">
-            <h1>blood lines</h1>
+            <img
+              src={faviconSvg}
+              alt="family plot logo"
+              className="homepage-logo"
+            />
+            <h1>family plot</h1>
             <p>a 3D visualizer for genealogical data</p>
           </section>
 
@@ -39,7 +46,7 @@ const Load = ({
                 onClick={() => setShowGedcomModal(true)}
                 aria-label="What is a GEDCOM file?"
               >
-                i
+                <span className="material-icons-outlined">info</span>
               </button>
             </div>
             {showError ? (
@@ -57,7 +64,7 @@ const Load = ({
           </section>
 
           <section className="sample-area">
-            <h2>view samples</h2>
+            <h2>sample plots</h2>
             <SampleButton name={"kardashian"} loadFile={loadKardashian} />
             <SampleButton name={"shakespeare"} loadFile={loadShakespeare} />
             <SampleButton name={"kennedy"} loadFile={loadKennedy} />
@@ -74,12 +81,15 @@ const Load = ({
           </section>
 
           <section className="links-area">
-            <p>
-              <a href="https://ohkaycomputer.com">Oh, Kay</a>
-            </p>
-            <p>
-              <a href="https://github.com/oh-kay-blanket/blood-lines">github</a>
-            </p>
+            <a
+              href="https://github.com/oh-kay-blanket/blood-lines"
+              aria-label="GitHub"
+            >
+              <i className="fab fa-github"></i>
+            </a>
+            <a href="https://ohkaycomputer.com" aria-label="Oh, Kay">
+              <img src={ohKayImg} alt="Oh, Kay" className="oh-kay-icon" />
+            </a>
           </section>
         </div>
       </div>

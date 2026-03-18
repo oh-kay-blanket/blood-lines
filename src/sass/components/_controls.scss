@@ -1,6 +1,15 @@
 @use '../base/color';
 @use '../mixins/neumorph';
 
+.menu-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+}
+
 #controls {
 	p {
 		font-size: .9rem;
@@ -8,20 +17,27 @@
 	}
 
 	#back-button,
-	#legend,
+	#settings,
 	#surnames {
 		z-index: 2;
 	}
 
-	#legend,
-	#surnames {
+	.control-title {
+		font-family: 'Josefin Sans', sans-serif;
+		font-size: 1.2rem;
+		font-weight: 700;
+		font-style: italic;
+		margin: .5rem auto;
+	}
 
-		.control-title {
-			font-family: 'Josefin Sans', sans-serif;
-			font-size: 1.2rem;
-			font-weight: 700;
-			font-style: italic;
-			margin: .5rem auto;
+	.legend-line {
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+
+		img {
+			height: 100%;
+			margin-right: 4px;
 		}
 	}
 
@@ -49,49 +65,61 @@
 		}
 	}
 
-	/* Legend */
-	#legend {
-		bottom: 0;
+	/* Settings dropdown */
+	#settings {
 		position: fixed;
-		margin: 15px;
+		top: 0;
+		right: 0;
+		margin: 1rem;
 
-		& > p {
-			width: 40px;
-			margin-left: 0px;
-			@include neumorph.neumorph;
+		#settings-button {
+			width: 35px;
+			height: 35px;
+			background: var(--grey-dark);
+			color: var(--text);
+			border: 1.5px solid var(--grey-light-soft);
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			cursor: pointer;
+			box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+			font-size: 1rem;
+			margin-left: auto;
+			transition: transform 0.2s;
 
 			&:hover {
 				@include neumorph.neumorph-hover;
 			}
 
-			&:active,
 			&.active {
 				@include neumorph.neumorph-active;
-				border-radius: 0px 0px 1rem 1rem;
+				transform: rotate(60deg);
 			}
 		}
 
-		#legend-content {
-			width: 200px;
-			max-height: 300px;
-			color: color.$grey-dark;
-			border-radius: 1rem;
+		#settings-dropdown {
+			position: absolute;
+			top: calc(100% + 0.5rem);
+			right: 0;
+			width: 240px;
+			max-height: 70vh;
 			overflow-y: auto;
-			color: color.$text;
+			background: var(--grey-dark);
+			border: 1.5px solid var(--grey-light-soft);
+			border-radius: 1rem;
+			padding: 0.75rem 1rem;
+			box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+			z-index: 10;
 
 			p {
-				margin: .25rem 0px;
+				margin: .25rem 0;
 			}
-		}
 
-		.legend-line {
-			display: flex;
-			justify-content: flex-start;
-			align-items: center;
-
-			img {
-				height: 100%;
-				margin-right: 4px;
+			.settings-divider {
+				border: none;
+				border-top: 1px solid var(--grey-light-soft);
+				margin: 0.25rem 0;
 			}
 		}
 	}
@@ -103,8 +131,17 @@
 		position: fixed;
 		margin: 1rem;
 
+		@media (min-width: 769px) {
+			right: auto;
+			left: 0;
+		}
+
 		#surnames-button {
 			float: right;
+
+			@media (min-width: 769px) {
+				float: left;
+			}
 		}
 
 		& > p {
@@ -131,14 +168,16 @@
 			flex-direction: column;
 			align-items: flex-end;
 
+			@media (min-width: 769px) {
+				align-items: flex-start;
+			}
+
 			p {
 				font-weight: 600;
 			}
 		}
 	}
 
-	#legend-button,
-	#legend-content,
 	#surnames-button,
 	.surnames-content,
 	.surnames-heading {
@@ -146,7 +185,6 @@
 		padding: 1rem;
 	}
 
-	#legend-button,
 	#surnames-button {
 		text-align: center;
 		margin-bottom: 0 !important;
@@ -176,7 +214,8 @@
 		}
 
 		@media (min-width: 769px) {
-			left: 1rem;
+			left: auto;
+			right: 1rem;
 			bottom: 1rem;
 			transform: translateY(100%);
 			max-height: 400px;
@@ -204,8 +243,35 @@
 		}
 
 		#node-info--content {
+			position: relative;
 			padding: 1rem;
 			color: #181818;
+			font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+			.node-info-edit-icon {
+				position: absolute;
+				top: 0.5rem;
+				right: 0.5rem;
+				background: rgba(255, 255, 255, 0.25);
+				border: none;
+				border-radius: 50%;
+				width: 28px;
+				height: 28px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				cursor: pointer;
+				color: #181818;
+				transition: background 0.2s;
+
+				.material-icons-outlined {
+					font-size: 1rem;
+				}
+
+				&:hover {
+					background: rgba(255, 255, 255, 0.5);
+				}
+			}
 
 			h4 {
 				margin: 0 auto .25rem auto;
