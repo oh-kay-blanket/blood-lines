@@ -1,5 +1,9 @@
 .edit-panel {
-	font-family: 'Inter', sans-serif;
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+	[data-theme="light"] & {
+		--grey-light-soft: #d5cdbf;
+	}
 
 	h3 {
 		font-family: 'Josefin Sans', sans-serif;
@@ -7,7 +11,7 @@
 	}
 
 	input, select, textarea {
-		font-family: 'Inter', sans-serif;
+		font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
 		&:focus {
 			outline: none;

@@ -26,6 +26,12 @@
 	transition: opacity 0.2s;
 	z-index: 2;
 	position: relative;
+	display: flex;
+	align-items: center;
+
+	.material-icons-outlined {
+		font-size: 1.1rem;
+	}
 }
 
 .theme-toggle-slider span.active {

@@ -79,6 +79,7 @@ const App = () => {
 	const [editMode, setEditMode] = useState(false)
 	const [editingNode, setEditingNode] = useState(null)
 	const [photoStore, setPhotoStore] = useState({})
+	const [nodeVersion, setNodeVersion] = useState(0)
 
 	// Detect device color scheme on mount (only if no saved preference)
 	useEffect(() => {
@@ -169,27 +170,22 @@ const App = () => {
 	// --- Data mutation functions ---
 
 	const updateNode = (nodeId, updates) => {
-		const newNodes = d3Data.nodes.map((node) => {
-			if (node.id === nodeId) {
-				const updated = { ...node, ...updates }
-				// Recalculate derived fields
-				if (updates.firstName || updates.surname) {
-					updated.name = `${updated.firstName || ''} ${updated.surname || ''}`.trim()
-				}
-				if (updates.yob !== undefined) {
-					updated.fy = updated.yob ? -updated.yob : null
-				}
-				return updated
-			}
-			return node
-		})
-		const newSurnameList = rebuildSurnameList(newNodes)
-		setD3Data({ ...d3Data, nodes: newNodes, surnameList: newSurnameList })
-		// Update the highlights node if it's the one being edited
-		if (highlights.node && highlights.node.id === nodeId) {
-			const updatedNode = newNodes.find((n) => n.id === nodeId)
-			setHighlights({ ...highlights, node: updatedNode })
+		const node = d3Data.nodes.find((n) => n.id === nodeId)
+		if (!node) return
+		const prevYob = node.yob
+		// Mutate in place to preserve force-graph internal properties (x, y, z, fy, etc.)
+		Object.assign(node, updates)
+		if (updates.firstName !== undefined || updates.surname !== undefined) {
+			node.name = `${node.firstName || ''} ${node.surname || ''}`.trim()
 		}
+		if (updates.yob !== undefined && updates.yob !== prevYob) {
+			node.fy = node.yob ? -node.yob : null
+		}
+		// Update surnameList in place on the existing d3Data object
+		d3Data.surnameList = rebuildSurnameList(d3Data.nodes)
+		// Increment version to re-render UI panels without changing graphData or
+		// highlights, which would cause react-force-graph to rebuild and reset positions
+		setNodeVersion(v => v + 1)
 	}
 
 	const addNode = (nodeData) => {
@@ -290,6 +286,7 @@ const App = () => {
 	}
 
 	const openEditPanel = (node) => {
+		setEditMode(true)
 		setEditingNode(node)
 	}
 
@@ -339,6 +336,7 @@ const App = () => {
 						handleExportGed={handleExportGed}
 						handleExportGedz={handleExportGedz}
 						addNode={addNode}
+						setHighlights={setHighlights}
 					/>
 					<Graph
 						d3Data={d3Data}

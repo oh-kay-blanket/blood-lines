@@ -21,6 +21,7 @@ const Controls = ({
 	handleExportGed,
 	handleExportGedz,
 	addNode,
+	setHighlights,
 }) => {
 	const [isNodeInfoVisible, setIsNodeInfoVisible] = useState(false)
 	const [nodeInfoData, setNodeInfoData] = useState(null)
@@ -78,7 +79,7 @@ const Controls = ({
 					borderRadius: '0.5rem',
 					margin: '0.25rem',
 					boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
-					fontFamily: 'Helvetica, Arial, sans-serif',
+					fontFamily: "'Josefin Sans', sans-serif",
 					width: 'fit-content',
 				}}
 				onClick={(e) =>
@@ -97,6 +98,13 @@ const Controls = ({
 
 		return (
 			<div id='node-info--content'>
+					<button
+					className='node-info-edit-icon'
+					onClick={() => openEditPanel(node)}
+					aria-label='Edit person'
+				>
+					<span className='material-icons-outlined'>edit</span>
+				</button>
 				{photo && (
 					<div style={{ textAlign: 'center', marginBottom: '0.5rem' }}>
 						<img
@@ -140,24 +148,6 @@ const Controls = ({
 					</p>
 				)}
 				{node.bio && <p>{node.bio}</p>}
-				{editMode && (
-					<button
-						onClick={() => openEditPanel(node)}
-						style={{
-							marginTop: '0.5rem',
-							padding: '0.4rem 0.8rem',
-							borderRadius: '0.5rem',
-							border: '1px solid rgba(0,0,0,0.3)',
-							background: 'rgba(255,255,255,0.2)',
-							color: '#000',
-							cursor: 'pointer',
-							fontSize: '0.85rem',
-							width: '100%',
-						}}
-					>
-						Edit Person
-					</button>
-				)}
 			</div>
 		)
 	}
@@ -169,10 +159,13 @@ const Controls = ({
 			gender: 'M',
 		})
 		setShowSettings(false)
-		// Find the new node and open the edit panel
+		// Find the new node, highlight it, and open the edit panel
 		setTimeout(() => {
 			const newNode = d3Data.nodes.find((n) => n.id === newId)
-			if (newNode) openEditPanel(newNode)
+			if (newNode) {
+				setHighlights({ node: newNode, family: [newNode], links: [] })
+				openEditPanel(newNode)
+			}
 		}, 100)
 	}
 
@@ -252,17 +245,15 @@ const Controls = ({
 							>
 								<span
 									className={theme === 'dark' ? 'active' : ''}
-									role='img'
 									aria-label='Dark'
 								>
-									🌙
+									<span className='material-icons-outlined'>dark_mode</span>
 								</span>
 								<span
 									className={theme === 'light' ? 'active' : ''}
-									role='img'
 									aria-label='Light'
 								>
-									☀️
+									<span className='material-icons-outlined'>light_mode</span>
 								</span>
 								<span className='slider' style={{ left: theme === 'dark' ? 0 : 30 }}></span>
 							</button>
@@ -291,38 +282,20 @@ const Controls = ({
 
 						<hr className='settings-divider' />
 
-						{/* Edit Mode */}
+						{/* + Person */}
 						<div style={settingsRowStyle}>
-							<p style={settingsLabelStyle}>Edit mode</p>
 							<button
-								onClick={() => setEditMode(!editMode)}
+								onClick={handleAddNewPerson}
 								style={{
-									...pillBtnStyle(editMode),
-									background: editMode ? 'var(--root)' : 'transparent',
-									color: editMode ? '#fff' : 'var(--text)',
-									fontWeight: editMode ? 'bold' : 'normal',
+									...pillBtnStyle(false),
+									width: '100%',
+									textAlign: 'center',
+									padding: '0.4rem 0.5rem',
 								}}
 							>
-								{editMode ? 'on' : 'off'}
+								+ person
 							</button>
 						</div>
-
-						{/* + Person (only in edit mode) */}
-						{editMode && (
-							<div style={{ ...settingsRowStyle, paddingTop: 0 }}>
-								<button
-									onClick={handleAddNewPerson}
-									style={{
-										...pillBtnStyle(false),
-										width: '100%',
-										textAlign: 'center',
-										padding: '0.4rem 0.5rem',
-									}}
-								>
-									+ person
-								</button>
-							</div>
-						)}
 
 						<hr className='settings-divider' />
 

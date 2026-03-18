@@ -1,5 +1,5 @@
-@use '../base/color';
-@use '../mixins/neumorph';
+@use "../base/color";
+@use "../mixins/neumorph";
 
 #load {
   z-index: 0;
@@ -17,24 +17,42 @@
     padding-left: 5vw;
 
     &:not(:last-of-type) {
-      margin-bottom: 3rem;
+      margin-bottom: 1rem;
+
+      @media only screen and (min-width: 380px) {
+        margin-bottom: 2rem;
+      }
+
+      @media only screen and (min-width: 769px) {
+        margin-bottom: 3rem;
+      }
     }
   }
 
   .homepage-logo {
-    width: 64px;
-    height: 64px;
-    margin-bottom: 0.5rem;
+    width: 40px;
+    height: 40px;
+    margin-bottom: 0.25rem;
 
     @media only screen and (min-width: 769px) {
       width: 80px;
       height: 80px;
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  .title-area > p {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 0.85rem;
+
+    @media only screen and (min-width: 769px) {
+      font-size: 1rem;
     }
   }
 
   h1 {
-    font-family: 'Josefin Sans', sans-serif;
-    font-size: 3.5rem;
+    font-family: "Josefin Sans", sans-serif;
+    font-size: 2.5rem;
     margin: 0px;
     font-style: italic;
     font-weight: 700;
@@ -46,18 +64,18 @@
   }
 
   h2 {
-    font-family: 'Josefin Sans', sans-serif;
-    font-size: 1.2rem;
+    font-family: "Josefin Sans", sans-serif;
+    font-size: 1rem;
     font-weight: 700;
     font-style: italic;
     color: var(--text);
-    margin: .5rem auto;
+    margin: 0.25rem auto;
 
     @media only screen and (min-width: 769px) {
       font-size: 1.25rem;
+      margin: 0.5rem auto;
     }
   }
-
 
   .sample-area {
     @media (min-width: 600px) {
@@ -65,16 +83,16 @@
     }
 
     .sampleButton {
-      margin-right: .75rem;
+      margin-right: 0.75rem;
       color: var(--text);
       background-color: var(--root-light);
       font-weight: 700;
       text-transform: capitalize;
       cursor: pointer;
-      transition: background-color .25s;
+      transition: background-color 0.25s;
 
       &:hover {
-        transition: background-color .25s;
+        transition: background-color 0.25s;
         background-color: var(--root);
       }
 
@@ -96,7 +114,7 @@
 
     &:hover {
       @include neumorph.neumorph-hover;
-      transition: background-color .25s;
+      transition: background-color 0.25s;
       background-color: var(--root-light);
     }
 
@@ -116,9 +134,24 @@
 
   .links-area {
     display: flex;
+    align-items: center;
+    gap: 1rem;
 
-    p {
-      margin-right: 20px;
+    a {
+      display: flex;
+      align-items: center;
+      font-size: 1.5rem;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+
+    .oh-kay-icon {
+      height: 1.5rem;
+      width: auto;
     }
   }
 
@@ -128,15 +161,24 @@
 
   input[type="file"],
   input.form-control {
-    // background: var(--grey-dark);
     background-color: var(--root-light);
     color: var(--text);
     border: 1px solid var(--grey-light-soft);
     border-radius: 14px;
-    padding: 0.5rem 1rem;
-    margin-bottom: 1rem;
-    font-size: 1rem;
-    transition: background 0.2s, color 0.2s;
+    padding: 0.4rem 0.75rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.85rem;
+    transition:
+      background 0.2s,
+      color 0.2s;
+    max-width: calc(100vw - 10vw - 2rem);
+    box-sizing: border-box;
+
+    @media only screen and (min-width: 769px) {
+      padding: 0.5rem 1rem;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+    }
   }
 
   input[type="file"]:hover,
@@ -156,20 +198,20 @@
 
     .info-icon {
       background-color: transparent;
-      border: 2px solid var(--root);
+      border: none;
       color: var(--root);
-      font-size: 0.9rem;
-      font-weight: bold;
-      font-style: italic;
       cursor: pointer;
       padding: 0;
-      width: 1.5rem;
-      height: 1.5rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      border-radius: 50%;
-      transition: border-color 0.25s, color 0.25s, background-color 0.25s, transform 0.2s;
+      transition:
+        color 0.25s,
+        transform 0.2s;
+
+      .material-icons-outlined {
+        font-size: 1.25rem;
+      }
 
       &:hover {
         border-color: var(--root);
