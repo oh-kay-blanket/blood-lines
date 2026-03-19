@@ -108,15 +108,6 @@ const Load = ({
           )}
 
           <section className="links-area">
-            <a
-              href="https://github.com/oh-kay-blanket/blood-lines"
-              aria-label="GitHub"
-            >
-              <i className="fab fa-github"></i>
-            </a>
-            <a href="https://ohkaycomputer.com" aria-label="Oh, Kay">
-              <img src={ohKayImg} alt="Oh, Kay" className="oh-kay-icon" />
-            </a>
             <button
               className="theme-toggle-slider"
               onClick={toggleTheme}
@@ -139,6 +130,15 @@ const Load = ({
                 style={{ left: theme === "dark" ? 0 : 33 }}
               ></span>
             </button>
+            <a
+              href="https://github.com/oh-kay-blanket/blood-lines"
+              aria-label="GitHub"
+            >
+              <i className="fab fa-github"></i>
+            </a>
+            <a href="https://ohkaycomputer.com" aria-label="Oh, Kay">
+              <img src={ohKayImg} alt="Oh, Kay" className="oh-kay-icon" />
+            </a>
           </section>
         </div>
       </div>
