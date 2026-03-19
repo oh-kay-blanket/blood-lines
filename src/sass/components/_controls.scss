@@ -56,6 +56,13 @@
 		text-align: center;
 		font-size: .8rem;
 
+		@media (min-width: 769px) {
+			width: 1.5rem;
+			height: 1.5rem;
+			padding: 10px;
+			font-size: 1rem;
+		}
+
 		&:hover {
 			@include neumorph.neumorph-hover;
 		}
@@ -88,6 +95,12 @@
 			margin-left: auto;
 			transition: transform 0.2s;
 
+			@media (min-width: 769px) {
+				width: 44px;
+				height: 44px;
+				font-size: 1.25rem;
+			}
+
 			&:hover {
 				@include neumorph.neumorph-hover;
 			}
@@ -107,6 +120,11 @@
 			overflow-y: auto;
 			background: var(--grey-dark);
 			border: 1.5px solid var(--grey-light-soft);
+
+			[data-theme="light"] & {
+				--grey-light-soft: #d5cdbf;
+				border-color: #d5cdbf;
+			}
 			border-radius: 1rem;
 			padding: 0.75rem 1rem;
 			box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
@@ -148,6 +166,11 @@
 			width: 60px;
 			margin-right: 0px;
 			@include neumorph.neumorph;
+
+			@media (min-width: 769px) {
+				width: 75px;
+				font-size: 1rem;
+			}
 
 			&:hover {
 				@include neumorph.neumorph-hover;

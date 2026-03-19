@@ -10,8 +10,8 @@
 	justify-content: space-between;
 	width: 65px;
 	height: 32px;
-	background: var(--grey-dark);
-	border: 1.5px solid var(--grey-light-soft);
+	background: var(--grey-light-soft);
+	border: 1.5px solid var(--grey-light);
 	border-radius: 24px;
 	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 	cursor: pointer;
@@ -22,7 +22,7 @@
 
 .theme-toggle-slider span {
 	font-size: 1rem;
-	opacity: 0.6;
+	opacity: 1;
 	transition: opacity 0.2s;
 	z-index: 2;
 	position: relative;
@@ -40,8 +40,8 @@
 
 .theme-toggle-slider .slider {
 	position: absolute;
-	top: 0;
-	left: 2px;
+	top: 50%;
+	transform: translateY(-50%);
 	width: 29px;
 	height: 29px;
 	background: var(--root);

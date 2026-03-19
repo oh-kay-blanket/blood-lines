@@ -19,14 +19,14 @@ const EditPanel = ({
 	const [addingRelation, setAddingRelation] = useState(null) // 'parent' | 'spouse' | 'child' | null
 	const [searchQuery, setSearchQuery] = useState('')
 	const [showNewPersonForm, setShowNewPersonForm] = useState(false)
-	const [newPerson, setNewPerson] = useState({ firstName: '', surname: '', gender: 'M' })
+	const [newPerson, setNewPerson] = useState({ firstName: '', surname: '', gender: 'U' })
 	const fileInputRef = useRef(null)
 
 	useEffect(() => {
 		setForm({
 			firstName: node.firstName || '',
 			surname: node.surname || '',
-			gender: node.gender || 'M',
+			gender: node.gender || 'U',
 			yob: node.yob || '',
 			yod: node.yod || '',
 			dob: node.dob || '',
@@ -188,7 +188,7 @@ const EditPanel = ({
 		setAddingRelation(null)
 		setSearchQuery('')
 		setShowNewPersonForm(false)
-		setNewPerson({ firstName: '', surname: '', gender: 'M' })
+		setNewPerson({ firstName: '', surname: '', gender: 'U' })
 	}
 
 	const panelStyle = {
@@ -279,8 +279,8 @@ const EditPanel = ({
 				{/* Header */}
 				<div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
 					<h3 style={{ margin: 0 }}>Edit Person</h3>
-					<button onClick={onClose} style={{ ...btnStyle, padding: '0.3rem 0.6rem' }}>
-						<i className='fa fa-times' aria-hidden='true'></i>
+					<button onClick={onClose} className='close-button' aria-label='Close'>
+						<span className='material-icons-outlined'>close</span>
 					</button>
 				</div>
 
@@ -357,11 +357,12 @@ const EditPanel = ({
 					<label style={labelStyle}>Gender</label>
 					<select
 						style={inputStyle}
-						value={form.gender || 'M'}
+						value={form.gender || 'U'}
 						onChange={(e) => handleChange('gender', e.target.value)}
 					>
-						<option value='M'>Male</option>
+						<option value='U'>Unspecified</option>
 						<option value='F'>Female</option>
+						<option value='M'>Male</option>
 					</select>
 				</div>
 
@@ -560,8 +561,9 @@ const EditPanel = ({
 										value={newPerson.gender}
 										onChange={(e) => setNewPerson({ ...newPerson, gender: e.target.value })}
 									>
-										<option value='M'>Male</option>
+										<option value='U'>Unspecified</option>
 										<option value='F'>Female</option>
+										<option value='M'>Male</option>
 									</select>
 									<button
 										style={btnPrimaryStyle}

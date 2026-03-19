@@ -5,7 +5,7 @@ body {
   padding: 0px;
   overflow-x: hidden;
   overflow-y: hidden;
-  font-family: 'Josefin Sans', sans-serif;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   background-color: var(--grey);
   color: var(--text);
   font-size: 16px;
@@ -31,4 +31,29 @@ h1, h2, h3, h4, h5, h6 {
   font-family: 'Josefin Sans', sans-serif;
   font-weight: 700;
   font-style: italic;
+}
+
+.close-button,
+.modal-close,
+.sample-overlay-close {
+  background: transparent;
+  border: 1px solid var(--grey-light-soft);
+  color: var(--text);
+  cursor: pointer;
+  padding: 0;
+  width: 1.75rem;
+  height: 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  transition: background-color 0.2s;
+
+  .material-icons-outlined {
+    font-size: 1rem;
+  }
+
+  &:hover {
+    background-color: var(--grey-light-soft);
+  }
 }

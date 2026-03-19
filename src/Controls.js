@@ -93,7 +93,7 @@ const Controls = ({
 		))
 
 	const nodeInfoInsert = (node) => {
-		const labelGender = node.gender === 'M' ? `♂` : `♀`
+		const labelGender = node.gender === 'M' ? '♂' : node.gender === 'F' ? '♀' : ''
 		const photo = photoStore && photoStore[node.id]
 
 		return (
@@ -212,7 +212,7 @@ const Controls = ({
 					boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
 				}}
 			>
-				<i className='fa fa-times' aria-hidden='true'></i>
+				<span className='material-icons-outlined'>close</span>
 			</div>
 
 			{showSettings && (
@@ -255,7 +255,7 @@ const Controls = ({
 								>
 									<span className='material-icons-outlined'>light_mode</span>
 								</span>
-								<span className='slider' style={{ left: theme === 'dark' ? 0 : 30 }}></span>
+								<span className='slider' style={{ left: theme === 'dark' ? 0 : 33 }}></span>
 							</button>
 						</div>
 

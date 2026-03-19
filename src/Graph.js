@@ -27,6 +27,7 @@ const Graph = ({
 
   // STATE //
   const [fontReady, setFontReady] = useState(false);
+  const [graphReady, setGraphReady] = useState(false);
   const fgRef = useRef();
 
   const raycaster = new THREE.Raycaster();
@@ -367,6 +368,18 @@ const Graph = ({
     };
   }, [d3Data, themeColors, fontReady]);
 
+  // Reset graphReady when data changes
+  useEffect(() => {
+    setGraphReady(false);
+  }, [d3Data]);
+
+  const handleEngineStop = useCallback(() => {
+    if (!graphReady && fgRef.current) {
+      fgRef.current.zoomToFit(0, 60);
+      setGraphReady(true);
+    }
+  }, [graphReady]);
+
   // LOGIC //
 
   // Handle node click
@@ -554,9 +567,11 @@ const Graph = ({
   if (!fontReady) return null;
 
   return (
+    <div style={{ opacity: graphReady ? 1 : 0, transition: 'opacity 0.3s' }}>
     <ForceGraph3D
       ref={fgRef}
       graphData={d3Data}
+      onEngineStop={handleEngineStop}
       // Display
       width={window.innerWidth}
       height={window.innerHeight}
@@ -604,6 +619,7 @@ const Graph = ({
       linkDirectionalArrowRelPos={0.75}
       linkDirectionalArrowColor={getLinkColor}
     />
+    </div>
   );
 };
 
