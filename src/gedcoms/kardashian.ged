@@ -56,6 +56,7 @@
 1 FAMC @F0000@
 2 PEDI birth
 1 FAMS @F0002@
+1 NOTE @N0006@
 1 CHAN
 2 DATE 23 JUL 2019
 3 TIME 02:53:19
@@ -70,6 +71,7 @@
 1 FAMC @F0000@
 2 PEDI birth
 1 FAMS @F0003@
+1 FAMS @F0008@
 1 NOTE @N0004@
 1 CHAN
 2 DATE 23 JUL 2019
@@ -100,6 +102,7 @@
 1 FAMC @F0000@
 2 PEDI birth
 1 FAMS @F0005@
+1 NOTE @N0007@
 1 CHAN
 2 DATE 23 JUL 2019
 3 TIME 02:54:19
@@ -130,6 +133,7 @@
 1 FAMC @F0001@
 2 PEDI birth
 1 FAMS @F0006@
+1 NOTE @N0009@
 1 CHAN
 2 DATE 23 JUL 2019
 3 TIME 03:00:21
@@ -143,6 +147,7 @@
 2 PLAC Los Angeles, California, U.S.A.
 1 FAMC @F0001@
 2 PEDI birth
+1 NOTE @N0008@
 1 CHAN
 2 DATE 23 JUL 2019
 3 TIME 03:02:44
@@ -151,6 +156,9 @@
 2 GIVN Blac
 2 SURN Chyna
 1 SEX F
+1 BIRT
+2 DATE 11 MAY 1988
+2 PLAC Washington, D.C., U.S.A.
 1 FAMS @F0002@
 1 CHAN
 2 DATE 23 JUL 2019
@@ -172,6 +180,9 @@
 2 GIVN Scott
 2 SURN Disick
 1 SEX M
+1 BIRT
+2 DATE 26 MAY 1983
+2 PLAC Eastport, New York, U.S.A.
 1 FAMS @F0003@
 1 CHAN
 2 DATE 23 JUL 2019
@@ -241,7 +252,7 @@
 1 NAME North /West/
 2 GIVN North
 2 SURN West
-1 SEX M
+1 SEX F
 1 BIRT
 2 DATE 15 JUN 2013
 1 FAMC @F0004@
@@ -253,7 +264,7 @@
 1 NAME Chicago /West/
 2 GIVN Chicago
 2 SURN West
-1 SEX M
+1 SEX F
 1 BIRT
 2 DATE 15 JAN 2018
 1 FAMC @F0004@
@@ -266,6 +277,9 @@
 2 GIVN Tristen
 2 SURN Thompson
 1 SEX M
+1 BIRT
+2 DATE 13 MAR 1991
+2 PLAC Toronto, Ontario, Canada
 1 FAMS @F0005@
 1 CHAN
 2 DATE 23 JUL 2019
@@ -287,6 +301,9 @@
 2 GIVN Travis
 2 SURN Scott
 1 SEX M
+1 BIRT
+2 DATE 30 APR 1991
+2 PLAC Houston, Texas, U.S.A.
 1 FAMS @F0006@
 1 CHAN
 2 DATE 23 JUL 2019
@@ -297,7 +314,7 @@
 2 SURN Scott
 1 SEX F
 1 BIRT
-2 DATE 2018
+2 DATE 1 FEB 2018
 1 FAMC @F0006@
 2 PEDI birth
 1 CHAN
@@ -320,6 +337,9 @@
 2 GIVN Linda
 2 SURN Thompson
 1 SEX F
+1 BIRT
+2 DATE 23 MAY 1950
+2 PLAC Memphis, Tennessee, U.S.A.
 1 FAMS @F0007@
 1 CHAN
 2 DATE 23 JUL 2019
@@ -329,6 +349,9 @@
 2 GIVN Brandon
 2 SURN Jenner
 1 SEX M
+1 BIRT
+2 DATE 4 JUN 1981
+2 PLAC Los Angeles, California, U.S.A.
 1 FAMC @F0007@
 2 PEDI birth
 1 CHAN
@@ -339,6 +362,9 @@
 2 GIVN Brody
 2 SURN Jenner
 1 SEX M
+1 BIRT
+2 DATE 21 AUG 1983
+2 PLAC Los Angeles, California, U.S.A.
 1 FAMC @F0007@
 2 PEDI birth
 1 CHAN
@@ -402,6 +428,7 @@
 1 HUSB @I0019@
 1 WIFE @I0005@
 1 CHIL @I0020@
+1 CHIL @I0028@
 1 CHAN
 2 DATE 23 JUL 2019
 3 TIME 02:34:33
@@ -409,6 +436,7 @@
 1 HUSB @I0021@
 1 WIFE @I0007@
 1 CHIL @I0022@
+1 CHIL @I0027@
 1 CHAN
 2 DATE 23 JUL 2019
 3 TIME 02:35:27
@@ -461,4 +489,64 @@
 1 CONC n varied influences including soul, R&B, electro, indie rock, synth-pop
 1 CONC , and industrial music, in addition to influences from other art medium
 1 CONC s including visual art and architecture.
+0 @I0027@ INDI
+1 NAME Aire /Webster/
+2 GIVN Aire
+2 SURN Webster
+1 SEX M
+1 BIRT
+2 DATE 2 FEB 2022
+2 PLAC Los Angeles, California, U.S.A.
+1 FAMC @F0006@
+0 @I0028@ INDI
+1 NAME Tatum /Thompson/
+2 GIVN Tatum
+2 SURN Thompson
+1 SEX M
+1 BIRT
+2 DATE JUL 2022
+1 FAMC @F0005@
+0 @I0029@ INDI
+1 NAME Travis /Barker/
+2 GIVN Travis
+2 SURN Barker
+1 SEX M
+1 BIRT
+2 DATE 14 NOV 1975
+2 PLAC Fontana, California, U.S.A.
+1 FAMS @F0008@
+1 NOTE @N0010@
+0 @I0030@ INDI
+1 NAME Rocky Thirteen /Barker/
+2 GIVN Rocky Thirteen
+2 SURN Barker
+1 SEX M
+1 BIRT
+2 DATE 1 NOV 2023
+2 PLAC Los Angeles, California, U.S.A.
+1 FAMC @F0008@
+0 @F0008@ FAM
+1 HUSB @I0029@
+1 WIFE @I0003@
+1 MARR
+2 DATE 2022
+1 CHIL @I0030@
+0 @N0006@ NOTE Robert Arthur Kardashian is the only son of Robert Kardashian Sr. and
+1 CONC  Kris Jenner. He gained fame through the family reality show and brefly
+1 CONC  had his own show, Rob & Chyna. He has a daughter, Dream, with Blac Chy
+1 CONC na.
+0 @N0007@ NOTE Khloé Alexandra Kardashian is a media personality, socialite, and bus
+1 CONC inesswoman. She co-founded the clothing brand Good American and has sta
+1 CONC rred in multiple reality TV series. She has a daughter, True, with bask
+1 CONC etball player Tristan Thompson.
+0 @N0008@ NOTE Kendall Nicole Jenner is a model and media personality. She has been
+1 CONC  a Victoria's Secret Angel and has walked for major fashion houses. She
+1 CONC  is considered one of the highest-paid models in the world.
+0 @N0009@ NOTE Kylie Kristen Jenner is a media personality, socialite, businesswoman
+1 CONC , and model. She is the founder of cosmetics company Kylie Cosmetics. F
+1 CONC orbes named her the world's youngest self-made billionaire in 2019. She
+1 CONC  has children with rapper Travis Scott.
+0 @N0010@ NOTE Travis Barker is a musician, songwriter, and record producer best kno
+1 CONC wn as the drummer for rock band Blink-182. He married Kourtney Kardashi
+1 CONC an in 2022 and they have a son, Rocky Thirteen.
 0 TRLR

@@ -736,6 +736,7 @@
 1 BIRT
 2 TYPE SR
 2 DATE 22 Sep 1368
+2 PLAC Bag End, Hobbiton, The Shire
 1 NATI hobbit
 1 FAMC @F30@
 1 NOTE Ring-bearer and hero of the War of the Ring. Adopted by his uncle Bilbo, Frodo inherited the One Ring and undertook the perilous quest to destroy it in the fires of Mount Doom. After the war, he sailed to the Undying Lands.
@@ -1197,6 +1198,10 @@
 1 BIRT
 2 TYPE SR
 2 DATE 1390
+1 DEAT
+2 TYPE SR
+2 DATE est 1484
+2 PLAC Gondor
 1 NATI hobbit
 1 TITL Thain
 1 FAMC @F49@
@@ -1998,6 +2003,7 @@
 1 BIRT
 2 TYPE SR
 2 DATE 22 Sep 1290
+2 PLAC Bag End, Hobbiton, The Shire
 1 NATI hobbit
 1 FAMC @F24@
 0 @I174f7252ed@ INDI

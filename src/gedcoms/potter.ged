@@ -17,9 +17,15 @@
 0 @SUBM@ SUBM
 0 @I00001@ INDI
 1 NAME Harry /Potter/
+2 GIVN Harry
 1 SEX M
 1 BIRT
 2 DATE 1980
+1 NOTE The Boy Who Lived. Orphaned as an infant when Lord Voldemort murdered
+2 CONT his parents, Harry survived the Killing Curse and bore a lightning bolt
+2 CONT scar. He later destroyed Voldemort's Horcruxes and defeated him in the
+2 CONT Battle of Hogwarts. He became an Auror and head of the Department of
+2 CONT Magical Law Enforcement.
 1 FAMS @F00006@
 1 FAMC @F00001@
 0 @I00071@ INDI
@@ -59,11 +65,16 @@
 1 FAMC @F00030@
 0 @I00097@ INDI
 1 NAME Bellatrix /Black/
+2 GIVN Bellatrix
 1 SEX F
 1 BIRT
 2 DATE 1951
 1 DEAT
 2 DATE 1998
+1 NOTE Fanatical Death Eater and devoted follower of Lord Voldemort. She was
+2 CONT imprisoned in Azkaban for torturing Neville Longbottom's parents into
+2 CONT insanity. She killed Sirius Black and was slain by Molly Weasley during
+2 CONT the Battle of Hogwarts.
 1 FAMS @F00036@
 1 FAMC @F00029@
 0 @I00061@ INDI
@@ -173,10 +184,15 @@
 1 FAMC @F00025@
 0 @I00099@ INDI
 1 NAME Narcissa /Black/
+2 GIVN Narcissa
 1 SEX F
 1 BIRT
 2 DATE 1955
 1 ALIA Cissy
+1 NOTE Wife of Lucius Malfoy and mother of Draco. Though not a Death Eater
+2 CONT herself, she was associated with Voldemort's followers. She lied to
+2 CONT Voldemort about Harry Potter's death at the Battle of Hogwarts in order
+2 CONT to find her son, inadvertently helping Harry survive.
 1 FAMS @F00034@
 1 FAMC @F00029@
 0 @I00093@ INDI
@@ -247,9 +263,18 @@
 1 FAMC @F00026@
 0 @I00094@ INDI
 1 NAME Sirius /Black/
+2 GIVN Sirius
 1 SEX M
+1 BIRT
+2 DATE 1959
+1 DEAT
+2 DATE 1996
 1 EVEN Ran Away
 2 TYPE Tree Removal Reaon If Applicable
+1 NOTE Harry Potter's godfather and last heir of the House of Black. Wrongly
+2 CONT imprisoned in Azkaban for twelve years for crimes committed by Peter
+2 CONT Pettigrew. He was an Animagus who could transform into a large black dog
+2 CONT and was killed by Bellatrix Lestrange at the Department of Mysteries.
 1 FAMC @F00032@
 0 @I00083@ INDI
 1 NAME Walburga /Black/
@@ -339,6 +364,12 @@
 1 SEX F
 1 BIRT
 2 DATE 1960
+1 DEAT
+2 DATE 1981
+1 NOTE Mother of Harry Potter. A Muggle-born witch of exceptional magical
+2 CONT talent, she sacrificed herself to protect her infant son from Voldemort.
+2 CONT Her love created a powerful protective charm that saved Harry's life
+2 CONT and ultimately contributed to Voldemort's downfall.
 1 FAMS @F00001@
 1 FAMC @F00003@
 0 @I00006@ INDI
@@ -382,9 +413,13 @@
 1 FAMC @F00018@
 0 @I00025@ INDI
 1 NAME Hermione /Granger/
+2 GIVN Hermione
 1 SEX F
 1 BIRT
 2 DATE 1979
+1 NOTE Brightest witch of her age. Muggle-born witch who became one of Harry
+2 CONT Potter's closest friends. She played a crucial role in the defeat of
+2 CONT Voldemort and later became Minister for Magic. She married Ron Weasley.
 1 FAMS @F00008@
 0 @I00073@ INDI
 1 NAME Bob /Hitchens/
@@ -410,6 +445,14 @@
 0 @I00106@ INDI
 1 NAME Remus /Lupin/
 1 SEX M
+1 BIRT
+2 DATE 1960
+1 DEAT
+2 DATE 1998
+1 NOTE A werewolf and one of the Marauders, along with James Potter, Sirius
+2 CONT Black, and Peter Pettigrew. He served as Defence Against the Dark Arts
+2 CONT professor at Hogwarts and was a member of the Order of the Phoenix.
+2 CONT He was killed during the Battle of Hogwarts.
 1 FAMS @F00038@
 0 @I00107@ INDI
 1 NAME Ted /Lupin/
@@ -421,9 +464,14 @@
 1 FAMS @F00031@
 0 @I00101@ INDI
 1 NAME Draco /Malfoy/
+2 GIVN Draco
 1 SEX M
 1 BIRT
 2 DATE 1980
+1 NOTE Son of Lucius and Narcissa Malfoy, raised with pure-blood supremacist
+2 CONT beliefs. He became a Death Eater at age sixteen but was unable to kill
+2 CONT Dumbledore. After the war, he married Astoria Greengrass and had a son,
+2 CONT Scorpius.
 1 FAMS @F00035@
 1 FAMC @F00034@
 0 @I00100@ INDI
@@ -463,9 +511,16 @@
 1 FAMS @F00028@
 0 @I00002@ INDI
 1 NAME James /Potter/
+2 GIVN James
 1 SEX M
 1 BIRT
 2 DATE 1960
+1 DEAT
+2 DATE 1981
+1 NOTE Father of Harry Potter and member of the Order of the Phoenix. A pure-blood
+2 CONT wizard and talented Quidditch player at Hogwarts, he was one of the creators
+2 CONT of the Marauder's Map. He was murdered by Voldemort while trying to protect
+2 CONT his family at Godric's Hollow.
 1 FAMS @F00001@
 1 FAMC @F00002@
 0 @I00014@ INDI
@@ -522,14 +577,26 @@
 1 FAMC @F00039@
 0 @I00017@ INDI
 1 NAME Molly /Prewett/
+2 GIVN Molly
 1 SEX F
+1 NOTE Matriarch of the Weasley family, mother of seven children. A formidable
+2 CONT witch and member of the Order of the Phoenix. She famously killed
+2 CONT Bellatrix Lestrange during the Battle of Hogwarts while defending her
+2 CONT daughter Ginny.
 1 FAMS @F00007@
 1 FAMC @F00040@
 0 @I00048@ INDI
 1 NAME Tom Marvolo /Riddle/
+2 GIVN Tom Marvolo
 1 SEX M
 1 BIRT
 2 DATE 1926
+1 DEAT
+2 DATE 1998
+1 NOTE Born Tom Marvolo Riddle, he became the most feared Dark wizard in history
+2 CONT as Lord Voldemort. He created multiple Horcruxes to achieve immortality and
+2 CONT waged two wizarding wars before being defeated by Harry Potter at the
+2 CONT Battle of Hogwarts.
 1 FAMC @F00019@
 0 @I00047@ INDI
 1 NAME Tom /Riddle/ Sr.
@@ -551,6 +618,13 @@
 0 @I00105@ INDI
 1 NAME Nymphadora /Tonks/
 1 SEX F
+1 BIRT
+2 DATE 1973
+1 DEAT
+2 DATE 1998
+1 NOTE A Metamorphmagus and Auror, member of the Order of the Phoenix. She
+2 CONT married Remus Lupin and had a son, Teddy. She was killed during the
+2 CONT Battle of Hogwarts.
 1 FAMS @F00038@
 1 FAMC @F00037@
 0 @I00104@ INDI
@@ -559,9 +633,14 @@
 1 FAMS @F00037@
 0 @I00018@ INDI
 1 NAME Arthur /Weasley/
+2 GIVN Arthur
 1 SEX M
 1 BIRT
 2 DATE 1950
+1 NOTE Patriarch of the Weasley family and employee of the Ministry of Magic
+2 CONT in the Misuse of Muggle Artifacts Office. A pure-blood wizard with a
+2 CONT fascination for Muggle technology. He was a member of the Order of the
+2 CONT Phoenix and fought in the Battle of Hogwarts.
 1 FAMS @F00007@
 1 FAMC @F00012@
 0 @I00113@ INDI
@@ -589,7 +668,14 @@
 1 FAMC @F00007@
 0 @I00013@ INDI
 1 NAME Ginevra /Weasley/
+2 GIVN Ginevra
 1 SEX F
+1 BIRT
+2 DATE 1981
+1 NOTE Youngest of the Weasley children and the only daughter. A talented witch
+2 CONT and Quidditch player, she married Harry Potter after the Second Wizarding
+2 CONT War and became a professional Quidditch player for the Holyhead Harpies
+2 CONT before retiring to become a sports journalist.
 1 ALIA Ginny
 1 FAMS @F00006@
 1 FAMC @F00007@
@@ -607,9 +693,14 @@
 1 FAMC @F00007@
 0 @I00019@ INDI
 1 NAME Ronald /Weasley/
+2 GIVN Ronald
 1 SEX M
 1 BIRT
 2 DATE 1980
+1 NOTE Harry Potter's best friend and member of the Golden Trio. The sixth
+2 CONT of seven Weasley children, Ron helped destroy Voldemort's Horcruxes.
+2 CONT He later became an Auror and then co-managed Weasleys' Wizard Wheezes
+2 CONT with his brother George.
 1 FAMS @F00008@
 1 FAMC @F00007@
 0 @I00026@ INDI

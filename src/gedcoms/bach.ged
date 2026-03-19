@@ -30,8 +30,14 @@
 2 SURN Bach
 2 GIVN Veit
 1 SEX M
+1 BIRT
+2 PLAC Wechmar, Thuringia, Germany
 1 DEAT
 2 DATE 1619
+1 NOTE Patriarch of the Bach musical dynasty. A baker and miller from
+2 CONT Hungary (or Thuringia) who was also an amateur musician, known for
+2 CONT playing the cittern. His love of music was passed down through
+2 CONT generations of the Bach family.
 1 _UID 045D7A870C633045BE9710119FC387903581
 1 FAMS @F1@
 1 CHAN
@@ -100,8 +106,14 @@
 1 SEX F
 1 BIRT
 2 DATE 1684
+2 PLAC Gehren, Thuringia, Germany
 1 DEAT
 2 DATE 1720
+2 PLAC Koethen, Anhalt, Germany
+1 NOTE First wife of Johann Sebastian Bach and his second cousin. They
+2 CONT married in 1707. She bore seven children, of whom four survived
+2 CONT infancy, including Wilhelm Friedemann and Carl Philipp Emanuel.
+2 CONT She died suddenly in 1720 while Bach was traveling.
 1 _UID A9319CC0D63546428028FC883D70BE3393AF
 1 FAMS @F8@
 1 FAMC @F4@
@@ -140,8 +152,13 @@
 1 SEX M
 1 BIRT
 2 DATE 1645
+2 PLAC Erfurt, Thuringia, Germany
 1 DEAT
 2 DATE 1695
+2 PLAC Eisenach, Thuringia, Germany
+1 NOTE Father of Johann Sebastian Bach. A court trumpeter and town musician
+2 CONT in Eisenach. He gave his son his first musical instruction in violin
+2 CONT and basic music theory.
 1 _UID 21A6759B4830E7488F02E152284ABA128077
 1 FAMS @F7@
 1 FAMC @F6@
@@ -183,8 +200,14 @@
 1 SEX M
 1 BIRT
 2 DATE 1685
+2 PLAC Eisenach, Saxony-Eisenach, Germany
 1 DEAT
 2 DATE 1750
+2 PLAC Leipzig, Saxony, Germany
+1 NOTE German composer and musician of the late Baroque period. Widely
+2 CONT regarded as one of the greatest composers in Western musical history.
+2 CONT His works include the Brandenburg Concertos, The Well-Tempered
+2 CONT Clavier, the Mass in B minor, and over 300 cantatas.
 1 _UID 69CC97F023D1B547B45CBBD2DD99AD78E4D7
 1 FAMS @F8@
 1 FAMS @F9@
@@ -213,8 +236,14 @@
 1 SEX M
 1 BIRT
 2 DATE 1710
+2 PLAC Weimar, Saxe-Weimar, Germany
 1 DEAT
 2 DATE 1784
+2 PLAC Berlin, Prussia, Germany
+1 NOTE Eldest son of Johann Sebastian Bach, known as the "Halle Bach."
+2 CONT Considered the most gifted of Bach's sons as a performer. Despite
+2 CONT his extraordinary talent, he struggled professionally and died in
+2 CONT poverty.
 1 _UID 1E04CD407E730242B29349DDFE554EDA4ADA
 1 FAMC @F8@
 1 CHAN
@@ -227,8 +256,14 @@
 1 SEX M
 1 BIRT
 2 DATE 1714
+2 PLAC Weimar, Saxe-Weimar, Germany
 1 DEAT
 2 DATE 1788
+2 PLAC Hamburg, Germany
+1 NOTE German Classical period musician and composer, the fifth child of
+2 CONT Johann Sebastian Bach. Known as the "Berlin Bach" or "Hamburg Bach,"
+2 CONT he was one of the founders of the Classical style. He served as court
+2 CONT musician to Frederick the Great of Prussia.
 1 _UID 90A1A3725040334DA4731705288559DD6CFC
 1 FAMC @F8@
 1 CHAN
@@ -241,8 +276,15 @@
 1 SEX F
 1 BIRT
 2 DATE 1701
+2 PLAC Zeitz, Saxony-Zeitz, Germany
 1 DEAT
 2 DATE 1760
+2 PLAC Leipzig, Saxony, Germany
+1 NOTE Second wife of Johann Sebastian Bach, whom she married in 1721.
+2 CONT A talented soprano singer in her own right. She helped copy many
+2 CONT of Bach's manuscripts and maintained the Notebook for Anna
+2 CONT Magdalena Bach, a collection of keyboard pieces. She bore thirteen
+2 CONT children with Bach.
 1 _UID 4F477EBF084EBD4A9ACB31B1FE562FB3AD69
 1 FAMS @F9@
 1 CHAN
@@ -284,8 +326,14 @@
 1 SEX M
 1 BIRT
 2 DATE 1735
+2 PLAC Leipzig, Saxony, Germany
 1 DEAT
 2 DATE 1782
+2 PLAC London, England
+1 NOTE Youngest son of Johann Sebastian Bach, known as the "London Bach."
+2 CONT He was a composer of the Classical era who had a strong influence on
+2 CONT the young Mozart. He spent most of his career in London as a composer
+2 CONT and performer.
 1 _UID 60DA023576510D4A81D8FA0178FE7831027E
 1 FAMC @F9@
 1 CHAN

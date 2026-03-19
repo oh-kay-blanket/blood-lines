@@ -18,7 +18,10 @@
 0 @I00052@ INDI
 1 NAME /Jupiter/
 1 SEX M
-1 NAME a god /Jupiter/
+1 NOTE King of the Roman gods and god of the sky, lightning, and thunder.
+2 CONT Equivalent to the Greek Zeus. He was the chief deity of the Roman
+2 CONT state religion and his temple on the Capitoline Hill was the most
+2 CONT important in Rome.
 1 FAMS @F00010@
 1 FAMS @F00014@
 1 FAMS @F00016@
@@ -54,12 +57,15 @@
 0 @I00039@ INDI
 1 NAME /Achilles/
 1 SEX M
+1 NOTE Greatest warrior of the Trojan War and hero of Homer's Iliad. Nearly
+2 CONT invulnerable except for his heel, where he was eventually struck by
+2 CONT an arrow from Paris, guided by Apollo.
 1 FAMS @F00032@
 1 FAMC @F00033@
 0 @I00211@ INDI
 1 NAME /Achiroe/
 1 SEX F
-1 ALIA Danaë
+1 ALIA Danaï¿½
 1 FAMS @F00116@
 0 @I00251@ INDI
 1 NAME /Acis/
@@ -80,6 +86,9 @@
 1 BIRT
 2 PLAC 1175 BC
 1 ALIA Jupiter Indiges
+1 NOTE Trojan hero and son of Venus and Anchises. After the fall of Troy he
+2 CONT led his followers to Italy, where his descendants Romulus and Remus
+2 CONT founded Rome. His story is told in Virgil's Aeneid.
 1 FAMS @F00112@
 1 FAMS @F00008@
 1 FAMC @F00004@
@@ -165,6 +174,9 @@
 0 @I00064@ INDI
 1 NAME /Apollo/
 1 SEX M
+1 NOTE God of music, poetry, art, sun and light, knowledge, and archery.
+2 CONT One of the few gods whose name was the same in both Greek and Roman
+2 CONT mythology. He was the son of Jupiter and Latona.
 1 FAMS @F00068@
 1 FAMC @F00044@
 0 @I00111@ INDI
@@ -248,7 +260,7 @@
 1 FAMS @F00101@
 1 FAMC @F00102@
 0 @I00335@ INDI
-1 NAME /Æolus/
+1 NAME /ï¿½olus/
 1 SEX M
 1 FAMS @F00166@
 1 FAMC @F00167@
@@ -334,6 +346,9 @@
 0 @I00019@ INDI
 1 NAME /Ceres/
 1 SEX F
+1 NOTE Roman goddess of agriculture, grain, and the harvest. Equivalent to
+2 CONT the Greek Demeter. Mother of Proserpina. The word "cereal" derives
+2 CONT from her name.
 1 FAMS @F00022@
 1 FAMS @F00067@
 1 FAMC @F00024@
@@ -477,6 +492,9 @@
 0 @I00065@ INDI
 1 NAME /Diana/
 1 SEX F
+1 NOTE Roman goddess of the hunt, the moon, and nature. Equivalent to the
+2 CONT Greek Artemis. Twin sister of Apollo, she was a virgin goddess
+2 CONT associated with wild animals and woodland.
 1 FAMC @F00044@
 0 @I00005@ INDI
 1 NAME /Dione/
@@ -747,6 +765,9 @@
 1 NAME /Juno/
 1 SEX F
 1 ALIA Lucina
+1 NOTE Queen of the Roman gods and goddess of marriage, childbirth, and
+2 CONT women. Wife of Jupiter and equivalent to the Greek Hera. One of
+2 CONT the three deities of the Capitoline Triad.
 1 FAMS @F00014@
 1 FAMC @F00024@
 0 @I00060@ INDI
@@ -903,6 +924,9 @@
 1 NAME /Mars/
 1 SEX M
 1 ALIA Mavors, Mamers, Marmor, Marmar and Maris
+1 NOTE Roman god of war, second in importance only to Jupiter. Father of
+2 CONT Romulus and Remus, the legendary founders of Rome. Unlike his Greek
+2 CONT counterpart Ares, Mars was widely revered as a guardian of Rome.
 1 FAMS @F00149@
 1 FAMS @F00012@
 1 FAMS @F00071@
@@ -931,6 +955,9 @@
 0 @I00357@ INDI
 1 NAME /Mercury/
 1 SEX M
+1 NOTE Roman messenger god and god of trade, thieves, and travelers.
+2 CONT Equivalent to the Greek Hermes. He guided souls to the underworld
+2 CONT and was depicted wearing winged sandals and a winged hat.
 1 FAMS @F00174@
 1 FAMS @F00078@
 1 FAMS @F00092@
@@ -947,6 +974,9 @@
 0 @I00063@ INDI
 1 NAME /Minerva/
 1 SEX F
+1 NOTE Roman goddess of wisdom, warfare, and handicrafts. Equivalent to
+2 CONT the Greek Athena. One of the three deities of the Capitoline Triad
+2 CONT alongside Jupiter and Juno.
 1 FAMC @F00043@
 0 @I00328@ INDI
 1 NAME /Minyas/
@@ -980,6 +1010,9 @@
 0 @I00314@ INDI
 1 NAME /Neptune/
 1 SEX M
+1 NOTE Roman god of the sea, earthquakes, and horses. Equivalent to the
+2 CONT Greek Poseidon. He was one of the brothers of Jupiter, along with
+2 CONT Pluto.
 1 FAMS @F00155@
 1 FAMS @F00028@
 1 FAMS @F00029@
@@ -1142,6 +1175,9 @@
 1 NAME /Pluto/
 1 SEX M
 1 ALIA Orcus
+1 NOTE Roman god of the underworld and the dead. Equivalent to the Greek
+2 CONT Hades. He ruled over the realm of the dead and was associated with
+2 CONT wealth from the earth's minerals.
 1 FAMS @F00023@
 1 FAMC @F00024@
 0 @I00261@ INDI
@@ -1271,6 +1307,9 @@
 1 NAME /Saturn/
 1 SEX M
 1 ALIA Stercutius
+1 NOTE Roman god of agriculture, time, and the harvest. Equivalent to the
+2 CONT Greek Cronus. Father of Jupiter, Neptune, and Pluto. The festival
+2 CONT of Saturnalia was one of the most popular Roman celebrations.
 1 FAMS @F00024@
 1 FAMS @F00150@
 1 FAMC @F00027@
@@ -1470,6 +1509,10 @@
 0 @I00117@ INDI
 1 NAME /Venus/
 1 SEX F
+1 NOTE Roman goddess of love, beauty, desire, and fertility. Mother of
+2 CONT Aeneas, legendary ancestor of the Roman people. Equivalent to the
+2 CONT Greek Aphrodite. Julius Caesar's family claimed descent from her
+2 CONT through Aeneas.
 1 FAMS @F00072@
 1 FAMS @F00004@
 1 FAMS @F00012@
@@ -1514,6 +1557,9 @@
 1 NAME /Vulcan/
 1 SEX M
 1 ALIA Mulciber
+1 NOTE Roman god of fire, metalworking, and the forge. Equivalent to the
+2 CONT Greek Hephaestus. He was married to Venus and crafted weapons and
+2 CONT armor for the gods in his underground workshop.
 1 FAMS @F00013@
 1 FAMC @F00014@
 0 @I00113@ INDI

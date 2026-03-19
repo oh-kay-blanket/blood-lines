@@ -34,6 +34,11 @@
 1 BAPL
 2 DATE 21 AUG 1877 SG
 1 AFN 8MRB-0B
+1 NOTE First President of the United States (1789-1797) and Commander-in-Chief
+2 CONT of the Continental Army during the American Revolution. Known as the
+2 CONT "Father of His Country," he presided over the Constitutional Convention
+2 CONT and set many precedents for the new nation's government. He married
+2 CONT Martha Dandridge Custis in 1759.
 1 FAMC @F11@
 0 @I3@ INDI
 1 NAME Augustine /WASHINGTON/
@@ -56,6 +61,9 @@
 1 BAPL
 2 DATE 21 AUG 1877
 1 AFN 8MRB-1H
+1 NOTE Father of George Washington. A planter and landowner in Virginia
+2 CONT who operated an iron foundry on his property. He died when George
+2 CONT was eleven years old.
 1 FAMS @F11@
 1 FAMC @F14@
 0 @I4@ INDI
@@ -80,6 +88,9 @@
 1 BAPL
 2 DATE 21 AUG 1877 SG
 1 AFN 8MRB-2N
+1 NOTE Mother of George Washington. She was the second wife of Augustine
+2 CONT Washington and raised George after his father's death. She lived
+2 CONT to see her son become the first President.
 1 FAMS @F11@
 1 FAMC @F29@
 0 @I5@ INDI

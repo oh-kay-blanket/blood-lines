@@ -26,6 +26,11 @@
 2 PLAC Stratford-upon-Avon
 1 FAMC @F001@
 1 FAMS @F002@
+1 NOTE English playwright, poet, and actor, widely regarded as the greatest
+2 CONT writer in the English language. Author of approximately 39 plays
+2 CONT including Hamlet, Macbeth, Romeo and Juliet, and A Midsummer Night's
+2 CONT Dream, as well as 154 sonnets. He was a part-owner of the playing
+2 CONT company the Lord Chamberlain's Men, later the King's Men.
 0 @I0002@ INDI
 1 NAME Mary /Arden/
 2 GIVN Mary
@@ -33,10 +38,14 @@
 1 SEX F
 1 BIRT
 2 DATE ABT 1537
+2 PLAC Wilmcote, Warwickshire
 1 DEAT
 2 DATE SEP 1608
 1 FAMC @F005@
 1 FAMS @F001@
+1 NOTE Mother of William Shakespeare. Daughter of Robert Arden, a prosperous
+2 CONT farmer from Wilmcote. She was the youngest of eight daughters and
+2 CONT inherited her father's estate of Asbies in Wilmcote.
 0 @I0003@ INDI
 1 NAME John /Shakespeare/
 2 GIVN John
@@ -44,12 +53,18 @@
 1 SEX M
 1 BIRT
 2 DATE ABT 1531
+2 PLAC Snitterfield, Warwickshire
 1 DEAT
 2 DATE 07 SEP 1601
+2 PLAC Stratford-upon-Avon
 1 BURI
 2 DATE 08 SEP 1601
 1 FAMC @F003@
 1 FAMS @F001@
+1 NOTE Father of William Shakespeare. A successful glove maker and alderman
+2 CONT in Stratford-upon-Avon who held several municipal positions including
+2 CONT High Bailiff, the town's highest elected office. He later faced
+2 CONT financial difficulties and was stripped of his alderman status.
 0 @I0004@ INDI
 1 NAME Anne /Hathaway/
 2 GIVN Anne
@@ -63,6 +78,10 @@
 2 PLAC Stratford-upon-Avon
 1 FAMC @F010@
 1 FAMS @F002@
+1 NOTE Wife of William Shakespeare, whom she married in November 1582 when
+2 CONT she was 26 and he was 18. She was from Shottery, a village near
+2 CONT Stratford-upon-Avon. They had three children: Susanna, and twins
+2 CONT Hamnet and Judith.
 0 @I0005@ INDI
 1 NAME Susanna /Shakespeare/
 2 GIVN Susanna
@@ -79,6 +98,9 @@
 2 PLAC Stratford-upon-Avon
 1 FAMC @F002@
 1 FAMS @F006@
+1 NOTE Eldest daughter of William Shakespeare. She married physician John
+2 CONT Hall in 1607. She inherited New Place, Shakespeare's grand house
+2 CONT in Stratford-upon-Avon, upon her father's death.
 0 @I0006@ INDI
 1 NAME Hamnet /Shakespeare/
 2 GIVN Hamnet
@@ -97,6 +119,10 @@
 2 DATE 11 AUG 1596
 2 PLAC Stratford-upon-Avon
 1 FAMC @F002@
+1 NOTE Only son of William Shakespeare, twin brother of Judith. He died at
+2 CONT age 11, possibly of plague. Some scholars believe his death inspired
+2 CONT the writing of Hamlet. He and Judith were named after family friends
+2 CONT Hamnet and Judith Sadler.
 0 @I0007@ INDI
 1 NAME Judith /Shakespeare/
 2 GIVN Judith
@@ -116,6 +142,10 @@
 2 PLAC Stratford-upon-Avon
 1 FAMC @F002@
 1 FAMS @F009@
+1 NOTE Youngest daughter of William Shakespeare, twin sister of Hamnet. She
+2 CONT married Thomas Quiney, a vintner, in February 1616 just weeks before
+2 CONT her father's death. The marriage caused scandal as it took place
+2 CONT during Lent without a special license.
 0 @I0008@ INDI
 1 NAME Joan /Shakespeare/
 2 GIVN Joan
@@ -192,6 +222,9 @@
 1 DEAT
 2 DATE DEC 1607
 1 FAMC @F001@
+1 NOTE Youngest brother of William Shakespeare. He followed his famous
+2 CONT brother to London and became an actor. He died at age 27 and was
+2 CONT buried at St Saviour's Church, Southwark.
 0 @I0015@ INDI
 1 NAME Richard /Shakespeare/
 2 GIVN Richard

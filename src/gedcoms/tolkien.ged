@@ -72,8 +72,14 @@
 1 SEX F
 1 BIRT
 2 DATE 1870
+2 PLAC Birmingham, England
 1 DEAT
 2 DATE 1904
+2 PLAC Birmingham, England
+1 NOTE Mother of J.R.R. Tolkien. She converted to Catholicism in 1900,
+2 CONT which caused a rift with her Protestant family. She died of
+2 CONT diabetes at age 34, leaving her two young sons in the care of
+2 CONT Father Francis Xavier Morgan.
 1 _UID 845BBE92C9C5D747A588D17F4E1528D1B404
 1 FAMS @F5@
 1 FAMC @F1@
@@ -140,8 +146,14 @@
 1 SEX M
 1 BIRT
 2 DATE 1857
+2 PLAC Birmingham, England
 1 DEAT
 2 DATE 1896
+2 PLAC Bloemfontein, Orange Free State, South Africa
+1 NOTE Father of J.R.R. Tolkien. He worked as a bank manager in
+2 CONT Bloemfontein, South Africa, where his son Ronald was born. He
+2 CONT died of rheumatic fever at age 39 before the family could return
+2 CONT to England.
 1 _UID 31DE2386CE60D947B7F731D401C536550A62
 1 FAMS @F5@
 1 FAMC @F2@
@@ -235,8 +247,15 @@
 1 SEX M
 1 BIRT
 2 DATE 1892
+2 PLAC Bloemfontein, Orange Free State, South Africa
 1 DEAT
 2 DATE 1973
+2 PLAC Bournemouth, Dorset, England
+1 NOTE English writer, philologist, and academic, best known as the author
+2 CONT of The Hobbit and The Lord of the Rings. He was a professor of
+2 CONT Anglo-Saxon at Oxford University and a close friend of C.S. Lewis
+2 CONT as part of the literary group the Inklings. His works have had a
+2 CONT lasting impact on the fantasy genre.
 1 _UID 4108FD4E6BBCDE418E5F3EEF2F33E01E54BC
 1 FAMS @F9@
 1 FAMC @F5@
@@ -252,6 +271,8 @@
 2 DATE 1894
 1 DEAT
 2 DATE 1976
+1 NOTE Younger brother of J.R.R. Tolkien. He became a fruit farmer and
+2 CONT market gardener near Evesham, Worcestershire.
 1 _UID 53671BE6E1ADA0458928C8DBEAC1996D33EA
 1 FAMS @F10@
 1 FAMC @F5@
@@ -316,8 +337,14 @@
 1 SEX F
 1 BIRT
 2 DATE 1889
+2 PLAC Gloucester, England
 1 DEAT
 2 DATE 1971
+2 PLAC Bournemouth, Dorset, England
+1 NOTE Wife of J.R.R. Tolkien. They met as orphaned teenagers living in
+2 CONT the same boarding house in Birmingham. Their love story partly
+2 CONT inspired the tale of Beren and Luthien. Her gravestone bears the
+2 CONT name Luthien, and his bears Beren.
 1 _UID 015F0175C93C6A4FB1E0005BB430896956D5
 1 FAMS @F9@
 1 CHAN
@@ -347,6 +374,8 @@
 2 DATE 1917
 1 DEAT
 2 DATE 2003
+1 NOTE Eldest son of J.R.R. Tolkien. He was ordained as a Roman Catholic
+2 CONT priest in 1946 and served as a parish priest for many years.
 1 _UID C15C6E8D535510439193356DEF0C83E53CDE
 1 FAMC @F9@
 1 CHAN
@@ -359,6 +388,11 @@
 1 SEX F
 1 BIRT
 2 DATE 1929
+1 DEAT
+2 DATE 28 FEB 2022
+2 PLAC Oxford, England
+1 NOTE Only daughter and youngest child of J.R.R. Tolkien. She worked as
+2 CONT a probation officer and was active in preserving her father's legacy.
 1 _UID 08B52EAC5F900D4F908292B8BAAE2EB98D61
 1 FAMC @F9@
 1 CHAN
@@ -371,6 +405,14 @@
 1 SEX M
 1 BIRT
 2 DATE 1924
+2 PLAC Leeds, England
+1 DEAT
+2 DATE 16 JAN 2020
+2 PLAC Draguignan, France
+1 NOTE Third son of J.R.R. Tolkien and his literary executor. He edited
+2 CONT and published much of his father's posthumous work including The
+2 CONT Silmarillion, Unfinished Tales, and the 12-volume History of
+2 CONT Middle-earth series.
 1 _UID C56653AACDF2E34AAE902FDB7638E256424B
 1 FAMS @F20@
 1 FAMS @F22@
@@ -737,6 +779,8 @@
 1 SEX M
 1 BIRT
 2 DATE 1959
+1 NOTE Grandson of J.R.R. Tolkien and son of Christopher Tolkien. He is a
+2 CONT barrister and novelist, author of several thriller novels.
 1 _UID EB6A88EE7F6DF7449196E737043397F6FB05
 1 FAMS @F21@
 1 FAMC @F20@

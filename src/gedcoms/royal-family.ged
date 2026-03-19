@@ -281,6 +281,10 @@
 2 PLAC Windsor Castle
 1 FAMC @F38@
 1 FAMS @F0@
+1 NOTE Duke of Edinburgh, husband of Queen Elizabeth II for over 73 years,
+2 CONT making their marriage the longest of any British monarch. Born a
+2 CONT prince of Greece and Denmark, he served in the Royal Navy during
+2 CONT World War II. He was the longest-serving consort in British history.
 1 CHAN
 2 DATE 9 APR 2021
 3 TIME 12:34:29.445
@@ -327,6 +331,9 @@
 2 PLAC St. Mary's Hosp., Paddington, London, England
 1 FAMC @F6@
 1 FAMS @F8@
+1 NOTE Prince William, Duke of Cambridge and later Prince of Wales, is the
+2 CONT elder son of King Charles III and Diana, Princess of Wales. He is
+2 CONT second in line to the British throne.
 1 CHAN
 2 DATE 10 SEP 2022
 3 TIME 11:16:43.236
@@ -342,6 +349,10 @@
 2 PLAC St. Mary's Hosp., Paddington, London, England
 1 FAMC @F6@
 1 FAMS @F9@
+1 NOTE Prince Harry, Duke of Sussex, is the younger son of King Charles III
+2 CONT and Diana, Princess of Wales. He served in the British Army and
+2 CONT co-founded the Invictus Games for wounded veterans. In 2020 he and
+2 CONT his wife Meghan stepped back from senior royal duties.
 1 CHAN
 2 DATE 10 SEP 2022
 3 TIME 11:16:43.236
@@ -1158,6 +1169,13 @@
 2 PLAC Osborne House, Isle of Wight
 1 FAMC @F66@
 1 FAMS @F36@
+1 NOTE Queen of the United Kingdom of Great Britain and Ireland (1837-1901)
+2 CONT and Empress of India. The longest-reigning British monarch until
+2 CONT Elizabeth II surpassed her record. Her reign was marked by industrial,
+2 CONT political, and military change and a vast expansion of the British
+2 CONT Empire. She married Prince Albert and had nine children who married
+2 CONT into royal families across Europe, earning her the nickname
+2 CONT "Grandmother of Europe."
 1 CHAN
 2 DATE 13 MAY 2018
 3 TIME 14:42:09.617
@@ -1326,6 +1344,11 @@
 1 FAMS @F44@
 1 FAMS @F45@
 1 FAMS @F46@
+1 NOTE King of England (1509-1547), known for his six marriages and his role
+2 CONT in the English Reformation. He broke with the Roman Catholic Church
+2 CONT and established the Church of England in order to annul his first
+2 CONT marriage. His desire for a male heir drove much of his reign's
+2 CONT political and religious upheaval.
 1 CHAN
 2 DATE 13 MAY 2018
 3 TIME 14:42:09.617
@@ -1357,6 +1380,10 @@
 2 DATE 19 MAY 1536
 2 PLAC Tower of London
 1 FAMS @F42@
+1 NOTE Second wife of Henry VIII and Queen of England from 1533 to 1536.
+2 CONT Mother of the future Elizabeth I. Her marriage to Henry led to the
+2 CONT English Reformation. She was executed at the Tower of London on
+2 CONT charges of treason, adultery, and witchcraft.
 1 CHAN
 2 DATE 13 MAY 2018
 3 TIME 14:42:09.617
@@ -1390,6 +1417,10 @@
 2 DATE 24 MAR 1603
 2 PLAC Richmond Palace
 1 FAMC @F42@
+1 NOTE Queen of England and Ireland (1558-1603), the last Tudor monarch.
+2 CONT Known as the "Virgin Queen," her reign is regarded as a golden age of
+2 CONT English culture, exploration, and naval triumph, including the defeat
+2 CONT of the Spanish Armada in 1588.
 1 CHAN
 2 DATE 13 MAY 2018
 3 TIME 14:42:09.617
@@ -2512,6 +2543,10 @@
 1 DEAT
 2 DATE 9 SEP 1087
 2 PLAC Priory of Saint Gervase, Rouen, Normandy
+1 NOTE Duke of Normandy who conquered England in 1066 after defeating King
+2 CONT Harold II at the Battle of Hastings. He was crowned King of England
+2 CONT on Christmas Day 1066 and introduced Norman French culture, language,
+2 CONT and feudalism to England. He commissioned the Domesday Book in 1086.
 1 CHAN
 2 DATE 13 MAY 2018
 3 TIME 14:42:09.617
