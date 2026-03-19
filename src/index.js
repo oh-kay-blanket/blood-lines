@@ -168,10 +168,17 @@ const App = () => {
     }
   }, []);
 
-  // Set data-theme attribute on body and persist to localStorage
+  // Set data-theme attribute on body, persist to localStorage, and update theme-color
   useEffect(() => {
     document.body.setAttribute("data-theme", theme);
     localStorage.setItem("theme", theme);
+
+    // Update the meta theme-color to match the current theme
+    const themeColor = theme === "light" ? "#fcfaf4" : "#010000";
+    const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+    if (metaThemeColor) {
+      metaThemeColor.setAttribute("content", themeColor);
+    }
   }, [theme]);
 
   // Persist nameFormat to localStorage
@@ -717,3 +724,10 @@ const App = () => {
 };
 
 ReactDOM.render(<App />, document.getElementById("root"));
+
+// Register service worker for PWA support
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("/service-worker.js").catch(() => {});
+  });
+}

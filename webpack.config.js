@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   mode: 'development',
@@ -11,7 +12,16 @@ module.exports = {
       title: 'family plot',
       template: "./src/index.html",
       favicon: "./src/img/favicon.svg"
-    })
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: 'src/manifest.json', to: 'manifest.json' },
+        { from: 'src/service-worker.js', to: 'service-worker.js' },
+        { from: 'src/img/icon-192.png', to: 'icon-192.png' },
+        { from: 'src/img/icon-512.png', to: 'icon-512.png' },
+        { from: 'src/img/favicon.svg', to: 'favicon.svg' },
+      ],
+    }),
   ],
   output: {
     filename: 'bundle.js',
