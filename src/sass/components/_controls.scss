@@ -18,6 +18,7 @@
 
 	#back-button,
 	#settings,
+	#search,
 	#surnames,
 	#node-info {
 		transition: opacity 2.4s ease-in-out;
@@ -26,6 +27,7 @@
 	&.controls-hidden {
 		#back-button,
 		#settings,
+		#search,
 		#surnames,
 		#node-info {
 			opacity: 0;
@@ -35,6 +37,7 @@
 	&.controls-visible {
 		#back-button,
 		#settings,
+		#search,
 		#surnames,
 		#node-info {
 			opacity: 1;
@@ -43,8 +46,191 @@
 
 	#back-button,
 	#settings,
+	#search,
 	#surnames {
 		z-index: 2;
+	}
+
+	/* Search icon + expanding bar */
+	#search {
+		position: fixed;
+		top: 0;
+		right: 0;
+		// Offset to sit left of both filter and settings
+		margin: 1rem;
+		margin-right: calc(1rem + (35px + 0.6rem) * 2);
+		display: flex;
+		align-items: center;
+		height: 35px;
+
+		@media (min-width: 769px) {
+			margin-right: calc(1rem + (44px + 0.6rem) * 2);
+			height: 44px;
+		}
+
+		#search-button {
+			width: 35px;
+			height: 35px;
+			background: var(--grey-dark);
+			color: var(--text);
+			border: 1.5px solid var(--grey-light-soft);
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			cursor: pointer;
+			box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+			font-size: 1rem;
+			flex-shrink: 0;
+			position: relative;
+			z-index: 2;
+			transition: border-radius 0.25s ease;
+
+			@media (min-width: 769px) {
+				width: 44px;
+				height: 44px;
+				font-size: 1.25rem;
+			}
+
+			&:hover {
+				@include neumorph.neumorph-hover;
+			}
+
+			.material-icons-outlined {
+				font-size: 1.1rem;
+
+				@media (min-width: 769px) {
+					font-size: 1.3rem;
+				}
+			}
+		}
+
+		.search-input-wrapper {
+			display: flex;
+			align-items: center;
+			background: var(--grey-dark);
+			border: 1.5px solid var(--grey-light-soft);
+			border-left: none;
+			border-radius: 0 1.2rem 1.2rem 0;
+			height: 35px;
+			box-sizing: border-box;
+			overflow: hidden;
+			width: 0;
+			padding: 0;
+			opacity: 0;
+			transition: width 0.25s ease, opacity 0.2s ease, padding 0.25s ease;
+
+			@media (min-width: 769px) {
+				height: 44px;
+			}
+
+			input {
+				background: transparent;
+				border: none;
+				outline: none;
+				color: var(--text);
+				font-family: 'Josefin Sans', sans-serif;
+				font-size: 0.85rem;
+				width: 100%;
+				min-width: 0;
+
+				&::placeholder {
+					color: var(--text);
+					opacity: 0.4;
+				}
+			}
+
+			.search-clear {
+				font-size: 1rem;
+				color: var(--text);
+				opacity: 0.6;
+				cursor: pointer;
+				flex-shrink: 0;
+
+				&:hover {
+					opacity: 1;
+				}
+			}
+		}
+
+		// Expanded state
+		&.open {
+			#search-button {
+				border-radius: 50% 0 0 50%;
+				border-right: none;
+				box-shadow: none;
+			}
+
+			.search-input-wrapper {
+				width: 180px;
+				padding: 0 0.6rem;
+				opacity: 1;
+				box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+
+				@media (min-width: 769px) {
+					width: 220px;
+				}
+			}
+		}
+
+		.search-results {
+			position: absolute;
+			top: calc(100% + 0.3rem);
+			right: 0;
+			width: calc(35px + 180px);
+			background: var(--grey-dark);
+			border: 1.5px solid var(--grey-light-soft);
+			border-radius: 0.8rem;
+			padding: 0.3rem 0;
+			max-height: 200px;
+			overflow-y: auto;
+			box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+			z-index: 10;
+
+			@media (min-width: 769px) {
+				width: calc(44px + 220px);
+			}
+
+			.search-no-results {
+				font-family: 'Josefin Sans', sans-serif;
+				font-size: 0.8rem;
+				color: var(--text);
+				opacity: 0.5;
+				text-align: center;
+				padding: 0.5rem;
+				margin: 0;
+			}
+
+			.search-result-item {
+				display: flex;
+				align-items: center;
+				gap: 0.5rem;
+				padding: 0.4rem 0.7rem;
+				cursor: pointer;
+				transition: background 0.15s;
+
+				&:hover {
+					background: rgba(255, 255, 255, 0.08);
+				}
+
+				.search-result-dot {
+					width: 8px;
+					height: 8px;
+					border-radius: 50%;
+					flex-shrink: 0;
+					border: 1px solid rgba(0, 0, 0, 0.2);
+				}
+
+				.search-result-name {
+					font-family: 'Josefin Sans', sans-serif;
+					font-size: 0.85rem;
+					color: var(--text);
+					white-space: nowrap;
+					overflow: hidden;
+					text-overflow: ellipsis;
+				}
+			}
+		}
 	}
 
 	.control-title {
@@ -167,76 +353,77 @@
 		}
 	}
 
-	/* SURNAMES */
+	/* SURNAMES (filter icon, top row) */
 	#surnames {
-		bottom: 0;
-		right: 0;
 		position: fixed;
+		top: 0;
+		right: 0;
+		// Offset to sit left of settings
 		margin: 1rem;
+		margin-right: calc(1rem + 35px + 0.6rem);
 
 		@media (min-width: 769px) {
-			right: auto;
-			left: 0;
+			margin-right: calc(1rem + 44px + 0.6rem);
 		}
 
 		#surnames-button {
-			float: right;
+			width: 35px;
+			height: 35px;
+			background: var(--grey-dark);
+			color: var(--text);
+			border: 1.5px solid var(--grey-light-soft);
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			cursor: pointer;
+			box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+			font-size: 1rem;
+			margin-left: auto;
+			padding: 0;
 
 			@media (min-width: 769px) {
-				float: left;
-			}
-		}
-
-		& > p {
-			width: 60px;
-			margin-right: 0px;
-			@include neumorph.neumorph;
-
-			@media (min-width: 769px) {
-				width: 75px;
-				font-size: 1rem;
+				width: 44px;
+				height: 44px;
+				font-size: 1.25rem;
 			}
 
 			&:hover {
 				@include neumorph.neumorph-hover;
 			}
 
-			&:active,
 			&.active {
 				@include neumorph.neumorph-active;
-				border-radius: 0px 0px 1rem 1rem;
+			}
+
+			.material-icons-outlined {
+				font-size: 1.1rem;
+
+				@media (min-width: 769px) {
+					font-size: 1.3rem;
+				}
 			}
 		}
 
 		.surnames-content {
+			position: absolute;
+			top: calc(100% + 0.5rem);
+			right: 0;
 			max-height: 300px;
 			overflow-y: auto;
-			border-radius: 1.5rem;
+			border-radius: 1rem;
 			display: flex;
 			flex-direction: column;
-			align-items: flex-end;
-
-			@media (min-width: 769px) {
-				align-items: flex-start;
-			}
+			align-items: flex-start;
+			padding: 0.5rem;
+			box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+			z-index: 10;
+			min-width: 200px;
 
 			p {
 				font-weight: 600;
 			}
 		}
-	}
-
-	#surnames-button,
-	.surnames-content,
-	.surnames-heading {
-		margin: 0px auto;
-		padding: 1rem;
-	}
-
-	#surnames-button {
-		text-align: center;
-		margin-bottom: 0 !important;
-		cursor: pointer;
 	}
 
 	#node-info {

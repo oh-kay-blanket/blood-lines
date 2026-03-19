@@ -24,12 +24,18 @@ const Graph = ({
   nameFormat,
   onReady,
   editPanelOpen,
+  graphRef,
 }) => {
   // console.log(`d3Data`, d3Data)
 
   // STATE //
   const [fontReady, setFontReady] = useState(false);
   const fgRef = useRef();
+
+  // Expose fgRef to parent for camera control (e.g. search zoom)
+  useEffect(() => {
+    if (graphRef) graphRef.current = fgRef.current;
+  });
 
   const raycaster = new THREE.Raycaster();
   const mouse = new THREE.Vector2();
@@ -271,12 +277,17 @@ const Graph = ({
     const timelineObjects = [];
 
     const buildTimeline = () => {
-      // Get list of fixed Y
-      let yRange = d3Data.nodes.map((node) => Number(node.fy));
-      yRange = yRange.filter((node) => !isNaN(node) && node);
+      // Get list of fixed Y (filter before converting so fy:0 is kept but fy:null is not)
+      let yRange = d3Data.nodes
+        .filter((node) => node.fy != null)
+        .map((node) => Number(node.fy));
+      yRange = yRange.filter((val) => !isNaN(val));
+
+      if (yRange.length < 2) return;
 
       const highestY = Math.max.apply(Math, yRange);
       const lowestY = Math.min.apply(Math, yRange);
+      if (!isFinite(highestY) || !isFinite(lowestY) || highestY === lowestY) return;
 
       // Timeline line
       var material = new THREE.LineBasicMaterial({
@@ -294,7 +305,9 @@ const Graph = ({
       timelineObjects.push(line);
 
       // Timeline years
-      let years = d3Data.nodes.map((node) => Number(node.yob));
+      let years = d3Data.nodes
+        .filter((node) => node.yob != null && node.yob !== "" && node.yob !== "?")
+        .map((node) => Number(node.yob));
       years = years.filter((year) => !isNaN(year));
 
       const halfY = (highestY + lowestY) / 2;

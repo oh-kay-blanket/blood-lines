@@ -12,6 +12,7 @@ const EditPanel = ({
 	setNodePhoto,
 	removeNodePhoto,
 	onClose,
+	openEditPanel,
 	isMobile,
 }) => {
 	const [form, setForm] = useState({})
@@ -19,7 +20,7 @@ const EditPanel = ({
 	const [addingRelation, setAddingRelation] = useState(null) // 'parent' | 'spouse' | 'child' | null
 	const [searchQuery, setSearchQuery] = useState('')
 	const [showNewPersonForm, setShowNewPersonForm] = useState(false)
-	const [newPerson, setNewPerson] = useState({ firstName: '', surname: '', gender: 'U' })
+	const [newPerson, setNewPerson] = useState({ firstName: '', surname: '', gender: 'U', yob: '' })
 	const fileInputRef = useRef(null)
 
 	useEffect(() => {
@@ -168,28 +169,35 @@ const EditPanel = ({
 	}
 
 	const handleCreateAndLink = () => {
-		const newId = addNode({
+		// Save current person's changes first
+		const updates = { ...form }
+		if (updates.yob !== '') updates.yob = Number(updates.yob) || ''
+		if (updates.yod !== '') updates.yod = Number(updates.yod) || ''
+		updateNode(node.id, updates)
+
+		const newNode = addNode({
 			firstName: newPerson.firstName,
 			surname: newPerson.surname || node.surname,
 			gender: newPerson.gender,
+			yob: newPerson.yob ? Number(newPerson.yob) : '',
 		})
 
 		if (addingRelation === 'parent') {
 			const parentType = newPerson.gender === 'F' ? 'WIFE' : 'HUSB'
-			addLink(newId, node.id, parentType, 'CHIL')
+			addLink(newNode.id, node.id, parentType, 'CHIL')
 		} else if (addingRelation === 'spouse') {
 			const myType = node.gender === 'M' ? 'HUSB' : 'WIFE'
 			const theirType = node.gender === 'M' ? 'WIFE' : 'HUSB'
-			addLink(node.id, newId, myType, theirType)
+			addLink(node.id, newNode.id, myType, theirType)
 		} else if (addingRelation === 'child') {
 			const myType = node.gender === 'M' ? 'HUSB' : 'WIFE'
-			addLink(node.id, newId, myType, 'CHIL')
+			addLink(node.id, newNode.id, myType, 'CHIL')
 		}
 
 		setAddingRelation(null)
 		setSearchQuery('')
 		setShowNewPersonForm(false)
-		setNewPerson({ firstName: '', surname: '', gender: 'U' })
+		setNewPerson({ firstName: '', surname: '', gender: 'U', yob: '' })
 	}
 
 	const panelStyle = {
@@ -440,8 +448,7 @@ const EditPanel = ({
 							</button>
 						</span>
 					))}
-					{relationships.parents.length === 0 && <span style={{ opacity: 0.5, fontSize: '0.85rem' }}>None</span>}
-					<button style={{ ...btnStyle, marginLeft: '0.5rem', fontSize: '0.8rem' }} onClick={() => { setAddingRelation('parent'); setShowNewPersonForm(false); setSearchQuery('') }}>
+						<button style={{ ...btnStyle, marginLeft: '0.5rem', fontSize: '0.8rem' }} onClick={() => { setAddingRelation('parent'); setShowNewPersonForm(false); setSearchQuery('') }}>
 						+ Add
 					</button>
 				</div>
@@ -459,8 +466,7 @@ const EditPanel = ({
 							</button>
 						</span>
 					))}
-					{relationships.spouses.length === 0 && <span style={{ opacity: 0.5, fontSize: '0.85rem' }}>None</span>}
-					<button style={{ ...btnStyle, marginLeft: '0.5rem', fontSize: '0.8rem' }} onClick={() => { setAddingRelation('spouse'); setShowNewPersonForm(false); setSearchQuery('') }}>
+						<button style={{ ...btnStyle, marginLeft: '0.5rem', fontSize: '0.8rem' }} onClick={() => { setAddingRelation('spouse'); setShowNewPersonForm(false); setSearchQuery('') }}>
 						+ Add
 					</button>
 				</div>
@@ -478,8 +484,7 @@ const EditPanel = ({
 							</button>
 						</span>
 					))}
-					{relationships.children.length === 0 && <span style={{ opacity: 0.5, fontSize: '0.85rem' }}>None</span>}
-					<button style={{ ...btnStyle, marginLeft: '0.5rem', fontSize: '0.8rem' }} onClick={() => { setAddingRelation('child'); setShowNewPersonForm(false); setSearchQuery('') }}>
+						<button style={{ ...btnStyle, marginLeft: '0.5rem', fontSize: '0.8rem' }} onClick={() => { setAddingRelation('child'); setShowNewPersonForm(false); setSearchQuery('') }}>
 						+ Add
 					</button>
 				</div>
@@ -501,41 +506,45 @@ const EditPanel = ({
 							</button>
 						</div>
 
-						<input
-							style={inputStyle}
-							placeholder='Search by name...'
-							value={searchQuery}
-							onChange={(e) => setSearchQuery(e.target.value)}
-							autoFocus
-						/>
+						{!showNewPersonForm && (
+							<>
+								<input
+									style={inputStyle}
+									placeholder='Search by name...'
+									value={searchQuery}
+									onChange={(e) => setSearchQuery(e.target.value)}
+									autoFocus
+								/>
 
-						{searchResults.length > 0 && (
-							<div style={{ marginTop: '0.5rem', maxHeight: '150px', overflowY: 'auto' }}>
-								{searchResults.map((person) => (
-									<div
-										key={person.id}
-										onClick={() => handleAddExistingPerson(person.id)}
-										style={{
-											padding: '0.4rem',
-											cursor: 'pointer',
-											borderRadius: '0.25rem',
-											fontSize: '0.85rem',
-											display: 'flex',
-											alignItems: 'center',
-											gap: '0.5rem',
-										}}
-									>
-										<span style={{
-											width: '8px',
-											height: '8px',
-											borderRadius: '50%',
-											background: person.color,
-											display: 'inline-block',
-										}}></span>
-										{person.name} {person.yob ? `(${person.yob})` : ''}
+								{searchResults.length > 0 && (
+									<div style={{ marginTop: '0.5rem', maxHeight: '150px', overflowY: 'auto' }}>
+										{searchResults.map((person) => (
+											<div
+												key={person.id}
+												onClick={() => handleAddExistingPerson(person.id)}
+												style={{
+													padding: '0.4rem',
+													cursor: 'pointer',
+													borderRadius: '0.25rem',
+													fontSize: '0.85rem',
+													display: 'flex',
+													alignItems: 'center',
+													gap: '0.5rem',
+												}}
+											>
+												<span style={{
+													width: '8px',
+													height: '8px',
+													borderRadius: '50%',
+													background: person.color,
+													display: 'inline-block',
+												}}></span>
+												{person.name} {person.yob ? `(${person.yob})` : ''}
+											</div>
+										))}
 									</div>
-								))}
-							</div>
+								)}
+							</>
 						)}
 
 						<div style={{ marginTop: '0.5rem' }}>
@@ -566,6 +575,12 @@ const EditPanel = ({
 										<option value='F'>Female</option>
 										<option value='M'>Male</option>
 									</select>
+									<input
+										style={inputStyle}
+										placeholder='Birth year'
+										value={newPerson.yob}
+										onChange={(e) => setNewPerson({ ...newPerson, yob: e.target.value })}
+									/>
 									<button
 										style={btnPrimaryStyle}
 										onClick={handleCreateAndLink}

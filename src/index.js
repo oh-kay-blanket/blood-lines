@@ -1,5 +1,5 @@
 // Modules
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import ReactDOM from "react-dom";
 import { parse } from "./gedcom/parse";
 import { d3ize } from "./gedcom/d3ize";
@@ -98,6 +98,30 @@ function rebuildSurnameList(nodes) {
   return Object.values(surnameMap);
 }
 
+// Estimate fy position for a birth year based on existing dated nodes.
+// Uses the same scale that d3ize applies so new/edited nodes land on the
+// existing timeline rather than jumping to a raw -yob value.
+function estimateFy(yob, nodes, excludeId) {
+  const refNodes = nodes.filter(
+    (n) => n.yob && n.fy != null && n.id !== excludeId,
+  );
+  if (refNodes.length >= 2) {
+    const a = refNodes[0];
+    const b = refNodes.find((n) => Number(n.yob) !== Number(a.yob));
+    if (b) {
+      const fyPerYear = (b.fy - a.fy) / (Number(b.yob) - Number(a.yob));
+      return a.fy + (Number(yob) - Number(a.yob)) * fyPerYear;
+    }
+  } else if (refNodes.length === 1) {
+    const ref = refNodes[0];
+    const ratio =
+      nodes.length <= 50 ? 3 : nodes.length <= 150 ? 4 : nodes.length <= 250 ? 5 : 6;
+    return ref.fy + (Number(ref.yob) - Number(yob)) * ratio;
+  }
+  // No reference nodes — keep node near origin
+  return 0;
+}
+
 const App = () => {
   const [showingRoots, setShowingRoots] = useState(false);
   const [d3Data, setD3Data] = useState([]);
@@ -128,6 +152,7 @@ const App = () => {
   const [graphReady, setGraphReady] = useState(false);
   const [controlsVisible, setControlsVisible] = useState(false);
   const [loadVisible, setLoadVisible] = useState(true);
+  const graphRef = useRef(null);
 
   // Detect device color scheme on mount (only if no saved preference)
   useEffect(() => {
@@ -164,6 +189,110 @@ const App = () => {
     setHighlightedFamily(null);
     setShowingLegend(false);
     setShowingSurnames(false);
+  };
+
+  // Build full family-tree highlights for a node (ancestors, descendants, spouses)
+  const buildNodeHighlights = (node) => {
+    clearHighlights();
+    const links = d3Data.links;
+
+    let tempHighlights = {
+      node: node,
+      family: [node.id],
+      links: [],
+      spouses: [],
+      notDescendent: [],
+    };
+    const cloneable = { ...tempHighlights };
+    delete cloneable.node;
+
+    // Nuclear family
+    links.forEach((link) => {
+      const srcId = typeof link.source === "object" ? link.source.id : link.source;
+      const tgtId = typeof link.target === "object" ? link.target.id : link.target;
+      if (srcId === node.id) {
+        tempHighlights.family.push(tgtId);
+        tempHighlights.links.push(link.index);
+        if (
+          (link.sourceType === "WIFE" || link.sourceType === "HUSB") &&
+          (link.targetType === "WIFE" || link.targetType === "HUSB")
+        ) {
+          tempHighlights.spouses.push(tgtId);
+        }
+        if (link.targetType !== "CHIL") {
+          tempHighlights.notDescendent.push(tgtId);
+        }
+      } else if (tgtId === node.id) {
+        tempHighlights.family.push(srcId);
+        tempHighlights.links.push(link.index);
+        if (
+          (link.sourceType === "WIFE" || link.sourceType === "HUSB") &&
+          (link.targetType === "WIFE" || link.targetType === "HUSB")
+        ) {
+          tempHighlights.spouses.push(srcId);
+        }
+        tempHighlights.notDescendent.push(srcId);
+      }
+    });
+
+    // Parental lines
+    const buildParentLines = (h) => {
+      links.forEach((link) => {
+        const srcId = typeof link.source === "object" ? link.source.id : link.source;
+        const tgtId = typeof link.target === "object" ? link.target.id : link.target;
+        if (
+          h.family.indexOf(tgtId) !== -1 &&
+          h.family.indexOf(srcId) === -1 &&
+          h.spouses.indexOf(tgtId) === -1 &&
+          link.sourceType !== "CHIL" &&
+          link.targetType !== "WIFE"
+        ) {
+          h.family.push(srcId);
+          h.links.push(link.index);
+        }
+      });
+    };
+
+    let parentH = structuredClone(cloneable);
+    while (true) {
+      const before = parentH.family.length;
+      buildParentLines(parentH);
+      if (parentH.family.length === before) break;
+    }
+
+    // Descendant lines
+    const buildDescendantLines = (h) => {
+      links.forEach((link) => {
+        const srcId = typeof link.source === "object" ? link.source.id : link.source;
+        const tgtId = typeof link.target === "object" ? link.target.id : link.target;
+        if (
+          h.family.indexOf(srcId) !== -1 &&
+          h.family.indexOf(tgtId) === -1 &&
+          h.notDescendent.indexOf(srcId) === -1 &&
+          link.targetType === "CHIL"
+        ) {
+          h.family.push(tgtId);
+          h.links.push(link.index);
+        }
+      });
+    };
+
+    tempHighlights.family = [...new Set(tempHighlights.family)];
+    tempHighlights.links = [...new Set(tempHighlights.links)];
+
+    let descendantH = structuredClone(cloneable);
+    while (true) {
+      const before = descendantH.family.length;
+      buildDescendantLines(descendantH);
+      if (descendantH.family.length === before) break;
+    }
+
+    tempHighlights.family.push(...parentH.family, ...descendantH.family);
+    tempHighlights.links.push(...parentH.links, ...descendantH.links);
+    tempHighlights.family = [...new Set(tempHighlights.family)];
+    tempHighlights.links = [...new Set(tempHighlights.links)];
+
+    setHighlights(tempHighlights);
   };
 
   const onGraphReady = useCallback(() => {
@@ -243,12 +372,13 @@ const App = () => {
     const node = d3Data.nodes.find((n) => n.id === nodeId);
     if (!node) return;
     const prevYob = node.yob;
+    const prevSurname = node.surname;
     // Mutate in place to preserve force-graph internal properties (x, y, z, fy, etc.)
     Object.assign(node, updates);
     if (updates.firstName !== undefined || updates.surname !== undefined) {
       node.name = `${node.firstName || ""} ${node.surname || ""}`.trim();
     }
-    if (updates.surname !== undefined) {
+    if (updates.surname !== undefined && updates.surname !== prevSurname) {
       const match = d3Data.nodes.find(
         (n) => n.id !== nodeId && n.surname === node.surname,
       );
@@ -284,8 +414,8 @@ const App = () => {
           node.fy = prevFy;
         }
       } else if (node.yob) {
-        // No previous fy — estimate from existing nodes
-        node.fy = -node.yob;
+        // No previous yob — estimate from existing dated nodes
+        node.fy = estimateFy(node.yob, d3Data.nodes, nodeId);
       } else {
         node.fy = null;
       }
@@ -315,7 +445,7 @@ const App = () => {
       bio: nodeData.bio || "",
       title: nodeData.title || "",
       color: getNextColor(),
-      fy: nodeData.yob ? -nodeData.yob : 0,
+      fy: nodeData.yob ? estimateFy(nodeData.yob, d3Data.nodes) : 0,
       families: [],
     };
 
@@ -329,7 +459,7 @@ const App = () => {
     const newSurnameList = rebuildSurnameList(newNodes);
     setD3Data({ ...d3Data, nodes: newNodes, surnameList: newSurnameList });
     setHasEdits(true);
-    return id;
+    return newNode;
   };
 
   const removeNode = (nodeId) => {
@@ -364,24 +494,26 @@ const App = () => {
   };
 
   const addLink = (sourceId, targetId, sourceType, targetType) => {
-    // Check if link already exists
-    const exists = d3Data.links.some((link) => {
-      const srcId =
-        typeof link.source === "object" ? link.source.id : link.source;
-      const tgtId =
-        typeof link.target === "object" ? link.target.id : link.target;
-      return srcId === sourceId && tgtId === targetId;
-    });
-    if (exists) return;
+    setD3Data((prev) => {
+      // Check if link already exists
+      const exists = prev.links.some((link) => {
+        const srcId =
+          typeof link.source === "object" ? link.source.id : link.source;
+        const tgtId =
+          typeof link.target === "object" ? link.target.id : link.target;
+        return srcId === sourceId && tgtId === targetId;
+      });
+      if (exists) return prev;
 
-    const newLink = {
-      source: sourceId,
-      target: targetId,
-      sourceType,
-      targetType,
-      index: d3Data.links.length,
-    };
-    setD3Data({ ...d3Data, links: [...d3Data.links, newLink] });
+      const newLink = {
+        source: sourceId,
+        target: targetId,
+        sourceType,
+        targetType,
+        index: prev.links.length,
+      };
+      return { ...prev, links: [...prev.links, newLink] };
+    });
     setHasEdits(true);
   };
 
@@ -513,6 +645,8 @@ const App = () => {
             addNode={addNode}
             setHighlights={setHighlights}
             controlsVisible={controlsVisible}
+            graphRef={graphRef}
+            buildNodeHighlights={buildNodeHighlights}
           />
           <Graph
             d3Data={d3Data}
@@ -530,6 +664,7 @@ const App = () => {
             nameFormat={nameFormat}
             editPanelOpen={editMode && !!editingNode}
             onReady={onGraphReady}
+            graphRef={graphRef}
           />
           {editingNode && editMode && (
             <EditPanel
@@ -544,6 +679,7 @@ const App = () => {
               setNodePhoto={setNodePhoto}
               removeNodePhoto={removeNodePhoto}
               onClose={closeEditPanel}
+              openEditPanel={openEditPanel}
               isMobile={isMobile}
             />
           )}

@@ -23,12 +23,17 @@ const Controls = ({
 	addNode,
 	setHighlights,
 	controlsVisible,
+	graphRef,
+	buildNodeHighlights,
 }) => {
 	const [isNodeInfoVisible, setIsNodeInfoVisible] = useState(false)
+	const [searchQuery, setSearchQuery] = useState('')
+	const [searchOpen, setSearchOpen] = useState(false)
 	const [nodeInfoData, setNodeInfoData] = useState(null)
 	const [showSettings, setShowSettings] = useState(false)
 	const settingsRef = useRef(null)
 	const surnamesRef = useRef(null)
+	const searchInputRef = useRef(null)
 
 	useEffect(() => {
 		if (highlights.node) {
@@ -46,6 +51,46 @@ const Controls = ({
 
 	const toggleSurnames = () => {
 		setShowingSurnames((prevState) => !prevState)
+	}
+
+	// Search results (computed inline, no graph re-render)
+	const searchResults = searchQuery.length > 0
+		? d3Data.nodes.filter((n) => {
+			const q = searchQuery.toLowerCase()
+			return (
+				(n.name && n.name.toLowerCase().includes(q)) ||
+				(n.firstName && n.firstName.toLowerCase().includes(q)) ||
+				(n.surname && n.surname.toLowerCase().includes(q))
+			)
+		}).slice(0, 8)
+		: []
+
+	const handleSearchSelect = (node) => {
+		setSearchQuery('')
+		setSearchOpen(false)
+		buildNodeHighlights(node)
+		// Zoom camera to the selected node
+		if (graphRef && graphRef.current) {
+			const x = node.x || 0
+			const y = node.y ?? node.fy ?? 0
+			const z = node.z || 0
+			graphRef.current.cameraPosition(
+				{ x, y, z: z + 400 },
+				{ x, y, z },
+				1000,
+			)
+		}
+	}
+
+	const toggleSearch = () => {
+		if (searchOpen) {
+			setSearchQuery('')
+			setSearchOpen(false)
+		} else {
+			setSearchOpen(true)
+			setShowSettings(false)
+			setTimeout(() => searchInputRef.current?.focus(), 300)
+		}
 	}
 
 	function compareSurname(a, b) {
@@ -76,11 +121,12 @@ const Controls = ({
 						? family.color
 						: '#ccc',
 					border: '1px solid #000',
-					padding: '.25rem 0.5rem',
-					borderRadius: '0.5rem',
-					margin: '0.25rem',
+					padding: '.15rem 0.4rem',
+					borderRadius: '0.4rem',
+					margin: '0.15rem',
 					boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
 					fontFamily: "'Josefin Sans', sans-serif",
+					fontSize: '0.9rem',
 					width: 'fit-content',
 				}}
 				onClick={(e) =>
@@ -154,20 +200,14 @@ const Controls = ({
 	}
 
 	const handleAddNewPerson = () => {
-		const newId = addNode({
+		const newNode = addNode({
 			firstName: 'New',
 			surname: 'Person',
 			gender: 'M',
 		})
 		setShowSettings(false)
-		// Find the new node, highlight it, and open the edit panel
-		setTimeout(() => {
-			const newNode = d3Data.nodes.find((n) => n.id === newId)
-			if (newNode) {
-				setHighlights({ node: newNode, family: [newNode], links: [] })
-				openEditPanel(newNode)
-			}
-		}, 100)
+		setHighlights({ node: newNode, family: [newNode], links: [] })
+		openEditPanel(newNode)
 	}
 
 	const settingsRowStyle = {
@@ -222,6 +262,61 @@ const Controls = ({
 			{showingSurnames && (
 				<div className='menu-overlay' onClick={() => setShowingSurnames(false)} />
 			)}
+			{searchOpen && (
+				<div className='menu-overlay' onClick={() => { setSearchOpen(false); setSearchQuery('') }} />
+			)}
+
+			{/* Search button + expanding bar */}
+			<div id='search' className={searchOpen ? 'open' : ''}>
+				<button
+					id='search-button'
+					onClick={toggleSearch}
+					aria-label='Search'
+				>
+					<span className='material-icons-outlined'>search</span>
+				</button>
+				<div className='search-input-wrapper'>
+					<input
+						ref={searchInputRef}
+						type='text'
+						placeholder='search...'
+						value={searchQuery}
+						onChange={(e) => setSearchQuery(e.target.value)}
+						tabIndex={searchOpen ? 0 : -1}
+					/>
+					{searchQuery && (
+						<span
+							className='material-icons-outlined search-clear'
+							onClick={() => setSearchQuery('')}
+						>
+							close
+						</span>
+					)}
+				</div>
+				{searchOpen && searchQuery.trim() && (
+					<div className='search-results'>
+						{searchResults.length === 0 ? (
+							<p className='search-no-results'>no matches</p>
+						) : (
+							searchResults.map((person) => (
+								<div
+									key={person.id}
+									className='search-result-item'
+									onClick={() => handleSearchSelect(person)}
+								>
+									<span
+										className='search-result-dot'
+										style={{ background: person.color }}
+									/>
+									<span className='search-result-name'>
+										{person.name} {person.yob ? `(${person.yob})` : ''}
+									</span>
+								</div>
+							))
+						)}
+					</div>
+				)}
+			</div>
 
 			{/* Settings gear button + dropdown */}
 			<div id='settings' ref={settingsRef}>
@@ -399,6 +494,14 @@ const Controls = ({
 			</div>
 
 			<div id='surnames' ref={surnamesRef}>
+				<button
+					id='surnames-button'
+					className={showingSurnames ? 'active' : ''}
+					onClick={toggleSurnames}
+					aria-label='Filter by surname'
+				>
+					<span className='material-icons-outlined'>filter_list</span>
+				</button>
 				{showingSurnames && (
 					<div
 						className='surnames-content'
@@ -411,23 +514,6 @@ const Controls = ({
 						{surnameList}
 					</div>
 				)}
-				<p
-					id='surnames-button'
-					className={showingSurnames ? 'active' : ''}
-					onClick={toggleSurnames}
-					style={{
-						background: 'var(--grey-dark)',
-						color: 'var(--text)',
-						border: '1.5px solid var(--grey-light-soft)',
-						borderRadius: '1.2rem',
-						padding: '0.5rem 1.2rem',
-						margin: '0.5rem 0',
-						cursor: 'pointer',
-						boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
-					}}
-				>
-					{'names'}
-				</p>
 			</div>
 		</div>
 	)

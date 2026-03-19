@@ -49,4 +49,8 @@
 	transition: left 0.2s, background 0.2s;
 	z-index: 1;
 	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.10);
+
+	[data-theme="light"] & {
+		background: var(--root-light);
+	}
 }
