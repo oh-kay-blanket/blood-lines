@@ -52,6 +52,7 @@
 0 @Ie71deda403@ INDI
 1 NAME Belladonna /Took/
 1 NAME Bungo Baggins
+1 NOTE One of the remarkable daughters of the Old Took, known for her adventurous spirit. She married Bungo Baggins and was the mother of Bilbo. Gandalf said she was one of three Took daughters who would have gone on adventures if asked.
 1 SEX F
 1 BIRT
 2 TYPE SR
@@ -135,6 +136,7 @@
 1 NATI hobbit
 1 FAMC @F40@
 1 FAMS @F24@
+1 NOTE Bilbo's father, who built the famous hobbit-hole Bag End for his wife Belladonna Took. Described as a respectable and unadventurous hobbit.
 0 @Ie4b058ea24@ INDI
 1 NAME Milo /Burrows/
 1 SEX M
@@ -337,6 +339,7 @@
 1 NATI hobbit
 1 FAMC @F64@
 1 FAMS @F21@
+1 NOTE Rosie's father and a respected farmer of Bywater. Farmer Cotton helped lead the hobbits in the Battle of Bywater to liberate the Shire from Saruman's ruffians.
 0 @I5c4b0aa52a@ INDI
 1 NAME Hildibrand /Took/
 1 SEX M
@@ -365,6 +368,7 @@
 1 NATI hobbit
 1 FAMC @F62@
 1 FAMS @F25@
+1 NOTE Sam's father and Bilbo's gardener at Bag End. Known throughout Hobbiton for his knowledge of potatoes and his strong opinions, the Gaffer was a beloved fixture of Bagshot Row.
 0 @I7b889479a4@ INDI
 1 NAME Camellia /Sackville/
 1 NAME Camellia Baggins
@@ -447,6 +451,7 @@
 1 TITL Master of Buckland
 1 FAMC @F50@
 1 FAMS @F28@
+1 NOTE A hobbit of the Fellowship of the Ring. Merry helped Eowyn slay the Witch-king of Angmar at the Battle of the Pelennor Fields. He later became Master of Buckland and was laid to rest in Gondor beside King Elessar.
 0 @I9856549d00@ INDI
 1 NAME Pippin /Gardner/
 1 SEX M
@@ -535,6 +540,7 @@
 2 DATE 1380
 1 NATI hobbit
 1 FAMC @F4@
+1 NOTE A close friend of Frodo who stayed behind at Crickhollow to maintain the ruse of Frodo's presence in the Shire. Fatty raised the alarm when the Black Riders came and later led a band of rebels against Saruman's ruffians.
 0 @I747420695e@ INDI
 1 NAME Filibert /Bolger/
 1 SEX M
@@ -604,6 +610,7 @@
 2 DATE 1206
 1 NATI hobbit
 1 FAMC @F57@
+1 NOTE The legendary hobbit hero who defeated the goblin king Golfimbul at the Battle of Greenfields by knocking his head clean off with a club. At four feet five, he was tall enough to ride a horse and is said to have invented the game of golf.
 0 @Iae5b993d29@ INDI
 1 NAME Asphodel /Brandybuck/
 1 NAME Asphodel Burrows
@@ -731,6 +738,7 @@
 2 DATE 22 Sep 1368
 1 NATI hobbit
 1 FAMC @F30@
+1 NOTE Ring-bearer and hero of the War of the Ring. Adopted by his uncle Bilbo, Frodo inherited the One Ring and undertook the perilous quest to destroy it in the fires of Mount Doom. After the war, he sailed to the Undying Lands.
 0 @I10d5d26ae0@ INDI
 1 NAME Holfast /Gardner/
 1 SEX M
@@ -749,6 +757,7 @@
 1 NATI hobbit
 1 FAMC @F19@
 1 FAMS @F22@
+1 NOTE Sam and Rosie's eldest child, named after the golden flower of Lothlorien. Renowned for her beauty, she became a maid of honour to Queen Arwen and married Fastred of Greenholm. Their family became the Fairbairns, Wardens of Westmarch.
 0 @Iede6f4edc4@ INDI
 1 NAME Tanta /Hornblower/
 1 NAME Tanta Baggins
@@ -780,6 +789,7 @@
 2 PLAC Bag End
 1 NATI hobbit
 1 FAMC @F29@
+1 NOTE Son of Otho and Lobelia, Lotho seized control of the Shire during the War of the Ring by dealing with Saruman. He styled himself "Chief" but was eventually murdered by Grima Wormtongue at Bag End.
 0 @Idb737bbc9c@ INDI
 1 NAME Menegilda /Goold/
 1 NAME Menegilda Brandybuck
@@ -864,6 +874,7 @@
 1 NATI hobbit
 1 FAMC @F80@
 1 FAMS @F50@
+1 NOTE Merry's mother and sister of Paladin Took II. A daughter of the great Took family who married into the Brandybucks of Buckland.
 0 @I5bc343b7e6@ INDI
 1 NAME Ponto /Baggins II/
 1 SEX M
@@ -936,6 +947,7 @@
 1 TITL Mayor of Michel Delving
 1 FAMC @F25@
 1 FAMS @F19@
+1 NOTE Frodo's loyal gardener and closest companion on the quest to destroy the One Ring. Sam carried Frodo up Mount Doom when his master could go no further. After the war, he married Rosie Cotton, served seven terms as Mayor of the Shire, and was the last Ring-bearer to sail to the Undying Lands.
 0 @Ia3f0ba9736@ INDI
 1 NAME Faramir /Took I/
 1 SEX M
@@ -946,6 +958,7 @@
 1 TITL Thain
 1 FAMC @F20@
 1 FAMS @F1@
+1 NOTE Pippin's son, named after the Steward of Gondor Faramir. He married Goldilocks, daughter of Samwise Gamgee, and succeeded his father as Thain of the Shire.
 0 @I7fcb2b67d4@ INDI
 1 NAME Rosamunda /Took/
 1 NAME Rosamunda Bolger
@@ -1136,6 +1149,7 @@
 1 NATI hobbit
 1 FAMC @F46@
 1 FAMS @F30@
+1 NOTE Frodo's mother, a Brandybuck of Brandy Hall. She drowned alongside her husband Drogo in a boating accident on the Brandywine River.
 0 @Icbe632615e@ INDI
 1 NAME Eglantine /Banks/
 1 SEX F
@@ -1172,6 +1186,7 @@
 1 NATI hobbit
 1 FAMC @F4@
 1 FAMS @F28@
+1 NOTE Sister of Fredegar "Fatty" Bolger. She married Meriadoc Brandybuck after the War of the Ring.
 0 @Ie1e37c2218@ INDI
 1 NAME Peregrin /Took/
 1 NAME Pippin
@@ -1186,6 +1201,7 @@
 1 TITL Thain
 1 FAMC @F49@
 1 FAMS @F20@
+1 NOTE The youngest member of the Fellowship of the Ring. Pippin looked into the palantir of Orthanc and later swore himself to the service of Denethor in Minas Tirith. He became Thain of the Shire and was buried in Gondor alongside Merry and King Elessar.
 0 @Ic75917620f@ INDI
 1 NAME Rudibert /Bolger/
 1 SEX M
@@ -1296,6 +1312,7 @@
 1 TITL the Shire
 1 FAMC @F80@
 1 FAMS @F49@
+1 NOTE Pippin's father and the 31st Thain of the Shire. He refused to submit to Lotho's rule and held out in the Tookland during the occupation of the Shire.
 0 @I838ebae4e3@ INDI
 1 NAME Theobald /Bolger/
 1 SEX M
@@ -1305,20 +1322,6 @@
 1 NATI hobbit
 1 FAMC @F11@
 1 FAMS @F7@
-0 @Ife42829a38@ INDI
-1 NAME Sméagol
-1 NAME Gollum
-1 NAME Trahald
-1 SEX M
-1 BIRT
-2 TYPE SR
-2 DATE est 830
-2 PLAC Gladden Fields
-1 DEAT
-2 TYPE SR
-2 DATE 25 March 1419
-2 PLAC Mount Doom
-1 NATI hobbit
 0 @Ie430ec9451@ INDI
 1 NAME Dinodas /Brandybuck/
 1 SEX M
@@ -1420,6 +1423,7 @@
 1 NATI hobbit
 1 FAMC @F21@
 1 FAMS @F19@
+1 NOTE Sam's beloved wife and daughter of Farmer Cotton. Rosie waited faithfully for Sam's return from the quest. Together they had thirteen children and lived at Bag End.
 0 @I3619a1c096@ INDI
 1 NAME Gundabald /Bolger/
 1 SEX M
@@ -1477,6 +1481,7 @@
 1 TITL the Shire
 1 FAMC @F88@
 1 FAMS @F56@
+1 NOTE The 26th Thain of the Shire, famous for living to the age of 130 -- a record unbroken until Bilbo surpassed it. He had twelve children and was grandfather to Bilbo's mother Belladonna. Gandalf's fireworks at his parties were legendary.
 0 @I635c798f68@ INDI
 1 NAME Hob /Gammidge/
 1 NAME Old Gammidgy
@@ -1629,6 +1634,7 @@
 1 NATI hobbit
 1 FAMC @F14@
 1 FAMS @F29@
+1 NOTE Notorious for her long-running feud with Bilbo over Bag End and her habit of pocketing silver spoons. Despite her sharp tongue, Lobelia showed unexpected courage by standing up to Saruman's ruffians during the occupation of the Shire.
 0 @I2e7767b477@ INDI
 1 NAME Wilcome /Cotton I/
 1 SEX M
@@ -1701,18 +1707,6 @@
 2 DATE 1390
 1 NATI hobbit
 1 FAMC @F74@
-0 @Ic1103dc7fc@ INDI
-1 NAME Déagol
-1 SEX M
-1 BIRT
-2 TYPE SR
-2 DATE est 830
-2 PLAC Gladden Fields
-1 DEAT
-2 TYPE SR
-2 DATE est 863
-2 PLAC Gladden Fields
-1 NATI hobbit
 0 @Ie7864ca38d@ INDI
 1 NAME Daisy /Gamgee/
 1 SEX F
@@ -1742,6 +1736,7 @@
 2 DATE 1395
 1 NATI hobbit
 1 FAMS @F20@
+1 NOTE A hobbit of the North-farthing who married Peregrin Took. She was the mother of Faramir Took I.
 0 @I0250e168e8@ INDI
 1 NAME Gruffo /Boffin/
 1 SEX M
@@ -1856,6 +1851,7 @@
 1 TITL Master of Buckland
 1 FAMC @F48@
 1 FAMS @F50@
+1 NOTE Merry's father and Master of Buckland. Known as "Scattergold" for his generosity. He married Esmeralda Took.
 0 @I3eb1937a45@ INDI
 1 NAME Halfred /Greenhand/
 1 SEX M
@@ -1934,6 +1930,7 @@
 2 PLAC Great Smials
 1 NATI hobbit
 1 FAMS @F5@
+1 NOTE Wife of Fortinbras Took II, infamous for her enormous size and domineering personality. She tyrannized the Great Smials for decades and died after falling out of her wheelchair from a balcony -- possibly with a push from her attendant, Pearl Took.
 0 @I694b01f518@ INDI
 1 NAME Merry /Gardner/
 1 SEX M
@@ -1996,6 +1993,7 @@
 1 FAMS @F71@
 0 @I7f48029ecd@ INDI
 1 NAME Bilbo /Baggins/
+1 NOTE The hobbit who found the One Ring in Gollum's cave beneath the Misty Mountains. Bilbo's unexpected adventure with Thorin's company of dwarves made him famous throughout the Shire. He later passed the Ring to his nephew Frodo and retired to Rivendell.
 1 SEX M
 1 BIRT
 2 TYPE SR
@@ -2070,6 +2068,7 @@
 1 NATI hobbit
 1 FAMC @F12@
 1 FAMS @F29@
+1 NOTE Bilbo's cousin who long coveted Bag End as his rightful inheritance. Married Lobelia Bracegirdle and together they were the Bagginses' most grasping relatives.
 0 @I78e37313ec@ INDI
 1 NAME Salvia /Brandybuck/
 1 NAME Salvia Bolger
@@ -2120,6 +2119,7 @@
 1 NATI hobbit
 1 FAMC @F18@
 1 FAMS @F30@
+1 NOTE Frodo's father. Drogo drowned in a boating accident on the Brandywine River along with his wife Primula, leaving young Frodo an orphan.
 0 @I67e6638c56@ INDI
 1 NAME Saradas /Brandybuck/
 1 SEX M
