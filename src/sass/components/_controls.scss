@@ -18,6 +18,31 @@
 
 	#back-button,
 	#settings,
+	#surnames,
+	#node-info {
+		transition: opacity 2.4s ease-in-out;
+	}
+
+	&.controls-hidden {
+		#back-button,
+		#settings,
+		#surnames,
+		#node-info {
+			opacity: 0;
+		}
+	}
+
+	&.controls-visible {
+		#back-button,
+		#settings,
+		#surnames,
+		#node-info {
+			opacity: 1;
+		}
+	}
+
+	#back-button,
+	#settings,
 	#surnames {
 		z-index: 2;
 	}
@@ -242,7 +267,7 @@
 			bottom: 1rem;
 			transform: translateY(100%);
 			max-height: 400px;
-			max-width: 350px;
+			max-width: 380px;
 
 			&.visible {
 				transform: translateY(0);

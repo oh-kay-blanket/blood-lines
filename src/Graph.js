@@ -22,12 +22,13 @@ const Graph = ({
   clearHighlights,
   theme,
   nameFormat,
+  onReady,
+  editPanelOpen,
 }) => {
   // console.log(`d3Data`, d3Data)
 
   // STATE //
   const [fontReady, setFontReady] = useState(false);
-  const [graphReady, setGraphReady] = useState(false);
   const fgRef = useRef();
 
   const raycaster = new THREE.Raycaster();
@@ -368,22 +369,60 @@ const Graph = ({
     };
   }, [d3Data, themeColors, fontReady]);
 
-  // Reset graphReady when data changes
+  const [graphReady, setGraphReady] = useState(false);
+  const hasZoomedRef = useRef(false);
+
+  // Reset when data changes
   useEffect(() => {
     setGraphReady(false);
+    hasZoomedRef.current = false;
   }, [d3Data]);
 
   const handleEngineStop = useCallback(() => {
-    if (!graphReady && fgRef.current) {
-      fgRef.current.zoomToFit(0, 60);
+    if (hasZoomedRef.current) return;
+    hasZoomedRef.current = true;
+    setTimeout(() => {
+      if (fgRef.current) {
+        // Center orbit target on graph midpoint
+        const nodes = d3Data.nodes;
+        if (nodes.length > 0) {
+          let minY = Infinity, maxY = -Infinity;
+          nodes.forEach((n) => {
+            const y = n.y ?? n.fy ?? 0;
+            if (y < minY) minY = y;
+            if (y > maxY) maxY = y;
+          });
+          const midY = (minY + maxY) / 2;
+          const controls = fgRef.current.controls();
+          controls.target.set(0, midY, 0);
+          controls.update();
+        }
+
+        const padding = isMobile
+          ? (nodes.length > 30 ? -50 : 20)
+          : (nodes.length > 100 ? 10 : nodes.length > 30 ? 30 : 60);
+        fgRef.current.zoomToFit(0, padding);
+
+        // Prevent over-zoom on small graphs
+        const camera = fgRef.current.camera();
+        const target = fgRef.current.controls().target;
+        const dist = camera.position.distanceTo(target);
+        const minDistance = 500;
+        if (dist < minDistance) {
+          const dir = camera.position.clone().sub(target).normalize();
+          camera.position.copy(target).add(dir.multiplyScalar(minDistance));
+        }
+      }
       setGraphReady(true);
-    }
-  }, [graphReady]);
+      if (onReady) onReady();
+    }, 1000);
+  }, [onReady]);
 
   // LOGIC //
 
   // Handle node click
   const handleNodeClick = (node) => {
+    if (editPanelOpen) return;
     clearHighlights();
 
     // Only action if new node is clicked
@@ -543,7 +582,7 @@ const Graph = ({
       } else if (showingSurnames || showingLegend) {
         setShowingSurnames(false);
         setShowingLegend(false);
-      } else {
+      } else if (!editPanelOpen) {
         clearHighlights();
       }
     });
@@ -567,10 +606,12 @@ const Graph = ({
   if (!fontReady) return null;
 
   return (
-    <div style={{ opacity: graphReady ? 1 : 0, transition: 'opacity 0.3s' }}>
+    <div style={{ opacity: graphReady ? 1 : 0, transition: 'opacity 3.6s ease-in-out' }}>
     <ForceGraph3D
       ref={fgRef}
       graphData={d3Data}
+      warmupTicks={300}
+      cooldownTicks={0}
       onEngineStop={handleEngineStop}
       // Display
       width={window.innerWidth}
@@ -580,7 +621,7 @@ const Graph = ({
       // Controls
       controlType={"orbit"}
       enableNodeDrag={false}
-      onBackgroundClick={isMobile ? undefined : clearHighlights}
+      onBackgroundClick={isMobile || editPanelOpen ? undefined : clearHighlights}
       // Nodes
       nodeThreeObject={setNodeThreeObject}
       nodeLabel={null}

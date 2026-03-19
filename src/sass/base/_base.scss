@@ -1,5 +1,9 @@
 @use '../base/color';
 
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
 body {
   margin: 0px;
   padding: 0px;
@@ -19,6 +23,7 @@ p {
 
 input, button, a {
   font-family: 'Josefin Sans', sans-serif;
+  -webkit-tap-highlight-color: transparent;
 }
 
 input {

@@ -1,5 +1,5 @@
 // Modules
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import ReactDOM from "react-dom";
 import { parse, d3ize } from "gedcom-d3";
 
@@ -124,6 +124,9 @@ const App = () => {
   const [nodeVersion, setNodeVersion] = useState(0);
   const [hasEdits, setHasEdits] = useState(false);
   const [showCloseWarning, setShowCloseWarning] = useState(false);
+  const [graphReady, setGraphReady] = useState(false);
+  const [controlsVisible, setControlsVisible] = useState(false);
+  const [loadVisible, setLoadVisible] = useState(true);
 
   // Detect device color scheme on mount (only if no saved preference)
   useEffect(() => {
@@ -162,14 +165,24 @@ const App = () => {
     setShowingSurnames(false);
   };
 
+  const onGraphReady = useCallback(() => {
+    setGraphReady(true);
+    setTimeout(() => setControlsVisible(true), 1000);
+  }, []);
+
   const readFile = (file) => {
-    setD3Data(d3ize(parse(file)));
-    setShowingRoots(true);
-    setShowError(false);
-    setPhotoStore({});
-    setEditMode(false);
-    setEditingNode(null);
-    setHasEdits(false);
+    setLoadVisible(false);
+    setGraphReady(false);
+    setControlsVisible(false);
+    setTimeout(() => {
+      setD3Data(d3ize(parse(file)));
+      setShowingRoots(true);
+      setShowError(false);
+      setPhotoStore({});
+      setEditMode(false);
+      setEditingNode(null);
+      setHasEdits(false);
+    }, 1200);
   };
 
   const closeRoots = () => {
@@ -189,6 +202,7 @@ const App = () => {
     setPhotoStore({});
     setHasEdits(false);
     setShowCloseWarning(false);
+    setLoadVisible(true);
   };
 
   const handleUpload = async (event) => {
@@ -392,37 +406,42 @@ const App = () => {
   };
 
   const startNewPlot = () => {
-    colorIndex = 0;
-    const id = generateNodeId();
-    const firstColor = getNextColor();
-    const starterNode = {
-      id,
-      name: "New Person",
-      firstName: "New",
-      surname: "Person",
-      gender: "U",
-      yob: "",
-      yod: "",
-      dob: "",
-      dod: "",
-      pob: "",
-      pod: "",
-      bio: "",
-      title: "",
-      color: firstColor,
-      fy: 0,
-      families: [],
-    };
-    const newD3Data = {
-      nodes: [starterNode],
-      links: [],
-      surnameList: [{ surname: "Person", count: 1, color: firstColor }],
-    };
-    setD3Data(newD3Data);
-    setShowingRoots(true);
-    setShowError(false);
-    setPhotoStore({});
-    setHasEdits(false);
+    setLoadVisible(false);
+    setGraphReady(false);
+    setControlsVisible(false);
+    setTimeout(() => {
+      colorIndex = 0;
+      const id = generateNodeId();
+      const firstColor = getNextColor();
+      const starterNode = {
+        id,
+        name: "New Person",
+        firstName: "New",
+        surname: "Person",
+        gender: "U",
+        yob: "",
+        yod: "",
+        dob: "",
+        dod: "",
+        pob: "",
+        pod: "",
+        bio: "",
+        title: "",
+        color: firstColor,
+        fy: 0,
+        families: [],
+      };
+      const newD3Data = {
+        nodes: [starterNode],
+        links: [],
+        surnameList: [{ surname: "Person", count: 1, color: firstColor }],
+      };
+      setD3Data(newD3Data);
+      setShowingRoots(true);
+      setShowError(false);
+      setPhotoStore({});
+      setHasEdits(false);
+    }, 1200);
   };
 
   const samples = [
@@ -459,6 +478,7 @@ const App = () => {
   return (
     <>
       {!showingRoots ? (
+        <div style={{ opacity: loadVisible ? 1 : 0, transition: 'opacity 1.2s ease-in-out' }}>
         <Load
           handleUpload={handleUpload}
           startNewPlot={startNewPlot}
@@ -467,6 +487,7 @@ const App = () => {
           theme={theme}
           toggleTheme={toggleTheme}
         />
+        </div>
       ) : (
         <>
           <Controls
@@ -490,6 +511,7 @@ const App = () => {
             handleExportGedz={handleExportGedz}
             addNode={addNode}
             setHighlights={setHighlights}
+            controlsVisible={controlsVisible}
           />
           <Graph
             d3Data={d3Data}
@@ -505,7 +527,8 @@ const App = () => {
             clearHighlights={clearHighlights}
             theme={theme}
             nameFormat={nameFormat}
-            editMode={editMode}
+            editPanelOpen={editMode && !!editingNode}
+            onReady={onGraphReady}
           />
           {editingNode && editMode && (
             <EditPanel

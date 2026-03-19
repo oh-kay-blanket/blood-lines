@@ -52,6 +52,7 @@ const EditPanel = ({
 		if (updates.yob !== '') updates.yob = Number(updates.yob) || ''
 		if (updates.yod !== '') updates.yod = Number(updates.yod) || ''
 		updateNode(node.id, updates)
+		onClose()
 	}
 
 	const handlePhotoUpload = (e) => {

@@ -22,6 +22,7 @@ const Controls = ({
 	handleExportGedz,
 	addNode,
 	setHighlights,
+	controlsVisible,
 }) => {
 	const [isNodeInfoVisible, setIsNodeInfoVisible] = useState(false)
 	const [nodeInfoData, setNodeInfoData] = useState(null)
@@ -193,7 +194,7 @@ const Controls = ({
 	})
 
 	return (
-		<div id='controls'>
+		<div id='controls' className={controlsVisible ? 'controls-visible' : 'controls-hidden'}>
 			<div
 				id='back-button'
 				onClick={closeRoots}
