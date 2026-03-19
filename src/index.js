@@ -253,7 +253,12 @@ const App = () => {
       });
     };
 
-    let parentH = structuredClone(cloneable);
+    let parentH = {
+      family: [node.id],
+      links: [],
+      spouses: [...tempHighlights.spouses],
+      notDescendent: [],
+    };
     while (true) {
       const before = parentH.family.length;
       buildParentLines(parentH);

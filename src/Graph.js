@@ -493,7 +493,12 @@ const Graph = ({
         });
       };
 
-      let parentTempHighlights = structuredClone(cloneable);
+      let parentTempHighlights = {
+        family: [node.id],
+        links: [],
+        spouses: [...tempHighlights.spouses],
+        notDescendent: [],
+      };
       while (true) {
         const lengthBefore = parentTempHighlights.family.length;
         buildParentLines(parentTempHighlights);
