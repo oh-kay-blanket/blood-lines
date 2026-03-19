@@ -123,6 +123,11 @@ function buildFamilies(nodes, links) {
 	return families
 }
 
+// Check if a date/year value is meaningful for export
+function isValidDate(val) {
+	return val && val !== '?' && val !== 'Present'
+}
+
 // Sanitize an ID to be GEDCOM-safe (alphanumeric + underscores)
 function sanitizeId(id) {
 	return String(id).replace(/[^a-zA-Z0-9_]/g, '')
@@ -187,11 +192,11 @@ export function exportToGedcom(d3Data, photoStore = {}) {
 		}
 
 		// BIRT
-		if (node.dob || node.yob || node.pob) {
+		if (isValidDate(node.dob) || isValidDate(node.yob) || node.pob) {
 			lines.push('1 BIRT')
-			if (node.dob) {
+			if (isValidDate(node.dob)) {
 				lines.push(`2 DATE ${node.dob}`)
-			} else if (node.yob) {
+			} else if (isValidDate(node.yob)) {
 				lines.push(`2 DATE ${node.yob}`)
 			}
 			if (node.pob) {
@@ -200,11 +205,11 @@ export function exportToGedcom(d3Data, photoStore = {}) {
 		}
 
 		// DEAT
-		if (node.dod || node.yod || node.pod) {
+		if (isValidDate(node.dod) || isValidDate(node.yod) || node.pod) {
 			lines.push('1 DEAT')
-			if (node.dod) {
+			if (isValidDate(node.dod)) {
 				lines.push(`2 DATE ${node.dod}`)
-			} else if (node.yod) {
+			} else if (isValidDate(node.yod)) {
 				lines.push(`2 DATE ${node.yod}`)
 			}
 			if (node.pod) {

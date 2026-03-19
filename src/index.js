@@ -1,7 +1,8 @@
 // Modules
 import React, { useState, useEffect, useCallback } from "react";
 import ReactDOM from "react-dom";
-import { parse, d3ize } from "gedcom-d3";
+import { parse } from "./gedcom/parse";
+import { d3ize } from "./gedcom/d3ize";
 
 // Components
 import Load from "./Load";
