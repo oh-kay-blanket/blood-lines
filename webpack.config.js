@@ -59,17 +59,11 @@ module.exports = {
       },
       {
         test: /\.ged$/i,
-        use: 'raw-loader',
+        type: 'asset/source',
       },
       {
-        exclude: [
-          /\.ejs$/,
-          /\.html$/
-        ],
         test: /\.(png|svg|jpg|gif|woff|woff2|eot|ttf|otf)$/,
-        use: [
-          'file-loader',
-        ],
+        type: 'asset/resource',
       },
       {
         test: /\.csv$/,
