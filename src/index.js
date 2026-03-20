@@ -39,31 +39,31 @@ function generateNodeId() {
 // Color palette for new nodes
 const colorList = [
   "#f6edd0",
-  "#f8a39e",
-  "#5bceff",
-  "#ffc32a",
-  "#8df0c2",
-  "#d0a8ec",
-  "#ffa686",
-  "#adcdd8",
-  "#a6b890",
-  "#e6f387",
-  "#eebf90",
-  "#6e90e6",
-  "#f8a7d0",
-  "#30f6d5",
-  "#be719d",
-  "#e08e79",
-  "#80d152",
-  "#9efde5",
-  "#ff835a",
-  "#eebd6e",
-  "#35f8a0",
-  "#f95162",
-  "#d4ee5e",
-  "#e887aa",
-  "#a178ea",
-  "#00c0de",
+  "#e8a09c",
+  "#7cb8d0",
+  "#c6c874",
+  "#d4a070",
+  "#8fc4af",
+  "#c4a0d8",
+  "#e8c06a",
+  "#7ab89c",
+  "#d88e88",
+  "#6baec8",
+  "#b8b472",
+  "#9ca0d4",
+  "#d8ae84",
+  "#68b8b0",
+  "#cc9cb4",
+  "#a4c490",
+  "#d49880",
+  "#88b0cc",
+  "#c4b878",
+  "#c8989c",
+  "#78b4a0",
+  "#b49cc8",
+  "#d0b888",
+  "#8cb4b0",
+  "#c89088",
 ];
 let colorIndex = 0;
 function getNextColor() {
@@ -538,6 +538,18 @@ const App = () => {
     setHasEdits(true);
   };
 
+  const updateFamilyColor = (surname, newColor) => {
+    d3Data.nodes.forEach((node) => {
+      if (node.surname === surname) {
+        node.color = newColor;
+      }
+    });
+    const entry = d3Data.surnameList.find((s) => s.surname === surname);
+    if (entry) entry.color = newColor;
+    setHasEdits(true);
+    setNodeVersion((v) => v + 1);
+  };
+
   const setNodePhoto = (nodeId, dataUrl) => {
     setPhotoStore({ ...photoStore, [nodeId]: dataUrl });
     setHasEdits(true);
@@ -659,6 +671,8 @@ const App = () => {
             controlsVisible={controlsVisible}
             graphRef={graphRef}
             buildNodeHighlights={buildNodeHighlights}
+            updateFamilyColor={updateFamilyColor}
+            colorList={colorList}
           />
           <Graph
             d3Data={d3Data}
@@ -693,6 +707,8 @@ const App = () => {
               onClose={closeEditPanel}
               openEditPanel={openEditPanel}
               isMobile={isMobile}
+              updateFamilyColor={updateFamilyColor}
+              colorList={colorList}
             />
           )}
           {showCloseWarning && (
