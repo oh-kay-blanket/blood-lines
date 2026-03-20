@@ -1,6 +1,6 @@
-# Blood Lines
+# Family Plot
 
-**Blood Lines** is an interactive tool for visualizing family tree data in a 3D space. Upload your own GEDCOM files or explore famous family trees, and navigate complex genealogies with intuitive controls.
+**Family Plot** is an interactive tool for visualizing family tree data in a 3D space. Upload your own GEDCOM files or explore famous family trees, and navigate complex genealogies with intuitive controls.
 
 [![Live Demo](https://img.shields.io/badge/Demo-online-green)](https://family-plot.ohkaycomputer.com/)
 
@@ -8,7 +8,7 @@
 
 ## 🌐 Demo
 
-👉 [Try Blood Lines Live](https://family-plot.ohkaycomputer.com).
+👉 [Try Family Plot Live](https://family-plot.ohkaycomputer.com).
 
 ---
 
@@ -103,7 +103,7 @@ npm install
 npm start
 ```
 
-This will start a development server and open Blood Lines in your browser.
+This will start a development server and open Family Plot in your browser.
 
 ### Building for Production
 
@@ -112,6 +112,10 @@ npm run build
 ```
 
 The production build will be output to the `dist/` directory.
+
+### Build Number
+
+A build number is automatically incremented each time `npm run deploy` is run. The current build number is stored in `build-number.json` and injected into the app at build time via webpack's `DefinePlugin` as `__BUILD_NUMBER__`.
 
 ---
 

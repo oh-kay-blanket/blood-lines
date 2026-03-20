@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Blood Lines is an interactive 3D family tree visualizer built with React and Three.js. It parses GEDCOM files (genealogy data format) and renders them as a force-directed 3D graph where users can explore family relationships through time.
+Family Plot is an interactive 3D family tree visualizer built with React and Three.js. It parses GEDCOM files (genealogy data format) and renders them as a force-directed 3D graph where users can explore family relationships through time.
 
 ## Build and Development Commands
 
