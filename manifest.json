@@ -1,6 +1,6 @@
 {
-  "name": "Blood Lines - Family Tree Visualizer",
-  "short_name": "Blood Lines",
+  "name": "Family Plot - Family Tree Visualizer",
+  "short_name": "Family Plot",
   "description": "Interactive 3D family tree visualizer. Upload GEDCOM files and explore your ancestry in a force-directed 3D graph.",
   "start_url": "/",
   "display": "standalone",
