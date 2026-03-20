@@ -14,6 +14,8 @@ const EditPanel = ({
 	onClose,
 	openEditPanel,
 	isMobile,
+	updateFamilyColor,
+	colorList,
 }) => {
 	const [form, setForm] = useState({})
 	const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
@@ -21,6 +23,7 @@ const EditPanel = ({
 	const [searchQuery, setSearchQuery] = useState('')
 	const [showNewPersonForm, setShowNewPersonForm] = useState(false)
 	const [newPerson, setNewPerson] = useState({ firstName: '', surname: '', gender: 'U', yob: '' })
+	const [showColorPicker, setShowColorPicker] = useState(false)
 	const fileInputRef = useRef(null)
 
 	useEffect(() => {
@@ -41,6 +44,7 @@ const EditPanel = ({
 		setAddingRelation(null)
 		setSearchQuery('')
 		setShowNewPersonForm(false)
+		setShowColorPicker(false)
 	}, [node.id])
 
 	const handleChange = (field, value) => {
@@ -362,6 +366,56 @@ const EditPanel = ({
 						onChange={(e) => handleChange('surname', e.target.value)}
 					/>
 				</div>
+				{node.surname && colorList && (
+					<div style={fieldStyle}>
+						<label style={labelStyle}>Family Color</label>
+						<div>
+							<span
+								onClick={() => setShowColorPicker(!showColorPicker)}
+								style={{
+									display: 'inline-block',
+									width: '28px',
+									height: '28px',
+									borderRadius: '6px',
+									background: node.color,
+									border: '2px solid var(--grey-light-soft)',
+									cursor: 'pointer',
+									verticalAlign: 'middle',
+								}}
+							/>
+							{showColorPicker && (
+								<div
+									style={{
+										marginTop: '0.4rem',
+										display: 'flex',
+										flexWrap: 'wrap',
+										gap: '4px',
+									}}
+								>
+									{colorList.map((c) => (
+										<span
+											key={c}
+											onClick={() => {
+												updateFamilyColor(node.surname, c)
+												setShowColorPicker(false)
+											}}
+											style={{
+												display: 'inline-block',
+												width: '24px',
+												height: '24px',
+												borderRadius: '4px',
+												background: c,
+												cursor: 'pointer',
+												border: c === node.color ? '2px solid var(--text)' : '1px solid rgba(0,0,0,0.2)',
+												boxSizing: 'border-box',
+											}}
+										/>
+									))}
+								</div>
+							)}
+						</div>
+					</div>
+				)}
 				<div style={fieldStyle}>
 					<label style={labelStyle}>Gender</label>
 					<select

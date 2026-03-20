@@ -25,12 +25,15 @@ const Controls = ({
 	controlsVisible,
 	graphRef,
 	buildNodeHighlights,
+	updateFamilyColor,
+	colorList,
 }) => {
 	const [isNodeInfoVisible, setIsNodeInfoVisible] = useState(false)
 	const [searchQuery, setSearchQuery] = useState('')
 	const [searchOpen, setSearchOpen] = useState(false)
 	const [nodeInfoData, setNodeInfoData] = useState(null)
 	const [showSettings, setShowSettings] = useState(false)
+	const [colorPickerSurname, setColorPickerSurname] = useState(null)
 	const settingsRef = useRef(null)
 	const surnamesRef = useRef(null)
 	const searchInputRef = useRef(null)
@@ -110,33 +113,93 @@ const Controls = ({
 		.sort(compareSurname)
 		.sort(compareCount)
 		.map((family, index) => (
-			<p
-				key={index}
-				style={{
-					color: '#000',
-					cursor: 'pointer',
-					backgroundColor: !highlightedFamily
-						? family.color
-						: highlightedFamily === family.surname
-						? family.color
-						: '#ccc',
-					border: '1px solid #000',
-					padding: '.15rem 0.4rem',
-					borderRadius: '0.4rem',
-					margin: '0.15rem',
-					boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
-					fontFamily: "'Josefin Sans', sans-serif",
-					fontSize: '0.9rem',
-					width: 'fit-content',
-				}}
-				onClick={(e) =>
-					highlightedFamily === family.surname
-						? setHighlightedFamily()
-						: setHighlightedFamily(family.surname)
-				}
-			>
-				{family.surname} ({family.count})
-			</p>
+			<div key={index} style={{ position: 'relative', display: 'inline-block' }}>
+				<p
+					style={{
+						color: '#000',
+						cursor: 'pointer',
+						backgroundColor: !highlightedFamily
+							? family.color
+							: highlightedFamily === family.surname
+							? family.color
+							: '#ccc',
+						border: '1px solid #000',
+						padding: '.15rem 0.4rem',
+						borderRadius: '0.4rem',
+						margin: '0.15rem',
+						boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
+						fontFamily: "'Josefin Sans', sans-serif",
+						fontSize: '0.9rem',
+						width: 'fit-content',
+						display: 'flex',
+						alignItems: 'center',
+						gap: '0.35rem',
+					}}
+					onClick={() =>
+						highlightedFamily === family.surname
+							? setHighlightedFamily()
+							: setHighlightedFamily(family.surname)
+					}
+				>
+					<span
+						onClick={(e) => {
+							e.stopPropagation()
+							setColorPickerSurname(colorPickerSurname === family.surname ? null : family.surname)
+						}}
+						style={{
+							display: 'inline-block',
+							width: '14px',
+							height: '14px',
+							borderRadius: '50%',
+							border: '1.5px solid rgba(0,0,0,0.4)',
+							background: family.color,
+							cursor: 'pointer',
+							flexShrink: 0,
+						}}
+					/>
+					{family.surname} ({family.count})
+				</p>
+				{colorPickerSurname === family.surname && (
+					<div
+						style={{
+							position: 'absolute',
+							top: '100%',
+							left: 0,
+							zIndex: 20,
+							background: 'var(--grey-dark)',
+							border: '1.5px solid var(--grey-light-soft)',
+							borderRadius: '0.5rem',
+							padding: '0.4rem',
+							display: 'flex',
+							flexWrap: 'wrap',
+							gap: '4px',
+							width: '180px',
+							boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
+						}}
+						onClick={(e) => e.stopPropagation()}
+					>
+						{colorList.map((c) => (
+							<span
+								key={c}
+								onClick={() => {
+									updateFamilyColor(family.surname, c)
+									setColorPickerSurname(null)
+								}}
+								style={{
+									display: 'inline-block',
+									width: '22px',
+									height: '22px',
+									borderRadius: '4px',
+									background: c,
+									cursor: 'pointer',
+									border: c === family.color ? '2px solid var(--text)' : '1px solid rgba(0,0,0,0.2)',
+									boxSizing: 'border-box',
+								}}
+							/>
+						))}
+					</div>
+				)}
+			</div>
 		))
 
 	const nodeInfoInsert = (node) => {
@@ -260,7 +323,7 @@ const Controls = ({
 				<div className='menu-overlay' onClick={() => setShowSettings(false)} />
 			)}
 			{showingSurnames && (
-				<div className='menu-overlay' onClick={() => setShowingSurnames(false)} />
+				<div className='menu-overlay' onClick={() => { setShowingSurnames(false); setColorPickerSurname(null) }} />
 			)}
 			{searchOpen && (
 				<div className='menu-overlay' onClick={() => { setSearchOpen(false); setSearchQuery('') }} />
