@@ -38,6 +38,7 @@ function generateNodeId() {
 
 // Color palette for new nodes
 const colorList = [
+  // Uniform pastels — distinct hues, similar saturation/lightness
   "#f6edd0",
   "#e8a09c",
   "#7cb8d0",
@@ -46,24 +47,25 @@ const colorList = [
   "#8fc4af",
   "#c4a0d8",
   "#e8c06a",
-  "#7ab89c",
-  "#d88e88",
-  "#6baec8",
-  "#b8b472",
-  "#9ca0d4",
-  "#d8ae84",
   "#68b8b0",
   "#cc9cb4",
+  "#9ca0d4",
   "#a4c490",
-  "#d49880",
-  "#88b0cc",
-  "#c4b878",
-  "#c8989c",
-  "#78b4a0",
-  "#b49cc8",
-  "#d0b888",
-  "#8cb4b0",
-  "#c89088",
+  "#d88e88",
+  // Varied — broader range of saturation, lightness, and warmth
+  "#b8dce8",
+  "#c07068",
+  "#8ca860",
+  "#d4b8cc",
+  "#e8d8a0",
+  "#7090b8",
+  "#8888d0",
+  "#509888",
+  "#e8b0c0",
+  "#b8b498",
+  "#b08060",
+  "#b8d8a0",
+  "#a080a8",
 ];
 let colorIndex = 0;
 function getNextColor() {
