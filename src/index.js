@@ -27,7 +27,7 @@ import royalFile from "./gedcoms/royal-family.ged";
 import tolkienFile from "./gedcoms/tolkien.ged";
 import washingtonFile from "./gedcoms/washington.ged";
 import grekGodsFile from "./gedcoms/greek-gods.ged";
-import romanGodsFile from "./gedcoms/roman-gods.ged";
+
 
 // Generate a unique ID for new nodes
 let nodeCounter = 0;
@@ -612,7 +612,7 @@ const App = () => {
     { name: "washington", load: () => readFile(washingtonFile) },
     { name: "british royals", load: () => readFile(royalFile) },
     { name: "greek myth", load: () => readFile(grekGodsFile) },
-    { name: "roman myth", load: () => readFile(romanGodsFile) },
+
     { name: "shire folk", load: () => readFile(halflingFile) },
     { name: "potter", load: () => readFile(potterFile) },
   ];

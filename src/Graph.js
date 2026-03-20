@@ -102,6 +102,8 @@ const Graph = ({
       let name;
       if (node.firstName == "?") {
         name = node.name;
+      } else if (node.firstName === node.surname) {
+        name = node.firstName;
       } else {
         name =
           nameFormat === "lastFirst"
@@ -314,8 +316,8 @@ const Graph = ({
       const quarterY = (halfY + lowestY) / 2;
       const threeQuarterY = (halfY + highestY) / 2;
 
-      const earliestYOB = Math.min.apply(Math, years);
-      const latestYOB = Math.max.apply(Math, years);
+      const earliestYOB = years.length > 0 ? Math.min.apply(Math, years) : null;
+      const latestYOB = years.length > 0 ? Math.max.apply(Math, years) : null;
       const halfYOB = parseInt((earliestYOB + latestYOB) / 2);
       const quarterYOB = parseInt((latestYOB + halfYOB) / 2);
       const threeQuarterYOB = parseInt((earliestYOB + halfYOB) / 2);
@@ -356,12 +358,12 @@ const Graph = ({
       fgRef.current.scene().add(latest);
       timelineObjects.push(latest);
 
-      if (highestY - lowestY > 300) {
+      if (years.length > 0 && highestY - lowestY > 300) {
         const half = makeLabelMesh(halfY, halfYOB, 15);
         fgRef.current.scene().add(half);
         timelineObjects.push(half);
       }
-      if (highestY - lowestY > 450) {
+      if (years.length > 0 && highestY - lowestY > 450) {
         const quarter = makeLabelMesh(quarterY, quarterYOB, 15);
         fgRef.current.scene().add(quarter);
         timelineObjects.push(quarter);

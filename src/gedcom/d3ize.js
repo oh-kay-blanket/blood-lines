@@ -27,9 +27,160 @@ const assignFy = (peopleNodes, links) => {
 
   yesyob.forEach((p) => (p.fy = +p.yob))
 
+  // If no nodes have dates, BFS from a root to assign fy for all reachable nodes
+  if (yesyob.length === 0 && peopleNodes.length > 0) {
+    const nodeMap = new Map()
+    peopleNodes.forEach((p) => nodeMap.set(p.id, p))
+
+    // Find nodes that appear as children in links
+    const childIds = new Set()
+    links.forEach((link) => {
+      if (link.targetType === "CHIL") {
+        childIds.add(link.target)
+      }
+    })
+
+    // A root node is one that never appears as a child
+    const rootNode = peopleNodes.find((p) => !childIds.has(p.id)) || peopleNodes[0]
+    rootNode.fy = 0
+
+    // Build adjacency: for each node, collect parent-child and spouse links
+    const parentOf = new Map()  // childId → [parentIds]
+    const childOf = new Map()   // parentId → [childIds]
+    const spouseOf = new Map()  // nodeId → [spouseIds]
+
+    links.forEach((link) => {
+      if (link.targetType === "CHIL") {
+        // source (HUSB/WIFE) is parent, target is child
+        if (!parentOf.has(link.target)) parentOf.set(link.target, [])
+        parentOf.get(link.target).push(link.source)
+        if (!childOf.has(link.source)) childOf.set(link.source, [])
+        childOf.get(link.source).push(link.target)
+      } else {
+        // spouse link
+        if (!spouseOf.has(link.source)) spouseOf.set(link.source, [])
+        spouseOf.get(link.source).push(link.target)
+        if (!spouseOf.has(link.target)) spouseOf.set(link.target, [])
+        spouseOf.get(link.target).push(link.source)
+      }
+    })
+
+    // Iteratively assign fy: a child is placed below ALL its parents,
+    // so we only place a child once every parent has been placed.
+    // Children are placed BEFORE spouses so that sibling-spouses
+    // (e.g. Oceanus & Tethys) get their child generation first.
+    const placed = new Set([rootNode.id])
+
+    const runPlacement = () => {
+      let changed = true
+      while (changed) {
+        changed = false
+
+        // Place children only when ALL their parents have been placed
+        for (const [childId, parents] of parentOf) {
+          const child = nodeMap.get(childId)
+          if (child && child.fy === undefined) {
+            const allPlaced = parents.every((pid) => {
+              const p = nodeMap.get(pid)
+              return p && p.fy !== undefined
+            })
+            if (allPlaced) {
+              const maxParentFy = Math.max(
+                ...parents.map((pid) => nodeMap.get(pid).fy),
+              )
+              child.fy = maxParentFy + 30
+              placed.add(childId)
+              changed = true
+            }
+          }
+        }
+
+        // Place parents when a child is placed but a parent is not
+        for (const [childId, parents] of parentOf) {
+          const child = nodeMap.get(childId)
+          if (child && child.fy !== undefined) {
+            parents.forEach((pid) => {
+              const parent = nodeMap.get(pid)
+              if (parent && parent.fy === undefined) {
+                parent.fy = child.fy - 30
+                placed.add(pid)
+                changed = true
+              }
+            })
+          }
+        }
+
+        // Place spouses at the same level as their placed partner
+        for (const [nodeId, spouses] of spouseOf) {
+          const node = nodeMap.get(nodeId)
+          if (node && node.fy !== undefined) {
+            spouses.forEach((spouseId) => {
+              const spouse = nodeMap.get(spouseId)
+              if (spouse && spouse.fy === undefined) {
+                spouse.fy = node.fy
+                placed.add(spouseId)
+                changed = true
+              }
+            })
+          }
+        }
+      }
+    }
+
+    runPlacement()
+
+    // Handle disconnected subgraphs: seed unplaced nodes and repeat
+    let unplaced = peopleNodes.filter((p) => p.fy === undefined)
+    while (unplaced.length > 0) {
+      // Pick a root for this component (prefer parentless nodes)
+      const subRoot =
+        unplaced.find((p) => !childIds.has(p.id)) || unplaced[0]
+      subRoot.fy = 0
+      placed.add(subRoot.id)
+      runPlacement()
+      unplaced = peopleNodes.filter((p) => p.fy === undefined)
+    }
+
+    // Correction pass: fix any remaining violations where a child is
+    // at or above a parent. Shift the child (and its subtree) down.
+    const shiftSubtree = (nodeId, delta, visited) => {
+      if (visited.has(nodeId)) return
+      visited.add(nodeId)
+      const node = nodeMap.get(nodeId)
+      if (!node) return
+      node.fy += delta
+      // Shift children
+      const children = childOf.get(nodeId) || []
+      children.forEach((cid) => shiftSubtree(cid, delta, visited))
+      // Shift spouses
+      const spouses = spouseOf.get(nodeId) || []
+      spouses.forEach((sid) => shiftSubtree(sid, delta, visited))
+    }
+
+    let corrections = true
+    let maxPasses = 20
+    while (corrections && maxPasses > 0) {
+      corrections = false
+      maxPasses--
+      for (const [childId, parents] of parentOf) {
+        const child = nodeMap.get(childId)
+        if (!child || child.fy === undefined) continue
+        parents.forEach((pid) => {
+          const parent = nodeMap.get(pid)
+          if (!parent || parent.fy === undefined) return
+          if (child.fy <= parent.fy) {
+            const needed = parent.fy + 30 - child.fy
+            shiftSubtree(childId, needed, new Set(parents))
+            corrections = true
+          }
+        })
+      }
+    }
+  }
+
   // YOB unknown
   let noyob = peopleNodes.filter((p) => {
-    return p.yob === "?"
+    return p.yob === "?" && p.fy === undefined
   })
 
   let count = 10
