@@ -8,7 +8,7 @@
     "start": "webpack-dev-server --open",
     "build": "webpack --mode production",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist --cname blood-lines.ohkaycomputer.com"
+    "deploy": "gh-pages -d dist --cname family-plot.ohkaycomputer.com"
   },
   "keywords": [],
   "author": "",

@@ -2,13 +2,13 @@
 
 **Blood Lines** is an interactive tool for visualizing family tree data in a 3D space. Upload your own GEDCOM files or explore famous family trees, and navigate complex genealogies with intuitive controls.
 
-[![Live Demo](https://img.shields.io/badge/Demo-online-green)](https://blood-lines.ohkaycomputer.com/)
+[![Live Demo](https://img.shields.io/badge/Demo-online-green)](https://family-plot.ohkaycomputer.com/)
 
 ---
 
 ## 🌐 Demo
 
-👉 [Try Blood Lines Live](https://blood-lines.ohkaycomputer.com).
+👉 [Try Blood Lines Live](https://family-plot.ohkaycomputer.com).
 
 ---
 
@@ -97,8 +97,8 @@ For more about GEDCOM, see the [Wikipedia article](https://en.wikipedia.org/wiki
 ### Installation
 
 ```bash
-git clone https://github.com/oh-kay-blanket/blood-lines.git blood-lines
-cd blood-lines
+git clone https://github.com/oh-kay-blanket/family-plot.git family-plot
+cd family-plot
 npm install
 npm start
 ```
