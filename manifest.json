@@ -1,0 +1,28 @@
+{
+  "name": "Blood Lines - Family Tree Visualizer",
+  "short_name": "Blood Lines",
+  "description": "Interactive 3D family tree visualizer. Upload GEDCOM files and explore your ancestry in a force-directed 3D graph.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#010000",
+  "theme_color": "#010000",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
