@@ -1,28 +1,36 @@
 # Family Plot
 
-**Family Plot** is an interactive tool for visualizing family tree data in a 3D space. Upload your own GEDCOM files or explore famous family trees, and navigate complex genealogies with intuitive controls.
+**Family Plot** is an interactive 3D family tree visualizer and editor. Upload GEDCOM files, build trees from scratch, add photos, and explore genealogies in a force-directed 3D graph.
 
 [![Live Demo](https://img.shields.io/badge/Demo-online-green)](https://family-plot.ohkaycomputer.com/)
 
 ---
 
-## 🌐 Demo
+## Demo
 
-👉 [Try Family Plot Live](https://family-plot.ohkaycomputer.com).
-
----
-
-## ✨ Features
-
-- **Interactive 3D Visualization**: Explore family trees in a dynamic, force-directed 3D graph.
-- **GEDCOM Support**: Upload your own `.ged` files (the standard for genealogy data).
-- **Sample Trees**: Instantly view famous or fictional family trees (Kennedy, Shakespeare, Tolkien, etc.).
-- **Intuitive Controls**: Pan, zoom, and focus on individuals or families.
-- **Highlighting & Filtering**: Focus on specific nodes and their direct relations.
+[Try Family Plot Live](https://family-plot.ohkaycomputer.com)
 
 ---
 
-## 🖼️ Screenshots
+## Features
+
+- **3D Visualization** — Force-directed graph with timeline positioning by birth year
+- **GEDCOM Import/Export** — Upload `.ged` or `.gedz` files, export in either format
+- **Create from Scratch** — Start a new family tree and add people directly
+- **Edit Mode** — Edit names, dates, places, bios, gender, and relationships
+- **Photo Support** — Attach photos to people; photos are bundled into `.gedz` exports
+- **Search** — Find people by name with camera zoom to selection
+- **Surname Filtering** — Highlight and filter by family name
+- **Relationship Highlighting** — Click a person to trace ancestors, descendants, and spouses
+- **Sample Trees** — Pre-loaded trees including Kennedy, Shakespeare, Tudor, Tolkien, Greek gods, and more
+- **Light/Dark Theme** — Toggle with persistent preference
+- **Name Format** — Switch between "First Last" and "Last, First"
+- **PWA** — Installable as a standalone app with offline support
+- **Mobile Support** — Touch gestures via Hammer.js (tap, pinch, swipe)
+
+---
+
+## Screenshots
 
 <p float="left">
   <img src="src/img/screenshots/1-home.jpg" width="300" />
@@ -33,138 +41,125 @@
 
 ---
 
-## 🕹️ Usage & Controls
+## Usage
 
-### Uploading Your Own Data
+### Getting Started
 
-- Click **"upload a gedcom (.ged) file"** and select your file.
-- Only `.ged` files are supported (export from your genealogy software).
+- **Upload a file** — Import a `.ged` or `.gedz` file from your genealogy software
+- **Start new** — Create a blank family tree and add people manually
+- **Explore samples** — Load a pre-included tree (e.g., Kennedy, Shakespeare)
 
-### Exploring Sample Trees
+### Controls
 
-- Click any sample button (e.g., "kennedy", "shakespeare") to load a pre-included tree.
+**Desktop:**
+- Left-click drag: rotate
+- Right-click drag: pan
+- Scroll: zoom
+- Click node: highlight family tree
 
-### Mouse & Node Controls
+**Mobile:**
+- Tap: select person
+- Pinch: zoom
+- Swipe: rotate
+- Two-finger swipe: pan
 
-- **Left-click & drag**: Rotate the camera
-- **Right-click & drag**: Pan the camera
-- **Mouse wheel**: Zoom in/out
-- **Left-click on node**: Highlight node and its direct relations
-- **Right-click on node**: Zoom to node and set as camera pivot
+### Editing
 
-### 📤 Exporting Your Family Tree as a GEDCOM (.ged) File
+Click the edit icon on any person's info panel to open the edit panel. From there you can edit details, manage relationships (parents, spouses, children), upload a photo, or delete the person.
 
-To visualize your own family tree, you need a GEDCOM (.ged) file. Most genealogy platforms allow you to export your data in this format. Here's how to do it on some popular platforms:
+### Exporting
 
-#### Ancestry.com
+Open settings (gear icon) and choose `.ged` or `.gedz` export. The `.gedz` format is a ZIP containing the GEDCOM file plus any attached photos.
 
-1. Go to your family tree.
-2. Click on "Tree Settings" (top left menu).
-3. Scroll down to the "Manage your tree" section.
-4. Click "Export tree". A GEDCOM file will be generated for download.
+### Importing GEDCOM Files
 
-#### MyHeritage
+Most genealogy platforms support GEDCOM export:
 
-1. Open your family tree.
-2. Click on the tree name (top left), then "Export to GEDCOM".
-3. Follow the prompts to download your .ged file.
-
-#### FamilySearch
-
-FamilySearch does not allow direct GEDCOM export. You can use third-party tools or software (like RootsMagic or Ancestral Quest) to import your FamilySearch tree and then export as GEDCOM.
-
-#### GRAMPS (Free & Open Source)
-
-1. Open your family tree in GRAMPS.
-2. Go to "Family Trees" > "Export..."
-3. Choose "GEDCOM" as the export format and save your file.
-
-#### Other Platforms
-
-Most genealogy software and websites support GEDCOM export. Look for "Export" or "Download" options in your tree or account settings, and select GEDCOM as the format.
+- **Ancestry** — Trees > Settings > Export tree
+- **MyHeritage** — Family Tree > Manage tree > Export to GEDCOM
+- **FamilySearch** — Use third-party tools like RootsMagic to export
+- **GRAMPS** — Family Trees > Export > GEDCOM
 
 For more about GEDCOM, see the [Wikipedia article](https://en.wikipedia.org/wiki/GEDCOM).
 
 ---
 
-## 🚀 Running Locally
+## Running Locally
 
 ### Prerequisites
 
-- [Node.js](https://nodejs.org/) (v14 or higher recommended)
-- npm (comes with Node.js)
+- [Node.js](https://nodejs.org/) (v14+)
 
 ### Installation
 
 ```bash
-git clone https://github.com/oh-kay-blanket/family-plot.git family-plot
+git clone https://github.com/oh-kay-blanket/family-plot.git
 cd family-plot
 npm install
 npm start
 ```
 
-This will start a development server and open Family Plot in your browser.
-
-### Building for Production
+### Building & Deploying
 
 ```bash
-npm run build
+npm run build       # Production build to dist/
+npm run deploy      # Build + deploy to GitHub Pages
 ```
-
-The production build will be output to the `dist/` directory.
 
 ### Build Number
 
-A build number is automatically incremented each time `npm run deploy` is run. The current build number is stored in `build-number.json` and injected into the app at build time via webpack's `DefinePlugin` as `__BUILD_NUMBER__`.
+A build number in `build-number.json` is automatically incremented on each `npm run deploy`. It's injected at build time via webpack `DefinePlugin` as `__BUILD_NUMBER__`.
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 
-- `src/`
-  - `index.js` — Main React entry point
-  - `Graph.js` — 3D force-directed graph logic
-  - `Controls.js` — UI controls for navigation and filtering
-  - `Load.js` — File upload and sample data loader
-  - `gedcoms/` — Sample GEDCOM files
-  - `img/` — Images, icons, and (add your screenshots/gifs here)
-  - `sass/` — Styles (Sass)
-- `webpack.config.js` — Build configuration
-- `dist/` — Production build output
+```
+src/
+├── index.js            # Root app component, state management
+├── Graph.js            # 3D force-directed graph, timeline, highlighting
+├── Controls.js         # Search, settings, surname filter, node info
+├── Load.js             # Landing page, file upload, sample selector
+├── EditPanel.js        # Edit panel for people and relationships
+├── SampleButton.js     # Sample tree button component
+├── gedcomExport.js     # GEDCOM/GEDZ export and import
+├── gedcom/
+│   ├── parse.js        # GEDCOM parser
+│   └── d3ize.js        # Transform to graph data structure
+├── gedcoms/            # Sample GEDCOM files
+├── service-worker.js   # PWA offline caching
+├── manifest.json       # PWA manifest
+├── sass/               # Styles (Sass)
+└── img/                # Icons, screenshots
+```
 
 ---
 
-## 🛠️ Technologies & Dependencies
+## Technologies
 
 - [React](https://reactjs.org/)
-- [Three.js](https://threejs.org/)
-- [3d-force-graph](https://github.com/vasturiano/3d-force-graph) ([MIT License](https://github.com/vasturiano/3d-force-graph/blob/master/LICENSE))
-- [gedcom-d3](https://github.com/oh-kay-blanket/gedcom-d3) (custom parser, based on [tmcw/parse-gedcom](https://github.com/tmcw/parse-gedcom))
+- [Three.js](https://threejs.org/) + [three-spritetext](https://github.com/vasturiano/three-spritetext)
+- [react-force-graph-3d](https://github.com/vasturiano/react-force-graph-3d)
 - [d3-force-3d](https://github.com/vasturiano/d3-force-3d)
-- [Webpack](https://webpack.js.org/)
-- [Sass](https://sass-lang.com/)
+- [Hammer.js](https://hammerjs.github.io/) (touch gestures)
+- [JSZip](https://stuk.github.io/jszip/) (.gedz packaging)
+- [Webpack](https://webpack.js.org/) + [Sass](https://sass-lang.com/)
 
 ---
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
-- [tmcw/parse-gedcom](https://github.com/tmcw/parse-gedcom) — Simple, open-source GEDCOM parser
-- [vasturiano/3d-force-graph](https://github.com/vasturiano/3d-force-graph) — 3D force-directed graph visualization
-
----
-
-## 🤝 Contributing
-
-Contributions are welcome! Feel free to open issues or submit pull requests for bug fixes, new features, or improvements. Please be respectful and constructive in all communications.
+- [tmcw/parse-gedcom](https://github.com/tmcw/parse-gedcom) — GEDCOM parser
+- [vasturiano/3d-force-graph](https://github.com/vasturiano/3d-force-graph) — 3D force-directed graph
 
 ---
 
-## 📄 License
+## License
 
-This project is licensed under the ISC License. See [LICENSE](LICENSE) for details.
+ISC License. See [LICENSE](LICENSE) for details.
 
 ---
 
-## 📬 Contact
+## Contact
 
-For questions or feedback, visit [ohkaycomputer.com](https://ohkaycomputer.com/) or open an issue on GitHub.
+[ohkaycomputer.com](https://ohkaycomputer.com/) · [GitHub Issues](https://github.com/oh-kay-blanket/family-plot/issues)
