@@ -490,16 +490,21 @@ const Controls = ({
 								<button
 									onClick={() => { handleExportGed(); setShowSettings(false) }}
 									style={pillBtnStyle(false)}
+									title='Genealogical data only'
 								>
 									.ged
 								</button>
 								<button
 									onClick={() => { handleExportGedz(); setShowSettings(false) }}
 									style={pillBtnStyle(false)}
+									title='Genealogical data + photos'
 								>
 									.gedz
 								</button>
 							</div>
+							<p style={{ color: 'var(--text)', fontSize: '0.75rem', opacity: 0.7, marginTop: '0.35rem' }}>
+								use .gedz to include photos
+							</p>
 						</div>
 
 						<hr className='settings-divider' />

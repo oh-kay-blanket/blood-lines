@@ -171,10 +171,27 @@ const Load = ({
               different family tree software programs.
             </p>
             <p>
-              GEDCOM files have a <strong>.ged</strong> extension and contain
-              information about individuals, families, relationships, birth
-              dates, death dates, and other genealogical data.
+              Family Plot supports two file types:
             </p>
+            <div className="gedcom-programs">
+              <div className="program">
+                <strong>.ged</strong>
+                <p>
+                  A plain-text file containing individuals, families,
+                  relationships, dates, and other genealogical data. This is
+                  the standard GEDCOM format supported by most family tree
+                  software.
+                </p>
+              </div>
+              <div className="program">
+                <strong>.gedz</strong>
+                <p>
+                  A .ged file bundled with photos in a single ZIP archive.
+                  Use this format to preserve photos you've added in Family
+                  Plot.
+                </p>
+              </div>
+            </div>
 
             <h3>how to create a GEDCOM file</h3>
             <p>
