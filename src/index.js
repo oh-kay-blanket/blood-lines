@@ -741,10 +741,17 @@ const App = () => {
               <div className="modal-content close-warning" onClick={(e) => e.stopPropagation()}>
                 <h2>unsaved changes</h2>
                 <p>You have unsaved edits. Would you like to export before closing?</p>
+                <p className="close-warning-hint">
+                  {Object.keys(photoStore).length > 0
+                    ? ".gedz includes photos, .ged does not."
+                    : ".ged is the standard genealogical data format."}
+                </p>
                 <div className="close-warning-actions">
-                  <button onClick={() => { handleExportGedz(); forceClose(); }}>
-                    export .gedz & close
-                  </button>
+                  {Object.keys(photoStore).length > 0 && (
+                    <button onClick={() => { handleExportGedz(); forceClose(); }}>
+                      export .gedz & close
+                    </button>
+                  )}
                   <button onClick={() => { handleExportGed(); forceClose(); }}>
                     export .ged & close
                   </button>
