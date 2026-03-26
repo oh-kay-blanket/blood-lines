@@ -580,6 +580,21 @@ const getNotes = (p) => {
   return p.tree.filter(hasTag("NOTE"))
 }
 
+// Concatenate NOTE tree fragments (CONC = direct concat, CONT = newline)
+const concatFragments = (node) => {
+  let text = node.data
+  if (node.tree.length > 0) {
+    node.tree.forEach((fragment) => {
+      if (fragment.tag === "CONT") {
+        text += "\n" + fragment.data
+      } else if (fragment.tag === "CONC") {
+        text += fragment.data
+      }
+    })
+  }
+  return text
+}
+
 // Get Bio
 const getBio = (p, notes) => {
   if (p.notes.length != 0) {
@@ -589,15 +604,11 @@ const getBio = (p, notes) => {
       if (notes.length > 0) {
         notes.forEach((note) => {
           if (personNote.data === note.pointer) {
-            bio += note.data
-
-            if (note.tree.length > 0) {
-              note.tree.forEach((fragment) => (bio += fragment.data))
-            }
+            bio += concatFragments(note)
           }
         })
       } else {
-        bio += personNote.data
+        bio += concatFragments(personNote)
       }
     })
     return bio
