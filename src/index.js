@@ -28,6 +28,7 @@ import tolkienFile from "./gedcoms/tolkien.ged";
 import washingtonFile from "./gedcoms/washington.ged";
 import grekGodsFile from "./gedcoms/greek-gods.ged";
 import kardashianPhotos from "./gedcoms/kardashianPhotos";
+import washingtonPhotos from "./gedcoms/washingtonPhotos";
 
 
 // Generate a unique ID for new nodes
@@ -626,7 +627,7 @@ const App = () => {
     { name: "kardashian", load: () => readFileWithPhotos(kardashianFile, kardashianPhotos) },
     { name: "bach", load: () => readFile(bachFile) },
     { name: "tolkien", load: () => readFile(tolkienFile) },
-    { name: "washington", load: () => readFile(washingtonFile) },
+    { name: "washington", load: () => readFileWithPhotos(washingtonFile, washingtonPhotos) },
     { name: "british royals", load: () => readFile(royalFile) },
     { name: "greek myth", load: () => readFile(grekGodsFile) },
 

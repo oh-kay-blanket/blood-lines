@@ -259,7 +259,7 @@ const Controls = ({
 						<b>Died:</b> {node.pod}
 					</p>
 				)}
-				{node.bio && <p style={{whiteSpace: 'pre-line'}}>{node.bio}</p>}
+				{node.bio && <p>{node.bio}</p>}
 			</div>
 		)
 	}
