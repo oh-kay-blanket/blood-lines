@@ -151,6 +151,7 @@ const App = () => {
   const [photoStore, setPhotoStore] = useState({});
   const [nodeVersion, setNodeVersion] = useState(0);
   const [hasEdits, setHasEdits] = useState(false);
+  const [showPhotos, setShowPhotos] = useState(true);
   const [showCloseWarning, setShowCloseWarning] = useState(false);
   const [graphReady, setGraphReady] = useState(false);
   const [controlsVisible, setControlsVisible] = useState(false);
@@ -682,6 +683,8 @@ const App = () => {
             setEditMode={setEditMode}
             openEditPanel={openEditPanel}
             photoStore={photoStore}
+            showPhotos={showPhotos}
+            setShowPhotos={setShowPhotos}
             handleExportGed={handleExportGed}
             handleExportGedz={handleExportGedz}
             addNode={addNode}
@@ -709,6 +712,8 @@ const App = () => {
             editPanelOpen={editMode && !!editingNode}
             onReady={onGraphReady}
             graphRef={graphRef}
+            showPhotos={showPhotos}
+            photoStore={photoStore}
           />
           {editingNode && editMode && (
             <EditPanel

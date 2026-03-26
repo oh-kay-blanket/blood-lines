@@ -18,6 +18,8 @@ const Controls = ({
 	setEditMode,
 	openEditPanel,
 	photoStore,
+	showPhotos,
+	setShowPhotos,
 	handleExportGed,
 	handleExportGedz,
 	addNode,
@@ -438,6 +440,29 @@ const Controls = ({
 								</button>
 							</div>
 						</div>
+
+						{Object.keys(photoStore).length > 0 && (
+							<>
+								<hr className='settings-divider' />
+								<div style={settingsRowStyle}>
+									<p style={settingsLabelStyle}>Photos</p>
+									<div style={{ display: 'flex', gap: '0.4rem' }}>
+										<button
+											onClick={() => setShowPhotos(true)}
+											style={pillBtnStyle(showPhotos)}
+										>
+											On
+										</button>
+										<button
+											onClick={() => setShowPhotos(false)}
+											style={pillBtnStyle(!showPhotos)}
+										>
+											Off
+										</button>
+									</div>
+								</div>
+							</>
+						)}
 
 						<hr className='settings-divider' />
 

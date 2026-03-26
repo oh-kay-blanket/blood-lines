@@ -9,6 +9,9 @@ import { Line2 } from "three/examples/jsm/lines/Line2";
 import { LineMaterial } from "three/examples/jsm/lines/LineMaterial";
 import { LineGeometry } from "three/examples/jsm/lines/LineGeometry";
 
+// Cache for loaded circular photo textures (keyed by URL)
+const photoTextureCache = new Map();
+
 const Graph = ({
   d3Data,
   highlights,
@@ -25,6 +28,8 @@ const Graph = ({
   onReady,
   editPanelOpen,
   graphRef,
+  showPhotos,
+  photoStore,
 }) => {
   // console.log(`d3Data`, d3Data)
 
@@ -153,9 +158,75 @@ const Graph = ({
       sprite.borderRadius = 8;
       sprite.padding = themeColors.padding;
       obj.add(sprite);
+
+      // Add photo sprite if available
+      if (showPhotos && photoStore && photoStore[node.id]) {
+        const photoUrl = photoStore[node.id];
+        const isMuted =
+          (highlights.node === null && highlightedFamily && highlightedFamily !== node.surname) ||
+          (highlights.node !== null && highlights.family.indexOf(node.id) === -1);
+
+        const addPhotoSprite = (texture) => {
+          const mat = new THREE.SpriteMaterial({
+            map: texture,
+            transparent: true,
+            opacity: isMuted ? 0.15 : 1,
+          });
+          const photo = new THREE.Sprite(mat);
+          photo.scale.set(20, 20, 1);
+          photo.position.y = 16;
+          obj.add(photo);
+        };
+
+        if (photoTextureCache.has(photoUrl)) {
+          addPhotoSprite(photoTextureCache.get(photoUrl));
+        } else {
+          const img = new Image();
+          if (!photoUrl.startsWith("data:")) img.crossOrigin = "anonymous";
+          img.onload = () => {
+            const s = 128;
+            const b = 6;
+            const canvas = document.createElement("canvas");
+            canvas.width = s;
+            canvas.height = s;
+            const ctx = canvas.getContext("2d");
+            // Border ring
+            ctx.beginPath();
+            ctx.arc(s / 2, s / 2, s / 2, 0, Math.PI * 2);
+            ctx.fillStyle = "rgba(255,255,255,0.5)";
+            ctx.fill();
+            // Clip inner circle
+            ctx.beginPath();
+            ctx.arc(s / 2, s / 2, s / 2 - b, 0, Math.PI * 2);
+            ctx.closePath();
+            ctx.clip();
+            // Draw image with cover behavior
+            const aspect = img.width / img.height;
+            const inner = s - b * 2;
+            let sx, sy, sw, sh;
+            if (aspect > 1) {
+              sh = img.height;
+              sw = img.height;
+              sx = (img.width - sw) / 2;
+              sy = 0;
+            } else {
+              sw = img.width;
+              sh = img.width;
+              sx = 0;
+              sy = (img.height - sh) / 2;
+            }
+            ctx.drawImage(img, sx, sy, sw, sh, b, b, inner, inner);
+            const texture = new THREE.CanvasTexture(canvas);
+            photoTextureCache.set(photoUrl, texture);
+            addPhotoSprite(texture);
+          };
+          img.src = photoUrl;
+        }
+      }
+
       return obj;
     },
-    [highlights, highlightedFamily, themeColors, nameFormat],
+    [highlights, highlightedFamily, themeColors, nameFormat, showPhotos, photoStore],
   );
 
   // Link color
