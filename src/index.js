@@ -27,6 +27,7 @@ import royalFile from "./gedcoms/royal-family.ged";
 import tolkienFile from "./gedcoms/tolkien.ged";
 import washingtonFile from "./gedcoms/washington.ged";
 import grekGodsFile from "./gedcoms/greek-gods.ged";
+import kardashianPhotos from "./gedcoms/kardashianPhotos";
 
 
 // Generate a unique ID for new nodes
@@ -329,6 +330,21 @@ const App = () => {
     }, 1200);
   };
 
+  const readFileWithPhotos = (file, photos) => {
+    setLoadVisible(false);
+    setGraphReady(false);
+    setControlsVisible(false);
+    setTimeout(() => {
+      setD3Data(d3ize(parse(file)));
+      setShowingRoots(true);
+      setShowError(false);
+      setPhotoStore(photos);
+      setEditMode(false);
+      setEditingNode(null);
+      setHasEdits(false);
+    }, 1200);
+  };
+
   const closeRoots = () => {
     if (hasEdits) {
       setShowCloseWarning(true);
@@ -606,7 +622,7 @@ const App = () => {
   const samples = [
     { name: "shakespeare", load: () => readFile(shakespeareFile) },
     { name: "kennedy", load: () => readFile(kennedyFile) },
-    { name: "kardashian", load: () => readFile(kardashianFile) },
+    { name: "kardashian", load: () => readFileWithPhotos(kardashianFile, kardashianPhotos) },
     { name: "bach", load: () => readFile(bachFile) },
     { name: "tolkien", load: () => readFile(tolkienFile) },
     { name: "washington", load: () => readFile(washingtonFile) },
