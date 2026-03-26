@@ -636,10 +636,12 @@ const App = () => {
 
   const handleExportGed = () => {
     downloadGedcom(d3Data, photoStore);
+    setHasEdits(false);
   };
 
   const handleExportGedz = () => {
     downloadGedz(d3Data, photoStore);
+    setHasEdits(false);
   };
 
   const openEditPanel = (node) => {
