@@ -353,9 +353,11 @@ export async function importGedz(file) {
 				reader.onload = () => resolve(reader.result)
 				reader.readAsDataURL(blob)
 			})
-			// Extract node ID from filename (e.g., "photos/I001.jpg" → "I001")
+			// Extract node ID from filename (e.g., "photos/I001.jpg" → "@I001@")
+			// sanitizeId strips @ during export, so restore them here
 			const filename = path.split('/').pop()
-			const nodeId = filename.replace(/\.[^.]+$/, '')
+			const rawId = filename.replace(/\.[^.]+$/, '')
+			const nodeId = `@${rawId}@`
 			photos[nodeId] = dataUrl
 		}
 	}
