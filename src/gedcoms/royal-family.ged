@@ -1157,9 +1157,10 @@
 2 DATE 2 AUG 2019
 3 TIME 17:24:50.794
 0 @I79@ INDI
-1 NAME Alexandrina Victoria //
+1 NAME Alexandrina Victoria /Hanover/
 2 TYPE birth
 2 GIVN Alexandrina Victoria
+2 SURN Hanover
 1 SEX F
 1 BIRT
 2 DATE 24 MAY 1819
@@ -1167,15 +1168,9 @@
 1 DEAT
 2 DATE 22 JAN 1901
 2 PLAC Osborne House, Isle of Wight
-1 FAMC @F66@
+1 FAMC @F88@
 1 FAMS @F36@
-1 NOTE Queen of the United Kingdom of Great Britain and Ireland (1837-1901)
-2 CONT and Empress of India. The longest-reigning British monarch until
-2 CONT Elizabeth II surpassed her record. Her reign was marked by industrial,
-2 CONT political, and military change and a vast expansion of the British
-2 CONT Empire. She married Prince Albert and had nine children who married
-2 CONT into royal families across Europe, earning her the nickname
-2 CONT "Grandmother of Europe."
+1 NOTE Queen Victoria (1819-1901), Queen of the United Kingdom of Great Britain and Ireland (1837-1901) and Empress of India (1876-1901). She came to the throne at age 18, the daughter of Prince Edward, Duke of Kent (son of George III) and Victoria of Saxe-Coburg-Saalfeld. She was the granddaughter of George III and came to the throne after her uncles George IV and William IV both died without surviving legitimate heirs. Her 63-year reign was the longest of any British monarch until Elizabeth II. She married her cousin Prince Albert of Saxe-Coburg and Gotha in 1840 and they had nine children, who married into royal families across Europe, earning Victoria the nickname "Grandmother of Europe." After Albert's death in 1861 she withdrew from public life for many years. Her reign saw vast industrial, colonial, and political transformation.
 1 CHAN
 2 DATE 13 MAY 2018
 3 TIME 14:42:09.617
@@ -1263,18 +1258,20 @@
 2 DATE 13 MAY 2018
 3 TIME 14:42:09.617
 0 @I86@ INDI
-1 NAME Edward IV of York //
+1 NAME Edward IV /York/
 2 TYPE birth
-2 GIVN Edward IV of York
+2 GIVN Edward IV
+2 SURN York
 1 SEX M
 1 BIRT
 2 DATE 28 APR 1442
-2 PLAC Rouen, Normandy
+2 PLAC Rouen, Normandy, France
 1 DEAT
 2 DATE 9 APR 1483
-2 PLAC Westminster, London
+2 PLAC Westminster, London, England
 1 FAMC @F54@
 1 FAMS @F39@
+1 NOTE Edward IV (1442-1483), King of England (1461-1470, 1471-1483), House of York. He won the throne in the Wars of the Roses, defeating the Lancastrian Henry VI. After a brief exile he returned and defeated the Lancastrians decisively at the Battle of Barnet and Tewkesbury (1471). His reign brought relative stability and prosperity. He died unexpectedly at age 40, leaving his young son Edward V, who was soon deposed by his uncle Richard III.
 1 CHAN
 2 DATE 13 MAY 2018
 3 TIME 14:42:09.617
@@ -1317,11 +1314,12 @@
 1 SEX M
 1 BIRT
 2 DATE 28 JAN 1457
-2 PLAC Pembroke Castle
+2 PLAC Pembroke Castle, Wales
 1 DEAT
 2 DATE 21 APR 1509
-2 PLAC Richmond Palace
+2 PLAC Richmond Palace, Surrey, England
 1 FAMS @F40@
+1 NOTE Henry VII (1457-1509), King of England (1485-1509), first Tudor monarch. He ended the Wars of the Roses by defeating Richard III at Bosworth Field. His claim to the throne came through his mother Margaret Beaufort, a descendant of John of Gaunt. He strengthened royal authority and rebuilt England's finances after decades of civil war. By marrying Elizabeth of York he united the Lancaster and York royal lines. His son Henry VIII and his daughter Margaret Tudor (ancestor of the Stuart kings) were his most historically significant children.
 1 CHAN
 2 DATE 13 MAY 2018
 3 TIME 14:42:09.617
@@ -1395,12 +1393,13 @@
 1 SEX F
 1 BIRT
 2 DATE 18 FEB 1516
-2 PLAC Greenwich Palace
+2 PLAC Greenwich Palace, Greenwich, England
 1 DEAT
 2 DATE 17 NOV 1558
-2 PLAC St. James's Palace
+2 PLAC St. James's Palace, London, England
 1 FAMC @F41@
 1 FAMS @F47@
+1 NOTE Mary I (1516-1558), Queen of England and Ireland (1553-1558), first queen regnant of England. Daughter of Henry VIII and Catherine of Aragon, she restored Roman Catholicism and earned the epithet "Bloody Mary" for burning nearly 300 Protestant heretics at the stake. She married Philip II of Spain in 1554. Her reign ended with England losing Calais, its last French territory. She died without children and was succeeded by her Protestant half-sister Elizabeth I.
 1 CHAN
 2 DATE 13 MAY 2018
 3 TIME 14:42:09.617
@@ -1448,11 +1447,12 @@
 1 SEX M
 1 BIRT
 2 DATE 12 OCT 1537
-2 PLAC Hampton Court Palace, Kingston upon Thames
+2 PLAC Hampton Court Palace, Kingston upon Thames, England
 1 DEAT
 2 DATE 6 JUL 1553
-2 PLAC Greenwich Palace
+2 PLAC Greenwich Palace, Greenwich, England
 1 FAMC @F43@
+1 NOTE Edward VI (1537-1553), King of England and Ireland (1547-1553), only surviving legitimate son of Henry VIII (by Jane Seymour). He came to the throne at age nine. Under his reign England became firmly Protestant, with the Book of Common Prayer established. He was sickly and died of tuberculosis at age 15. Before dying he tried to change the succession in favour of his Protestant cousin Lady Jane Grey to prevent the Catholic Mary I from inheriting, but this plan collapsed after nine days.
 1 CHAN
 2 DATE 13 MAY 2018
 3 TIME 14:42:09.617
@@ -1511,46 +1511,51 @@
 1 SEX F
 1 BIRT
 2 DATE 28 NOV 1489
-2 PLAC Richmond Palace
+2 PLAC Richmond Palace, Surrey, England
 1 DEAT
 2 DATE 18 NOV 1541
-2 PLAC Methven Castle, Perthshire
+2 PLAC Methven Castle, Perthshire, Scotland
 1 FAMC @F40@
 1 FAMS @F48@
+1 NOTE Margaret Tudor (1489-1541), daughter of Henry VII of England and elder sister of Henry VIII. Her marriage in 1503 to James IV of Scotland was the beginning of the Tudor-Stuart dynastic union that would, a century later, bring the crowns of England and Scotland together. Through this marriage she became the ancestor of James I of England (her great-grandson). After James IV's death she played a turbulent role in Scottish politics.
 1 CHAN
 2 DATE 13 MAY 2018
 3 TIME 14:42:09.617
 0 @I101@ INDI
-1 NAME James IV King of Scotland /Stuart/
+1 NAME James IV /Stuart/
 2 TYPE birth
-2 GIVN James IV King of Scotland
+2 GIVN James IV
 2 SURN Stuart
+1 TITL King of Scotland
 1 SEX M
 1 BIRT
 2 DATE 17 MAR 1473
 2 PLAC Stirling Castle, Scotland
 1 DEAT
 2 DATE 9 SEP 1513
-2 PLAC Battle of Flodden Field, Northumberland
+2 PLAC Battle of Flodden Field, Northumberland, England
 1 FAMC @F60@
 1 FAMS @F48@
+1 NOTE James IV (1473-1513), King of Scotland (1488-1513), House of Stuart. He married Margaret Tudor, daughter of Henry VII of England, in 1503 — a union that would eventually lead to the uniting of the Scottish and English crowns a century later. He was killed at the Battle of Flodden Field fighting the English, the last British monarch to die in battle on British soil. He was a Renaissance prince known for his patronage of arts and learning.
 1 CHAN
 2 DATE 13 AUG 2019
 3 TIME 11:20:21.048
 0 @I102@ INDI
-1 NAME James V King of Scotland /Stuart/
+1 NAME James V /Stuart/
 2 TYPE birth
-2 GIVN James V King of Scotland
+2 GIVN James V
 2 SURN Stuart
+1 TITL King of Scotland
 1 SEX M
 1 BIRT
 2 DATE 10 APR 1512
-2 PLAC Linlithgow Palace, Linlithgowshire
+2 PLAC Linlithgow Palace, Linlithgowshire, Scotland
 1 DEAT
 2 DATE 14 DEC 1542
-2 PLAC Falkland Palace, Fife
+2 PLAC Falkland Palace, Fife, Scotland
 1 FAMC @F48@
 1 FAMS @F49@
+1 NOTE James V (1512-1542), King of Scotland (1513-1542), son of James IV and Margaret Tudor. He was a complex figure who encouraged the arts and constructed significant buildings at Stirling and Falkland. He died days after the disastrous Scottish defeat at the Battle of Solway Moss, reportedly saying on hearing of his daughter Mary's birth: "It came with a lass, it will pass with a lass" — referring to the Stewart dynasty coming through Marjorie Bruce and fearing it would end with his newborn daughter (it didn't).
 1 CHAN
 2 DATE 13 MAY 2018
 3 TIME 14:42:09.617
@@ -1570,27 +1575,30 @@
 2 DATE 13 MAY 2018
 3 TIME 14:42:09.617
 0 @I104@ INDI
-1 NAME Mary Queen of Scotland /Stuart/
+1 NAME Mary Queen of Scots /Stuart/
 2 TYPE birth
-2 GIVN Mary Queen of Scotland
+2 GIVN Mary
 2 SURN Stuart
+1 TITL Queen of Scotland
 1 SEX F
 1 BIRT
 2 DATE 8 DEC 1542
-2 PLAC Linlithgow Palace, Linlithgowshire
+2 PLAC Linlithgow Palace, Linlithgowshire, Scotland
 1 DEAT
 2 DATE 8 FEB 1587
-2 PLAC Fotheringhay Castle, Northamptonshire
+2 PLAC Fotheringhay Castle, Northamptonshire, England
 1 FAMC @F49@
 1 FAMS @F50@
+1 NOTE Mary, Queen of Scots (1542-1587), Queen of Scotland (1542-1567). She came to the throne as an infant and was sent to France, becoming Queen of France briefly (1559-1560). Her second marriage to her cousin Henry Stuart, Lord Darnley, produced the future James I of England. After her marriage fell apart — Darnley was murdered in a suspicious explosion — she was forced to abdicate in favour of her infant son. She fled to England seeking help from Elizabeth I but was imprisoned for 19 years and finally executed on charges of plotting to assassinate Elizabeth.
 1 CHAN
 2 DATE 13 MAY 2018
 3 TIME 14:42:09.617
 0 @I105@ INDI
-1 NAME Henry /Stuart/
+1 NAME Henry Stuart /Stuart/
 2 TYPE birth
-2 GIVN Henry
+2 GIVN Henry Stuart
 2 SURN Stuart
+1 TITL Lord Darnley
 1 SEX M
 1 BIRT
 2 DATE 7 DEC 1545
@@ -1599,26 +1607,26 @@
 2 DATE 10 FEB 1567
 2 PLAC Kirk o' Field, Edinburgh, Scotland
 1 FAMS @F50@
+1 NOTE Henry Stuart, Lord Darnley (1545-1567), second husband of Mary Queen of Scots and father of James I of England. He was himself of royal Stuart blood. His marriage to Mary was initially popular but he became arrogant and jealous, and was involved in the murder of Mary's secretary David Rizzio in 1566. He was found dead after an explosion at Kirk o' Field in Edinburgh — whether murdered by conspirators including the Earl of Bothwell (Mary's future husband) or accidentally killed remains debated.
 1 CHAN
 2 DATE 13 MAY 2018
 3 TIME 14:42:09.617
 0 @I106@ INDI
-1 NAME James I of England /Stuart/
+1 NAME James I /Stuart/
 2 TYPE birth
-2 GIVN James I of England
+2 GIVN James I
 2 SURN Stuart
-1 NAME James VI of Scotland //
-2 TYPE birth
-2 GIVN James VI of Scotland
+1 TITL King of England and Scotland (James VI of Scotland)
 1 SEX M
 1 BIRT
 2 DATE 19 JUN 1566
-2 PLAC Edinburgh Castle, Scotland
+2 PLAC Edinburgh Castle, Edinburgh, Scotland
 1 DEAT
 2 DATE 27 MAR 1625
-2 PLAC Theobalds House
+2 PLAC Theobalds House, Hertfordshire, England
 1 FAMC @F50@
 1 FAMS @F51@
+1 NOTE James I of England / James VI of Scotland (1566-1625), first Stuart King of England (1603-1625) and King of Scotland from infancy (1567-1625). He united the crowns of England and Scotland in a personal union when he inherited the English throne from Elizabeth I (his cousin twice removed through Margaret Tudor). He commissioned the King James Bible (1611) and his reign saw the Gunpowder Plot (1605) and early colonisation of America (Jamestown, 1607). He believed strongly in the Divine Right of Kings, bringing him into conflict with Parliament.
 1 CHAN
 2 DATE 13 MAY 2018
 3 TIME 14:42:09.617
@@ -1667,103 +1675,105 @@
 2 DATE 13 MAY 2018
 3 TIME 14:42:09.617
 0 @I110@ INDI
-1 NAME William IV //
+1 NAME William IV /Hanover/
 2 TYPE birth
 2 GIVN William IV
-1 NAME //
-2 TYPE birth
+2 SURN Hanover
 1 SEX M
 1 BIRT
 2 DATE 21 AUG 1765
-2 PLAC Buckingham House
+2 PLAC Buckingham House, London, England
 1 DEAT
 2 DATE 20 JUN 1837
-1 FAMC @F67@
+2 PLAC Windsor Castle, Berkshire, England
+1 FAMC @F68@
+1 NOTE William IV (1765-1837), King of the United Kingdom of Great Britain and Ireland (1830-1837) and King of Hanover. The third son of George III, he came to the throne after his elder brother George IV died without a legitimate heir. Known as "the Sailor King" for his early career in the Royal Navy, he was the last British monarch to appoint a Prime Minister against Parliament's wishes. He had no legitimate children; on his death the crown passed to his niece, Victoria.
 1 CHAN
 2 DATE 13 MAY 2018
 3 TIME 14:42:09.617
 0 @I111@ INDI
-1 NAME George IV //
+1 NAME George IV /Hanover/
 2 TYPE birth
 2 GIVN George IV
-1 NAME //
-2 TYPE birth
+2 SURN Hanover
 1 SEX M
 1 BIRT
 2 DATE 12 AUG 1762
-2 PLAC St. James's Palace
+2 PLAC St. James's Palace, London, England
 1 DEAT
 2 DATE 26 JUN 1830
-2 PLAC Windsor
+2 PLAC Windsor Castle, Berkshire, England
 1 FAMC @F68@
+1 NOTE George IV (1762-1830), King of the United Kingdom of Great Britain and Ireland (1820-1830) and King of Hanover. He served as Prince Regent from 1811 during his father George III's mental illness. Known for his extravagant lifestyle and patronage of the arts, he commissioned the Brighton Pavilion and the rebuilding of Buckingham Palace and Windsor Castle. His marriage to Caroline of Brunswick was disastrous and he attempted unsuccessfully to divorce her. He had one daughter, Charlotte, who died in 1817 before she could inherit the throne.
 1 CHAN
 2 DATE 13 MAY 2018
 3 TIME 14:42:09.617
 0 @I112@ INDI
-1 NAME George III //
+1 NAME George III /Hanover/
 2 TYPE birth
 2 GIVN George III
-1 NAME //
-2 TYPE birth
+2 SURN Hanover
 1 SEX M
 1 BIRT
 2 DATE 4 JUN 1738
-2 PLAC Norfolk House
+2 PLAC Norfolk House, London, England
 1 DEAT
 2 DATE 29 JAN 1820
 2 PLAC Windsor Castle, Berkshire, England
-1 FAMC @F69@
+1 FAMC @F87@
+1 NOTE George III (1738-1820), King of Great Britain and Ireland (1760-1820). He was the grandson of George II; his father Frederick, Prince of Wales, died before becoming king. George III's reign was the longest of any British monarch to that point, spanning over 59 years. It was marked by the loss of the American colonies in 1783 and the wars with Napoleonic France. In his later years he suffered from recurring mental illness (now thought to be porphyria), and his son George IV ruled as Prince Regent from 1811.
 1 CHAN
 2 DATE 13 MAY 2018
 3 TIME 14:42:09.617
 0 @I113@ INDI
-1 NAME George II //
+1 NAME George II /Hanover/
 2 TYPE birth
 2 GIVN George II
-1 NAME //
-2 TYPE birth
+2 SURN Hanover
 1 SEX M
 1 BIRT
 2 DATE 30 OCT 1683
-2 PLAC Herrenhausen
+2 PLAC Herrenhausen, Hanover
 1 DEAT
 2 DATE 25 OCT 1760
 2 PLAC Kensington Palace, London, England
 1 FAMC @F70@
+1 NOTE George II (1683-1760), King of Great Britain and Ireland and Elector of Hanover (1727-1760). He was the last British monarch born outside Great Britain. He led his troops in person at the Battle of Dettingen (1743), the last occasion a British monarch commanded forces in battle. His reign saw the expansion of British power through the Seven Years' War and the conquest of Canada and India. He had a troubled relationship with his son Frederick, Prince of Wales, who predeceased him in 1751.
 1 CHAN
 2 DATE 13 MAY 2018
 3 TIME 14:42:09.617
 0 @I114@ INDI
-1 NAME George I //
+1 NAME George I /Hanover/
 2 TYPE birth
 2 GIVN George I
-1 NAME //
-2 TYPE birth
+2 SURN Hanover
 1 SEX M
 1 BIRT
 2 DATE 28 MAY 1660
-2 PLAC Leineschloss
+2 PLAC Leineschloss, Hanover
 1 DEAT
 2 DATE 11 JUN 1727
-2 PLAC Osnabrück
+2 PLAC Osnabrück, Hanover
 1 FAMC @F73@
+1 NOTE George I (1660-1727), King of Great Britain and Ireland (1714-1727) and Elector of Hanover. He was the great-grandson of James I of England through the female line via Elizabeth of Bohemia and Sophia of Hanover. When Queen Anne died without surviving children in 1714, Parliament chose George under the Act of Settlement (1701) to prevent a Catholic Stuart restoration. He spoke little English and spent much time in Hanover, which led to the rise of Cabinet government under Prime Minister Robert Walpole.
 1 CHAN
 2 DATE 13 MAY 2018
 3 TIME 14:42:09.617
 0 @I115@ INDI
-1 NAME Philip //
+1 NAME Philip II /Habsburg/
 2 TYPE birth
-2 GIVN Philip
-1 NAME //
-2 TYPE birth
+2 GIVN Philip II
+2 SURN Habsburg
+1 TITL King of Spain
 1 SEX M
 1 BIRT
 2 DATE 21 MAY 1527
-2 PLAC Valladolid
+2 PLAC Valladolid, Spain
 1 DEAT
 2 DATE 13 SEP 1598
-2 PLAC El Escorial
+2 PLAC El Escorial, Spain
 1 FAMS @F47@
+1 NOTE Philip II (1527-1598), King of Spain (1556-1598) and briefly King of England (1554-1558) as consort to Mary I. One of the most powerful monarchs of the 16th century, he ruled an empire that stretched across Europe and the Americas. His marriage to Mary I was childless and brief. After Mary's death, he proposed to Elizabeth I but was refused. His attempt to invade England with the Spanish Armada in 1588 ended in catastrophic defeat.
 1 CHAN
 2 DATE 13 MAY 2018
 3 TIME 14:42:09.617
@@ -1772,17 +1782,16 @@
 2 TYPE birth
 2 GIVN Charles I
 2 SURN Stuart
-1 NAME //
-2 TYPE birth
 1 SEX M
 1 BIRT
 2 DATE 19 NOV 1600
-2 PLAC Dunfermline Palace
+2 PLAC Dunfermline Palace, Fife, Scotland
 1 DEAT
 2 DATE 30 JAN 1649
-2 PLAC Whitehall Palace
+2 PLAC Whitehall Palace, London, England
 1 FAMC @F51@
 1 FAMS @F52@
+1 NOTE Charles I (1600-1649), King of England, Scotland and Ireland (1625-1649). His belief in the Divine Right of Kings and his conflicts with Parliament over taxation and religion led to the English Civil War (1642-1651). Defeated by the Parliamentarian forces of Oliver Cromwell, he was tried for treason and executed — the only English monarch to be formally tried and executed. His death was followed by the Commonwealth under Cromwell. The monarchy was restored in 1660 under his son Charles II.
 1 CHAN
 2 DATE 13 MAY 2018
 3 TIME 14:42:09.617
@@ -1808,16 +1817,15 @@
 2 TYPE birth
 2 GIVN Charles II
 2 SURN Stuart
-1 NAME //
-2 TYPE birth
 1 SEX M
 1 BIRT
 2 DATE 29 MAY 1630
-2 PLAC St. James's Palace
+2 PLAC St. James's Palace, London, England
 1 DEAT
 2 DATE 6 FEB 1685
-2 PLAC Whitehall Palace
+2 PLAC Whitehall Palace, London, England
 1 FAMC @F52@
+1 NOTE Charles II (1630-1685), King of England, Scotland and Ireland (1660-1685). After his father Charles I was executed in 1649, Charles II spent years in exile before the Restoration of 1660 brought him back to the throne. Known as "the Merry Monarch" for his love of pleasure and the arts, his reign saw the Great Plague (1665), the Great Fire of London (1666), and ongoing battles for power with Parliament. He had many illegitimate children but no legitimate heir, so his Catholic brother James II succeeded him.
 1 CHAN
 2 DATE 13 MAY 2018
 3 TIME 14:42:09.617
@@ -1826,16 +1834,16 @@
 2 TYPE birth
 2 GIVN James II
 2 SURN Stuart
-1 NAME //
-2 TYPE birth
 1 SEX M
 1 BIRT
 2 DATE 14 OCT 1633
-2 PLAC St. James's Palace
+2 PLAC St. James's Palace, London, England
 1 DEAT
 2 DATE 16 SEP 1701
-2 PLAC Château de Saint-Germain-en-Laye
+2 PLAC Château de Saint-Germain-en-Laye, France
 1 FAMC @F52@
+1 FAMS @F71@
+1 NOTE James II (1633-1701), King of England, Scotland and Ireland (1685-1688). The younger brother of Charles II, he converted to Roman Catholicism, which alarmed Protestant England. In 1688 the Glorious Revolution drove him from the throne in favour of his Protestant daughter Mary II and her husband William of Orange. James fled to France and spent the rest of his life in exile at the court of Louis XIV, attempting to reclaim his throne. His supporters were known as Jacobites.
 1 CHAN
 2 DATE 13 MAY 2018
 3 TIME 14:42:09.617
@@ -1844,8 +1852,6 @@
 2 TYPE birth
 2 GIVN Mary II
 2 SURN Stuart
-1 NAME //
-2 TYPE birth
 1 SEX F
 1 BIRT
 2 DATE 30 APR 1662
@@ -1855,6 +1861,7 @@
 2 PLAC Kensington Palace, London, England
 1 FAMC @F71@
 1 FAMS @F53@
+1 NOTE Mary II (1662-1694), Queen of England, Scotland and Ireland (1689-1694), joint monarch with her husband William III. Daughter of James II, she was invited to take the throne with her Dutch husband during the Glorious Revolution of 1688. She is credited with reviving religious observance at court and overseeing public administration while William was often abroad at war. She died of smallpox at age 32, after which William III ruled alone.
 1 CHAN
 2 DATE 13 MAY 2018
 3 TIME 14:42:09.617
@@ -1863,25 +1870,23 @@
 2 TYPE birth
 2 GIVN Anne
 2 SURN Stuart
-1 NAME //
-2 TYPE birth
 1 SEX F
 1 BIRT
 2 DATE 6 FEB 1665
-2 PLAC St. James's Palace
+2 PLAC St. James's Palace, London, England
 1 DEAT
 2 DATE 1 AUG 1714
 2 PLAC Kensington Palace, London, England
 1 FAMC @F71@
+1 NOTE Queen Anne (1665-1714), Queen of England, Scotland and Ireland (1702-1707) and then Queen of Great Britain (1707-1714). The last Stuart monarch, she was the younger daughter of James II. Her reign saw the Acts of Union 1707 which united England and Scotland into the Kingdom of Great Britain. She suffered a tragic personal life, having seventeen pregnancies but no surviving children. On her death the throne passed to the Hanoverian line under the Act of Settlement 1701.
 1 CHAN
 2 DATE 13 MAY 2018
 3 TIME 14:42:09.617
 0 @I122@ INDI
-1 NAME William III //
+1 NAME William III /Orange/
 2 TYPE birth
 2 GIVN William III
-1 NAME //
-2 TYPE birth
+2 SURN Orange
 1 SEX M
 1 BIRT
 2 DATE 4 NOV 1650
@@ -1890,6 +1895,7 @@
 2 DATE 8 MAR 1702
 2 PLAC Kensington Palace, London, England
 1 FAMS @F53@
+1 NOTE William III (1650-1702), King of England, Scotland and Ireland (1689-1702). Prince of Orange and Stadtholder of Holland, he invaded England in 1688 in the Glorious Revolution at the invitation of Protestant nobles. He ruled jointly with his wife Mary II (daughter of James II) until her death in 1694, then alone until his own death. The constitutional settlement that followed his accession greatly limited royal prerogative and established parliamentary supremacy. He had no children and was succeeded by his sister-in-law Queen Anne.
 1 CHAN
 2 DATE 13 MAY 2018
 3 TIME 14:42:09.617
@@ -1898,76 +1904,76 @@
 2 TYPE birth
 2 GIVN Elizabeth of Bohemia
 2 SURN Stuart
-1 NAME //
-2 TYPE birth
+1 TITL Queen of Bohemia
 1 SEX F
 1 BIRT
 2 DATE 19 AUG 1596
-2 PLAC Falkland Palace, Fife
+2 PLAC Falkland Palace, Fife, Scotland
 1 DEAT
 2 DATE 13 FEB 1662
-2 PLAC England
+2 PLAC Leicester House, London, England
 1 FAMC @F51@
+1 NOTE Elizabeth of Bohemia (1596-1662), daughter of James I of England, known as the "Winter Queen." She married Frederick V, Elector Palatine, who briefly became King of Bohemia in 1619-1620 before being driven out. She spent decades in exile in The Hague. Her daughter Sophia of Hanover was designated heir to the British throne under the Act of Settlement 1701, making Elizabeth the direct ancestor of all subsequent British monarchs.
 1 CHAN
 2 DATE 13 MAY 2018
 3 TIME 14:42:09.617
 0 @I124@ INDI
-1 NAME Sophia of Hanover //
+1 NAME Sophia /Hanover/
 2 TYPE birth
-2 GIVN Sophia of Hanover
-1 NAME //
-2 TYPE birth
+2 GIVN Sophia
+2 SURN Hanover
+1 TITL Electress of Hanover
 1 SEX F
 1 BIRT
 2 DATE 14 OCT 1630
 2 PLAC The Hague, Netherlands
 1 DEAT
 2 DATE 9 JUN 1714
-2 PLAC Leine Castle, Hanover
+2 PLAC Leine Castle, Hanover, Germany
 1 FAMC @F72@
+1 NOTE Sophia, Electress of Hanover (1630-1714), granddaughter of James I of England through his daughter Elizabeth of Bohemia. The Act of Settlement 1701 designated her as heir to the British throne to prevent a Catholic succession. She died in June 1714, just weeks before Queen Anne, so the crown passed to her son George I. Sophia was widely regarded as brilliant and cultivated, and corresponded with the philosopher Leibniz.
 1 CHAN
 2 DATE 13 MAY 2018
 3 TIME 14:42:09.617
 0 @I125@ INDI
-1 NAME Edward V //
+1 NAME Edward V /York/
 2 TYPE birth
 2 GIVN Edward V
-1 NAME //
-2 TYPE birth
+2 SURN York
 1 SEX M
 1 BIRT
 2 DATE 2 NOV 1470
-2 PLAC Westminster, London
+2 PLAC Westminster, London, England
 1 DEAT
 2 DATE ABT 1 JAN 1483
-2 PLAC London, England
+2 PLAC Tower of London, London, England
 1 FAMC @F39@
+1 NOTE Edward V (1470-1483?), King of England for about 11 weeks in 1483, House of York. He and his younger brother Richard, Duke of York are known as the "Princes in the Tower." After their father Edward IV died, their uncle Richard III had them declared illegitimate and imprisoned in the Tower of London. They were never seen again and almost certainly murdered, though the exact circumstances remain one of history's great mysteries. Richard III was the last suspect.
 1 CHAN
 2 DATE 13 MAY 2018
 3 TIME 14:42:09.617
 0 @I126@ INDI
-1 NAME Richard III //
+1 NAME Richard III /York/
 2 TYPE birth
 2 GIVN Richard III
-1 NAME //
-2 TYPE birth
+2 SURN York
 1 SEX M
 1 BIRT
 2 DATE 2 OCT 1452
-2 PLAC Fotheringhay Castle
+2 PLAC Fotheringhay Castle, Northamptonshire
 1 DEAT
 2 DATE 22 AUG 1485
-2 PLAC Bosworth Field
+2 PLAC Bosworth Field, Leicestershire
 1 FAMC @F54@
+1 NOTE Richard III (1452-1485), King of England (1483-1485), last of the House of York and the last Plantagenet king. He seized the throne from his nephew Edward V, whom he had declared illegitimate. He was defeated and killed at the Battle of Bosworth Field by Henry Tudor (Henry VII), the last English king to die in battle. Richard was long vilified by Tudor historians, particularly Shakespeare's portrayal. Modern reassessments have been more balanced. His remains were discovered under a Leicester car park in 2012.
 1 CHAN
 2 DATE 13 MAY 2018
 3 TIME 14:42:09.617
 0 @I127@ INDI
-1 NAME Henry IV //
+1 NAME Henry IV /Lancaster/
 2 TYPE birth
 2 GIVN Henry IV
-1 NAME //
-2 TYPE birth
+2 SURN Lancaster
 1 SEX M
 1 BIRT
 2 DATE 3 APR 1366
@@ -1976,49 +1982,50 @@
 2 DATE 20 MAR 1413
 2 PLAC Westminster, London
 1 FAMC @F76@
+1 NOTE Henry IV (1366-1413), King of England (1399-1413), first monarch of the House of Lancaster. He deposed his cousin Richard II and seized the throne in 1399. Son of John of Gaunt and grandson of Edward III, his reign was troubled by rebellions, including those of Owen Glendower in Wales and the Percy family (the "Hotspur" revolt of 1403). He suffered from a debilitating illness in his later years.
 1 CHAN
 2 DATE 13 MAY 2018
 3 TIME 14:42:09.617
 0 @I128@ INDI
-1 NAME Henry V //
+1 NAME Henry V /Lancaster/
 2 TYPE birth
 2 GIVN Henry V
-1 NAME //
-2 TYPE birth
+2 SURN Lancaster
 1 SEX M
 1 BIRT
 2 DATE 16 SEP 1386
-2 PLAC Monmouth Castle
+2 PLAC Monmouth Castle, Wales
 1 DEAT
 2 DATE 31 AUG 1422
-2 PLAC Château de Vincennes
+2 PLAC Château de Vincennes, France
 1 FAMC @F74@
+1 NOTE Henry V (1386-1422), King of England (1413-1422), House of Lancaster. Celebrated as one of England's greatest warrior kings, he revived English claims to France and won a famous victory at the Battle of Agincourt (1415) against a much larger French force. The Treaty of Troyes (1420) made him heir to the French throne, but he died of dysentery two months before the French king, leaving his nine-month-old son Henry VI as heir.
 1 CHAN
 2 DATE 13 MAY 2018
 3 TIME 14:42:09.617
 0 @I129@ INDI
-1 NAME Henry VI //
+1 NAME Henry VI /Lancaster/
 2 TYPE birth
 2 GIVN Henry VI
-1 NAME //
-2 TYPE birth
+2 SURN Lancaster
 1 SEX M
 1 BIRT
 2 DATE 6 DEC 1421
 2 PLAC Windsor Castle, Berkshire, England
 1 DEAT
 2 DATE 21 MAY 1471
-2 PLAC Tower of London
+2 PLAC Tower of London, London, England
 1 FAMC @F75@
+1 NOTE Henry VI (1421-1471), King of England (1422-1461, 1470-1471), House of Lancaster. He came to the throne as an infant and his weak rule led to the Wars of the Roses between the Houses of Lancaster and York. He suffered periods of mental incapacity. Deposed by Edward IV in 1461, he was briefly restored to the throne in 1470 before being murdered in the Tower of London. He was known for his piety and founded Eton College and King's College, Cambridge.
 1 CHAN
 2 DATE 13 MAY 2018
 3 TIME 14:42:09.617
 0 @I130@ INDI
-1 NAME John of Gaunt //
+1 NAME John of Gaunt /Plantagenet/
 2 TYPE birth
 2 GIVN John of Gaunt
-1 NAME //
-2 TYPE birth
+2 SURN Plantagenet
+1 TITL Duke of Lancaster
 1 SEX M
 1 BIRT
 2 DATE 6 MAR 1340
@@ -2027,32 +2034,33 @@
 2 DATE 3 FEB 1399
 2 PLAC Leicester Castle, Leicestershire
 1 FAMC @F77@
+1 NOTE John of Gaunt (1340-1399), Duke of Lancaster, son of Edward III. Though never king himself, he was one of the most powerful men in England and ancestor of the Lancastrian kings Henry IV, V, and VI. He was also the great-great-grandfather of Henry VII (through his legitimised Beaufort children). His name derives from his birthplace, Ghent (Gaunt in medieval English). He served as de facto regent during the minority of Richard II.
 1 CHAN
 2 DATE 13 MAY 2018
 3 TIME 14:42:09.617
 0 @I131@ INDI
-1 NAME Edward III //
+1 NAME Edward III /Plantagenet/
 2 TYPE birth
 2 GIVN Edward III
-1 NAME //
-2 TYPE birth
+2 SURN Plantagenet
 1 SEX M
 1 BIRT
 2 DATE 13 NOV 1312
 2 PLAC Windsor Castle, Berkshire, England
 1 DEAT
 2 DATE 21 JUN 1377
-2 PLAC Sheen Palace, Richmond
+2 PLAC Sheen Palace, Richmond, England
 1 FAMC @F80@
+1 NOTE Edward III (1312-1377), King of England (1327-1377), House of Plantagenet. He restored royal authority after his father Edward II's disastrous reign. He founded the Order of the Garter and claimed the French throne, launching the Hundred Years' War in 1337. His military campaigns were brilliant; his son the Black Prince won at Crécy (1346) and Poitiers (1356). His reign was also darkened by the Black Death (1348). He had many children, whose descendants would later fight the Wars of the Roses.
 1 CHAN
 2 DATE 13 MAY 2018
 3 TIME 14:42:09.617
 0 @I132@ INDI
-1 NAME Edmund of Langley //
+1 NAME Edmund of Langley /Plantagenet/
 2 TYPE birth
 2 GIVN Edmund of Langley
-1 NAME //
-2 TYPE birth
+2 SURN Plantagenet
+1 TITL 1st Duke of York
 1 SEX M
 1 BIRT
 2 DATE 5 JUN 1341
@@ -2061,15 +2069,16 @@
 2 DATE 1 AUG 1402
 2 PLAC Kings Langley, Hertfordshire
 1 FAMC @F77@
+1 NOTE Edmund of Langley (1341-1402), 1st Duke of York, 5th son of Edward III. He is the founding ancestor of the House of York whose claim to the throne led to the Wars of the Roses. He never contested his nephew Richard II's rule and lived peaceably. Through his son Richard of Conisburgh and grandson Richard, Duke of York, the Yorkist line produced kings Edward IV, Edward V, and Richard III.
 1 CHAN
 2 DATE 13 MAY 2018
 3 TIME 14:42:09.617
 0 @I133@ INDI
-1 NAME Richard of Conisburgh //
+1 NAME Richard of Conisburgh /Plantagenet/
 2 TYPE birth
 2 GIVN Richard of Conisburgh
-1 NAME //
-2 TYPE birth
+2 SURN Plantagenet
+1 TITL 1st Earl of Cambridge
 1 SEX M
 1 BIRT
 2 DATE ABT 1 JAN 1375
@@ -2078,6 +2087,7 @@
 2 DATE 5 AUG 1415
 2 PLAC Southampton, Hampshire
 1 FAMC @F78@
+1 NOTE Richard of Conisburgh (c.1375-1415), 1st Earl of Cambridge, son of Edmund of Langley (1st Duke of York). He was executed by Henry V for conspiring to put Edmund Mortimer on the throne (the Southampton Plot) on the eve of the Agincourt campaign. His son Richard, Duke of York would press the Yorkist claim to the throne, leading to the Wars of the Roses.
 1 CHAN
 2 DATE 13 MAY 2018
 3 TIME 14:42:09.617
@@ -2279,24 +2289,27 @@
 2 DATE 13 MAY 2018
 3 TIME 14:42:09.617
 0 @I147@ INDI
-1 NAME Edward II //
+1 NAME Edward II /Plantagenet/
 2 TYPE birth
 2 GIVN Edward II
+2 SURN Plantagenet
 1 SEX M
 1 BIRT
 2 DATE 25 APR 1284
-2 PLAC Caernarfon Castle, Gwynedd
+2 PLAC Caernarfon Castle, Gwynedd, Wales
 1 DEAT
 2 DATE 21 SEP 1327
-2 PLAC Berkeley Castle, Gloucestershire
+2 PLAC Berkeley Castle, Gloucestershire, England
 1 FAMC @F55@
+1 NOTE Edward II (1284-1327), King of England (1307-1327), House of Plantagenet. His reign was disastrous: he suffered military defeat at Bannockburn (1314) against Robert Bruce of Scotland and was dominated by royal favourites including Piers Gaveston. He was deposed by his wife Isabella of France and her lover Roger Mortimer. He was murdered at Berkeley Castle, almost certainly on orders from Isabella and Mortimer.
 1 CHAN
 2 DATE 13 MAY 2018
 3 TIME 14:42:09.617
 0 @I148@ INDI
-1 NAME Edward I //
+1 NAME Edward I /Plantagenet/
 2 TYPE birth
 2 GIVN Edward I
+2 SURN Plantagenet
 1 SEX M
 1 BIRT
 2 DATE 17 JUN 1239
@@ -2307,6 +2320,7 @@
 1 FAMC @F81@
 1 FAMS @F55@
 1 FAMS @F56@
+1 NOTE Edward I (1239-1307), King of England (1272-1307), known as "Longshanks" for his great height and "Hammer of the Scots." He conquered Wales and made his son Edward II the first Prince of Wales (1301). He came close to conquering Scotland, fighting campaigns against William Wallace and Robert Bruce. He reformed English law and administration and established a model Parliament in 1295. He died while on campaign in Scotland, reportedly asking that his bones be carried against the Scots until the country was conquered.
 1 CHAN
 2 DATE 13 MAY 2018
 3 TIME 14:42:09.617
@@ -2341,24 +2355,27 @@
 2 DATE 13 MAY 2018
 3 TIME 14:42:09.617
 0 @I151@ INDI
-1 NAME Henry III //
+1 NAME Henry III /Plantagenet/
 2 TYPE birth
 2 GIVN Henry III
+2 SURN Plantagenet
 1 SEX M
 1 BIRT
 2 DATE 1 OCT 1207
-2 PLAC Winchester Castle, Hampshire
+2 PLAC Winchester Castle, Hampshire, England
 1 DEAT
 2 DATE 16 NOV 1272
-2 PLAC Westminster, London
+2 PLAC Westminster, London, England
 1 FAMC @F82@
+1 NOTE Henry III (1207-1272), King of England (1216-1272), House of Plantagenet. He came to the throne as a child of nine and reigned for 56 years, the longest of any medieval English king. His reign saw baronial conflict culminating in the Second Barons' War led by Simon de Montfort. De Montfort's parliament of 1265 is considered an early precursor to the modern Parliament. Henry was a great patron of the arts and rebuilt Westminster Abbey.
 1 CHAN
 2 DATE 13 MAY 2018
 3 TIME 14:42:09.617
 0 @I152@ INDI
-1 NAME John //
+1 NAME John /Plantagenet/
 2 TYPE birth
 2 GIVN John
+2 SURN Plantagenet
 1 SEX M
 1 BIRT
 2 DATE 24 DEC 1166
@@ -2367,21 +2384,25 @@
 2 DATE 19 OCT 1216
 2 PLAC Newark Castle, Newark-on-Trent, Nottinghamshire
 1 FAMC @F57@
+1 NOTE King John (1166-1216), King of England (1199-1216), House of Plantagenet. He is chiefly remembered for being forced to sign Magna Carta (1215), the foundational document of English liberties, which limited royal power. He lost most of the English lands in France to Philip II and was given the unflattering nickname "Lackland." His reign was troubled by conflict with Pope Innocent III, who placed England under interdict, and by baronial rebellion.
 1 CHAN
 2 DATE 13 MAY 2018
 3 TIME 14:42:09.617
 0 @I153@ INDI
-1 NAME Richard I //
+1 NAME Richard I /Plantagenet/
 2 TYPE birth
 2 GIVN Richard I
+2 SURN Plantagenet
+1 TITL Richard the Lionheart
 1 SEX M
 1 BIRT
 2 DATE 8 SEP 1157
 2 PLAC Beaumont Palace, Oxford, England
 1 DEAT
 2 DATE 6 APR 1199
-2 PLAC Châlus, Duchy of Aquitaine
+2 PLAC Châlus-Chabrol Castle, Duchy of Aquitaine, France
 1 FAMC @F57@
+1 NOTE Richard I (1157-1199), King of England (1189-1199), known as "Coeur de Lion" (Lionheart) for his military prowess. He spent little time in England — perhaps only six months of his entire reign — and is most famous for leading the Third Crusade (1189-1192). He captured Acre and came close to retaking Jerusalem, but was captured on his return journey by Duke Leopold of Austria and held for ransom. He died from a crossbow bolt wound while besieging a castle in France.
 1 CHAN
 2 DATE 13 MAY 2018
 3 TIME 14:42:09.617
@@ -2428,18 +2449,20 @@
 2 DATE 13 MAY 2018
 3 TIME 14:42:09.617
 0 @I157@ INDI
-1 NAME Henry II //
+1 NAME Henry II /Plantagenet/
 2 TYPE birth
 2 GIVN Henry II
+2 SURN Plantagenet
 1 SEX M
 1 BIRT
 2 DATE 5 MAR 1133
-2 PLAC Le Mans, France
+2 PLAC Le Mans, Maine, France
 1 DEAT
 2 DATE 6 JUL 1189
-2 PLAC Chinon Castle, France
+2 PLAC Chinon Castle, Anjou, France
 1 FAMC @F83@
 1 FAMS @F57@
+1 NOTE Henry II (1133-1189), King of England (1154-1189), first Plantagenet king. He restored order after the civil war of Stephen's reign and greatly expanded English royal power. He reformed the legal system, laying the foundations of English common law. His conflict with Thomas Becket, Archbishop of Canterbury, ended in Becket's murder in 1170 and Henry's public penance. His later years were troubled by rebellions by his sons, including the future Richard I and King John.
 1 CHAN
 2 DATE 13 MAY 2018
 3 TIME 14:42:09.617
@@ -2459,18 +2482,22 @@
 2 DATE 13 MAY 2018
 3 TIME 14:42:09.617
 0 @I159@ INDI
-1 NAME Edward, the Black Prince //
+1 NAME Edward /Plantagenet/
 2 TYPE birth
-2 GIVN Edward, the Black Prince
+2 GIVN Edward
+2 NICK The Black Prince
+2 SURN Plantagenet
+1 TITL Prince of Wales
 1 SEX M
 1 BIRT
 2 DATE 15 JUN 1330
-2 PLAC Woodstock Palace, Oxfordshire
+2 PLAC Woodstock Palace, Oxfordshire, England
 1 DEAT
 2 DATE 8 JUN 1376
-2 PLAC Palace of Westminster
+2 PLAC Palace of Westminster, London, England
 1 FAMC @F77@
 1 FAMS @F58@
+1 NOTE Edward, the Black Prince (1330-1376), Prince of Wales and eldest son of Edward III. Widely regarded as one of the greatest English soldiers of the 14th century, he won famous victories at Crécy (1346) and Poitiers (1356), capturing the French king John II at Poitiers. He predeceased his father by one year, dying of a long illness, and so never became king. The throne passed to his son Richard II. His nickname "the Black Prince" first appears in records from the 16th century, possibly referring to his black armour.
 1 CHAN
 2 DATE 13 MAY 2018
 3 TIME 14:42:09.617
@@ -2490,78 +2517,88 @@
 2 DATE 13 MAY 2018
 3 TIME 14:42:09.617
 0 @I161@ INDI
-1 NAME Richard II //
+1 NAME Richard II /Plantagenet/
 2 TYPE birth
 2 GIVN Richard II
+2 SURN Plantagenet
 1 SEX M
 1 BIRT
 2 DATE 6 JUN 1367
-2 PLAC Bordeaux, Duchy of Aquitaine
+2 PLAC Bordeaux, Duchy of Aquitaine, France
 1 DEAT
 2 DATE ABT 14 FEB 1400
-2 PLAC Pontefract Castle, Yorkshire
+2 PLAC Pontefract Castle, Yorkshire, England
 1 FAMC @F58@
+1 NOTE Richard II (1367-1400), King of England (1377-1399), last Plantagenet king in the direct line. He came to the throne at age 10, and despite showing personal bravery during the Peasants' Revolt (1381), his later reign became increasingly autocratic. He was deposed by his cousin Henry Bolingbroke (Henry IV) in 1399 and died in captivity, probably of starvation. He was a notable patron of the arts and his court was one of the most cultured in Europe.
 1 CHAN
 2 DATE 13 MAY 2018
 3 TIME 14:42:09.617
 0 @I162@ INDI
-1 NAME Matilda //
+1 NAME Empress Matilda /Plantagenet/
 2 TYPE birth
 2 GIVN Matilda
+2 SURN Plantagenet
 1 SEX F
 1 BIRT
 2 DATE ABT 7 FEB 1102
+2 PLAC Winchester, England
 1 DEAT
 2 DATE 10 SEP 1167
-2 PLAC Rouen
+2 PLAC Rouen, Normandy, France
 1 FAMC @F84@
+1 NOTE Empress Matilda (1102-1167), daughter of Henry I. On the death of her brother William in the White Ship disaster (1120), she became heir to England. Her father had the barons swear allegiance to her, but on his death in 1135 her cousin Stephen seized the throne. The civil war that followed (called "The Anarchy") lasted nearly 20 years. She never became queen but won recognition that her son Henry (II) would succeed Stephen. She was the first woman to style herself "Lady of the English."
 1 CHAN
 2 DATE 13 MAY 2018
 3 TIME 14:42:09.617
 0 @I163@ INDI
-1 NAME Henry I //
+1 NAME Henry I /Normandy/
 2 TYPE birth
 2 GIVN Henry I
+2 SURN Normandy
 1 SEX M
 1 BIRT
 2 DATE ABT 1068
+2 PLAC Selby, Yorkshire, England
 1 DEAT
 2 DATE 1 DEC 1135
-2 PLAC Saint-Denis-en-Lyons, Normandy
+2 PLAC Saint-Denis-en-Lyons, Normandy, France
 1 FAMC @F85@
+1 NOTE Henry I (c.1068-1135), King of England (1100-1135), House of Normandy. The youngest son of William the Conqueror, he seized the throne on the death of his brother William II. He is known as "Beauclerc" (Good Scholar) for his education. He had numerous illegitimate children (perhaps 20+) but only two legitimate children: William, who drowned in the White Ship disaster (1120), and Matilda, who fought a civil war to claim the throne. Henry reportedly died of a "surfeit of lampreys."
 1 CHAN
 2 DATE 13 MAY 2018
 3 TIME 14:42:09.617
 0 @I164@ INDI
-1 NAME William I "William the Conqueror" //
+1 NAME William I "William the Conqueror" /Normandy/
 2 TYPE birth
 2 GIVN William I
 2 NICK William the Conqueror
+2 SURN Normandy
 1 SEX M
 1 BIRT
 2 DATE ABT 1028
+2 PLAC Falaise, Normandy, France
 1 DEAT
 2 DATE 9 SEP 1087
-2 PLAC Priory of Saint Gervase, Rouen, Normandy
-1 NOTE Duke of Normandy who conquered England in 1066 after defeating King
-2 CONT Harold II at the Battle of Hastings. He was crowned King of England
-2 CONT on Christmas Day 1066 and introduced Norman French culture, language,
-2 CONT and feudalism to England. He commissioned the Domesday Book in 1086.
+2 PLAC Priory of Saint Gervase, Rouen, Normandy, France
+1 NOTE William I (c.1028-1087), known as "the Conqueror," first Norman King of England (1066-1087). Duke of Normandy, he invaded England and defeated King Harold II at the Battle of Hastings on 14 October 1066. He was crowned King of England on Christmas Day 1066 at Westminster Abbey. He introduced Norman French culture, language, the feudal system, and a new ruling class to England. His commissioning of the Domesday Book (1086) was one of the most remarkable administrative achievements of the medieval period. He transformed England's language, law, and culture forever.
 1 CHAN
 2 DATE 13 MAY 2018
 3 TIME 14:42:09.617
 0 @I165@ INDI
-1 NAME William II //
+1 NAME William II /Normandy/
 2 TYPE birth
 2 GIVN William II
+2 SURN Normandy
+1 TITL William Rufus
 1 SEX M
 1 BIRT
 2 DATE ABT 1056
 2 PLAC Normandy, France
 1 DEAT
 2 DATE 2 AUG 1100
-2 PLAC The New Forest, England
+2 PLAC The New Forest, Hampshire, England
 1 FAMC @F85@
+1 NOTE William II (c.1056-1100), King of England (1087-1100), known as "Rufus" for his red complexion. The third son of William the Conqueror, he was an effective if brutal ruler. He died in a hunting accident in the New Forest — killed by an arrow — though whether it was an accident, a murder, or an assassination plot has never been proven. He never married and had no heirs, so his younger brother Henry I seized the treasury and the throne.
 1 CHAN
 2 DATE 13 MAY 2018
 3 TIME 14:42:09.617
@@ -2581,17 +2618,19 @@
 2 DATE 13 MAY 2018
 3 TIME 14:42:09.617
 0 @I167@ INDI
-1 NAME Stephen //
+1 NAME Stephen /Blois/
 2 TYPE birth
 2 GIVN Stephen
+2 SURN Blois
 1 SEX M
 1 BIRT
 2 DATE ABT 1092
 2 PLAC Blois, France
 1 DEAT
 2 DATE 25 OCT 1154
-2 PLAC Dover, Kent
+2 PLAC St. Martin's Priory, Dover, Kent, England
 1 FAMC @F86@
+1 NOTE Stephen (c.1092-1154), King of England (1135-1154), House of Blois. He was the grandson of William the Conqueror through his daughter Adela. Despite swearing an oath to support his cousin Empress Matilda as heir to Henry I, he seized the throne when Henry died. The resulting civil war, known as "The Anarchy," devastated England for nearly 20 years. His reign ended with the Treaty of Wallingford (1153), under which his rival Empress Matilda's son Henry would succeed him — which he did as Henry II.
 1 CHAN
 2 DATE 13 MAY 2018
 3 TIME 14:42:09.617
@@ -2863,6 +2902,78 @@
 1 CHAN
 2 DATE 20 DEC 2021
 3 TIME 10:19:18.055
+0 @I188@ INDI
+1 NAME Frederick Louis /Hanover/
+2 TYPE birth
+2 GIVN Frederick Louis
+2 SURN Hanover
+1 TITL Prince of Wales
+1 SEX M
+1 BIRT
+2 DATE 1 FEB 1707
+2 PLAC Hanover, Germany
+1 DEAT
+2 DATE 31 MAR 1751
+2 PLAC Leicester House, London, England
+1 FAMC @F69@
+1 FAMS @F87@
+1 NOTE Frederick Louis, Prince of Wales (1707-1751), eldest son of King George II and Queen Caroline of Ansbach. He predeceased his father, dying of a lung abscess at age 44, and so never became king. Frederick was popular with the public and an enthusiastic patron of the arts. His early death meant that the throne passed to his son George III when George II died in 1760. Had Frederick lived to rule, the history of the American colonies and the Hanoverian dynasty might have been quite different.
+1 CHAN
+2 DATE 26 MAR 2026
+3 TIME 12:00:00.000
+0 @I189@ INDI
+1 NAME Edward Augustus /Hanover/
+2 TYPE birth
+2 GIVN Edward Augustus
+2 SURN Hanover
+1 TITL Duke of Kent and Strathearn
+1 SEX M
+1 BIRT
+2 DATE 2 NOV 1767
+2 PLAC Buckingham House, London, England
+1 DEAT
+2 DATE 23 JAN 1820
+2 PLAC Woolbrook Cottage, Sidmouth, Devon, England
+1 FAMC @F68@
+1 FAMS @F88@
+1 NOTE Prince Edward, Duke of Kent and Strathearn (1767-1820), the fourth son of King George III and Queen Charlotte. He served in the British Army, rising to the rank of Field Marshal. In 1818 he married the widowed Princess Victoria of Saxe-Coburg-Saalfeld. Their daughter, Princess Alexandrina Victoria, was born in 1819. Edward died of pneumonia when his daughter was only eight months old. That daughter became Queen Victoria in 1837, inheriting the throne after her uncles George IV and William IV both died without surviving legitimate heirs.
+1 CHAN
+2 DATE 26 MAR 2026
+3 TIME 12:00:00.000
+0 @I190@ INDI
+1 NAME Augusta Frederica /Saxe-Gotha/
+2 TYPE birth
+2 GIVN Augusta Frederica
+2 SURN Saxe-Gotha
+1 SEX F
+1 BIRT
+2 DATE 30 NOV 1719
+2 PLAC Gotha, Saxe-Gotha, Holy Roman Empire
+1 DEAT
+2 DATE 8 FEB 1772
+2 PLAC Carlton House, London, England
+1 FAMS @F87@
+1 NOTE Augusta of Saxe-Gotha (1719-1772), Princess of Wales as wife of Frederick, Prince of Wales. After Frederick's death in 1751 she served as a central figure in the upbringing and education of the future George III, her son. She was influential in promoting her son's interests and was deeply involved in court politics during the early reign of George III.
+1 CHAN
+2 DATE 26 MAR 2026
+3 TIME 12:00:00.000
+0 @I191@ INDI
+1 NAME Victoria /Saxe-Coburg-Saalfeld/
+2 TYPE birth
+2 GIVN Victoria
+2 SURN Saxe-Coburg-Saalfeld
+1 SEX F
+1 BIRT
+2 DATE 17 AUG 1786
+2 PLAC Coburg, Saxe-Coburg-Saalfeld, Holy Roman Empire
+1 DEAT
+2 DATE 16 MAR 1861
+2 PLAC Frogmore House, Windsor, England
+1 FAMS @F88@
+1 NOTE Victoria of Saxe-Coburg-Saalfeld (1786-1861), Duchess of Kent as wife of Prince Edward, Duke of Kent. She was the mother of Queen Victoria. Born a German princess, she married the Duke of Kent in 1818 and moved to England. After the Duke's death in 1820 she raised Queen Victoria under the controversial "Kensington System" devised with her comptroller Sir John Conroy, which kept the future queen isolated and dependent. Her relationship with her daughter was strained during Victoria's early reign.
+1 CHAN
+2 DATE 26 MAR 2026
+3 TIME 12:00:00.000
 0 @F0@ FAM
 1 HUSB @I10@
 1 WIFE @I1@
@@ -3648,76 +3759,90 @@
 2 DATE 20 DEC 2021
 3 TIME 10:16:43.278
 0 @F65@ FAM
-1 HUSB @I81@
+1 WIFE @I81@
 1 CHIL @I82@
-0 @F66@ FAM
-1 WIFE @I110@
-1 CHIL @I79@
-0 @F67@ FAM
-1 WIFE @I111@
-1 CHIL @I110@
 0 @F68@ FAM
-1 WIFE @I112@
+1 HUSB @I112@
 1 CHIL @I111@
+1 CHIL @I110@
+1 CHIL @I189@
 0 @F69@ FAM
-1 WIFE @I113@
-1 CHIL @I112@
+1 HUSB @I113@
+1 CHIL @I188@
 0 @F70@ FAM
-1 WIFE @I114@
+1 HUSB @I114@
 1 CHIL @I113@
 0 @F71@ FAM
-1 WIFE @I119@
+1 HUSB @I119@
 1 CHIL @I120@
 1 CHIL @I121@
 0 @F72@ FAM
-1 HUSB @I123@
+1 WIFE @I123@
 1 CHIL @I124@
 0 @F73@ FAM
-1 HUSB @I124@
+1 WIFE @I124@
 1 CHIL @I114@
 0 @F74@ FAM
-1 WIFE @I127@
+1 HUSB @I127@
 1 CHIL @I128@
 0 @F75@ FAM
-1 WIFE @I128@
+1 HUSB @I128@
 1 CHIL @I129@
 0 @F76@ FAM
-1 WIFE @I130@
+1 HUSB @I130@
 1 CHIL @I127@
 0 @F77@ FAM
-1 WIFE @I131@
+1 HUSB @I131@
 1 CHIL @I130@
 1 CHIL @I132@
 1 CHIL @I159@
 0 @F78@ FAM
-1 WIFE @I132@
+1 HUSB @I132@
 1 CHIL @I133@
 0 @F79@ FAM
-1 WIFE @I133@
+1 HUSB @I133@
 1 CHIL @I134@
 0 @F80@ FAM
-1 WIFE @I147@
+1 HUSB @I147@
 1 CHIL @I131@
 0 @F81@ FAM
-1 WIFE @I151@
+1 HUSB @I151@
 1 CHIL @I148@
 0 @F82@ FAM
-1 WIFE @I152@
+1 HUSB @I152@
 1 CHIL @I151@
 0 @F83@ FAM
-1 HUSB @I162@
+1 WIFE @I162@
 1 CHIL @I157@
 0 @F84@ FAM
-1 WIFE @I163@
+1 HUSB @I163@
 1 CHIL @I162@
 0 @F85@ FAM
-1 WIFE @I164@
+1 HUSB @I164@
 1 CHIL @I163@
 1 CHIL @I165@
 1 CHIL @I166@
 0 @F86@ FAM
-1 HUSB @I166@
+1 WIFE @I166@
 1 CHIL @I167@
+0 @F87@ FAM
+1 HUSB @I188@
+1 WIFE @I190@
+1 MARR
+2 TYPE marriage
+2 DATE 27 APR 1736
+2 PLAC Chapel Royal, St. James's Palace, London
+1 _MSTAT current
+1 CHIL @I112@
+0 @F88@ FAM
+1 HUSB @I189@
+1 WIFE @I191@
+1 MARR
+2 TYPE marriage
+2 DATE 29 MAY 1818
+2 PLAC Kew Palace, Surrey, England
+1 _MSTAT current
+1 CHIL @I79@
 0 @S0@ SOUR
 1 _UID B3BA58BC346A4B6488811F139C27A7CB3EC0
 1 AUTH Various
