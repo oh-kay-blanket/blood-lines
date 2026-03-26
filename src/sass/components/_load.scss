@@ -463,6 +463,12 @@ body:has(#load) {
     margin-bottom: 1rem;
   }
 
+  .close-warning-hint {
+    font-size: 0.8rem;
+    opacity: 0.7;
+    margin-bottom: 1rem;
+  }
+
   .close-warning-actions {
     display: flex;
     flex-direction: column;
