@@ -164,6 +164,40 @@ const App = () => {
   const [controlsVisible, setControlsVisible] = useState(false);
   const [loadVisible, setLoadVisible] = useState(true);
   const graphRef = useRef(null);
+  const deferredInstallPrompt = useRef(null);
+  const [canInstall, setCanInstall] = useState(false);
+
+  // Capture the beforeinstallprompt event so we can trigger it from a button
+  useEffect(() => {
+    const handler = (e) => {
+      e.preventDefault();
+      deferredInstallPrompt.current = e;
+      setCanInstall(true);
+    };
+    window.addEventListener("beforeinstallprompt", handler);
+
+    // Hide the button if the app gets installed
+    const installed = () => {
+      setCanInstall(false);
+      deferredInstallPrompt.current = null;
+    };
+    window.addEventListener("appinstalled", installed);
+
+    return () => {
+      window.removeEventListener("beforeinstallprompt", handler);
+      window.removeEventListener("appinstalled", installed);
+    };
+  }, []);
+
+  const handleInstall = useCallback(async () => {
+    if (!deferredInstallPrompt.current) return;
+    deferredInstallPrompt.current.prompt();
+    const { outcome } = await deferredInstallPrompt.current.userChoice;
+    if (outcome === "accepted") {
+      setCanInstall(false);
+    }
+    deferredInstallPrompt.current = null;
+  }, []);
 
   // Detect device color scheme on mount (only if no saved preference)
   useEffect(() => {
@@ -671,6 +705,8 @@ const App = () => {
           showError={showError}
           theme={theme}
           toggleTheme={toggleTheme}
+          canInstall={canInstall}
+          onInstall={handleInstall}
         />
         </div>
       ) : (

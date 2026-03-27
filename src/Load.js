@@ -10,6 +10,8 @@ const Load = ({
   showError,
   theme,
   toggleTheme,
+  canInstall,
+  onInstall,
 }) => {
   const [showGedcomModal, setShowGedcomModal] = useState(false);
   const [showSamples, setShowSamples] = useState(false);
@@ -17,6 +19,28 @@ const Load = ({
   return (
     <>
       <div id="load">
+        <button
+          className="theme-toggle-slider load-theme-toggle"
+          onClick={toggleTheme}
+          aria-label="Toggle color mode"
+        >
+          <span
+            className={theme === "dark" ? "active" : ""}
+            aria-label="Dark"
+          >
+            <span className="material-icons-outlined">dark_mode</span>
+          </span>
+          <span
+            className={theme === "light" ? "active" : ""}
+            aria-label="Light"
+          >
+            <span className="material-icons-outlined">light_mode</span>
+          </span>
+          <span
+            className="slider"
+            style={{ left: theme === "dark" ? 0 : 33 }}
+          ></span>
+        </button>
         <div>
           <section className="title-area">
             <img
@@ -119,28 +143,16 @@ const Load = ({
           )}
 
           <section className="links-area">
-            <button
-              className="theme-toggle-slider"
-              onClick={toggleTheme}
-              aria-label="Toggle color mode"
-            >
-              <span
-                className={theme === "dark" ? "active" : ""}
-                aria-label="Dark"
+            {canInstall && (
+              <button
+                className="install-button"
+                onClick={onInstall}
+                aria-label="Install app"
               >
-                <span className="material-icons-outlined">dark_mode</span>
-              </span>
-              <span
-                className={theme === "light" ? "active" : ""}
-                aria-label="Light"
-              >
-                <span className="material-icons-outlined">light_mode</span>
-              </span>
-              <span
-                className="slider"
-                style={{ left: theme === "dark" ? 0 : 33 }}
-              ></span>
-            </button>
+                <span className="material-icons-outlined">download</span>
+                install app
+              </button>
+            )}
             <a
               href="https://github.com/oh-kay-blanket/family-plot"
               aria-label="GitHub"
