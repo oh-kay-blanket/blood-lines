@@ -1,5 +1,13 @@
 const CACHE_NAME = "family-plot-v1";
-const PRECACHE_URLS = ["/", "/index.html", "/bundle.js"];
+const PRECACHE_URLS = [
+  "/",
+  "/index.html",
+  "/bundle.js",
+  "/manifest.json",
+  "/icon-192.png",
+  "/icon-512.png",
+  "/favicon.svg",
+];
 
 // Install: precache core assets
 self.addEventListener("install", (event) => {
