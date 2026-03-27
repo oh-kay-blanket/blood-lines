@@ -99,13 +99,15 @@ const Load = ({
                 >
                   <span className="material-icons-outlined">close</span>
                 </button>
-                {samples.map((sample) => (
-                  <SampleButton
-                    key={sample.name}
-                    name={sample.name}
-                    loadFile={sample.load}
-                  />
-                ))}
+                <div className="sample-buttons">
+                  {samples.map((sample) => (
+                    <SampleButton
+                      key={sample.name}
+                      name={sample.name}
+                      loadFile={sample.load}
+                    />
+                  ))}
+                </div>
               </div>
             )}
           </section>

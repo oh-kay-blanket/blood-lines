@@ -242,6 +242,10 @@ const Graph = ({
   // Link color
   const getLinkColor = useCallback(
     (link) => {
+      // A node is selected but has no related links (e.g. newly added person)
+      if (highlights.node !== null && highlights.links.length < 1) {
+        return themeColors.mutedLink;
+      }
       return highlights.links.length < 1
         ? highlightedFamily
           ? themeColors.mutedLink // Highlighed family exists, mute all links
@@ -334,6 +338,9 @@ const Graph = ({
   // Link particles
   const getLinkParticleWidth = useCallback(
     (link) => {
+      if (highlights.node !== null && highlights.links.length < 1) {
+        return 0.1;
+      }
       if (highlights.links.indexOf(link.index) !== -1) {
         return 4;
       } else {

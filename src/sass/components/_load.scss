@@ -271,11 +271,26 @@ body:has(#load) {
       right: 0.5rem;
     }
 
+    .sample-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem;
+
+      @media (min-width: 600px) {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+      }
+    }
+
     .sampleButton {
       @include neumorph.neumorph;
-      margin: 0.25rem;
       color: var(--text);
       background-color: var(--root-light);
+
+      @media (min-width: 600px) {
+        margin-bottom: 0;
+      }
       font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-weight: 700;
       font-size: 0.8rem;
