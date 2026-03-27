@@ -29,7 +29,7 @@ const Controls = ({
   updateFamilyColor,
   colorList,
 }) => {
-  const [isNodeInfoVisible, setIsNodeInfoVisible] = useState(false);
+  const [sheetState, setSheetState] = useState('closed'); // 'closed' | 'peek' | 'expanded'
   const [searchQuery, setSearchQuery] = useState("");
   const [searchOpen, setSearchOpen] = useState(false);
   const [nodeInfoData, setNodeInfoData] = useState(null);
@@ -38,19 +38,146 @@ const Controls = ({
   const settingsRef = useRef(null);
   const surnamesRef = useRef(null);
   const searchInputRef = useRef(null);
+  const sheetRef = useRef(null);
 
   useEffect(() => {
     if (highlights.node) {
       setNodeInfoData(highlights.node);
-      setIsNodeInfoVisible(true);
+      if (isMobile) {
+        setSheetState('peek');
+      } else {
+        setSheetState('expanded');
+      }
     } else if (nodeInfoData) {
-      setIsNodeInfoVisible(false);
+      setSheetState('closed');
       const timer = setTimeout(() => {
         setNodeInfoData(null);
       }, 300);
       return () => clearTimeout(timer);
     }
   }, [highlights.node]);
+
+  // Mobile bottom sheet touch drag handlers
+  useEffect(() => {
+    if (!isMobile) return;
+    const sheet = sheetRef.current;
+    if (!sheet) return;
+
+    let startY = 0;
+    let currentY = 0;
+    let startTranslateY = 0;
+    let isDragging = false;
+    let touchHistory = [];
+
+    const getSheetHeight = () => sheet.offsetHeight;
+
+    const getTranslateYForState = (state) => {
+      const height = getSheetHeight();
+      if (state === 'closed') return height;
+      if (state === 'peek') return height - 80;
+      return 0; // expanded
+    };
+
+    const onTouchStart = (e) => {
+      // In expanded state, only allow drag when scrolled to top and dragging down
+      const expandedContent = sheet.querySelector('.node-info-expanded');
+      if (sheetState === 'expanded' && expandedContent && expandedContent.scrollTop > 0) {
+        return;
+      }
+      startY = e.touches[0].clientY;
+      startTranslateY = getTranslateYForState(sheetState);
+      isDragging = false;
+      touchHistory = [{ y: startY, t: Date.now() }];
+    };
+
+    const onTouchMove = (e) => {
+      currentY = e.touches[0].clientY;
+      const deltaY = currentY - startY;
+
+      // In expanded state, only drag if pulling down from scroll top
+      if (sheetState === 'expanded') {
+        const expandedContent = sheet.querySelector('.node-info-expanded');
+        if (expandedContent && expandedContent.scrollTop > 0) return;
+        if (deltaY < 0 && !isDragging) return; // trying to scroll up content
+      }
+
+      if (!isDragging && Math.abs(deltaY) > 5) {
+        isDragging = true;
+        sheet.style.transition = 'none';
+      }
+
+      if (isDragging) {
+        e.preventDefault();
+        const newTranslateY = Math.max(0, startTranslateY + deltaY);
+        sheet.style.transform = `translateY(${newTranslateY}px)`;
+        touchHistory.push({ y: currentY, t: Date.now() });
+        if (touchHistory.length > 5) touchHistory.shift();
+      }
+    };
+
+    const onTouchEnd = () => {
+      if (!isDragging) return;
+
+      // Calculate velocity from touch history
+      let velocity = 0;
+      if (touchHistory.length >= 2) {
+        const last = touchHistory[touchHistory.length - 1];
+        const prev = touchHistory[0];
+        const dt = last.t - prev.t;
+        if (dt > 0) {
+          velocity = (last.y - prev.y) / dt; // px/ms, positive = downward
+        }
+      }
+
+      const height = getSheetHeight();
+      const currentTranslate = startTranslateY + (currentY - startY);
+      const VELOCITY_THRESHOLD = 0.5;
+
+      sheet.style.transition = '';
+      sheet.style.transform = '';
+
+      // Fast flick detection
+      if (Math.abs(velocity) > VELOCITY_THRESHOLD) {
+        if (velocity < 0) {
+          // Flick up
+          setSheetState('expanded');
+        } else {
+          // Flick down
+          if (sheetState === 'expanded') {
+            setSheetState('peek');
+          } else {
+            setSheetState('closed');
+            setTimeout(() => setHighlights({}), 50);
+          }
+        }
+        return;
+      }
+
+      // Position-based snapping
+      const peekY = height - 80;
+      if (currentTranslate > peekY * 0.7) {
+        // Past 70% of peek position → close
+        setSheetState('closed');
+        setTimeout(() => setHighlights({}), 50);
+      } else if (currentTranslate > peekY * 0.3) {
+        // Between 30-70% → peek
+        setSheetState('peek');
+      } else {
+        // Above 30% → expanded
+        setSheetState('expanded');
+      }
+    };
+
+    sheet.addEventListener('touchstart', onTouchStart, { passive: true });
+    sheet.addEventListener('touchmove', onTouchMove, { passive: false });
+    sheet.addEventListener('touchend', onTouchEnd, { passive: true });
+
+    return () => {
+      sheet.removeEventListener('touchstart', onTouchStart);
+      sheet.removeEventListener('touchmove', onTouchMove);
+      sheet.removeEventListener('touchend', onTouchEnd);
+    };
+  }, [isMobile, sheetState, setHighlights]);
 
   const toggleSurnames = () => {
     setShowingSurnames((prevState) => !prevState);
@@ -216,57 +343,67 @@ const Controls = ({
 
     return (
       <div id="node-info--content">
-        <button
-          className="node-info-edit-icon"
-          onClick={() => openEditPanel(node)}
-          aria-label="Edit person"
-        >
-          <span className="material-icons-outlined">edit</span>
-        </button>
-        {photo && (
-          <div style={{ textAlign: "center", marginBottom: "0.5rem" }}>
-            <img
-              src={photo}
-              alt={node.name}
-              style={{
-                width: "120px",
-                height: "120px",
-                borderRadius: "50%",
-                objectFit: "cover",
-                objectPosition: "top",
-                border: "2px solid rgba(255,255,255,0.3)",
-              }}
-            />
-          </div>
-        )}
-        {node.title ? (
-          <h4 className="node-title">
-            <span>
-              {node.name} ({node.title})
-            </span>{" "}
-            {labelGender}
-          </h4>
-        ) : (
-          <h4>
-            <span>{node.name}</span> {labelGender}
-          </h4>
-        )}
-        <p>
-          <b>
-            {node.yob} - {node.yod}
-          </b>
-        </p>
-        {node.pob != "" && (
+        {/* Drag handle - mobile only */}
+        <div className="bottom-sheet-handle">
+          <div className="bottom-sheet-handle-bar" />
+        </div>
+        {/* Peek section - always visible */}
+        <div className="node-info-peek">
+          {node.title ? (
+            <h4 className="node-title">
+              <span>
+                {node.name} ({node.title})
+              </span>{" "}
+              {labelGender}
+            </h4>
+          ) : (
+            <h4>
+              <span>{node.name}</span> {labelGender}
+            </h4>
+          )}
           <p>
-            <b>From:</b> {node.pob}
+            <b>
+              {node.yob} - {node.yod}
+            </b>
           </p>
-        )}
-        {node.pod != "" && (
-          <p>
-            <b>Died:</b> {node.pod}
-          </p>
-        )}
-        {node.bio && <p>{node.bio}</p>}
+        </div>
+        {/* Expanded section - hidden on mobile in peek state */}
+        <div className={`node-info-expanded${sheetState === 'expanded' || !isMobile ? ' visible' : ''}`}>
+          <button
+            className="node-info-edit-icon"
+            onClick={() => openEditPanel(node)}
+            aria-label="Edit person"
+          >
+            <span className="material-icons-outlined">edit</span>
+          </button>
+          {photo && (
+            <div style={{ textAlign: "center", marginBottom: "0.5rem" }}>
+              <img
+                src={photo}
+                alt={node.name}
+                style={{
+                  width: "120px",
+                  height: "120px",
+                  borderRadius: "50%",
+                  objectFit: "cover",
+                  objectPosition: "top",
+                  border: "2px solid rgba(255,255,255,0.3)",
+                }}
+              />
+            </div>
+          )}
+          {node.pob != "" && (
+            <p>
+              <b>From:</b> {node.pob}
+            </p>
+          )}
+          {node.pod != "" && (
+            <p>
+              <b>Died:</b> {node.pod}
+            </p>
+          )}
+          {node.bio && <p>{node.bio}</p>}
+        </div>
       </div>
     );
   };
@@ -611,14 +748,18 @@ const Controls = ({
         )}
       </div>
 
-      <div id="node-info" className={isNodeInfoVisible ? "visible" : ""}>
+      <div
+        id="node-info"
+        ref={sheetRef}
+        className={isMobile ? `sheet-${sheetState}` : (sheetState !== 'closed' ? 'visible' : '')}
+      >
         {nodeInfoData && (
           <div
             style={{
               background: nodeInfoData.color,
               color: "var(--text)",
               border: "1.5px solid var(--grey-light-soft)",
-              borderRadius: "1rem",
+              borderRadius: isMobile ? "1rem 1rem 0 0" : "1rem",
               padding: "1rem",
               boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
             }}
