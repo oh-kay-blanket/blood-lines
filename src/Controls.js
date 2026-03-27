@@ -43,6 +43,11 @@ const Controls = ({
   useEffect(() => {
     if (highlights.node) {
       setNodeInfoData(highlights.node);
+      setSearchOpen(false);
+      setSearchQuery("");
+      setShowSettings(false);
+      setShowingSurnames(false);
+      setColorPickerSurname(null);
       if (isMobile) {
         setSheetState('peek');
       } else {
@@ -179,7 +184,17 @@ const Controls = ({
     };
   }, [isMobile, sheetState, setHighlights]);
 
+  // Close all panels except the one being opened
+  const closeOtherPanels = (except) => {
+    if (except !== 'search') { setSearchOpen(false); setSearchQuery(""); }
+    if (except !== 'surnames') { setShowingSurnames(false); setColorPickerSurname(null); }
+    if (except !== 'settings') { setShowSettings(false); }
+  };
+
   const toggleSurnames = () => {
+    if (!showingSurnames) {
+      closeOtherPanels('surnames');
+    }
     setShowingSurnames((prevState) => !prevState);
   };
 
@@ -216,8 +231,8 @@ const Controls = ({
       setSearchQuery("");
       setSearchOpen(false);
     } else {
+      closeOtherPanels('search');
       setSearchOpen(true);
-      setShowSettings(false);
       setTimeout(() => searchInputRef.current?.focus(), 300);
     }
   };
@@ -414,7 +429,7 @@ const Controls = ({
       surname: "Person",
       gender: "M",
     });
-    setShowSettings(false);
+    closeOtherPanels('edit');
     setHighlights({ node: newNode, family: [newNode], links: [] });
     openEditPanel(newNode);
   };
@@ -543,7 +558,10 @@ const Controls = ({
         <button
           id="settings-button"
           className={showSettings ? "active" : ""}
-          onClick={() => setShowSettings((prev) => !prev)}
+          onClick={() => {
+            if (!showSettings) closeOtherPanels('settings');
+            setShowSettings((prev) => !prev);
+          }}
           aria-label="Settings"
         >
           <i className="fa fa-cog" aria-hidden="true"></i>
@@ -551,6 +569,8 @@ const Controls = ({
 
         {showSettings && (
           <div id="settings-dropdown">
+            <p className="control-title" style={{ color: "var(--text)" }}>settings</p>
+            <hr className="settings-divider" />
             {/* Theme */}
             <div style={settingsRowStyle}>
               <p style={settingsLabelStyle}>Theme</p>
@@ -787,6 +807,7 @@ const Controls = ({
               border: "1.5px solid var(--grey-light-soft)",
             }}
           >
+            <p className="control-title" style={{ color: "var(--text)" }}>filter</p>
             {surnameList}
           </div>
         )}
