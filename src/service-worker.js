@@ -35,6 +35,23 @@ self.addEventListener("activate", (event) => {
 self.addEventListener("fetch", (event) => {
   // Skip non-GET and cross-origin requests
   if (event.request.method !== "GET") return;
+  if (!event.request.url.startsWith(self.location.origin)) return;
+
+  // For navigation requests, always try to serve the cached index.html as fallback
+  if (event.request.mode === "navigate") {
+    event.respondWith(
+      fetch(event.request)
+        .then((response) => {
+          if (response.ok) {
+            const clone = response.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
+          }
+          return response;
+        })
+        .catch(() => caches.match("/index.html")),
+    );
+    return;
+  }
 
   event.respondWith(
     fetch(event.request)
