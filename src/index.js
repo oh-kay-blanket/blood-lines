@@ -29,6 +29,14 @@ import washingtonFile from "./gedcoms/washington.ged";
 import grekGodsFile from "./gedcoms/greek-gods.ged";
 import kardashianPhotos from "./gedcoms/kardashianPhotos";
 import washingtonPhotos from "./gedcoms/washingtonPhotos";
+import shakespearePhotos from "./gedcoms/shakespearePhotos";
+import kennedyPhotos from "./gedcoms/kennedyPhotos";
+import bachPhotos from "./gedcoms/bachPhotos";
+import tolkienPhotos from "./gedcoms/tolkienPhotos";
+import royalFamilyPhotos from "./gedcoms/royalFamilyPhotos";
+import greekGodsPhotos from "./gedcoms/greekGodsPhotos";
+import halflingPhotos from "./gedcoms/halflingPhotos";
+import potterPhotos from "./gedcoms/potterPhotos";
 
 
 // Generate a unique ID for new nodes
@@ -622,17 +630,17 @@ const App = () => {
   };
 
   const samples = [
-    { name: "shakespeare", load: () => readFile(shakespeareFile) },
-    { name: "kennedy", load: () => readFile(kennedyFile) },
+    { name: "shakespeare", load: () => readFileWithPhotos(shakespeareFile, shakespearePhotos) },
+    { name: "kennedy", load: () => readFileWithPhotos(kennedyFile, kennedyPhotos) },
     { name: "kardashian", load: () => readFileWithPhotos(kardashianFile, kardashianPhotos) },
-    { name: "bach", load: () => readFile(bachFile) },
-    { name: "tolkien", load: () => readFile(tolkienFile) },
+    { name: "bach", load: () => readFileWithPhotos(bachFile, bachPhotos) },
+    { name: "tolkien", load: () => readFileWithPhotos(tolkienFile, tolkienPhotos) },
     { name: "washington", load: () => readFileWithPhotos(washingtonFile, washingtonPhotos) },
-    { name: "british royals", load: () => readFile(royalFile) },
-    { name: "greek myth", load: () => readFile(grekGodsFile) },
+    { name: "british royals", load: () => readFileWithPhotos(royalFile, royalFamilyPhotos) },
+    { name: "greek myth", load: () => readFileWithPhotos(grekGodsFile, greekGodsPhotos) },
 
-    { name: "shire folk", load: () => readFile(halflingFile) },
-    { name: "potter", load: () => readFile(potterFile) },
+    { name: "shire folk", load: () => readFileWithPhotos(halflingFile, halflingPhotos) },
+    { name: "potter", load: () => readFileWithPhotos(potterFile, potterPhotos) },
   ];
 
   const handleExportGed = () => {

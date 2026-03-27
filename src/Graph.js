@@ -163,8 +163,11 @@ const Graph = ({
       if (showPhotos && photoStore && photoStore[node.id]) {
         const photoUrl = photoStore[node.id];
         const isMuted =
-          (highlights.node === null && highlightedFamily && highlightedFamily !== node.surname) ||
-          (highlights.node !== null && highlights.family.indexOf(node.id) === -1);
+          (highlights.node === null &&
+            highlightedFamily &&
+            highlightedFamily !== node.surname) ||
+          (highlights.node !== null &&
+            highlights.family.indexOf(node.id) === -1);
 
         const addPhotoSprite = (texture) => {
           const mat = new THREE.SpriteMaterial({
@@ -173,8 +176,8 @@ const Graph = ({
             opacity: isMuted ? 0.15 : 1,
           });
           const photo = new THREE.Sprite(mat);
-          photo.scale.set(20, 20, 1);
-          photo.position.y = 16;
+          photo.scale.set(26, 26, 1);
+          photo.position.y = 19;
           obj.add(photo);
         };
 
@@ -184,8 +187,8 @@ const Graph = ({
           const img = new Image();
           if (!photoUrl.startsWith("data:")) img.crossOrigin = "anonymous";
           img.onload = () => {
-            const s = 128;
-            const b = 6;
+            const s = 256;
+            const b = 12;
             const canvas = document.createElement("canvas");
             canvas.width = s;
             canvas.height = s;
@@ -213,7 +216,7 @@ const Graph = ({
               sw = img.width;
               sh = img.width;
               sx = 0;
-              sy = (img.height - sh) / 2;
+              sy = 0;
             }
             ctx.drawImage(img, sx, sy, sw, sh, b, b, inner, inner);
             const texture = new THREE.CanvasTexture(canvas);
@@ -226,7 +229,14 @@ const Graph = ({
 
       return obj;
     },
-    [highlights, highlightedFamily, themeColors, nameFormat, showPhotos, photoStore],
+    [
+      highlights,
+      highlightedFamily,
+      themeColors,
+      nameFormat,
+      showPhotos,
+      photoStore,
+    ],
   );
 
   // Link color
@@ -360,7 +370,8 @@ const Graph = ({
 
       const highestY = Math.max.apply(Math, yRange);
       const lowestY = Math.min.apply(Math, yRange);
-      if (!isFinite(highestY) || !isFinite(lowestY) || highestY === lowestY) return;
+      if (!isFinite(highestY) || !isFinite(lowestY) || highestY === lowestY)
+        return;
 
       // Timeline line
       var material = new THREE.LineBasicMaterial({
@@ -379,7 +390,9 @@ const Graph = ({
 
       // Timeline years
       let years = d3Data.nodes
-        .filter((node) => node.yob != null && node.yob !== "" && node.yob !== "?")
+        .filter(
+          (node) => node.yob != null && node.yob !== "" && node.yob !== "?",
+        )
         .map((node) => Number(node.yob));
       years = years.filter((year) => !isNaN(year));
 
@@ -472,7 +485,8 @@ const Graph = ({
         // Center orbit target on graph midpoint
         const nodes = d3Data.nodes;
         if (nodes.length > 0) {
-          let minY = Infinity, maxY = -Infinity;
+          let minY = Infinity,
+            maxY = -Infinity;
           nodes.forEach((n) => {
             const y = n.y ?? n.fy ?? 0;
             if (y < minY) minY = y;
@@ -485,8 +499,14 @@ const Graph = ({
         }
 
         const padding = isMobile
-          ? (nodes.length > 30 ? -50 : 20)
-          : (nodes.length > 100 ? 10 : nodes.length > 30 ? 30 : 60);
+          ? nodes.length > 30
+            ? -50
+            : 20
+          : nodes.length > 100
+            ? 10
+            : nodes.length > 30
+              ? 30
+              : 60;
         fgRef.current.zoomToFit(0, padding);
 
         // Prevent over-zoom on small graphs
@@ -697,60 +717,67 @@ const Graph = ({
   if (!fontReady) return null;
 
   return (
-    <div style={{ opacity: graphReady ? 1 : 0, transition: 'opacity 3.6s ease-in-out' }}>
-    <ForceGraph3D
-      ref={fgRef}
-      graphData={d3Data}
-      warmupTicks={300}
-      cooldownTicks={0}
-      onEngineStop={handleEngineStop}
-      // Display
-      width={window.innerWidth}
-      height={window.innerHeight}
-      backgroundColor={themeColors.background}
-      showNavInfo={false}
-      // Controls
-      controlType={"orbit"}
-      enableNodeDrag={false}
-      onBackgroundClick={isMobile || editPanelOpen ? undefined : clearHighlights}
-      // Nodes
-      nodeThreeObject={setNodeThreeObject}
-      nodeLabel={null}
-      onNodeClick={!isMobile ? (node) => handleNodeClick(node) : undefined}
-      onNodeDragEnd={() => {
-        if (touchTimeout) {
-          clearTimeout(touchTimeout);
-          touchTimeout = null;
-        }
+    <div
+      style={{
+        opacity: graphReady ? 1 : 0,
+        transition: "opacity 3.6s ease-in-out",
       }}
-      // LINKS
-      linkLabel={null}
-      linkColor={getLinkColor}
-      linkOpacity={1}
-      linkWidth={getLinkWidth}
-      linkThreeObject={getLinkThreeObject}
-      linkPositionUpdate={getLinkPositionUpdate}
-      linkDirectionalParticles={(link) =>
-        link.sourceType != "CHIL" &&
-        link.targetType == "CHIL" &&
-        d3Data.nodes.length < 300
-          ? highlights.links.length > 0
-            ? 4
-            : 4
-          : 0
-      }
-      linkDirectionalParticleWidth={getLinkParticleWidth}
-      linkDirectionalParticleSpeed={0.001}
-      linkDirectionalArrowLength={(link) =>
-        d3Data.nodes.length >= 300 &&
-        (link.sourceType === "CHIL" || link.targetType === "CHIL") &&
-        highlights.links.indexOf(link.index) !== -1
-          ? 10
-          : 0
-      }
-      linkDirectionalArrowRelPos={0.75}
-      linkDirectionalArrowColor={getLinkColor}
-    />
+    >
+      <ForceGraph3D
+        ref={fgRef}
+        graphData={d3Data}
+        warmupTicks={300}
+        cooldownTicks={0}
+        onEngineStop={handleEngineStop}
+        // Display
+        width={window.innerWidth}
+        height={window.innerHeight}
+        backgroundColor={themeColors.background}
+        showNavInfo={false}
+        // Controls
+        controlType={"orbit"}
+        enableNodeDrag={false}
+        onBackgroundClick={
+          isMobile || editPanelOpen ? undefined : clearHighlights
+        }
+        // Nodes
+        nodeThreeObject={setNodeThreeObject}
+        nodeLabel={null}
+        onNodeClick={!isMobile ? (node) => handleNodeClick(node) : undefined}
+        onNodeDragEnd={() => {
+          if (touchTimeout) {
+            clearTimeout(touchTimeout);
+            touchTimeout = null;
+          }
+        }}
+        // LINKS
+        linkLabel={null}
+        linkColor={getLinkColor}
+        linkOpacity={1}
+        linkWidth={getLinkWidth}
+        linkThreeObject={getLinkThreeObject}
+        linkPositionUpdate={getLinkPositionUpdate}
+        linkDirectionalParticles={(link) =>
+          link.sourceType != "CHIL" &&
+          link.targetType == "CHIL" &&
+          d3Data.nodes.length < 300
+            ? highlights.links.length > 0
+              ? 4
+              : 4
+            : 0
+        }
+        linkDirectionalParticleWidth={getLinkParticleWidth}
+        linkDirectionalParticleSpeed={0.001}
+        linkDirectionalArrowLength={(link) =>
+          d3Data.nodes.length >= 300 &&
+          (link.sourceType === "CHIL" || link.targetType === "CHIL") &&
+          highlights.links.indexOf(link.index) !== -1
+            ? 10
+            : 0
+        }
+        linkDirectionalArrowRelPos={0.75}
+        linkDirectionalArrowColor={getLinkColor}
+      />
     </div>
   );
 };
