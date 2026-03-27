@@ -1,6 +1,7 @@
 {
   "name": "Family Plot - Family Tree Visualizer",
   "short_name": "Family Plot",
+  "id": "/",
   "description": "Interactive 3D family tree visualizer. Upload GEDCOM files and explore your ancestry in a force-directed 3D graph.",
   "start_url": "/",
   "display": "standalone",
@@ -23,6 +24,12 @@
       "src": "icon-512.png",
       "sizes": "512x512",
       "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }
