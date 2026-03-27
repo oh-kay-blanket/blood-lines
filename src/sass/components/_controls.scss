@@ -532,6 +532,10 @@
 				transition: max-height 0.3s ease, opacity 0.2s ease;
 				padding-bottom: 0;
 
+				& > p {
+					margin: 0.5rem 0;
+				}
+
 				&.visible {
 					max-height: none;
 					overflow: visible;

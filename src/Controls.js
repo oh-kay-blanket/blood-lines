@@ -402,7 +402,7 @@ const Controls = ({
               <b>Died:</b> {node.pod}
             </p>
           )}
-          {node.bio && <p>{node.bio}</p>}
+          {node.bio && node.bio.split('\n').filter(Boolean).map((para, i) => <p key={i}>{para}</p>)}
         </div>
       </div>
     );
