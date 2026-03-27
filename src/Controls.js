@@ -417,7 +417,7 @@ const Controls = ({
               <b>Died:</b> {node.pod}
             </p>
           )}
-          {node.bio && node.bio.split('\n').filter(Boolean).map((para, i) => <p key={i}>{para}</p>)}
+          {node.bio && node.bio.split('\n\n').filter(Boolean).map((para, i) => <p key={i}>{para.replace(/\n/g, ' ').trim()}</p>)}
         </div>
       </div>
     );
