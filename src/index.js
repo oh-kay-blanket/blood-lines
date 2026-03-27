@@ -35,8 +35,6 @@ import bachPhotos from "./gedcoms/bachPhotos";
 import tolkienPhotos from "./gedcoms/tolkienPhotos";
 import royalFamilyPhotos from "./gedcoms/royalFamilyPhotos";
 import greekGodsPhotos from "./gedcoms/greekGodsPhotos";
-import halflingPhotos from "./gedcoms/halflingPhotos";
-import potterPhotos from "./gedcoms/potterPhotos";
 
 
 // Generate a unique ID for new nodes
@@ -639,8 +637,8 @@ const App = () => {
     { name: "british royals", load: () => readFileWithPhotos(royalFile, royalFamilyPhotos) },
     { name: "greek myth", load: () => readFileWithPhotos(grekGodsFile, greekGodsPhotos) },
 
-    { name: "shire folk", load: () => readFileWithPhotos(halflingFile, halflingPhotos) },
-    { name: "potter", load: () => readFileWithPhotos(potterFile, potterPhotos) },
+    { name: "shire folk", load: () => readFile(halflingFile) },
+    { name: "potter", load: () => readFile(potterFile) },
   ];
 
   const handleExportGed = () => {
