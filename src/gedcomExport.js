@@ -308,11 +308,36 @@ function getExtFromDataUrl(dataUrl) {
 	return 'jpg'
 }
 
+// Save a blob using the File System Access API (lets user pick name and location),
+// falling back to file-saver for unsupported browsers.
+async function saveWithPicker(blob, defaultName, description, extensions) {
+	if (window.showSaveFilePicker) {
+		try {
+			const handle = await window.showSaveFilePicker({
+				suggestedName: defaultName,
+				types: [
+					{
+						description,
+						accept: { 'application/octet-stream': extensions },
+					},
+				],
+			})
+			const writable = await handle.createWritable()
+			await writable.write(blob)
+			await writable.close()
+			return
+		} catch (err) {
+			if (err.name === 'AbortError') return
+		}
+	}
+	saveAs(blob, defaultName)
+}
+
 // Export as .ged file (plain GEDCOM, no photos)
-export function downloadGedcom(d3Data, photoStore = {}) {
+export async function downloadGedcom(d3Data, photoStore = {}) {
 	const gedcom = exportToGedcom(d3Data, photoStore)
 	const blob = new Blob([gedcom], { type: 'text/plain;charset=utf-8' })
-	saveAs(blob, 'family-tree.ged')
+	await saveWithPicker(blob, 'family-tree.ged', 'GEDCOM file', ['.ged'])
 }
 
 // Export as .gedz file (ZIP with GEDCOM + photos)
@@ -332,7 +357,7 @@ export async function downloadGedz(d3Data, photoStore = {}) {
 	})
 
 	const content = await zip.generateAsync({ type: 'blob' })
-	saveAs(content, 'family-tree.gedz')
+	await saveWithPicker(content, 'family-tree.gedz', 'GEDCOM archive with photos', ['.gedz'])
 }
 
 // Import a .gedz file - returns { gedcomText, photos: {nodeId: dataUrl} }

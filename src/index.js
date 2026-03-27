@@ -641,13 +641,13 @@ const App = () => {
     { name: "potter", load: () => readFile(potterFile) },
   ];
 
-  const handleExportGed = () => {
-    downloadGedcom(d3Data, photoStore);
+  const handleExportGed = async () => {
+    await downloadGedcom(d3Data, photoStore);
     setHasEdits(false);
   };
 
-  const handleExportGedz = () => {
-    downloadGedz(d3Data, photoStore);
+  const handleExportGedz = async () => {
+    await downloadGedz(d3Data, photoStore);
     setHasEdits(false);
   };
 
