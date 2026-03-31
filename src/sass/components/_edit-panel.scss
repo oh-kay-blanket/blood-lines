@@ -45,3 +45,92 @@
 		opacity: 0.85;
 	}
 }
+
+.photo-crop-modal {
+	width: 100%;
+	max-width: 400px;
+
+	h3 {
+		font-family: 'Josefin Sans', sans-serif;
+		font-style: italic;
+	}
+
+	.crop-container {
+		position: relative;
+		width: 100%;
+		height: 300px;
+		border-radius: 0.5rem;
+		overflow: hidden;
+
+		@media (max-width: 480px) {
+			height: 250px;
+		}
+	}
+
+	.zoom-controls {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		margin: 0.75rem 0;
+		padding: 0 0.25rem;
+	}
+
+	.zoom-slider {
+		flex: 1;
+		-webkit-appearance: none;
+		appearance: none;
+		height: 4px;
+		background: var(--grey-light-soft);
+		border-radius: 2px;
+		outline: none;
+
+		&::-webkit-slider-thumb {
+			-webkit-appearance: none;
+			appearance: none;
+			width: 16px;
+			height: 16px;
+			border-radius: 50%;
+			background: var(--root);
+			cursor: pointer;
+		}
+
+		&::-moz-range-thumb {
+			width: 16px;
+			height: 16px;
+			border-radius: 50%;
+			background: var(--root);
+			cursor: pointer;
+			border: none;
+		}
+	}
+
+	.crop-actions {
+		display: flex;
+		gap: 0.5rem;
+		justify-content: flex-end;
+	}
+
+	.crop-btn {
+		padding: 0.5rem 1.25rem;
+		border-radius: 0.5rem;
+		border: 1px solid var(--grey-light-soft);
+		cursor: pointer;
+		font-size: 0.9rem;
+		font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+		&--cancel {
+			background: var(--grey-dark);
+			color: var(--text);
+		}
+
+		&--save {
+			background: var(--root);
+			color: #fff;
+			border-color: var(--root);
+		}
+
+		&:hover {
+			opacity: 0.85;
+		}
+	}
+}

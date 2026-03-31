@@ -466,8 +466,8 @@
 			left: auto;
 			right: 1rem;
 			bottom: 1rem;
-			width: auto;
-			max-width: 380px;
+			width: 300px;
+			max-width: 300px;
 			max-height: none;
 			overflow: visible;
 			border-radius: 1rem;
@@ -512,6 +512,12 @@
 			}
 
 			.node-info-peek {
+				padding-right: 2rem;
+
+				@media (max-width: 768px) {
+					padding-right: 0;
+				}
+
 				h4 {
 					margin: 0 auto .25rem auto;
 					font-weight: 800;
@@ -565,6 +571,12 @@
 				cursor: pointer;
 				color: #181818;
 				transition: background 0.2s;
+				z-index: 1;
+
+				@media (max-width: 768px) {
+					top: auto;
+					bottom: 0.5rem;
+				}
 
 				.material-icons-outlined {
 					font-size: 1rem;

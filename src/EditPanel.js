@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import PhotoCropModal from "./PhotoCropModal";
 
 const EditPanel = ({
   node,
@@ -29,6 +30,7 @@ const EditPanel = ({
     yob: "",
   });
   const [showColorPicker, setShowColorPicker] = useState(false);
+  const [imageToCrop, setImageToCrop] = useState(null);
   const fileInputRef = useRef(null);
 
   useEffect(() => {
@@ -69,6 +71,9 @@ const EditPanel = ({
     const file = e.target.files[0];
     if (!file) return;
 
+    // Reset file input so re-selecting the same file triggers onChange
+    e.target.value = "";
+
     // Validate type
     const validTypes = ["image/jpeg", "image/png", "image/gif", "image/webp"];
     if (!validTypes.includes(file.type)) {
@@ -84,9 +89,18 @@ const EditPanel = ({
 
     const reader = new FileReader();
     reader.onload = () => {
-      setNodePhoto(node.id, reader.result);
+      setImageToCrop(reader.result);
     };
     reader.readAsDataURL(file);
+  };
+
+  const handleCropSave = (croppedDataUrl) => {
+    setNodePhoto(node.id, croppedDataUrl);
+    setImageToCrop(null);
+  };
+
+  const handleCropCancel = () => {
+    setImageToCrop(null);
   };
 
   // Get relationships for this node
@@ -838,6 +852,14 @@ const EditPanel = ({
           )}
         </div>
       </div>
+
+      {imageToCrop && (
+        <PhotoCropModal
+          imageSrc={imageToCrop}
+          onSave={handleCropSave}
+          onCancel={handleCropCancel}
+        />
+      )}
     </div>
   );
 };
