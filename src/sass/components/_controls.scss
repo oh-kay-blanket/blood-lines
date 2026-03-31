@@ -459,6 +459,10 @@
 			opacity: 1;
 			overflow-y: auto;
 			transition: transform 0.3s cubic-bezier(0.2, 0, 0, 1);
+
+			#node-info--content .node-info-edit-icon {
+				display: flex;
+			}
 		}
 
 		// ── Desktop: original slide-up panel ──
@@ -466,8 +470,8 @@
 			left: auto;
 			right: 1rem;
 			bottom: 1rem;
-			width: 300px;
-			max-width: 300px;
+			width: 400px;
+			max-width: 400px;
 			max-height: none;
 			overflow: visible;
 			border-radius: 1rem;
@@ -565,7 +569,7 @@
 				border-radius: 50%;
 				width: 28px;
 				height: 28px;
-				display: flex;
+				display: none;
 				align-items: center;
 				justify-content: center;
 				cursor: pointer;
@@ -573,9 +577,8 @@
 				transition: background 0.2s;
 				z-index: 1;
 
-				@media (max-width: 768px) {
-					top: auto;
-					bottom: 0.5rem;
+				@media (min-width: 769px) {
+					display: flex;
 				}
 
 				.material-icons-outlined {

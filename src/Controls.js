@@ -382,15 +382,15 @@ const Controls = ({
             </b>
           </p>
         </div>
+        <button
+          className="node-info-edit-icon"
+          onClick={() => openEditPanel(node)}
+          aria-label="Edit person"
+        >
+          <span className="material-icons-outlined">edit</span>
+        </button>
         {/* Expanded section - hidden on mobile in peek state */}
         <div className={`node-info-expanded${sheetState === 'expanded' || !isMobile ? ' visible' : ''}`}>
-          <button
-            className="node-info-edit-icon"
-            onClick={() => openEditPanel(node)}
-            aria-label="Edit person"
-          >
-            <span className="material-icons-outlined">edit</span>
-          </button>
           {photo && (
             <div style={{ textAlign: "center", marginBottom: "0.5rem" }}>
               <img
