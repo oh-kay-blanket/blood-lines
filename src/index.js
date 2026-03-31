@@ -46,34 +46,46 @@ function generateNodeId() {
 
 // Color palette for new nodes
 const colorList = [
-  // Uniform pastels — distinct hues, similar saturation/lightness
-  "#f6edd0",
-  "#e8a09c",
-  "#7cb8d0",
-  "#c6c874",
-  "#d4a070",
-  "#8fc4af",
-  "#c4a0d8",
-  "#e8c06a",
-  "#68b8b0",
-  "#cc9cb4",
-  "#9ca0d4",
-  "#a4c490",
-  "#d88e88",
-  // Varied — broader range of saturation, lightness, and warmth
-  "#b8dce8",
-  "#c07068",
-  "#8ca860",
-  "#d4b8cc",
-  "#e8d8a0",
-  "#7090b8",
-  "#8888d0",
-  "#509888",
-  "#e8b0c0",
-  "#b8b498",
-  "#b08060",
-  "#b8d8a0",
-  "#a080a8",
+  // Row 1 — bright pastels, high lightness
+  "#f6edd0", // cream
+  "#f2a8a0", // salmon pink
+  "#88ccdd", // sky blue
+  "#c8d468", // lime gold
+  "#f0c878", // buttercup
+  "#7ed4b8", // mint
+  "#cda8e0", // orchid
+  // Row 2 — medium saturation, warm/cool mix
+  "#e09080", // terra cotta
+  "#68c0a8", // jade
+  "#a8a8e0", // periwinkle
+  "#d4b870", // wheat
+  "#80b8d4", // cornflower
+  "#d8a0b8", // dusty rose
+  "#a0cc80", // fern
+  // Row 3 — deeper tones, higher saturation
+  "#c87868", // brick
+  "#58b4a8", // teal
+  "#9888cc", // iris
+  "#c8a050", // ochre
+  "#6898c0", // denim
+  "#cc7898", // raspberry
+  "#78b868", // clover
+  // Row 4 — muted earth tones and soft neutrals
+  "#d0c4a0", // sandstone
+  "#b8948c", // taupe rose
+  "#90b8b4", // sea glass
+  "#c4b488", // khaki
+  "#a89cc4", // lavender grey
+  "#c0a878", // camel
+  "#88c4a4", // eucalyptus
+  // Row 5 — high contrast accents
+  "#e8c44c", // golden
+  "#d07878", // rose
+  "#5cb8c8", // cyan
+  "#b8cc58", // chartreuse
+  "#e0a060", // amber
+  "#68a8d0", // azure
+  "#c488b8", // plum
 ];
 let colorIndex = 0;
 function getNextColor() {

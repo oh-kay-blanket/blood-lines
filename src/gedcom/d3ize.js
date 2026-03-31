@@ -527,31 +527,40 @@ const getFamilies = (p) => {
 const getColor = (p, surnameList) => {
   const colorList = [
     "#f6edd0", // cream
-    "#e8a09c", // dusty rose
-    "#7cb8d0", // soft blue
-    "#c6c874", // olive gold
-    "#d4a070", // warm clay
-    "#8fc4af", // jade
-    "#c4a0d8", // wisteria
-    "#e8c06a", // honey
-    "#7ab89c", // sage
-    "#d88e88", // terra cotta
-    "#6baec8", // steel blue
-    "#b8b472", // dried herb
-    "#9ca0d4", // periwinkle
-    "#d8ae84", // sandstone
-    "#68b8b0", // teal
-    "#cc9cb4", // mauve
-    "#a4c490", // fern
-    "#d49880", // copper
-    "#88b0cc", // cornflower
-    "#c4b878", // wheat
-    "#c8989c", // rose clay
-    "#78b4a0", // eucalyptus
-    "#b49cc8", // lavender
-    "#d0b888", // amber
-    "#8cb4b0", // sea glass
-    "#c89088", // sienna
+    "#f2a8a0", // salmon pink
+    "#88ccdd", // sky blue
+    "#c8d468", // lime gold
+    "#f0c878", // buttercup
+    "#7ed4b8", // mint
+    "#cda8e0", // orchid
+    "#e09080", // terra cotta
+    "#68c0a8", // jade
+    "#a8a8e0", // periwinkle
+    "#d4b870", // wheat
+    "#80b8d4", // cornflower
+    "#d8a0b8", // dusty rose
+    "#a0cc80", // fern
+    "#c87868", // brick
+    "#58b4a8", // teal
+    "#9888cc", // iris
+    "#c8a050", // ochre
+    "#6898c0", // denim
+    "#cc7898", // raspberry
+    "#78b868", // clover
+    "#d0c4a0", // sandstone
+    "#b8948c", // taupe rose
+    "#90b8b4", // sea glass
+    "#c4b488", // khaki
+    "#a89cc4", // lavender grey
+    "#c0a878", // camel
+    "#88c4a4", // eucalyptus
+    "#e8c44c", // golden
+    "#d07878", // rose
+    "#5cb8c8", // cyan
+    "#b8cc58", // chartreuse
+    "#e0a060", // amber
+    "#68a8d0", // azure
+    "#c488b8", // plum
   ]
 
   const dscr = (p.tree.filter(hasTag("DSCR")) || [])[0]
