@@ -152,7 +152,7 @@ const Controls = ({
             setSheetState('peek');
           } else {
             setSheetState('closed');
-            setTimeout(() => setHighlights({}), 50);
+            setTimeout(() => setHighlights({ node: null, family: [], links: [] }), 50);
           }
         }
         return;
@@ -163,7 +163,7 @@ const Controls = ({
       if (currentTranslate > peekY * 0.7) {
         // Past 70% of peek position → close
         setSheetState('closed');
-        setTimeout(() => setHighlights({}), 50);
+        setTimeout(() => setHighlights({ node: null, family: [], links: [] }), 50);
       } else if (currentTranslate > peekY * 0.3) {
         // Between 30-70% → peek
         setSheetState('peek');
