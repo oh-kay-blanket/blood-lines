@@ -342,9 +342,9 @@ const Graph = ({
         return 0.1;
       }
       if (highlights.links.indexOf(link.index) !== -1) {
-        return 4;
+        return 3;
       } else {
-        return 0.1;
+        return 0;
       }
     },
     [highlights],
@@ -768,13 +768,11 @@ const Graph = ({
           link.sourceType != "CHIL" &&
           link.targetType == "CHIL" &&
           d3Data.nodes.length < 300
-            ? highlights.links.length > 0
-              ? 4
-              : 4
+            ? 3
             : 0
         }
         linkDirectionalParticleWidth={getLinkParticleWidth}
-        linkDirectionalParticleSpeed={0.001}
+        linkDirectionalParticleSpeed={0.0008}
         linkDirectionalArrowLength={(link) =>
           d3Data.nodes.length >= 300 &&
           (link.sourceType === "CHIL" || link.targetType === "CHIL") &&
