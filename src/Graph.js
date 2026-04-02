@@ -265,35 +265,53 @@ const Graph = ({
   const getLinkWidth = useCallback(() => 0, []);
 
   // Custom link object for organic yarn-like lines (all links)
+  // Uses multiple overlapping strands with slight offsets to create a fuzzy yarn texture
   const getLinkThreeObject = useCallback(
     (link) => {
       const isRomantic = link.sourceType != "CHIL" && link.targetType != "CHIL";
-      const numSegments = 18;
+      const numSegments = 24;
       const positions = new Array((numSegments + 1) * 3).fill(0);
+      const group = new THREE.Group();
 
-      const material = new LineMaterial({
-        color: isRomantic ? 0xffb400 : 0xdc5050,
-        linewidth: isRomantic ? (theme === "light" ? 2.5 : 1.5) : 1.5,
-        resolution: new THREE.Vector2(window.innerWidth, window.innerHeight),
-        transparent: true,
-      });
+      const strandCount = 5;
+      const baseColor = isRomantic ? 0xffb400 : 0xdc5050;
+      const baseWidth = isRomantic ? (theme === "light" ? 3.0 : 2.0) : 1.8;
 
-      if (isRomantic) {
-        material.dashed = true;
-        material.dashSize = 8;
-        material.gapSize = 4;
-        material.defines.USE_DASH = "";
-        material.needsUpdate = true;
+      const strands = [];
+      for (let s = 0; s < strandCount; s++) {
+        // Deterministic per-strand variation using simple hash
+        const widthVar = 0.4 + (((s * 7 + 3) % 11) / 11) * 0.3;
+        const opacityVar = 0.15 + (((s * 5 + 2) % 9) / 9) * 0.15;
+        const material = new LineMaterial({
+          color: baseColor,
+          linewidth: s === 0 ? baseWidth : baseWidth * widthVar,
+          resolution: new THREE.Vector2(window.innerWidth, window.innerHeight),
+          transparent: true,
+          opacity: s === 0 ? 0.85 : opacityVar,
+        });
+
+        if (isRomantic) {
+          material.dashed = true;
+          material.dashSize = 8;
+          material.gapSize = 4;
+          material.defines.USE_DASH = "";
+          material.needsUpdate = true;
+        }
+
+        const geometry = new LineGeometry();
+        geometry.setPositions(positions);
+        const line = new Line2(geometry, material);
+        line.computeLineDistances();
+        strands.push(line);
+        group.add(line);
       }
 
-      const geometry = new LineGeometry();
-      geometry.setPositions(positions);
-      const line = new Line2(geometry, material);
-      line.computeLineDistances();
       // Stable per-link seed for consistent organic wobble (golden ratio spread)
-      line.userData.wobbleSeed = ((link.index || 0) * 1.6180339887) % (Math.PI * 2);
-      line.userData.numSegments = numSegments;
-      return line;
+      group.userData.wobbleSeed = ((link.index || 0) * 1.6180339887) % (Math.PI * 2);
+      group.userData.numSegments = numSegments;
+      group.userData.strands = strands;
+      group.userData.strandCount = strandCount;
+      return group;
     },
     [theme],
   );
@@ -301,7 +319,10 @@ const Graph = ({
   // Update organic yarn-like line positions and colors
   const getLinkPositionUpdate = useCallback(
     (obj, { start, end }, link) => {
-      if (!obj || !obj.geometry) return;
+      if (!obj || !obj.userData) return;
+
+      const strands = obj.userData.strands;
+      if (!strands) return;
 
       const isRomantic = link.sourceType != "CHIL" && link.targetType != "CHIL";
       const startVec = new THREE.Vector3(start.x, start.y, start.z);
@@ -318,42 +339,77 @@ const Graph = ({
       perp1.normalize();
       const perp2 = new THREE.Vector3().crossVectors(dirNorm, perp1).normalize();
 
-      const numSegments = obj.userData.numSegments || 18;
+      const numSegments = obj.userData.numSegments || 24;
       const seed = obj.userData.wobbleSeed || 0;
-      // Amplitude scales with link length, capped so tight links stay readable
+      // Very faint wobble for the core thread
       const amplitude = isRomantic
-        ? Math.min(length * 0.07, 6)
-        : Math.min(length * 0.045, 3.5);
+        ? Math.min(length * 0.006, 0.8)
+        : Math.min(length * 0.004, 0.6);
 
-      const positions = [];
-      for (let i = 0; i <= numSegments; i++) {
-        const t = i / numSegments;
-        const pos = new THREE.Vector3().lerpVectors(startVec, endVec, t);
-        // Envelope tapers to zero at endpoints so lines meet nodes exactly
-        const envelope = Math.sin(t * Math.PI);
-        const w1 = Math.sin(t * Math.PI * 2.5 + seed) * amplitude * envelope;
-        const w2 = Math.cos(t * Math.PI * 1.7 + seed * 1.4) * amplitude * 0.5 * envelope;
-        pos.addScaledVector(perp1, w1);
-        pos.addScaledVector(perp2, w2);
-        positions.push(pos.x, pos.y, pos.z);
-      }
-
-      obj.geometry.setPositions(positions);
-      obj.computeLineDistances();
-
-      // Update color
+      // Update color from theme
       const color = getLinkColor(link);
+      let r, g, b, a;
       if (typeof color === "string" && color.startsWith("rgba")) {
         const parts = color.match(/[\d.]+/g);
-        obj.material.color.setRGB(
-          parseFloat(parts[0]) / 255,
-          parseFloat(parts[1]) / 255,
-          parseFloat(parts[2]) / 255,
-        );
-        obj.material.opacity = parseFloat(parts[3]);
-        obj.material.transparent = true;
-      } else {
-        obj.material.color.set(color);
+        r = parseFloat(parts[0]) / 255;
+        g = parseFloat(parts[1]) / 255;
+        b = parseFloat(parts[2]) / 255;
+        a = parseFloat(parts[3]);
+      }
+
+      // Deterministic pseudo-random hash for zig-zag displacements
+      const hash = (n) => {
+        let x = Math.sin(n * 127.1 + 311.7) * 43758.5453;
+        return x - Math.floor(x); // 0..1
+      };
+
+      const strandCount = obj.userData.strandCount || 5;
+      for (let s = 0; s < strandCount; s++) {
+        const strand = strands[s];
+        if (!strand || !strand.geometry) continue;
+
+        // Each strand gets its own offset from the seed
+        const strandSeed = seed + s * 2.39996; // golden angle offset per strand
+
+        const positions = [];
+        for (let i = 0; i <= numSegments; i++) {
+          const t = i / numSegments;
+          const pos = new THREE.Vector3().lerpVectors(startVec, endVec, t);
+          const envelope = Math.sin(t * Math.PI);
+          // Core wobble (gentle) - same for all strands to keep them coupled
+          const w1 = Math.sin(t * Math.PI * 2.0 + seed) * amplitude * envelope;
+          const w2 = Math.cos(t * Math.PI * 1.3 + seed * 1.4) * amplitude * 0.4 * envelope;
+          pos.addScaledVector(perp1, w1);
+          pos.addScaledVector(perp2, w2);
+
+          // Outer strands: micro zig-zag like stray thread fibers
+          if (s > 0) {
+            // Hash gives deterministic per-segment, per-strand random value
+            const h1 = hash(i * 13.7 + strandSeed * 91.3) * 2 - 1; // -1..1
+            const h2 = hash(i * 29.3 + strandSeed * 67.1) * 2 - 1;
+            // Tight micro-displacement that alternates sharply (zig-zag)
+            const zigzag = (i % 2 === 0 ? 1 : -1) * 0.3;
+            const microAmp = 0.4 + (s / strandCount) * 0.3;
+            pos.addScaledVector(perp1, (h1 + zigzag) * microAmp * envelope);
+            pos.addScaledVector(perp2, (h2 - zigzag * 0.7) * microAmp * envelope);
+          }
+
+          positions.push(pos.x, pos.y, pos.z);
+        }
+
+        strand.geometry.setPositions(positions);
+        strand.computeLineDistances();
+
+        // Update color
+        if (a !== undefined) {
+          strand.material.color.setRGB(r, g, b);
+          // Deterministic per-strand opacity variation (avoid Math.random per frame)
+          const strandOpacityVar = 0.2 + (((s * 7 + 3) % 11) / 11) * 0.15;
+          strand.material.opacity = s === 0 ? a : a * strandOpacityVar;
+          strand.material.transparent = true;
+        } else {
+          strand.material.color.set(color);
+        }
       }
 
       return true; // signal that we've handled positioning
@@ -364,14 +420,10 @@ const Graph = ({
   // Link particles
   const getLinkParticleWidth = useCallback(
     (link) => {
-      if (highlights.node !== null && highlights.links.length < 1) {
-        return 0.1;
-      }
       if (highlights.links.indexOf(link.index) !== -1) {
         return 4;
-      } else {
-        return 0.1;
       }
+      return 0;
     },
     [highlights],
   );
@@ -790,17 +842,19 @@ const Graph = ({
         linkWidth={getLinkWidth}
         linkThreeObject={getLinkThreeObject}
         linkPositionUpdate={getLinkPositionUpdate}
-        linkDirectionalParticles={(link) =>
-          link.sourceType != "CHIL" &&
-          link.targetType == "CHIL" &&
-          d3Data.nodes.length < 300
-            ? highlights.links.length > 0
-              ? 4
-              : 4
-            : 0
+        linkDirectionalParticles={
+          highlights.links.length === 0
+            ? 0
+            : (link) =>
+                link.sourceType != "CHIL" &&
+                link.targetType == "CHIL" &&
+                d3Data.nodes.length < 300 &&
+                highlights.links.indexOf(link.index) !== -1
+                  ? 4
+                  : 0
         }
         linkDirectionalParticleWidth={getLinkParticleWidth}
-        linkDirectionalParticleSpeed={0.001}
+        linkDirectionalParticleSpeed={highlights.links.length === 0 ? 0 : 0.001}
         linkDirectionalArrowLength={(link) =>
           d3Data.nodes.length >= 300 &&
           (link.sourceType === "CHIL" || link.targetType === "CHIL") &&
