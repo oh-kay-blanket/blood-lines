@@ -261,61 +261,87 @@ const Graph = ({
     [highlights, highlightedFamily, themeColors],
   );
 
-  // Link width
-  const getLinkWidth = useCallback(
-    (link) => {
-      const isRomantic = link.sourceType != "CHIL" && link.targetType != "CHIL";
-      if (highlights.links.indexOf(link.index) !== -1) {
-        return isRomantic ? 2.5 : 1.5;
-      } else {
-        return isRomantic ? 2 : 1.5;
-      }
-    },
-    [highlights],
-  );
+  // Link width - 0 since custom Line2 handles all link rendering
+  const getLinkWidth = useCallback(() => 0, []);
 
-  // Custom link object for dashed romance lines
+  // Custom link object for organic yarn-like lines (all links)
   const getLinkThreeObject = useCallback(
     (link) => {
       const isRomantic = link.sourceType != "CHIL" && link.targetType != "CHIL";
-      if (!isRomantic) return undefined;
+      const numSegments = 18;
+      const positions = new Array((numSegments + 1) * 3).fill(0);
 
       const material = new LineMaterial({
-        color: 0xffb400,
-        linewidth: theme === "light" ? 2.5 : 1.5,
-        dashSize: 8,
-        gapSize: 4,
+        color: isRomantic ? 0xffb400 : 0xdc5050,
+        linewidth: isRomantic ? (theme === "light" ? 2.5 : 1.5) : 1.5,
         resolution: new THREE.Vector2(window.innerWidth, window.innerHeight),
+        transparent: true,
       });
-      material.dashed = true;
-      material.defines.USE_DASH = "";
-      material.needsUpdate = true;
+
+      if (isRomantic) {
+        material.dashed = true;
+        material.dashSize = 8;
+        material.gapSize = 4;
+        material.defines.USE_DASH = "";
+        material.needsUpdate = true;
+      }
+
       const geometry = new LineGeometry();
-      geometry.setPositions([0, 0, 0, 0, 0, 0]);
+      geometry.setPositions(positions);
       const line = new Line2(geometry, material);
       line.computeLineDistances();
+      // Stable per-link seed for consistent organic wobble (golden ratio spread)
+      line.userData.wobbleSeed = ((link.index || 0) * 1.6180339887) % (Math.PI * 2);
+      line.userData.numSegments = numSegments;
       return line;
     },
     [theme],
   );
 
-  // Update dashed line positions and colors
+  // Update organic yarn-like line positions and colors
   const getLinkPositionUpdate = useCallback(
     (obj, { start, end }, link) => {
-      const isRomantic = link.sourceType != "CHIL" && link.targetType != "CHIL";
-      if (!isRomantic) return;
+      if (!obj || !obj.geometry) return;
 
-      obj.geometry.setPositions([
-        start.x,
-        start.y,
-        start.z,
-        end.x,
-        end.y,
-        end.z,
-      ]);
+      const isRomantic = link.sourceType != "CHIL" && link.targetType != "CHIL";
+      const startVec = new THREE.Vector3(start.x, start.y, start.z);
+      const endVec = new THREE.Vector3(end.x, end.y, end.z);
+      const dir = new THREE.Vector3().subVectors(endVec, startVec);
+      const length = dir.length();
+      if (length < 0.001) return true;
+
+      // Build two stable perpendicular axes for 3D wobble
+      const dirNorm = dir.clone().normalize();
+      const worldUp = new THREE.Vector3(0, 1, 0);
+      let perp1 = new THREE.Vector3().crossVectors(dirNorm, worldUp);
+      if (perp1.length() < 0.01) perp1.set(1, 0, 0);
+      perp1.normalize();
+      const perp2 = new THREE.Vector3().crossVectors(dirNorm, perp1).normalize();
+
+      const numSegments = obj.userData.numSegments || 18;
+      const seed = obj.userData.wobbleSeed || 0;
+      // Amplitude scales with link length, capped so tight links stay readable
+      const amplitude = isRomantic
+        ? Math.min(length * 0.07, 6)
+        : Math.min(length * 0.045, 3.5);
+
+      const positions = [];
+      for (let i = 0; i <= numSegments; i++) {
+        const t = i / numSegments;
+        const pos = new THREE.Vector3().lerpVectors(startVec, endVec, t);
+        // Envelope tapers to zero at endpoints so lines meet nodes exactly
+        const envelope = Math.sin(t * Math.PI);
+        const w1 = Math.sin(t * Math.PI * 2.5 + seed) * amplitude * envelope;
+        const w2 = Math.cos(t * Math.PI * 1.7 + seed * 1.4) * amplitude * 0.5 * envelope;
+        pos.addScaledVector(perp1, w1);
+        pos.addScaledVector(perp2, w2);
+        positions.push(pos.x, pos.y, pos.z);
+      }
+
+      obj.geometry.setPositions(positions);
       obj.computeLineDistances();
 
-      // Update color from rgba string
+      // Update color
       const color = getLinkColor(link);
       if (typeof color === "string" && color.startsWith("rgba")) {
         const parts = color.match(/[\d.]+/g);
